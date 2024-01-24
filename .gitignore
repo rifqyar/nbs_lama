@@ -3,6 +3,7 @@ edifact/*
 .svn/
 /.svn/
 **/__xl_*
+api/epayment/ebpp.php
 
 /.idea/
-api/epayment/ebpp.php
+
