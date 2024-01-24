@@ -1,0 +1,153 @@
+<script type="text/javascript"> 
+jQuery(function() {
+ jQuery("#l_group").jqGrid({
+	url:'maintenance.master.group.data/',
+	mtype : "post",
+	datatype: "json",
+	colNames:['AKSI','ID GROUP','NAMA GROUP'], 
+	colModel:[
+		{name:'aksi', width:60, align:"center",sortable:false,search:false},
+		{name:'id_group',index:'id_group', width:75, align:"center"},
+		{name:'name',index:'name', width:290, align:"left"}
+	],
+	rowNum:10,
+	width: 460,
+	height: "100%",//250
+	rowList:[10,20,30,40,50],
+	loadonce:true,
+	rownumbers: true,
+	rownumWidth: 15,
+	gridview: true,
+	pager: '#pg_group',
+	viewrecords: true,
+	shrinkToFit: false,
+	addurl: "maintenance.master.group/add/",
+	caption:"Data Master Group"
+ }).navGrid('#pg_group',{
+	search:false,
+	add:false,
+	edit:false,
+	del:false
+ });
+ jQuery("#l_group").jqGrid('filterToolbar',{stringResult: true,searchOnEnter : false});
+});
+
+function group_entry()
+{
+	var url			= "<?=HOME?>maintenance.master.group.ajax/add_group";
+	
+	$.blockUI({ message: '<h1><br>Please wait...</h1><br><img src=<?=HOME;?>images/103.gif width="30" height="30" /><br><br>' });
+	$.post(url,{ID_GROUP : $("#id_group").val(), NAMA_GROUP : $("#nama_group").val()},function(data){
+		//alert(data);
+		if(data == "OK")
+			{
+				$.unblockUI({
+				onUnblock: function(){ }
+				});
+				alert("Success...");
+				window.location = "<?=HOME?>maintenance.master.group/";
+			}
+		else if(data == "NO")
+			{
+				$.unblockUI({
+				onUnblock: function(){ }
+				});
+				alert("Data Not Complete...");
+				window.location = "<?=HOME?>maintenance.master.group/";
+			}
+		else
+			{
+				$.unblockUI({
+				onUnblock: function(){ }
+				});
+				alert("Failed...");
+				window.location = "<?=HOME?>maintenance.master.group/";
+			}
+	});	
+}
+
+function valid_entry()
+{
+	if($('#id_group').val()=="")	alert("ID Group harus diisi!");
+	if($('#nama_group').val()=="")	alert("Nama Group harus diisi!");
+	else	group_entry();
+}
+
+function add_group()
+{
+	$('#add_group').load("<?=HOME?>maintenance.master.group.ajax/group_insert").dialog({closeOnEscape: false, modal:true, height:280,width:450, title : "Insert Group", open: function(event,ui){$(".ui-dialog-titlebar-close",ui.dialog).hide();}});
+}
+
+function group_edit(id)
+{
+	var url			= "<?=HOME?>maintenance.master.group.ajax/edit_group";
+	
+	$.blockUI({ message: '<h1><br>Please wait...</h1><br><img src=<?=HOME;?>images/103.gif width="30" height="30" /><br><br>' });
+	$.post(url,{ID_GROUP : id, NAMA_GROUP : $("#nama_group").val()},function(data){
+		//alert(data);
+		if(data == "OK")
+			{
+				$.unblockUI({
+				onUnblock: function(){ }
+				});
+				alert("Success...");
+				window.location = "<?=HOME?>maintenance.master.group/";
+			}
+		else if(data == "NO")
+			{
+				$.unblockUI({
+				onUnblock: function(){ }
+				});
+				alert("Data Not Complete...");
+				window.location = "<?=HOME?>maintenance.master.group/";
+			}
+		else
+			{
+				$.unblockUI({
+				onUnblock: function(){ }
+				});
+				alert("Failed...");
+				window.location = "<?=HOME?>maintenance.master.group/";
+			}
+	});	
+}
+
+function valid_edit(id)
+{
+	if($('#nama_group').val()=="")	alert("Nama Group harus diisi!");
+	else	group_edit(id);
+}
+
+function edit_group(id)
+{
+	$('#edit_group').load("<?=HOME?>maintenance.master.group.ajax/group_edit?id="+id).dialog({closeOnEscape: false, modal:true, height:280,width:450, title : "Edit Group", open: function(event,ui){$(".ui-dialog-titlebar-close",ui.dialog).hide();}});
+}
+
+</script>
+<style>
+.content{
+	width:95%;
+	margin-left:auto;
+	margin-right:auto;
+	margin-bottom: 10px;
+	margin-top:20px;
+}
+</style>
+
+<div class="content">
+<h2>&nbsp;<img class="icon" border="0" src="images/group_icon.png" />&nbsp;Master Group</h2>
+<br />
+<a class="link-button" style="height:25" onclick="add_group()">
+	<img border="0" src="<?=HOME?>images/tambah.png">
+	Tambah Group
+</a>
+<p><br/></p>
+<table id='l_group'></table> <div id='pg_group'></div>
+<div id="dialog-form">
+<form id="mainform">
+	<div id="add_group"></div>
+	<div id="edit_group"></div>
+</form>
+</div>
+
+</div>

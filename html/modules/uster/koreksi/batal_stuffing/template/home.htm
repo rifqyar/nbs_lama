@@ -1,0 +1,267 @@
+
+ 
+<span class="graybrown"><img src='images/dokumenbig.png' border='0' class="icon"/> Batal Container Stuffing</span>
+
+
+<form id="realisasi">
+    <fieldset class="form-fieldset" style="margin: 5px 5px 5px 5px; ">
+        <center>
+        <table style="margin: 30px 30px 30px 30px;" border="0">
+            <tr>
+                <td>No. Container</td>
+                <td> : </td>
+                <td> <input type="text" name="NO_CONT" ID="NO_CONT" placeholder="AUTOCOMPLETE" style="font-size:20px; font-weight:bold; text-transform:uppercase" tabindex="2" /> 
+					<input type="hidden" id="ASAL_CONT" />
+					<input type="hidden" id="STUFFING_DARI" />
+				</td>
+            </tr>
+            <!--
+            <tr>
+                <td>Status Container</td>
+                <td> : </td>
+                <td> <select name="STATUS" id="STATUS">
+                        <option value="FULL" selected="selected"> FULL </option>
+                        <option value="EMPTY"> EMPTY </option>
+                     </select> 
+                </td>
+            </tr>
+            -->
+        </table>
+        
+        <fieldset style="margin-left:80px; margin-right:80px; border:medium solid #999; padding-bottom:10px;">
+            <legend style="font-size:16px; font-weight:bold; color:#999"> Data Petikemas </legend>
+            
+            <table>
+				<tr>
+					<td>
+                        TGL MULAI
+                    </td>
+                    <td>
+                        :
+                    </td>
+                    <td>
+                        <input type="text"  name="TGL_MULAI" id="TGL_MULAI"/>
+                    </td>
+                    <td width="200px">&nbsp;</td>
+                    
+					
+				</tr>
+                <tr>
+                    <td>
+                        SIZE
+                    </td>
+                    <td>
+                        :
+                    </td>
+                    <td>
+                        <input type="text" readonly="readonly" value="" placeholder="Auto Fill" name="SIZE" id="SIZE"/>
+                    </td>
+                    <td width="200px">&nbsp;</td>
+                    <td>
+                        VIA
+                    </td>
+                    <td>
+                        :
+                    </td>
+                    <td>
+                        <input type="text" readonly="readonly" value="" placeholder="Auto Fill" name="VIA" id="VIA"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        KOMODITI
+                    </td>
+                    <td>
+                        :
+                    </td>
+                    <td>
+                        <input type="text" readonly="readonly" value="" placeholder="Auto Fill" name="KOMODITI" id="KOMODITI"/>
+                    </td>
+                    <td width="200px">&nbsp;</td>
+                    <td>
+                        HZ
+                    </td>
+                    <td>
+                        :
+                    </td>
+                    <td>
+                        <input type="text" readonly="readonly" value="" placeholder="Auto Fill" name="HZ" id="HZ"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        JENIS STUFFING
+                    </td>
+                    <td>
+                        :
+                    </td>
+                    <td>
+                        <input type="text" readonly="readonly" value="" placeholder="Auto Fill" name="TYPE" id="TYPE"/>
+                    </td>
+                    <td width="200px">&nbsp;</td>
+                    <td>
+                        Nomor Request Stuffing
+                    </td>
+                    <td>
+                        :
+                    </td>
+                    <td>
+                 		<input type="text" readonly="readonly" value="" placeholder="Auto Fill" name="NO_REQ_STUFF" id="NO_REQ_STUFF"/>
+                    </td>
+                </tr>
+                <tr>
+                	<td>
+                    	Tanggal Request Stuffing
+                    </td>
+                    <td>
+                    	:
+                    </td>
+                    <td>
+                    	<input type="text" readonly="readonly" value="" placeholder="Auto Fill" name="TGL_REQUEST" id="TGL_REQUEST"/>
+                    </td>
+                	<td colspan="4" width="200px">&nbsp;  </td>
+					
+					<input id="NO_REQ_DEL" name="NO_REQ_DEL" type="hidden"  size="40" />
+					<input id="NO_REQ_ICT" name="NO_REQ_ICT" type="hidden"  size="40" />
+					<input id="KD_KOMODITI" name="KD_KOMODITI" type="hidden"  size="40" />
+					<input id="NO_BOOKING" name="NO_BOOKING" type="hidden"  size="40" />
+					<input id="NO_UKK" name="NO_UKK" type="hidden"  size="40" />
+					<input id="NO_SEAL" name="NO_SEAL" type="hidden"  size="40" />
+					<input id="BERAT" name="BERAT" type="hidden"  size="40" />
+					<input id="KETERANGAN" name="KETERANGAN" type="hidden"  size="40" />
+				
+                </tr>
+            </table>
+            
+        </fieldset>
+        </center>
+        
+        
+    </fieldset>
+</form>
+
+<fieldset class="form-fieldset" style="margin: 5px 80px 5px 80px; ">
+	&nbsp;&nbsp;<a class="link-button" onclick="set_realisasi()"><img src='images/tambah.png' border="0"> Simpan </a>&nbsp;<br/><br/>
+</fieldset>
+<div id="load" title="Loading"><p align=center><img src={$HOME}images/loadingbox.gif /></div>
+<script>
+
+$(function() 
+{
+
+	$( "#load" ).dialog({
+			autoOpen: false,
+			height: 50,
+			width:600,
+			show: "blind",
+			hide: "explode",
+			modal: true
+		});
+
+	
+	$( "#NO_CONT" ).autocomplete({
+		minLength: 3,
+		source: "{$HOME}{$APPID}.auto/container",
+		focus: function( event, ui ) {
+			$( "#NO_CONT" ).val( ui.item.NO_CONTAINER );
+			return false;
+		},
+		select: function( event, ui ) {
+			$( "#NO_CONT" ).val( ui.item.NO_CONTAINER );
+			$( "#ASAL_CONT" ).val( ui.item.ASAL_CONT );
+			$( "#NO_REQ_STUFF" ).val( ui.item.NO_REQ_STUFF ); 
+			$( "#NO_REQ_DEL" ).val( ui.item.NO_REQ_DEL );
+			$( "#NO_REQ_ICT" ).val( ui.item.NO_REQ_ICT ); 
+			$( "#VIA" ).val( ui.item.VIA );
+			$( "#KOMODITI" ).val( ui.item.KOMODITI);
+			$( "#KD_KOMODITI" ).val( ui.item.KD_KOMODITI); 
+			$( "#HZ" ).val( ui.item.HZ);
+			$( "#SIZE" ).val( ui.item.SIZE_);
+			$( "#TYPE" ).val( ui.item.TYPE_);			
+			$( "#TGL_REQUEST" ).val( ui.item.TGL_REQUEST );
+			$( "#STUFFING_DARI" ).val( ui.item.STUFFING_DARI );
+			$( "#NO_BOOKING" ).val( ui.item.NO_BOOKING );
+			$( "#NO_UKK" ).val( ui.item.NO_UKK );
+			$( "#NO_SEAL" ).val( ui.item.NO_SEAL );
+			$( "#BERAT" ).val( ui.item.BERAT );
+			$( "#KETERANGAN" ).val( ui.item.KETERANGAN );
+			
+			return false;
+		}
+	})
+	.data( "autocomplete" )._renderItem = function( ul, item ) {
+		return $( "<li style='text-align:left'></li>" )
+			.data( "item.autocomplete", item )
+			.append( "<a>" + item.NO_CONTAINER + "<br/> "+item.SIZE_+" "+item.TYPE_+"</a>" )
+			.appendTo( ul );
+	};
+	
+});
+
+function set_realisasi()
+{
+	
+	var no_cont_		= $("#NO_CONT").val();
+	var asal_cont_		= $("#ASAL_CONT").val();
+	var stuffing_dari		= $("#STUFFING_DARI").val();
+	var no_req_stuff_	= $("#NO_REQ_STUFF").val(); 
+	var no_req_del_		= $("#NO_REQ_DEL").val();
+	var no_req_ict_		= $("#NO_REQ_ICT").val(); 
+	var via_			= $("#VIA").val();
+	var komoditi_		= $("#KOMODITI").val();
+	var kd_komoditi_	= $("#KD_KOMODITI").val(); 
+	var hz_				= $("#HZ").val();
+	var size_			= $("#SIZE").val();
+	var type_			= $("#TYPE").val();			
+	var tgl_request_	= $("#TGL_REQUEST").val();
+	var no_booking_		= $("#NO_BOOKING").val();
+	var no_ukk_			= $("#NO_UKK").val();
+	var no_seal_		= $("#NO_SEAL").val();
+	var berat_			= $("#BERAT").val();
+	var keterangan_		= $("#KETERANGAN").val();
+	
+	var url			= "{$HOME}{$APPID}.ajax/set_batal_stuffing";
+	
+	$( "#load" ).dialog( "open" );
+	
+	$.post(url,{NO_CONT: no_cont_, ASAL_CONT : asal_cont_, STUFFING_DARI : stuffing_dari,NO_REQ_STUFF: no_req_stuff_, NO_REQ_DEL : no_req_del_, NO_REQ_ICT : no_req_ict_, VIA : via_, KOMODITI : komoditi_, KD_KOMODITI : kd_komoditi_, HZ : hz_, SIZE : size_, TYPE : type_, TGL_REQUEST : tgl_request_, NO_BOOKING : no_booking_, NO_UKK : no_ukk_, NO_SEAL : no_seal_, BERAT : berat_, KETERANGAN : keterangan_  },function(data){
+		console.log(data);
+		$( "#load" ).dialog("close" );
+		if(data == "OK")
+		{
+			alert("BERHASIL");
+			
+			$('#realisasi').each(function(){
+	        	this.reset();
+			});
+		}
+		else {
+			alert(data);
+			alert("Something Wrong");
+		}
+		
+	});	
+}
+
+//Date Picker
+$(function() {	
+	
+	$( "#TGL_MULAI" ).datepicker();
+	$( "#TGL_MULAI" ).datepicker( "option", "dateFormat", "yy-mm-dd" );
+
+	$( "#ID_TGL_MULAI" ).datepicker();
+	$( "#ID_TGL_MULAI" ).datepicker( "option", "dateFormat", "yy-mm-dd" );
+	$("#ID_TGL_MULAI").val('{$row_request.TGL_AWAL_RFR}');
+
+	$( "#ID_TGL_NANTI" ).datepicker();
+	$( "#ID_TGL_NANTI" ).datepicker( "option", "dateFormat", "yy-mm-dd" );
+	$("#ID_TGL_NANTI").val('{$row_request.TGL_AKHIR_RFR}');
+
+	$( "#TGL_REQ" ).datepicker();
+	$( "#TGL_REQ" ).datepicker( "option", "dateFormat", "yy-mm-dd" );
+
+});
+
+
+
+</script>

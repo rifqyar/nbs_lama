@@ -1,0 +1,21 @@
+9jo <div id="list">
+     <table class="grid-table" border='0' cellpadding="1" cellspacing="1"  width="100%" >
+                              <tr style=" font-size:10pt">
+                                  <th width="2%" valign="top" class="grid-header"  style="font-size:8pt">No </th>
+                                  <th width="110" valign="top" class="grid-header"  style="font-size:8pt">Kategori Tarif</th>
+                                  <th width="150" valign="top" class="grid-header"  style="font-size:8pt">Periode Mulai</th>
+                                  <th width="200" valign="top" class="grid-header"  style="font-size:8pt">Periode Selesai</th> 
+                                  <th valign="top" class="grid-header"  style="font-size:8pt">ACTION</th>  
+                              </tr>
+                              <fill src="row_list" var="rows">
+                              <tr bgcolor="#f9f9f3" onMouseOver=this.style.backgroundColor="#BAD5FC" onMouseOut=this.style.backgroundColor="">
+                                  <td width="4%" align="center" valign="middle" class="grid-cell" style="color:#000; font-family:Arial; font-size:9pt">{$__ctr} </td>
+                                  <td width="22%" align="center" valign="middle" class="grid-cell"   style="font-family:Arial; font-size:11pt; color:#555555"><b>{$rows.KATEGORI_TARIF}</b></td>
+                                  <td width="15%" align="center" valign="middle" class="grid-cell"  style="font-size:9pt">{$rows.START_PERIOD}</td>
+                                  <td width="15%" align="center" valign="middle" class="grid-cell"  style="font-size:9pt;font-family:Arial;"><font color="#0066CC" style="font-size:10pt">{$rows.END_PERIOD}</font></td>
+                                  <td width="20%" align="center" valign="middle" class="grid-cell" style="font-size:9pt;">
+                                     <a href="{$HOME}{$APPID}/detail_tarif?group_tarif={$rows.ID_GROUP_TARIF}"><img src='images/cont_edit.gif' border='0' />&nbsp; Detail </a>
+                              </tr>
+                              </fill>
+                          </table>
+ </div>

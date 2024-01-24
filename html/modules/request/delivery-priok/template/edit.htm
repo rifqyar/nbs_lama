@@ -1,0 +1,279 @@
+<style>
+.content{
+	width:95%;
+	margin-left:auto;
+	margin-right:auto;
+	margin-bottom: 10px;
+	margin-top:20px;
+
+}
+</style>
+
+<script type="text/javascript">
+	function cek_text()
+	{
+		var teks2=document.getElementById("tipe_req").value;
+		var teks=document.getElementById("no_req").value;
+		var emkl=document.getElementById("emkl").value;
+		var alamat=document.getElementById("alm").value;
+		var vessel=document.getElementById("ves").value;
+		var voy=document.getElementById("voy").value;
+		var tgl_str=document.getElementById("tgl_st_stck").value;
+		var tgl_en=document.getElementById("tgl_en_stck").value;
+		var f;
+		if(teks=="")
+		{
+			alert("Nomor Request harus diisi");
+			return false;
+		}
+		else if(emkl=="")
+		{
+			alert("EMKL harus diisi");
+			return false;
+		}
+		else if(alamat=="")
+		{
+			alert("Alamat EMKL harus diisi");
+			return false;
+		}
+		else if(vessel=="")
+		{
+			alert("Vessel harus diisi");
+			return false;
+		}
+		else if(voy=="")
+		{
+			alert("Voyage harus diisi");
+			return false;
+		}
+		else if(tgl_str=="")
+		{
+			alert("Tanggal Mulai Penumpukan harus diisi");
+			return false;
+		}
+		else if(tgl_en=="")
+		{
+			alert("Tanggal Selesai Penumpukan harus diisi");
+			return false;
+		}
+		else if(teks2=="New")
+		{
+			f=teks.substr(0,3);
+			if(f!="REQ")
+			{
+				alert("Nomor Request harus menggunakan karakter REQ diikuti 9 Digit angka");
+				return false;
+			}
+			else 
+				return true;
+		}
+		else if(teks2=="Ext")
+		{
+			f=teks.substr(0,2);
+			if(f!="SP")
+			{
+				alert("Nomor Request harus menggunakan karakter SP diikuti 9 Digit angka");
+				return false;
+			}
+			else 
+				return true;
+		}
+	}
+	
+	function warn()
+	{
+		var teks=document.getElementById("no_req").value;
+		var r=confirm("Requset "+teks+" akan disimpan, pastikan data yang sudah diinput benar");
+		if(r==true)
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	
+	}
+	
+	function tambah_container()
+	{
+	
+		var size_           = document.getElementById("size").value;
+		var type_           = document.getElementById("type").value;
+		var status_         = document.getElementById("status").value;
+		var jumlah_         = document.getElementById("jml").value;
+		
+		var hz_             = document.getElementById("hz").value;
+		var no_req_			= document.getElementById("no_req").value;
+		var url				= "{$HOME}request.delivery/add_cont";
+		$.post(url,{SIZE : size_, TYPE : type_, STATUS : status_, JUMLAH : jumlah_, HZ: hz_, ID_REQ: no_req_});	
+		$('#loadx').load("<?=HOME?>request.delivery/tambahan2?id="+no_req_+" #list_cont_dev");
+	}
+</script>
+
+
+<script type='text/javascript'>
+$(document).ready(function() 
+{
+	$('#loadx').load("<?=HOME?>request.delivery/tambahan2?id=<?=$no?> #list_cont_dev");
+	$("#tgl_st_stck").datepicker({
+			dateFormat: 'yy-mm-dd'
+            });
+	$("#tgl_en_stck").datepicker({
+			dateFormat: 'yy-mm-dd'
+            });
+	$("#tgl_ext_stck").datepicker({
+			dateFormat: 'yy-mm-dd'
+            });
+	$("#tgl_sppb").datepicker({
+			dateFormat: 'yy-mm-dd'
+            });
+	$("#tgl_sp2").datepicker({
+			dateFormat: 'yy-mm-dd'
+            });
+});  
+</script>
+<div class="content">
+	<p>
+	<h2> <img src="<?=HOME?>images/delivery.png" height="5%" width="5%" style="vertical-align:middle">&nbsp;<font color="#0378C6">Edit Request</font> SP2 Delivery</h2></p>
+	
+	<p><br/>
+	  </p>
+	
+	<hr width="870" color="#e1e0de"></hr><p><br/></p>
+	<form method="post" action="<?=HOME?>request.delivery/update_req?id=<?=$no?>" onsubmit="return warn()">
+	<table>
+	  
+	  <tr>
+		{$no}
+		<td>Jenis Request Delivery</td>
+		<td>:</td>
+		<td><select name="tipe_req" id="tipe_req" value={$detail.TIPE_REQ} disabled>
+			<option value="New">New</option>
+			<option value="Ext">Perpanjangan</option>
+		</select></td>
+		<td>No Request</td>
+		<td>:</td>
+		<td><input type="text" size="20" name="no_req" id="no_req" value={$detail.ID_REQ} disabled /></td>
+     </tr>
+	 <tr>
+		<td>EMKL</td>
+		<td>:</td>
+		<td><input type="text" size="20" name="emkl" id="emkl" value={$detail.EMKL} />
+		</td>
+		<td>No Request Lama</td>
+		<td>:</td>
+		<td><input type="text" size="20" name="old_req" id="old_req" value={$detail.OLD_REQ} disabled /></td>
+     </tr>
+	 <tr>
+		<td>Alamat</td>
+		<td>:</td>
+		<td><input type="text" size="20" name="alm" id="alm" value={$detail.ALAMAT} />
+		</td>
+     </tr>
+	 <tr>
+		<td>NPWP</td>
+		<td>:</td>
+		<td><input type="text" size="20" name="npwp" id="npwp" value={$detail.NPWP} />
+		</td>
+     </tr>
+	 <tr>
+		<td>Vessel</td>
+		<td>:</td>
+		<td><input type="text" size="20" name="ves" id="ves" value={$detail.VESSEL} />
+		</td>
+     	<td>Voyage</td>
+		<td>:</td>
+		<td><input type="text" size="20" name="voy" id="voy" value={$detail.VOYAGE} />
+		</td>
+     </tr>
+	 <tr>
+		<td>Tanggal mulai penumpukan</td>
+		<td>:</td>
+		<td><input type="text" size="20" id="tgl_st_stck" name="tgl_st_stck" value={$detail.TGL_START_STACK} />
+		</td>
+		<td>Tanggal SPPB</td>
+		<td>:</td>
+		<td><input type="text" size="20" id="tgl_sppb" name="tgl_sppb" value={$detail.TGL_SPPB} />
+		</td>
+     </tr>
+	 <tr>
+		<td>Tanggal mulai perpanjangan</td>
+		<td>:</td>
+		<td><input type="text" size="20" name="tgl_ext_stck" id="tgl_ext_stck" value={$detail.TGL_EXT} /><i>*diisi jika tipe request perpanjangan</i>
+		</td>
+		<td>Tanggal SP2</td>
+		<td>:</td>
+		<td><input type="text" size="20" id="tgl_sp2" name="tgl_sp2" value={$detail.TGL_SP2} />
+		</td>
+     </tr>
+	 <tr>
+		<td>Tanggal selesai penumpukan</td>
+		<td>:</td>
+		<td><input type="text" size="20" id="tgl_en_stck" name="tgl_en_stck" value={$detail.TGL_END_STACK} />
+		</td>
+		<td>&nbsp;</td><td>&nbsp;</td>
+		<td><input type="submit" value="Update Request" /></td>
+     </tr>
+	 
+	</table>
+	</form>
+	<br>
+	<hr width="870" color="#e1e0de"></hr>
+	
+	<br/>
+	<br/>
+	
+	<div id="tambah">
+	<br>
+	<table>
+	  <tr>
+		<td>Size</td>
+		<td>:</td>
+		<td><select name="size" id="size">
+			<option value="20">20</option>
+			<option value="40">40</option>
+			<option value="45">45</option>
+		</select></td>
+     	<td>Type</td>
+		<td>:</td>
+		<td><select name="type" id="type">
+			<option value="DRY">DRY</option>
+			<option value="RFR">RFR</option>
+			<option value="OVD">OVD</option>
+			<option value="OT">OT</option>
+			<option value="TNK">TNK</option>
+			<option value="HQ">HQ</option>
+			<option value="FLT">FLT</option>
+		</select></td>
+		<td>Status</td>
+		<td>:</td>
+		<td><select name="sts" id="status">
+			<option value="FCL">FCL</option>
+			<option value="MTY">MTY</option>
+			<option value="UC">UC</option>
+		</select></td>
+		<td>Hz</td>
+		<td>:</td>
+		<td><select name="hz" id="hz">
+			<option value="T">T</option>
+			<option value="Y">Y</option>
+		</select></td>
+     	<td>Jumlah</td>
+		<td>:</td>
+		<td><input type="text" size="20" name="jml" id="jml"/>
+		</td>
+		<td><input type="submit" value="tambah" onclick="tambah_container()" /></td>
+		</tr>
+	</table>
+	<br>
+	
+	<br/>
+	<br/>
+	</div>
+	
+	<div id="loadx"></div>
+	
+	
+</div>
+

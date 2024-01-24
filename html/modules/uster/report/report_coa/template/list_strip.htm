@@ -1,0 +1,44 @@
+<div id="list" style="overflow: scroll;width: 919px;overflow-y: hidden;">
+     <table class="grid-table" border='0' cellpadding="1" cellspacing="1" width="100%" style="overflow: scroll;">
+                              <tr style=" font-size:10pt">
+                                <th valign="top" class="grid-header" style="font-size:8pt">No</th>
+                                  <th  valign="top" class="grid-header"  style="font-size:8pt">No. Request </th>
+                                  <th valign="top" class="grid-header"  style="font-size:8pt">Biaya Masa 1.1</th>
+                                  <th valign="top" class="grid-header"  style="font-size:8pt">Biaya Masa 1.2</th> 
+								  <th valign="top" class="grid-header"  style="font-size:8pt">Biaya Masa 2</th>
+								  <th valign="top" class="grid-header"  style="font-size:8pt">Total Penumpukan</th>
+								  <th valign="top" class="grid-header"  style="font-size:8pt">Total Penumpukan + PPN</th>
+								  <th valign="top" class="grid-header"  style="font-size:8pt">Biaya Masa 1.2 USTER</th>
+                                  <th valign="top" class="grid-header"  style="font-size:8pt">Biaya Masa 2 USTER</th>
+                                  <th valign="top" class="grid-header" style="font-size:8pt">Penumpukan USTER</th>
+                                  <th valign="top" class="grid-header" style="font-size:8pt">PPN Penumpukan USTER 10 Persen</th>
+                                  <th valign="top" class="grid-header" style="font-size:8pt">Total Penumpukan USTER + PPN</th>
+                                  <th valign="top" class="grid-header" style="font-size:8pt">Hak TPK</th>
+                                  <th valign="top" class="grid-header" style="font-size:8pt">Lift On TPK + PPN</th>
+                                  <th valign="top" class="grid-header" style="font-size:8pt">Total Hak TPK</th>
+                              </tr>
+                              <fill src="row_list" var="rows">
+                              <tr bgcolor="#f9f9f3" onMouseOver=this.style.backgroundColor="#BAD5FC" onMouseOut=this.style.backgroundColor="">
+                                  <td width="4%" align="center" valign="middle" class="grid-cell" style="color:#000; font-family:Arial; font-size:9pt">{$__ctr} </td>
+                                  <td width="20%" align="center" valign="middle" class="grid-cell"  style="font-size:9pt;font-family:Arial;">
+                                    <a onclick="list_detail_strip('{$rows.NO_REQUEST}','{$jenis}')"
+                                      style="color:#0066CC">{$rows.NO_REQUEST}</font></a>
+                                  </td>
+                                  <td width="10%" align="center" valign="middle" class="grid-cell"  style="font-size:9pt;font-family:Arial;"><font style="font-size:10pt">{$rows.BIAYA_MASA11}</font></td>
+                                  <td width="15%" align="center" valign="middle" class="grid-cell"  style="font-size:9pt;font-family:Arial;"><font style="font-size:10pt">{$rows.BIAYA_MASA12}</font></td>
+                                  <td width="15%" align="center" valign="middle" class="grid-cell"  style="font-size:9pt;font-family:Arial;"><font style="font-size:10pt">{$rows.BIAYA_MASA2}</font></td>
+                                  <td width="10%" align="center" valign="middle" class="grid-cell"  style="font-size:9pt;font-family:Arial;"><font style="font-size:10pt">{$rows.TOTAL_PENUMPUKAN}</font></td>
+                                  <td width="30%" align="center" valign="middle" class="grid-cell"  style="font-size:9pt;font-family:Arial;"><font style="font-size:10pt">{$rows.TOTAL_PENUMPUKAN_PLUS_PPN}</font></td>
+                                  <td width="15%" align="center" valign="middle" class="grid-cell"  style="font-size:9pt;font-family:Arial;"><font style="font-size:10pt">{$rows.BIAYA_MASA12_USTER}</font></td>
+                                  <td width="15%" align="center" valign="middle" class="grid-cell"  style="font-size:9pt;font-family:Arial;"><font style="font-size:10pt">{$rows.BIAYA_MASA2_USTER}</font></td>
+                                  <td width="15%" align="center" valign="middle" class="grid-cell"  style="font-size:9pt;font-family:Arial;"><font style="font-size:10pt">{$rows.PENUMPUKAN_USTER}</font></td>
+                                  <td width="15%" align="center" valign="middle" class="grid-cell"  style="font-size:9pt;font-family:Arial;"><font style="font-size:10pt">{$rows.PPN_PENUMPUKAN_USTER_10_PERSEN}</font></td>
+                                  <td width="15%" align="center" valign="middle" class="grid-cell"  style="font-size:9pt;font-family:Arial;"><font style="font-size:10pt">{$rows.TOTAL_PENUMPUKAN_USTER_DAN_PPN}</font></td>
+                                  <td width="15%" align="center" valign="middle" class="grid-cell"  style="font-size:9pt;font-family:Arial;"><font style="font-size:10pt">{$rows.HAK_TPK}</font></td>
+                                  <td width="15%" align="center" valign="middle" class="grid-cell"  style="font-size:9pt;font-family:Arial;"><font style="font-size:10pt">{$rows.LIFT_ON_TPK_PPN}</font></td>
+                                  <td width="15%" align="center" valign="middle" class="grid-cell"  style="font-size:9pt;font-family:Arial;"><font style="font-size:10pt">{$rows.TOTAL_HAK_TPK}</font></td>
+								  </tr>
+                              </fill>
+							
+        </table>
+ </div>

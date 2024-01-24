@@ -1,0 +1,25 @@
+<?php
+if ($_SESSION["LOGGED_STORAGE"] == NULL) {
+     exit();
+}
+	outputraw();
+	$db = getDB("storage");
+	$q = strtoupper($_GET["q"]);
+	if (!$q) return;
+
+$query = "SELECT KD_PBM,NM_PBM,ALMT_PBM,NO_NPWP_PBM FROM v_mst_pbm where KD_CABANG='05' AND UPPER(NM_PBM) LIKE '%$q%'";
+
+$result			= $db->query($query);
+
+while($row = $result->FetchRow()){
+	if (strpos(strtoupper($row['NM_PBM']), $q) !== false) {
+			printf (	
+				$row['NM_PBM']."|".
+                $row['KD_PBM']."|".
+                $row['ALMT_PBM']."|".
+                $row['NO_NPWP_PBM']."|"."\n "
+			);  
+	}	
+}  
+die();
+?>

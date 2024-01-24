@@ -1,0 +1,213 @@
+<?php
+	$db = getDb();
+	$qh = "select h.NO_REQ_DEV, 
+		          h.NO_NOTA, 
+				  h.NM_AGEN,
+				  d.NM_KAPAL,
+				  d.VOY_IN,
+				  d.VOY_OUT,
+				  to_char(sum(TARIF), '999,999,999.99') as TOTTARIF,
+				  to_char(sum(TARIF_5_PERSEN), '999,999,999.99') as PENGEMBALIAN,
+				  to_char(sum(PPN_5_PERSEN), '999,999,999.99') as PPN_PENGEMBALIAN,
+				  to_char((sum(TARIF_5_PERSEN)+sum(PPN_5_PERSEN)), '999,999,999.99') as TTL_PENGEMBALIAN
+	        from DISKON_NOTA_DEL_H h, DISKON_NOTA_DEL_DTL d 
+			      where h.NO_REQ_DEV = d.KD_PERMINTAAN
+			      and h.NO_REQ_DEV = '$req'
+			      group by h.NO_REQ_DEV,
+				           h.NO_NOTA,
+						   h.NM_AGEN,
+						   d.NM_KAPAL,
+						   d.VOY_IN,
+						   d.VOY_OUT
+						   ";
+	$res=$db->query($qh);
+	$rd=$res->fetchRow();
+?>
+<style>
+.butsave {
+    background: none repeat scroll 0 0 #CCCCCC;
+    border-color: #CCCCCC black black #CCCCCC;
+    border-style: solid;
+    border-width: 2px;
+	margin-bottom: 10px;
+    font-family: Arial,Helvetica,sans-serif;
+    font-size: 20px;
+    padding: 4px 10px 3px 7px;
+    width: 98%;
+}
+.style10 {font-size: 10px; font-weight: bold; }
+.style11 {font-size: 10px}
+</style>
+
+<script type="text/javascript">
+
+function cetak(req)
+{
+	var url="<?=HOME?>billing.diskon_lolo.ajax/save_rekap";
+	var req_ = req;
+	alert(req);
+	$.post(url,{no_req : req_},function(data) 
+				  {
+					if (data="sukses")
+					{
+						alert("Rekap Berhasil Disimpan...!!!");
+						var r=confirm("Cetak Rekap...?")
+						if (r==true)
+						  {
+							window.location = "<?=HOME?>billing.diskon_lolo.cetak/cetak_ulang_rekap2/?req="+req_;
+						  }
+						else
+						  {
+							return false;
+						  }
+					}
+					else
+					{
+						alert("Rekap Gagal Disimpan...!!!");
+					}
+			      });	
+}
+
+</script>
+
+<div class="form-fieldset" style="margin: 5px 5px 5px 5px">
+	<table border="1" width="100%">
+    	<tr>
+        	<td align="center">
+            	<fieldset>
+        <div style="background-color:#fff; border:thin #00F groove">
+		<table>
+                <tr height="20">
+                    <td colspan="32" align="left"></td>
+                </tr>
+				<tr>
+                    <td colspan="32" align="center"><b><font size="4">REKAPITULASI INSENTIF LIFT ON NOTA PENUMPUKAN / GERAKAN (DELIVERY)</font></b></td>
+                </tr>
+				<tr>
+                    <td colspan="32" align="center"><b><font size="4">A/N <?=$rd['NM_AGEN']?></font></b></td>
+                </tr>
+                <tr height="20">
+                    <td COLSPAN="32" align="center"></td>
+                </tr>
+		</table>
+		<table border="1" width="800px" height="100px" align="center" style="border-collapse:collapse; border-color:#000000; font-size:6px">
+								<tr>
+									<td align="center" width="30"><span class="style10">NO</span></td>
+									<td align="center"><span class="style10">NO REQUEST</span></td>
+									<td align="center"><span class="style10">NO NOTA</span></td>
+									<td align="center"><span class="style10">STATUS</span></td>
+									<td align="center"><span class="style10">JUMLAH TAGIHAN</span></td>
+									<td align="center"><span class="style10">PENGEMBALIAN</span></td>
+									<td align="center"><span class="style10">PPN PENGEMBALIAN</span></td>
+									<td align="center"><span class="style10">TOTAL PENGEMBALIAN</span></td>
+									<td align="center"><span class="style10">KETERANGAN</span></td>
+								</tr>
+								<tr>
+									<td align="center"><span class="style11">1</span></td>
+									<td align="center"><span class="style11">
+								    <?=$rd['NO_REQ_DEV']?>
+									</span></td>
+									<td align="center"><span class="style11">
+								    <?=$rd['NO_NOTA']?>
+									</span></td>
+									<td align="center"><span class="style11">LUNAS</span></td>
+									<td align="center"><span class="style11">
+								    <?=$rd['TOTTARIF']?>
+									</span></td>
+									<td align="center"><span class="style11">
+								    <?=$rd['PENGEMBALIAN']?>
+									</span></td>
+									<td align="center"><span class="style11">
+								    <?=$rd['PPN_PENGEMBALIAN']?>
+									</span></td>
+									<td align="center"><span class="style11">
+								    <?=$rd['TTL_PENGEMBALIAN']?>
+									</span></td>
+									<td align="center"><span class="style11">INSENTIF LIFT ON</span></td>
+								</tr>
+							</table>
+		<table width="700px">
+				<tr>
+                    <td colspan="32" align="center">&nbsp;</td>
+                </tr>	
+				<tr>
+                    <td colspan="32" align="center"><font size="2"><? echo hari_indonesia(date("N")); ?>,&nbsp;Tanggal&nbsp;<? echo date("d");?>&nbsp;<? echo bulan_indonesia(date("m")); ?>&nbsp;<? echo date("Y"); ?><br/><b>DIVERIFIKASI OLEH :</font></b></td>
+                </tr>
+				<tr>
+                    <td colspan="32" align="center">&nbsp;</td>
+                </tr>	
+                <tr>
+                    <td colspan="8" align="center"><b><font size="2">SPV PEMASARAN<br/>OPERASI TERMINAL III</font></b></td>
+					<td colspan="8" align="center"><b><font size="2">SPV NOTA BARANG DAN<br/>RUPA-RUPA</font></b></td>
+					<td colspan="8" align="center"><b><font size="2">SPV PENGOPERASIAN<br/>SISTEM</font></b></td>
+					<td colspan="8" align="center"><b><font size="2">SPV HUBUNGAN<br/>PELANGGAN</font></b></td>
+                </tr>
+				<tr>
+                    <td colspan="32" align="center">&nbsp;</td>
+                </tr>
+				<tr>
+                    <td colspan="32" align="center">&nbsp;</td>
+                </tr>
+				<tr>
+                    <td colspan="32" align="center">&nbsp;</td>
+                </tr>
+				<tr>
+                    <td colspan="32" align="center">&nbsp;</td>
+                </tr>
+				<tr>
+                    <td colspan="8" align="center"><b><font size="2"><u>ARIEF NUGROHO RIADI</u><br/>NIPP. 270115635</font></b></td>
+					<td colspan="8" align="center"><b><font size="2"><u>CECEP TATENG</u><br/>NIPP. 266085865</font></b></td>
+					<td colspan="8" align="center"><b><font size="2"><u>DONALD H. SITOMPUL</u><br/>NIPP. 277066981</font></b></td>
+					<td colspan="8" align="center"><b><font size="2"><u>HENDRI ADOLF</u><br/>NIPP. 270035957</font></b></td>
+                </tr>
+				<tr>
+                    <td colspan="32" align="center">&nbsp;</td>
+                </tr>
+				<tr>
+                    <td colspan="32" align="center"><b><font size="2">MENGETAHUI :</font></b></td>
+                </tr>
+				<tr>
+                    <td colspan="32" align="center">&nbsp;</td>
+                </tr>
+				<tr>
+                    <td colspan="8" align="center"><b><font size="2">MANAGER<br/>PEMASARAN & ADMINISTRASI<br/>OPERASI TERMINAL III</font></b></td>
+					<td colspan="8" align="center"><b><font size="2">ASMAN<br/>PENDAPATAN & PIUTANG</font></b></td>
+					<td colspan="8" align="center"><b><font size="2">ASMAN<br/>SISTEM INFORMASI</font></b></td>
+					<td colspan="8" align="center"><b><font size="2">ASMAN<br/>PELAYANAN PELANGGAN</font></b></td>
+                </tr>
+				<tr>
+                    <td colspan="32" align="center">&nbsp;</td>
+                </tr>
+				<tr>
+                    <td colspan="32" align="center">&nbsp;</td>
+                </tr>
+				<tr>
+                    <td colspan="32" align="center">&nbsp;</td>
+                </tr>
+				<tr>
+                    <td colspan="32" align="center">&nbsp;</td>
+                </tr>
+				<tr>
+                    <td colspan="8" align="center"><b><font size="2"><u>SUNU BEKTI PUDJOTOMO</u><br/>NIPP. 262054566</font></b></td>
+					<td colspan="8" align="center"><b><font size="2"><u>ABDUL LATIEF</u><br/>NIPP. 272086096</font></b></td>
+					<td colspan="8" align="center"><b><font size="2"><u>DICKY SANTOSA</u><br/>NIPP. 274046923</font></b></td>
+					<td colspan="8" align="center"><b><font size="2"><u>SOFYAN GUMELAR S.</u><br/>NIPP. 270045410</font></b></td>
+                </tr>
+		</table>
+		<p>
+			<br/>
+			<br/>
+			<br/>
+		</p>
+        </div>
+                </fieldset>
+            </td>
+		</tr>
+    </table>
+ </div>
+ <center><input id="id_SAVEBUT" class="butsave" type="button" onClick="cetak('{$req}')" value="C E T A K" /></center>
+ <p>
+ <br/>
+ </p>
+ 
+ 

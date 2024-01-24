@@ -1,0 +1,248 @@
+
+<script type="text/javascript" src="lib/jquery.bgiframe.min.js"></script>
+<script type="text/javascript" src="lib/jquery.autocomplete.js"></script>
+<script type="text/javascript" src="lib/localdata.js"></script>
+<script type="text/javascript" src="lib/jquery.listen.js"></script>
+<script>
+
+function showUser_(STATUS)
+{
+	TGL_AWAL	= $("#tgl_awal").val();
+	TGL_AKHIR	= $("#tgl_akhir").val();
+	STATUS		= $("#STATUS").val();
+	KEGIATAN	= $("#kegiatan").val();	
+	var id_menu2 	= $("#id_menu2").val();
+
+	if((TGL_AWAL == '') && (TGL_AKHIR == '')) {
+	$.blockUI({ message: '<div align=center style=font-size:15pt;font-weight:bold;color:#888888 ><img src=images/alert.png align=absmiddle border=0> ENTRY PERIODE KEGIATAN!</div>' ,css: { 'color':'black' ,'width': '300px', 'height': '40px', 'margin-top': '100px', 'padding': '20px' } });
+	setTimeout($.unblockUI, 1000); 
+	$('#tgl_awal').focus();
+	}
+	else if(KEGIATAN == ''){
+	$.blockUI({ message: '<div align=center style=font-size:15pt;font-weight:bold;color:#888888 ><img src=images/alert.png align=absmiddle border=0> PILIH KATEGORI KEGIATAN !</div>' ,css: { 'color':'black' ,'width': '300px', 'height': '40px', 'margin-top': '100px', 'padding': '20px' } });
+	setTimeout($.unblockUI, 1000); 
+	$('#KEGIATAN').focus();
+	}
+
+	$('#txtHint').html('<p align=center><b>Please wait .. </b><br> <img src={$HOME}images/loadingbox.gif /></p>');
+	$.post("{$HOME}monitoring.list_cont_bystatus/print",{'TGL_AWAL':TGL_AWAL,'KEGIATAN':KEGIATAN,'STATUS':STATUS,'TGL_AKHIR':TGL_AKHIR, id_menu2 : id_menu2},function(data){ 
+	innerHTML =  data; 
+	document.getElementById("txtHint").innerHTML= data;
+	});
+}
+	
+function showUser(kegiatan)
+{
+	//alert(kegiatan);
+	if(kegiatan =="receiving_tpk"){
+	$('#STATUS').html('<option value=>&nbsp;&nbsp;</option><option value="req">REQUEST RECEIVING&nbsp;&nbsp;</option><option value="gati">BORDER GATE IN&nbsp;&nbsp;</option><option value="plac">PLACEMENT&nbsp;&nbsp;</option>');
+
+	} else if(kegiatan =="receiving_luar"){
+	$('#STATUS').html('<option value=>&nbsp;&nbsp;</option><option value="req">REQUEST RECEIVING&nbsp;&nbsp;</option><option value="gati">GATE IN&nbsp;&nbsp;</option><option value="plac">PLACEMENT&nbsp;&nbsp;</option>');
+	
+	} else if(kegiatan =="stripping_tpk"){
+	$('#STATUS').html('<option value=>&nbsp;&nbsp;</option><option value="tgl_app">PLANNING REQ STRIPPING&nbsp;&nbsp;</option><option value="req">REQUEST STRIPPING / APPROVE&nbsp;&nbsp;</option><option value="gati">BORDER GATE IN&nbsp;&nbsp;</option><option value="plac">PLACEMENT&nbsp;&nbsp;</option><option value="real">REALISASI&nbsp;&nbsp;</option><option value="plac_mty">RELOKASI MTY&nbsp;&nbsp;</option>');
+	
+	} else if(kegiatan =="stripping_depo"){
+	$('#STATUS').html('<option value=>&nbsp;&nbsp;</option><option value="req">REQUEST STRIPPING&nbsp;&nbsp;</option><option value="tgl_app">APPROVE&nbsp;&nbsp;</option><option value="real">REALISASI&nbsp;&nbsp;</option><option value="plac_mty">PLACEMENT MTY&nbsp;&nbsp;</option>');
+	
+	} else if(kegiatan =="stuffing_tpk"){
+	$('#STATUS').html('<option value=>&nbsp;&nbsp;</option><option value="req">REQUEST STUFFING&nbsp;&nbsp;</option><option value="gati">BORDER GATE IN&nbsp;&nbsp;</option><option value="plac">PLACEMENT&nbsp;&nbsp;</option><option value="real">REALISASI&nbsp;&nbsp;</option><option value="req_del">REQUEST DELIVERY&nbsp;&nbsp;</option><option value="gato">GATE OUT&nbsp;&nbsp;</option>');
+	
+	} else if(kegiatan =="stuffing_depo"){
+	$('#STATUS').html('<option value=>&nbsp;&nbsp;<option value="req">REQUEST STUFFING&nbsp;&nbsp;</option><option value="real"> REALISASI&nbsp;&nbsp;</option><option value="req_del">REQUEST DELIVERY&nbsp;&nbsp;</option><option value="gato">GATE OUT&nbsp;&nbsp;</option>');
+	
+	} else if(kegiatan =="delivery_tpk_fcl"){
+	$('#STATUS').html('<option value=>&nbsp;&nbsp;</option><option value="req">REQUEST DELIVERY&nbsp;&nbsp;</option><option value="gato">BORDER GATE OUT&nbsp;&nbsp;</option>');
+	
+	} else if(kegiatan =="delivery_tpk_mty"){
+	$('#STATUS').html('<option value=>&nbsp;&nbsp;</option><option value="req">REQUEST DELIVERY&nbsp;&nbsp;</option><option value="gato">BORDER GATE OUT&nbsp;&nbsp;</option>');
+	
+	} else if(kegiatan =="delivery_luar"){
+	$('#STATUS').html('<option value=>&nbsp;&nbsp;</option><option value="req">REQUEST DELIVERY&nbsp;&nbsp;</option><option value="gato">GATE OUT&nbsp;&nbsp;</option>');
+	
+	} else if(kegiatan =="relokasi"){
+	$('#STATUS').html('<option value=>&nbsp;&nbsp;</option><option value="req">REQUEST RELOKASI&nbsp;&nbsp;</option><option value="gato">GATE OUT&nbsp;&nbsp;</option><option value="gato">GATE OUT ASAL&nbsp;&nbsp;</option><option value="gati">GATE IN TUJUAN&nbsp;&nbsp;</option><option value="plac">PLACEMENT TUJUAN&nbsp;&nbsp;</option>');
+	
+	}
+}
+
+</script>
+
+
+<block visible='_q._saveok'>
+	<script language="javascript">
+		$(function(){
+			$.growlUI("<img src='images/valid.png' border='0' /><b>Data berhasil disimpan</b>");
+		});
+	</script>
+</block>
+
+<script language= "JavaScript">
+$(function(){
+
+	$("#one2two").live("click",function(){
+		var str= "";
+		$("#id_menu1 option:selected").each(function(i){			
+			str = '<option value="'+$(this).val() +' ASC " selected>'+$(this).text()+'  ASC </option>';
+			$("#id_menu2").append(str);		
+			$(this).remove();
+		});
+		
+	});
+		 
+	
+
+$("#one2two2").live("click",function(){
+		var str= "";
+		$("#id_menu1 option:selected").each(function(i){
+			str = '<option value="'+$(this).val() + ' DESC " selected>'+$(this).text()+'  DESC </option>';
+			$("#id_menu2").append(str);		
+			$(this).remove();	
+		});
+		
+	});
+ 
+ $("#clearData").live("click",function(){
+    $("#id_menu1").html("<option value='NO_CONTAINER'>No. Container</option><option value='NO_REQUEST'>NO. Request</option><option value='TGL_REQUEST'>Tgl. Request</option> <option value='SIZE_'>Size</option> <option value='TYPE_'>Type</option> <option value='STATUS'>Status</option><option value='NM_PBM'>Nama Consignee</option>");
+    $("#id_menu2").html("");
+ });
+
+  
+ });
+ 
+ </script>
+ <style type="text/css">
+ 	
+	#txtHint {
+	    height: 500px;
+	    overflow-x: scroll;
+	    width: 1015px;
+	}
+ </style>
+<span class="graybrown"><img src='images/sp2_p.png' border='0' class="icon"/><font color="#0378C6"> Monitoring dan Reporting List</font> Container by Status</span><br/><br/>
+      <fieldset class="form-fieldset" style="margin: 5px 5px 5px 5px; ">
+        <form id="searchForm" name="searchForm" action="{$HOME}{$APPID}.toexcel/toexcel" method="POST">
+		<div style="padding:10px;font-family:Arial; font-size:8pt; color:#555555; font-wkegiatanght:bold">
+            <table> <tr>
+						<td class="form-field-caption" valign="top" align="right">Periode Kegiatan</td>
+						<td class="form-field-caption" valign="top" align="right"> : </td>
+						<td class="form-field-caption" valign="top" align="left">
+						<input type="text" name="tgl_awal" id="tgl_awal"/> s/d  <input type="text" name="tgl_akhir" id="tgl_akhir"/></td>
+				<tr>
+				<td class="form-field-caption" valign="top" align="right">Jenis Kegiatan</td><td class="form-field-caption" valign="top" align="right"> : </td><td class="form-field-caption" valign="top" align="left"><select name="kegiatan" id="kegiatan" style="margin:0px; padding-left:2px" onchange="showUser(this.value)">
+						<option value=""> -- Pilih -- </option>		
+						<!-- <option value="receiving_tpk"> RECEIVING dari TPK </option>	 -->		
+						<option value="receiving_luar"> RECEIVING MTY</option>									
+						<option value="stripping_tpk"> STRIPPING </option>
+						<!-- <option value="stripping_depo"> STRIPPING dari DEPO </option> -->
+						<option value="stuffing_depo"> STUFFING</option>		
+						<!-- <option value="stuffing_tpk"> STUFFING dari TPK </option> -->
+						<option value="delivery_tpk_mty"> REPO MUAT EMPTY</option>			
+						<option value="delivery_luar">DELIVERY ke LUAR / SP2</option>					
+						<!-- <option value="relokasi"> RELOKASI </option>	 -->
+					</select>
+				</td>
+				</tr>
+               <tr>
+						<td class="form-field-caption" valign="top" align="right">Status</td>
+						<td align="right" valign="top" class="form-field-caption">:</td>
+						<td class="form-field-caption" valign="top" align="left" ><select name="STATUS" id="STATUS" style="margin:0px; padding-left:2px" ></select></td>
+				</tr>
+			<tr>
+				<td align="right" valign="top" class="form-field-caption"><br/>Pilih Pengurutan </td>
+				<td align="center" valign="top"><br/>:</td>
+				<td valign="top"><table border="0" cellpadding="2">
+				  <tr>
+					<td valign="top"><span class="style4"> <strong>&nbsp;FIELDS</strong></span><br />
+						<select id="id_menu1" name="menu1" size="5" multiple="multiple" style="width:250;background-color:#FFFFFF">
+						  <option value="NO_CONTAINER">No. Container</option>
+						  <option value="NO_REQUEST">NO. Request</option>
+						  <option value="TGL_REQUEST">Tgl. Request</option>
+						  <option value="SIZE_">Size</option>
+						  <option value="TYPE_">Type</option>
+						  <option value="STATUS">Status</option>
+						  <option value="NM_PBM">Nama Consignee</option>
+						</select>
+					</td>
+					<td align="center" valign="middle"><br />
+						<table border="0" cellpadding="2" cellspacing="0">
+				<tr>
+				  <td><img src="images/imgesc.jpg"  id="one2two" style="background-color:#CCFF00"/></td>
+				</tr>
+				<tr>
+				  <td><img src="images/imgdesc.jpg"  id="one2two2" style="background-color:#CCFF00"/></td>
+				</tr>
+				<tr>
+				  <td><img src="images/imgreset.jpg"  id="clearData" style="background-color:#CCFF00"/></td>
+				</tr>
+					  </table></td>
+					<td valign="top"><span class="style4"> <strong>&nbsp;SORT BY</strong></span><br />
+						<select id="id_menu2" name="menu2[]" size="5" multiple="multiple"  style="width:250;background-color:#FFFFFF" readonly="true">
+						</select>
+					</td>
+				  </tr> 
+				</table></td>
+			</tr>	
+				<tr>
+					<td colspan="2" class="form-field-caption" valign="top" align="left"> &nbsp;&nbsp; <a class="link-button" style="height:25" onclick="showUser_($('#STATUS').val())"><img src='images/cari.png' border='0' />Generate Report</a> </td>
+					<td class="form-field-caption" valign="top" align="left"> &nbsp;&nbsp; <a class="link-button" style="height:25" onclick="$('#searchForm').submit()"><img src='images/cari.png' border='0' />Generate Excel</a> </td>
+				</tr>
+				
+			</table>
+		</div>
+        </form>
+	
+	   </fieldset>
+	<div id="txtHint"><b></b></div>
+<script>
+$(function() {	
+
+	$( "#tgl_awal" ).datepicker();
+	$( "#tgl_awal" ).datepicker( "option", "dateFormat", "dd/mm/yy" );
+        
+        $( "#tgl_akhir" ).datepicker();
+	$( "#tgl_akhir" ).datepicker( "option", "dateFormat", "dd/mm/yy" );
+
+});
+
+function generate()
+{
+	var tgl_awal_ 	= $("#tgl_awal").val();
+	var tgl_akhir_	= $("#tgl_akhir").val();	
+	var size_		= $("#size").val();
+	var status_		= $("#status").val();	
+	var jenis 		= $("#option_kegiatan").val();
+	var id_menu2 	= $("#id_menu2").val();
+	var url 	       = "<?=HOME?><?=APPID?>/gate_list #list";
+	$.blockUI({ message: '<h1><br>Please wait...</h1><br><img src={$HOME}images/loadingbox.gif /><br><br>' }); 
+	$("#gate_list").load(url,{tgl_awal : tgl_awal_, tgl_akhir : tgl_akhir_, jenis : jenis, shift : shift_, size : size_, status : status_, id_menu2 : id_menu2}, function(data){
+		if(data){
+				$.unblockUI({ 
+				onUnblock: function(){  } 
+				});
+		}
+	});
+}
+
+function topdf(){
+	var tgl_awal_ 	= $("#tgl_awal").val();
+	var tgl_akhir_	= $("#tgl_akhir").val();	
+	var url 	    = "<?=HOME?><?=APPID?>.topdf/print?tgl_awal="+tgl_awal_+"&tgl_akhir="+tgl_akhir_;
+	
+	window.open(url, "_blank");
+}
+
+function toexcel(){
+	var tgl_awal_ 	= $("#tgl_awal").val();
+	var tgl_akhir_	= $("#tgl_akhir").val();
+	var jenis_ 		= $("#option_kegiatan").val();	
+	var shift_	 	= $("#shift").val();
+	var size_		= $("#size").val();
+	var status_		= $("#status").val();	
+	var url 	    = "<?=HOME?><?=APPID?>.toexcel/toexcel?tgl_awal="+tgl_awal_+"&tgl_akhir="+tgl_akhir_+"&jenis="+jenis_+"&shift="+shift_+"&size="+size_+"&status="+status_;
+	
+	window.open(url, "_blank");
+}
+</script>
+

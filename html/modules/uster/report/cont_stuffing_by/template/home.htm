@@ -1,0 +1,87 @@
+
+<span class="graybrown"><img src='images/sp2_p.png' border='0' class="icon"/><font color="#0378C6"> Laporan</font> Container Stuffing</span><br/><br/>
+      <fieldset class="form-fieldset" style="margin: 5px 5px 5px 5px; ">
+        <form id="searchForm" name="searchForm" method="get">
+		<div style="padding:10px;font-family:Arial; font-size:8pt; color:#555555; font-weight:bold">
+            <table> 
+			<tr>
+				<td class="form-field-caption" valign="top" align="right">Status Container</td><td class="form-field-caption" valign="top" align="right"> : </td>
+			<!-- <td class="form-field-caption" valign="top" align="left"><input type="text" name="tgl_awal" id="tgl_awal"/></td> -->
+				<td> </td>
+				<td> <select id="slStatus">
+						<option selected="selected" value="1"> Telah Relokasi </option>
+						<option value="2"> Belum Relokasi </option>
+						<option value="3"> Belum Mengajukan Repo </option>
+						<option value="4"> Batal Muat </option>
+					</select>
+				</td>
+			</tr>
+            <tr>
+				<td class="form-field-caption" valign="top" align="right">Periode</td><td class="form-field-caption" valign="top" align="right"> : </td>				
+				<td> </td>
+				<td> 
+					<input type="text" name="tgl_awal" id="tgl_awal"/> s/d <input type="text" name="tgl_akhir" id="tgl_akhir"/>
+				</td>
+				<!-- <td><select id="option_locate" style="width:100%;">
+						<option selected="selected" value="stripping"> Stripping Area </option>
+						<option value="stuffing"> Stuffing Area </option>
+						<option value="mty"> Empty Area </option>
+					</select>
+				</td> -->
+				</tr>
+				<tr>
+					<td align="right"> &nbsp;&nbsp; <a class="link-button" style="height:25" onclick="generate()"><img src='images/cari.png' border='0' />Generate Report</a> </td>
+					<td colspan='4'></td>
+				</tr>
+				
+			</table>
+		</div>
+        </form>
+	
+	   </fieldset>
+	<div id="nota_list"></div>
+<script>
+$(function() {	
+
+	$( "#tgl_awal" ).datepicker();
+	$( "#tgl_awal" ).datepicker( "option", "dateFormat", "yy-mm-dd" );
+        
+    $( "#tgl_akhir" ).datepicker();
+	$( "#tgl_akhir" ).datepicker( "option", "dateFormat", "yy-mm-dd" );
+
+});
+
+function generate()
+{
+	var option_status 	= $("#slStatus").val(); 
+	var option_locate	= $("#option_locate").val();		
+	var url 	       = "<?=HOME?><?=APPID?>/report_list #list";
+	$.blockUI({ message: '<h1>Please wait...</h1>' }); 
+	$("#nota_list").load(url,{option_status : option_status, option_locate : option_locate}, function(data){
+	
+		if(data){
+				$.unblockUI({ 
+				onUnblock: function(){  } 
+				});
+		}
+	});
+}
+
+function topdf(){
+	var tgl_awal_ 	= $("#tgl_awal").val();
+	var tgl_akhir_	= $("#tgl_akhir").val();	
+	var url 	    = "<?=HOME?><?=APPID?>.topdf/print?tgl_awal="+tgl_awal_+"&tgl_akhir="+tgl_akhir_;
+	
+	window.open(url, "_blank");
+}
+
+function toexcel(){
+	var tgl_awal_ 	= $("#tgl_awal").val();
+	var tgl_akhir_	= $("#tgl_akhir").val();
+	var jenis_ 		= $("#option_kegiatan").val();	
+	var url 	    = "<?=HOME?><?=APPID?>.toexcel/toexcel?tgl_awal="+tgl_awal_+"&tgl_akhir="+tgl_akhir_+"&jenis="+jenis_;
+	
+	window.open(url, "_blank");
+}
+</script>
+

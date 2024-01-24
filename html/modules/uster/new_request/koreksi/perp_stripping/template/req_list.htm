@@ -1,0 +1,44 @@
+<div id="list">
+                        <table class="grid-table" border='0' cellpadding="1" cellspacing="1"  width="100%" >
+                              <tr style=" font-size:10pt">
+                                  <th width="2%" valign="top" class="grid-header"  style="font-size:8pt">No </th>
+                                  <th width="110" valign="top" class="grid-header"  style="font-size:8pt">NO. REQUEST</th>
+								  <th width="110" valign="top" class="grid-header"  style="font-size:8pt">PERP DARI</th>
+                                  <th width="150" valign="top" class="grid-header"  style="font-size:8pt">NO DO | BL</th>
+                                  <th valign="top" class="grid-header"  style="font-size:8pt">EMKL/PEMILIK BARANG</th>
+                                  <th valign="top" class="grid-header"  style="font-size:8pt">TOTAL BOX</th>
+                                  <th valign="top" class="grid-header"  style="font-size:8pt">ACTION</th>  
+                              </tr>
+                             <? for($i=0; $i<=$counter; $i++){?>
+                              <tr bgcolor="#f9f9f3" onMouseOver=this.style.backgroundColor="#BAD5FC" onMouseOut=this.style.backgroundColor="">
+                                  <td width="4%" align="center" valign="middle" class="grid-cell" style="color:#000; font-family:Arial; font-size:9pt"><?=$i+1;?></td>
+                                  <td width="10%" align="center" valign="middle" class="grid-cell" style="font-family:Arial; font-size:11pt; color:#555555"><b><?=$no_request[$i]?></b><br></font></td>
+								  <td width="10%" align="center" valign="middle" class="grid-cell" style="font-family:Arial; font-size:11pt; color:#555555"><b><?=$ex_req[$i]?></b><br></font></td>
+                                  <td width="8%" align="center" valign="middle" class="grid-cell" style="font-size:9pt"><font color="#0066CC" style="font-size:10pt"><?=$no_do[$i]?> | <?=$no_bl[$i]?></font></td>
+                                  <td width="15%" align="center" valign="middle" class="grid-cell" style="font-size:9pt"><?=$consignee[$i]?></td>
+                                  <td width="5%" align="center" valign="middle" class="grid-cell" style="font-size:9pt;font-family:Arial;"><font color="#0066CC" style="font-size:10pt"><b><?=$jumlah[$i]?> BOX</b></font></td>
+                                  <td width="11%" align="center" valign="middle" class="grid-cell" style="font-size:9pt;">
+								  <?php if (($ex_req[$i] == '-') AND ($nota[$i] == 'T'))  {?>
+									&nbsp <i>Nota lama belum lunas</i> </a></td>
+									<? } else if (($ex_req[$i] == '-') AND ($nota[$i] == 'Y')  AND ($lunas[$i] == 'NO')){?>
+									   <i> &nbsp Nota lama belum lunas</i></td>
+								 <? } else if (($ex_req[$i] == '-') AND ($nota[$i] == 'Y')  AND ($lunas[$i] == 'YES') AND ($total[$i] <> 0)){?>
+									 <a href="{$HOME}{$APPID}/view?no_req=<?=$no_request[$i]?>"><img src='images/ico_approval.gif' border='0' />&nbsp Perpanjangan</a></td>
+									  <? } else if (($ex_req[$i] <> '-') AND ($nota[$i] == 'Y') AND ($lunas[$i] =='YES') AND ($total[$i] == 0))  {?>
+								  <i> &nbsp Nota sudah lunas</i></td>
+								    <? } else if (($ex_req[$i] == '-') AND ($nota[$i] == 'Y') AND ($lunas[$i] =='YES') AND ($total[$i] == 0))  {?>
+								  <i> &nbsp Nota sudah lunas</i></td>
+								 <? } else if (($ex_req[$i] == '-') AND ($nota[$i] == 'T') AND ($lunas[$i] == 0) AND ($total[$i] <> 0))  {?>
+								 <i>Nota lama belum lunas</i> </a></td>
+								   <? } else if (($ex_req[$i] <> '-') AND ($nota[$i] == 'T') AND ($lunas[$i] == 0) AND ($total[$i] <> 0))  {?>
+								  <a href="{$HOME}{$APPID}/view?no_req=<?=$no_request[$i]?>"><img src='images/ico_approval.gif' border='0' />&nbsp Edit</a></td>
+								  <? } else if (($ex_req[$i] <> '-') AND ($nota[$i] == 'Y') AND ($lunas[$i] == 'YES'))  {?>
+								   <i> &nbsp Nota sudah cetak</i></td>
+								  <? } else if (($ex_req[$i] <> '-') AND ($nota[$i]== 'Y') AND ($lunas[$i] == 'NO'))  {?>
+								   <i> &nbsp Nota sudah cetak</i></td>
+								<? } ?>
+									
+							  </tr>
+                             <? }?>
+                          </table>
+</div>

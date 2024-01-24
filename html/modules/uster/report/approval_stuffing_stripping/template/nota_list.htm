@@ -1,0 +1,172 @@
+
+ <div id="list">
+     <table class="grid-table" border='0' cellpadding="1" cellspacing="1"  width="100%" >
+                              <tr style=" font-size:10pt">
+                                 <th valign="top" class="grid-header"  style="font-size:8pt">No </th>
+                                  <th valign="top" class="grid-header"  style="font-size:8pt">No.Request</th>
+                                  <th valign="top" class="grid-header"  style="font-size:8pt">Tgl Request</th>
+                                  <th  valign="top" class="grid-header"  style="font-size:8pt">No.Container</th>
+                                  <th  valign="top" class="grid-header"  style="font-size:8pt">PIN</th>
+                                  <th  valign="top" class="grid-header"  style="font-size:8pt">Size/Type</th>
+                                  <th  valign="top" class="grid-header"  style="font-size:8pt">Kegiatan</th> 
+                                  <th  valign="top" class="grid-header"  style="font-size:8pt">Lokasi TPK</th> 
+                                  <th  valign="top" class="grid-header"  style="font-size:8pt">Lokasi Uster</th> 
+                                  <th valign="top" class="grid-header"  style="font-size:8pt">Tgl Approval</th>
+                                  <th valign="top" class="grid-header"  style="font-size:8pt">Active To</th>
+                                  <th valign="top" class="grid-header"  style="font-size:8pt">Tgl Realisasi</th>
+                                  <th valign="top" class="grid-header"  style="font-size:8pt">Pemilik Barang</th>
+                                  <th valign="top" class="grid-header"  style="font-size:8pt">Komoditi</th>
+								  <?php if($jenis == 'STUFFING') {?>
+                                  <th valign="top" class="grid-header"  style="font-size:8pt">Via</th>
+                                  <?php } ?>
+                                  <th valign="top" class="grid-header"  style="font-size:8pt">Kapal / Voy</th>
+								  
+                              </tr>
+							  <?php $i=0; $before= ""; ?>
+                              <fill src="row_list" var="rows">
+							  <?php  $i++;	?>
+							   <?php	$db = getDB("storage");
+									$no_cont = $rows["NO_CONTAINER"];
+									$no_receive = $rows["NO_REQUEST_RECEIVING"];
+									$no_req = $rows["NO_REQUEST"];
+									$cek_ust = "SELECT DISTINCT BLOCKING_AREA.NAME, PLACEMENT.SLOT_,
+											PLACEMENT.ROW_, PLACEMENT.TIER_ FROM PLACEMENT, BLOCKING_AREA WHERE PLACEMENT.ID_BLOCKING_AREA = BLOCKING_AREA.ID AND NO_CONTAINER = '$no_cont'
+											AND PLACEMENT.TGL_UPDATE = (SELECT MAX(TGL_UPDATE) FROM PLACEMENT WHERE NO_CONTAINER = '$no_cont') 
+											AND PLACEMENT.NO_REQUEST_RECEIVING = '$no_receive'
+											GROUP BY BLOCKING_AREA.NAME,  PLACEMENT.ROW_, PLACEMENT.TIER_, PLACEMENT.SLOT_"; 
+									$ro = $db->query($cek_ust);
+									$res = $ro->fetchRow();
+									$blok = $res["NAME"];
+									$slot = $res["SLOT_"];
+									$row = $res["ROW_"];
+									$tier = $res["TIER_"];
+									if($blok == NULL){
+										$cek_ust = "SELECT HISTORY_PLACEMENT.SLOT_, HISTORY_PLACEMENT.ROW_, HISTORY_PLACEMENT.TIER_, BLOCKING_AREA.NAME FROM 
+													HISTORY_PLACEMENT INNER JOIN BLOCKING_AREA
+													ON HISTORY_PLACEMENT.ID_BLOCKING_AREA = BLOCKING_AREA.ID
+													LEFT JOIN YARD_AREA ON BLOCKING_AREA.ID_YARD_AREA = YARD_AREA.ID
+													LEFT JOIN MASTER_USER ON HISTORY_PLACEMENT.NIPP_USER = MASTER_USER.NIPP WHERE NO_CONTAINER = '$no_cont'
+													AND HISTORY_PLACEMENT.NO_REQUEST = '$no_receive'
+													ORDER BY HISTORY_PLACEMENT.TGL_UPDATE ASC";
+										$ro = $db->query($cek_ust);
+										$res = $ro->fetchRow();
+										$blok = $res["NAME"];
+										$slot = $res["SLOT_"];
+										$row = $res["ROW_"];
+										$tier = $res["TIER_"];
+										
+									}
+									$jenis = $rows["KEGIATAN"];
+									
+									if($jenis == 'STRIPPING')
+									{
+										if($rows["LOKASI_TPK"] == NULL){
+											$tpk = $db->query("SELECT LOKASI_TPK FROM PLAN_CONTAINER_STRIPPING, PLAN_REQUEST_STRIPPING WHERE
+												   PLAN_CONTAINER_STRIPPING.NO_REQUEST =  PLAN_REQUEST_STRIPPING.NO_REQUEST AND
+												   NO_CONTAINER = '$no_cont' ORDER BY PLAN_REQUEST_STRIPPING.TGL_REQUEST DESC");
+											$rtp = $tpk->fetchRow();
+											$lokasi_tpk = $rtp["LOKASI_TPK"];
+										}
+										else {
+											$lokasi_tpk = $rows["LOKASI_TPK"];
+										}
+										
+										$t_realisasi = $rows["TGL_REALISASI"];
+										
+										if($rows["TGL_REALISASI"] == NULL){
+											$get_h = $db->query("SELECT NO_REQUEST FROM HISTORY_CONTAINER WHERE NO_CONTAINER = '$no_cont' AND KEGIATAN LIKE '%$jenis%' ORDER BY TGL_UPDATE DESC");
+											$rh = $get_h->fetchRow();
+											$cur_noreq = $rh["NO_REQUEST"];
+											$tgl_real = $db->query("SELECT TGL_REALISASI FROM CONTAINER_STRIPPING WHERE NO_CONTAINER = '$no_cont' AND NO_REQUEST = '$cur_noreq'");
+											$t_real = $tgl_real->fetchRow();
+											$t_realisasi = $t_real["TGL_REALISASI"];
+										} else {
+											$t_realisasi = $rows["TGL_REALISASI"];
+										}
+										
+										if($blok == NULL){
+										$loc_uster = '';									
+										}
+										else {
+											$loc_uster = $blok."/".$slot."-".$row."-".$tier;
+										}
+									}
+									else //$jenis =='STUFFING'
+									{
+										//$cek tes;
+										/*
+										$lokasi_tpk = $rows["LOKASI_TPK"];
+										
+										if($blok == NULL){
+										$loc_uster = '';									
+										}
+										else {
+											$loc_uster = $blok."/".$slot."-".$row."-".$tier;
+										}
+										
+										$cek_asal_cont ="SELECT PLAN_CONTAINER_STUFFING.ASAL_CONT ASAL_CONT 
+												FROM CONTAINER_STUFFING
+												INNER JOIN PLAN_CONTAINER_STUFFING ON CONTAINER_STUFFING.NO_CONTAINER = PLAN_CONTAINER_STUFFING.NO_CONTAINER AND CONTAINER_STUFFING.NO_REQUEST = REPLACE(PLAN_CONTAINER_STUFFING.NO_REQUEST,'P','S')
+												WHERE CONTAINER_STUFFING.NO_CONTAINER='$no_cont'
+												AND    CONTAINER_STUFFING.NO_REQUEST = '$no_req'";
+										*/
+										
+										$row_asal_cont = $db->query("SELECT PLAN_CONTAINER_STUFFING.ASAL_CONT ASAL_CONT 
+												FROM CONTAINER_STUFFING
+												INNER JOIN PLAN_CONTAINER_STUFFING ON CONTAINER_STUFFING.NO_CONTAINER = PLAN_CONTAINER_STUFFING.NO_CONTAINER AND CONTAINER_STUFFING.NO_REQUEST = REPLACE(PLAN_CONTAINER_STUFFING.NO_REQUEST,'P','S')
+												WHERE CONTAINER_STUFFING.NO_CONTAINER='$no_cont'
+												AND    CONTAINER_STUFFING.NO_REQUEST = '$no_req'");
+										$asal_cont = $row_asal_cont->fetchRow();
+										$asal = $asal_cont["ASAL_CONT"];		
+												
+										if($asal == 'DEPO')
+										{
+											$loc_uster = $rows["LOKASI_TPK"];
+											$lokasi_tpk ='--';
+										}
+										else //$asal_cont=='TPK'
+										{
+											$lokasi_tpk = $rows["LOKASI_TPK"];
+											if($blok == NULL)
+											{
+											$loc_uster = '--';									
+											}
+											else 
+											{
+												$loc_uster = $blok."/".$slot."-".$row."-".$tier;
+											}
+										}
+									}
+									
+									
+									?>
+                              <tr bgcolor="#f9f9f3" onMouseOver=this.style.backgroundColor="#BAD5FC" onMouseOut=this.style.backgroundColor="">
+							   <td width="4%" align="center" valign="middle" class="grid-cell" style="color:#000; font-family:Arial; font-size:9pt"><?=$i?> </td>								                                
+                                 <td width="22%" align="center" valign="middle" class="grid-cell"   style="font-family:Arial; font-size:11pt; color:#555555"><b>{$rows.NO_REQUEST} </b></td>
+                                  <td width="15%" align="center" valign="middle" class="grid-cell"  style="font-size:9pt">{$rows.TGL_REQUEST}</td>
+								  <td width="15%" align="center" valign="middle" class="grid-cell"  style="font-size:9pt">{$rows.NO_CONTAINER}</td>
+								  <td width="15%" align="center" valign="middle" class="grid-cell"  style="font-size:9pt">{$rows.PIN_NUMBER}</td>
+								  <td width="15%" align="center" valign="middle" class="grid-cell"  style="font-size:9pt">{$rows.SIZE_} / {$rows.TYPE_}</td>
+                                  <td width="15%" align="center" valign="middle" class="grid-cell"  style="font-size:9pt;font-family:Arial;"><font color="#0066CC" style="font-size:10pt">{$rows.KEGIATAN}</font></td>
+								  <td width="15%" align="center" valign="middle" class="grid-cell"  style="font-size:9pt;font-family:Arial;"><font color="#0066CC" style="font-size:10pt"><?=$lokasi_tpk;?></font></td>
+								  <td width="15%" align="center" valign="middle" class="grid-cell"  style="font-size:9pt;font-family:Arial;"><font color="#0066CC" style="font-size:10pt"><?=$loc_uster;?></font></td>
+                                  <td width="15%" align="center" valign="middle" class="grid-cell"  style="font-size:9pt;font-family:Arial;"><font color="#0066CC" style="font-size:10pt">{$rows.TGL_APPROVE}</font></td>
+                                  <td width="15%" align="center" valign="middle" class="grid-cell"  style="font-size:9pt;font-family:Arial;"><font color="#0066CC" style="font-size:10pt">{$rows.ACTIVE_TO}</font></td>
+                                  <td width="15%" align="center" valign="middle" class="grid-cell"  style="font-size:9pt;font-family:Arial;"><font color="#0066CC" style="font-size:10pt">{$rows.TGL_REALISASI}</font></td>                                  
+                                  <td width="15%" align="center" valign="middle" class="grid-cell"  style="font-size:9pt;font-family:Arial;"><font color="#0066CC" style="font-size:10pt">{$rows.NM_PBM}</font></td>		
+                                  <td width="15%" align="center" valign="middle" class="grid-cell"  style="font-size:9pt;font-family:Arial;"><font color="#0066CC" style="font-size:10pt">{$rows.COMMODITY}</font></td>		
+									 <?php if($jenis == 'STUFFING') {?>
+								  <td width="15%" align="center" valign="middle" class="grid-cell"  style="font-size:9pt;font-family:Arial;"><font color="#0066CC" style="font-size:10pt"><?=$rows["TYPE_STUFFING"]?></font></td>
+								  <?php } ?>
+								  <td width="15%" align="center" valign="middle" class="grid-cell"  style="font-size:9pt;font-family:Arial;"><font color="#0066CC" style="font-size:10pt"><?=$rows["NM_KAPAL"]."/".$rows["VOYAGE"]?></font></td>
+								  
+							</tr>
+							</fill>
+							<?php //if(count($rows) > 0) {?>
+							<tr>
+								<td colspan="6" align="right"> </td>
+								<td align="right"> <input type="button" value=" Export to Excel" onclick="toexcel()" /> </td>
+							</tr>
+							<?php //} ?>
+        </table>
+ </div>

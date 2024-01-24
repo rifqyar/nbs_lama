@@ -1,0 +1,62 @@
+<style>
+.content{
+	width:95%;
+	margin-left:auto;
+	margin-right:auto;
+	margin-bottom: 10px;
+	margin-top:20px;
+}
+.main_side{
+	width:100%;
+	float:left;
+	text-align:left;
+}
+</style>
+
+<script type="text/javascript">
+jQuery(function() {
+ jQuery("#print_behandle").jqGrid({
+	url:'<?=HOME?>datanya/data?q=print_behandle',
+	mtype : "post",
+	datatype: "json",
+	colNames:['','No Nota','EMKL','Vessel','Jml Container', 'No Request'], 
+	colModel:[
+		{name:'aksi', width:50, valign:"center", align:"center",sortable:false,search:false},
+		{name:'id_req',index:'id_req', width:150, align:"center"},
+		{name:'emkl',index:'emkl', width:200, align:"center"},
+		{name:'vessel',index:'vessel', width:150, align:"center"},
+		{name:'jum_cont',index:'jum_cont', width:90, align:"center"}, 
+                {name:'no_request',index:'no_request', width:150, align:"center"}
+	],
+	rowNum:20,
+	width: 865,
+	height: "100%",//250
+
+	rowList:[10,20,30,40,50,60],
+	loadonce:true,
+	rownumbers: true,
+	rownumWidth: 15,
+	gridview: true,
+	pager: '#pg_print_behandle',
+	viewrecords: true,
+	shrinkToFit: false,
+	caption:"Data Print Kartu Behandle"
+ });
+  jQuery("#print_behandle").jqGrid('navGrid','#pg_l_delivery',{del:false,add:false,edit:false,search:false}); 
+ jQuery("#print_behandle").jqGrid('filterToolbar',{stringResult: true,searchOnEnter : false});
+ 
+});
+</script>
+
+<div class="content">
+	<div class="main_side">
+	<h2><span class="graybrown">
+    	<img class="icon" border="0" src="images/cetak.png" />
+        &nbsp;<font color="#0378C6">Cetak</font> Kartu Behandle
+        </span></h2>	
+	<p><br/></p>
+    <table id='print_behandle' width="100%"></table> <div id='pg_print_behandle'></div>
+	<br/>
+	<br/>
+	</div>
+</div>

@@ -1,0 +1,56 @@
+<style>
+.content{
+	width:95%;
+	margin-left:auto;
+	margin-right:auto;
+	margin-bottom: 10px;
+	margin-top:20px;
+}
+.main_side{
+	width:100%;
+	float:left;
+	text-align:left;
+}
+</style>
+
+<div class="content">
+<div class="main_side">
+<h2>TAMBAH CONTAINER</h2>
+<br/>
+<form method="POST" action="<?=HOME?>coba/do_add">
+<div class="form-fieldset" style="margin: 5px 5px 5px 5px">
+<table>
+		<tr>
+			<td>SIZE&nbsp;&nbsp;</td>
+			<td><select name="size">
+			  <option value="20">20</option>
+			  <option value="40">40</option>
+			  <option value="45">45</option>
+			</select></td>
+		</tr>
+		<tr>
+			<td>TYPE&nbsp;&nbsp;</td>			
+			<td><select name="type">
+			  <option value="DRY">DRY</option>
+			  <option value="OVD">OVD</option>
+			  <option value="RFR">RFR</option>
+			  <option value="HQ">HQ</option>
+			  <option value="TNK">TNK</option>
+			</select></td>
+		</tr>
+		<tr>
+			<td>STATUS&nbsp;&nbsp;</td>
+			<td><select name="status">
+			  <option value="FCL">FCL</option>
+			  <option value="MTY">MTY</option>
+			  <option value="UC">UC</option>
+			</select></td>
+		</tr>
+</table>
+</div>
+<br/>
+<input type="submit" value="Simpan" name="Simpan" class="link-button"/>
+</form>
+<br/>
+</div>
+</div>

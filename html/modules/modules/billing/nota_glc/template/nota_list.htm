@@ -1,0 +1,61 @@
+	<!--
+	<table class="grid-table" border='0' cellpadding="1" cellspacing="1"  width="100%">
+    	
+        	<tr style=" font-size:10pt">
+            	<th valign="top" class="grid-header"  style="font-size:8pt">No.</th>
+            	<th valign="top" class="grid-header"  style="font-size:8pt">No Request</th>
+                <th valign="top" class="grid-header"  style="font-size:8pt">Tanggal Request</th>
+                <th valign="top" class="grid-header"  style="font-size:8pt">EMKL</th>
+                <th valign="top" class="grid-header"  style="font-size:8pt">RECEIVING DARI</th>
+                <th valign="top" class="grid-header"  style="font-size:8pt">&nbsp;</th>
+            </tr>
+       
+        <tbody>
+        	<fill src="row_list" var="rows">
+		   	<alt var='bg' list='#f9f9f3,#ffe'/>
+        	<tr bgcolor="#f9f9f3" onMouseOver=this.style.backgroundColor="#BAD5FC" onMouseOut=this.style.backgroundColor="">
+            	<td align="center" valign="middle" class="grid-cell" style="font-size:9pt">{$__ctr}</td>
+            	<td align="center" valign="middle" class="grid-cell" style="font-family:Arial; font-size:11pt; color:#555555"><b>{$rows.NO_REQUEST}</b></font></td>
+            	<td align="center" valign="middle" class="grid-cell" style="font-size:9pt">{$rows.TGL_REQUEST}</td>
+            	<td align="center" valign="middle" class="grid-cell" style="font-size:9pt">{$rows.NAMA_EMKL}</td>
+            	<td align="center" valign="middle" class="grid-cell" style="font-size:9pt">{$rows.RECEIVING_DARI}</td>
+            	<td align="center" valign="middle" class="grid-cell" style="font-size:9pt">
+                	<?php //cek_nota($rows["NO_REQUEST"]) ?>
+                </td>
+            </tr>
+            </fill>
+        </tbody>
+    </table>
+	-->
+
+<div id="list">
+	<table class="grid-table" border='0' cellpadding="1" cellspacing="1"  width="100%">
+    	
+        	<tr style=" font-size:10pt">
+            	<th valign="top" class="grid-header"  style="font-size:8pt">No.</th>
+            	<th valign="top" class="grid-header"  style="font-size:8pt">No Request</th>
+                <th valign="top" class="grid-header"  style="font-size:8pt">Tanggal Request</th>
+                <th valign="top" class="grid-header"  style="font-size:8pt">CONSIGNEE</th>
+				<th valign="top" class="grid-header"  style="font-size:8pt">PENUMPUKAN OLEH</th>
+                <th valign="top" class="grid-header"  style="font-size:8pt">&nbsp;</th>
+            </tr>
+       
+        <tbody>
+        	<fill src="row_list" var="rows">
+		   	<alt var='bg' list='#f9f9f3,#ffe'/>
+        	<tr bgcolor="#f9f9f3" onMouseOver=this.style.backgroundColor="#BAD5FC" onMouseOut=this.style.backgroundColor="">
+            	<td align="center" valign="middle" class="grid-cell" style="font-size:9pt">{$__ctr}</td>
+            	<td align="center" valign="middle" class="grid-cell" style="font-family:Arial; font-size:11pt; color:#555555"><b>{$rows.NO_REQUEST}</b></font></td>
+            	<td align="center" valign="middle" class="grid-cell" style="font-size:9pt">{$rows.TGL_REQUEST}</td>
+            	<td align="center" valign="middle" class="grid-cell" style="font-size:9pt">{$rows.CONSIGNEE}</td>
+				<td align="center" valign="middle" class="grid-cell" style="font-size:9pt">{$rows.PENUMPUKAN_OLEH}</td>
+            	<td align="center" valign="middle" class="grid-cell" style="font-size:9pt">
+                	<?php 
+                    	cek_nota($rows["NO_REQUEST"]);
+                    ?>
+                </td>
+            </tr>
+            </fill>
+        </tbody>
+    </table>
+</div>

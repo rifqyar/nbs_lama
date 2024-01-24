@@ -1,0 +1,172 @@
+<html>
+<header>
+
+<style>
+.content{
+	width:95%;
+	margin-left:auto;
+	margin-right:auto;
+	margin-bottom: 10px;
+	margin-top:20px;
+}
+.main_side{
+	width:100%;
+	float:left;
+	text-align:left;
+}
+.rightside{ 
+	width:25%;
+	float:right;
+	text-align:center;
+}
+#zebra tr:nth-child(odd) td {
+  background-color: #FFF; /* Warna untuk baris ganjil */
+}
+#zebra tr:nth-child(even) td {
+  background-color: #bbe3fe; /* Warna untuk baris genap */
+}
+</style>
+</header>
+<body>
+<!--<script src="<?=HOME?>js_chart/js/highcharts.js"></script>
+<script src="<?=HOME?>js_chart/js/modules/exporting.js"></script>-->
+
+
+		
+		
+<div class="content">
+<div class="main_side"><h2>&nbsp;<img class="icon" border="0" width="32" height="32" src="images/excel-icon.png" />&nbsp;REPORT DWELLING TIME</h2><p><br/></p><div align="center">
+
+<p><br/>
+</p>
+<div id="detail_yard"></div>
+<p><br></p>
+
+<table>
+<tr>
+<td>
+<!--<div id="container" style="min-width: 400px; height: 400px; margin: 0 auto"></div>-->
+<p><br></p>
+</td>
+</tr>
+</table>
+</div></div>
+</body>
+</html>
+   
+<script type='text/javascript'>
+$(function() {	
+
+	$("#detail_yard").load('<?=HOME?><?=APPID?>/detail_yard #list', function(data) {        	  
+	});
+
+	$( "#tgl_awal_gate" ).datepicker();
+	$( "#tgl_awal_gate" ).datepicker( "option", "dateFormat", "dd/mm/yy" );
+        
+        $( "#tgl_akhir_gate" ).datepicker();
+	$( "#tgl_akhir_gate" ).datepicker( "option", "dateFormat", "dd/mm/yy" );
+	
+	$( "#tgl_awal_place" ).datepicker();
+	$( "#tgl_awal_place" ).datepicker( "option", "dateFormat", "dd/mm/yy" );
+        
+        $( "#tgl_akhir_place" ).datepicker();
+	$( "#tgl_akhir_place" ).datepicker( "option", "dateFormat", "dd/mm/yy" );
+
+});
+
+</script>
+<script>
+function generate()
+{
+	var blok_		= $("#blok").val();	
+	var id_vessel_ 		= $("#id_vessel").val();
+	var url 	       	= "<?=HOME?><?=APPID?>/detail_yard2 #list";
+	//var url2     	    = "<?=HOME?><?=APPID?>.chart/chart";
+	$.blockUI({ message: '<h1><br>Please wait...</h1><br><img src={$HOME}images/loadingbox.gif /><br><br>' }); 
+	$("#detail_yard").load(url,{blok : blok_, id_vessel2 : id_vessel_}, function(data){
+		if(data){
+				$.unblockUI({ 
+				onUnblock: function(){  } 
+				});
+		}
+	});
+	//$("#container").load(url2,{kategori : kategori_}, function(data){
+		//if(data){
+		//}
+	//});
+}
+
+function container(){
+	var kategori_	= $("#kategori").val();	
+	var url 	    = "<?=HOME?><?=APPID?>.chart/chart";
+	$("#container").load(url,{kategori : kategori_}, function(data){
+		if(data){
+		}
+	});
+}
+
+function fill_all()
+{
+	var tes_			= 'all';
+	var url 	    = "<?=HOME?><?=APPID?>/detail_yard #list";
+	//$.blockUI({ message: '<h1><br>Please wait...</h1><br><img src={$HOME}images/loadingbox.gif /><br><br>' }); 
+	$("#detail_yard").load(url,{tes : tes_}, function(data){
+	if(data){
+		}
+	});
+}
+
+function fill($id_blok_)
+{
+	var id_blok_	= $id_blok_;
+	var url 	    = "<?=HOME?><?=APPID?>/detail_yard #list";
+	//$.blockUI({ message: '<h1><br>Please wait...</h1><br><img src={$HOME}images/loadingbox.gif /><br><br>' }); 
+	$("#detail_yard").load(url,{id_blok : id_blok_}, function(data){
+	if(data){
+		}
+	});
+}
+
+function fill_vs($id_blok_, $id_vs_){
+	var id_blok	= $id_blok_;
+	var id_vessel_	= $id_vs_;
+	var url 	    = "<?=HOME?><?=APPID?>/detail_yard #list";
+	//$.blockUI({ message: '<h1><br>Please wait...</h1><br><img src={$HOME}images/loadingbox.gif /><br><br>' }); 
+	$("#detail_yard").load(url,{id_vessel:id_vessel_,id_blok : id_blok}, function(data){
+	if(data){
+		}
+	});
+}
+
+function fill_cari($id_blok_, $blok2, $vessel2)
+{
+	var id_blok_	= $id_blok_;
+	var blok2_		= $blok2;
+	var vessel2_	= $vessel2;
+	var url 	    = "<?=HOME?><?=APPID?>/detail_yard2 #list";
+	//$.blockUI({ message: '<h1><br>Please wait...</h1><br><img src={$HOME}images/loadingbox.gif /><br><br>' }); 
+	$("#detail_yard").load(url,{id_blok : id_blok_,blok : blok2_,id_vessel2 : vessel2}, function(data){
+	if(data){
+		}
+	});
+}
+
+function fill_vs_cari($id_blok_, $id_vs_, $blok2, $vessel2){
+	var id_blok	= $id_blok_;
+	var id_vessel_	= $id_vs_;
+	var blok2_		= $blok2;
+	var vessel2_	= $vessel2;
+	var url 	    = "<?=HOME?><?=APPID?>/detail_yard2 #list";
+	//$.blockUI({ message: '<h1><br>Please wait...</h1><br><img src={$HOME}images/loadingbox.gif /><br><br>' }); 
+	$("#detail_yard").load(url,{id_vessel:id_vessel_,id_blok : id_blok,blok : blok2_,id_vessel2 : vessel2}, function(data){
+	if(data){
+		}
+	});
+}
+
+function toexcel(){
+	var url 	    = "<?=HOME?><?=APPID?>.toexcel/toexcel";
+	
+	window.open(url, "_blank");
+}
+</script>

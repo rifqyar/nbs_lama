@@ -1,0 +1,131 @@
+
+ 
+<span class="graybrown"><img src='images/dokumenbig.png' border='0' class="icon"/>Correction Receiving</span>
+
+
+<form id="realisasi">
+    <fieldset class="form-fieldset" style="margin: 5px 5px 5px 5px; ">
+        <center>
+        <table style="margin: 30px 30px 30px 30px;" border="0">
+            <tr>
+                <td>No. Container</td>
+                <td> : </td>
+                <td> <input type="text" name="NO_CONT" ID="NO_CONT" placeholder="AUTOCOMPLETE" style="font-size:20px; font-weight:bold; text-transform:uppercase" tabindex="2" /> </td>
+            </tr>
+			<tr>
+                <td>No. Request</td>
+                <td> : </td>
+                <td> <input type="text" name="NO_REQUEST" ID="NO_REQUEST" placeholder="AUTOCOMPLETE" style="font-size:20px; font-weight:bold; text-transform:uppercase" tabindex="2" /> 
+                	<input type='hidden' id="NO_BOOKING"/>
+
+                </td>
+            </tr>
+            <!--
+            <tr>
+                <td>Status Container</td>
+                <td> : </td>
+                <td> <select name="STATUS" id="STATUS">
+                        <option value="FULL" selected="selected"> FULL </option>
+                        <option value="EMPTY"> EMPTY </option>
+                     </select> 
+                </td>
+            </tr>
+            -->
+        </table>
+		
+       
+        </center>
+        
+        
+    </fieldset>
+</form>
+
+<fieldset class="form-fieldset" style="margin: 5px 5px 5px 5px; ">
+	<div id="data_container"> </div>
+</fieldset>
+
+<script>
+
+$(function() 
+{	
+
+	
+	$( "#NO_CONT" ).autocomplete({
+		minLength: 3,
+		source: "{$HOME}{$APPID}.auto/container",
+		focus: function( event, ui ) {
+			$( "#NO_CONT" ).val( ui.item.NO_CONTAINER );
+			return false;
+		},
+		select: function( event, ui ) {
+			$( "#NO_CONT" ).val( ui.item.NO_CONTAINER );
+			$( "#NO_REQUEST" ).val( ui.item.NO_REQUEST );	
+			$( "#NO_BOOKING" ).val( ui.item.NO_BOOKING );	
+
+			$('#data_container').html('<p align=center><img src={$HOME}images/loadingbox.gif /></p>');
+			$("#data_container").load('<?=HOME?><?=APPID?>.ajax/view_operation', {NO_REQUEST:ui.item.NO_REQUEST,NO_CONT:ui.item.NO_CONTAINER,NO_BOOKING:ui.item.NO_BOOKING});
+			return false;
+		}
+	})
+	.data( "autocomplete" )._renderItem = function( ul, item ) {
+		return $( "<li style='text-align:left'></li>" )
+			.data( "item.autocomplete", item )
+			.append( "<a>" + item.NO_CONTAINER + "<br/> "+item.NO_REQUEST+"</a>" )
+			.appendTo( ul );
+	};
+	
+	$( "#NO_REQUEST" ).autocomplete({
+		minLength: 3,
+		source: "{$HOME}{$APPID}.auto/request",
+		focus: function( event, ui ) {
+			$( "#NO_REQUEST" ).val( ui.item.NO_REQUEST );
+			return false;
+		},
+		select: function( event, ui ) {
+			$( "#NO_CONT" ).val( ui.item.NO_CONTAINER );
+			$( "#NO_REQUEST" ).val( ui.item.NO_REQUEST );	
+
+			$('#data_container').html('<p align=center><img src={$HOME}images/loadingbox.gif /></p>');
+			$("#data_container").load('<?=HOME?><?=APPID?>.ajax/view_operation', {NO_REQUEST:ui.item.NO_REQUEST,NO_CONT:ui.item.NO_CONTAINER,NO_BOOKING:ui.item.NO_BOOKING});
+			
+			return false;
+		}
+	})
+	.data( "autocomplete" )._renderItem = function( ul, item ) {
+		return $( "<li style='text-align:left'></li>" )
+			.data( "item.autocomplete", item )
+			.append( "<a>" + item.NO_CONTAINER + "<br/> "+item.NO_REQUEST+"</a>" )
+			.appendTo( ul );
+	};
+	
+});
+
+
+function delete_operation($no_cont, $no_request, $no_booking, $kegiatan){
+	var answer = confirm("Yakin untuk menghapus ini? Data akan dihapus secara permanen");
+	if(answer){
+		var url ="<?=HOME?><?=APPID?>/delete_operation";
+		$.post(url,{NO_CONTAINER:$no_cont, NO_REQUEST:$no_request, NO_BOOKING:$no_booking, KEGIATAN:$kegiatan},function(data){
+			if (data == 'Y') {
+				$.blockUI({ message: '<h1>Data Telah Dihapus</h1>' });
+				setTimeout($.unblockUI, 1500);  
+			}
+			else if (data == 'ST') {
+				$.blockUI({ message: '<h1>Maaf, Container Telah Berada di Siklus Stuffing</h1>' });
+				setTimeout($.unblockUI, 1500);  
+			}
+			else if (data == 'DL') {
+				$.blockUI({ message: '<h1>Maaf, Container Telah Berada di Siklus Delivery MTY</h1>' });
+				setTimeout($.unblockUI, 1500);  
+			}
+			else{
+				alert(data);
+			}	
+
+			$('#data_container').html('<p align=center><img src={$HOME}images/loadingbox.gif /></p>');
+			$("#data_container").load('<?=HOME?><?=APPID?>.ajax/view_operation', {NO_REQUEST:$no_request,NO_CONT:$no_cont,NO_BOOKING:$no_booking});
+		});
+	}
+}
+
+</script>

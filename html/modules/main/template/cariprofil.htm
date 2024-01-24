@@ -1,0 +1,30 @@
+<h2> Cari Profil</h2>
+<form method="POST" action="main/cariprofilact"/>
+<table width="40%">
+	<tr>
+		<th>Nama</th>
+		<td><input type="text" name="nama" /></td>
+	</tr>
+	<tr>
+		<th>Gender</th>
+		<td><input type="radio"  value="pria" name="gender" />Pria
+		<br/><input type="radio" value="wanita" name="gender" />Wanita
+		</td>
+	</tr>
+	<tr>
+		<th> Kota</th>
+		<td>		
+		<?php select_kota($row);?>
+		</td>
+	</tr>
+	<tr>
+		<th> Hobi</th>
+		<td>		
+		<?php select_hobi($rowhobi);?>
+		</td>
+	</tr>
+	<tr>
+		<td><input class="link-button" type="submit" value="Submit" /> </td>
+	</tr>
+</table>
+</form>

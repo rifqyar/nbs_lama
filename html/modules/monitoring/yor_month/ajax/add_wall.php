@@ -1,0 +1,1 @@
+<?php$nouk=$_GET['no_ukk'];$name=$_SESSION["NAMA_LENGKAP"];$cm=$_POST['COMMENT'];$db=getDb();$db->query("INSERT INTO RBM_COMMENT (NO_UKK,ID_USER,D_COMMENT) VALUES ('$nouk','$name','$cm')");?>

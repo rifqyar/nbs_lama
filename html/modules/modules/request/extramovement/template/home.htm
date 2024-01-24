@@ -1,0 +1,341 @@
+<style>
+.content{
+	width:95%;
+	margin-left:auto;
+	margin-right:auto;
+	margin-bottom: 10px;
+	margin-top:20px;
+}
+</style>
+<script type="text/javascript">
+function ReloadPage() { 
+	location.reload();
+}
+$(document).ready(function() {
+	setTimeout("ReloadPage()", 180000);
+});
+
+jQuery(function() {
+ jQuery("#l_extramovement").jqGrid({
+	url:'<?=HOME?>request.extramovement.data/',
+	mtype : "post",
+	datatype: "json",
+	colNames:['','No Request','Nama Pelanggan','Request Date','No. Instruksi','Jml container', 'Keterangan'], 
+	colModel:[
+		{name:'aksi', width:100, valign:"center", align:"center",sortable:false,search:false},
+		{name:'ID_REQUEST',index:'ID_REQUEST', width:130, align:"center"},
+		{name:'EMKL',index:'EMKL', width:200, align:"center"},
+		{name:'TGL_REQ',index:'TGL_REQ', width:80, align:"center",search:false},
+		{name:'NOMOR_INSTRUKSI',index:'NOMOR_INSTRUKSI', width:120, align:"center"},
+		{name:'jum_cont',index:'jum_cont', width:80, align:"center",search:false,sortable:false},
+		{name:'KETERANGAN',index:'KETERANGAN',width:150,search:false}
+	],
+	rowNum:20,
+	width: 865,
+	height: "100%",//250
+	sortname: "TGL_REQ",
+	sortorder: "desc",
+	rowList:[10,20,30,40,50,60],
+	//loadonce:true,
+	rownumbers: true,
+	rownumWidth: 15,
+	gridview: true,
+	pager: '#pg_l_extramovement',
+	viewrecords: true,
+	shrinkToFit: false,
+	caption:"Data Request Extra Movement"
+ });
+  jQuery("#l_extramovement").jqGrid('navGrid','#pg_l_extramovement',{del:false,add:false,edit:false,search:false}); 
+ jQuery("#l_extramovement").jqGrid('filterToolbar',{stringResult: true,searchOnEnter : false});
+});
+
+function reqexmo_entry()
+{
+	var url = "<?=HOME?>request.extramovement.ajax/add_reqexmo";
+	var jum_detail = $("#jum_detail").val();
+	var counter = "";
+	var no_cont = "";
+	var id_brg = "";
+	var size = "";
+	var type = "";
+	var stat = "";
+	var hz = "";	
+	var vessel = $("#vessel").val();	
+	var voyage = $("#voyage").val();	
+	var voyage_out = $("#voyage_out").val();	
+	var ukk = $("#no_ukk").val();
+	var lift_on = "";
+	var lift_off = "";
+	var ex_mo = "";
+	for (var i=1; i<=jum_detail; i++) {
+		if(counter=="")	counter = $("#counter"+i).val();
+		else			counter = counter + "&" + $("#counter"+i).val();
+		if(no_cont=="")	no_cont = $("#no_cont"+i).val();
+		else			no_cont = no_cont + "&" + $("#no_cont"+i).val();
+		if(id_brg=="")	id_brg = $("#id_brg"+i).val();
+		else			id_brg = id_brg + "&" + $("#id_brg"+i).val();
+		if(size=="")	size = $("#size"+i).val();
+		else			size = size + "&" + $("#size"+i).val();
+		if(type=="")	type = $("#type"+i).val();
+		else			type = type + "&" + $("#type"+i).val();
+		if(stat=="")	stat = $("#stat"+i).val();
+		else			stat = stat + "&" + $("#stat"+i).val();
+		if(hz=="")		hz = $("#hz"+i).val();
+		else			hz = hz + "&" + $("#hz"+i).val();
+		if(lift_on=="")	lift_on = $("#lift_on"+i).val();
+		else			lift_on = lift_on + "&" + $("#lift_on"+i).val();
+		if(lift_off=="")	lift_off = $("#lift_off"+i).val();
+		else				lift_off = lift_off + "&" + $("#lift_off"+i).val();
+		if(ex_mo=="")	ex_mo = $("#ex_mo"+i).val();
+		else			ex_mo = ex_mo + "&" + $("#ex_mo"+i).val();
+	}
+	
+	$.blockUI({ message: '<h1><br>Please wait...</h1><br><img src=<?=HOME;?>images/103.gif width="30" height="30" /><br><br>' });
+	$.post(url,{TIPE : $("#tipe_req").val(), EMKL : $("#emkl").val(), COA : $("#coa").val(), 
+	ALAMAT : $("#alamat").val(), NPWP : $("#npwp").val(), 
+	NO_INSTRUKSI : $("#no_instruksi").val(), KET : $("#ket").val(), 
+	JUM_DETAIL : jum_detail, COUNTER : counter, NO_CONT : no_cont, 
+	ID_BRG : id_brg, SIZE : size, TYPE : type, STAT : stat, HZ : hz, 
+	VESSEL : vessel, VOYAGE : voyage, VOYAGE_OUT : voyage_out, 
+	UKK : ukk, LIFT_ON : lift_on, LIFT_OFF : lift_off, EX_MO : ex_mo},function(data){
+	
+		if(data == "OK")
+		{
+			$.unblockUI({
+			onUnblock: function(){ }
+			});
+			alert("Success...");
+			window.location = "<?=HOME?>request.extramovement/";
+		}
+		else if(data == "KO")
+		{
+			$.unblockUI({
+			onUnblock: function(){ }
+			});
+			alert("Gagal Insert! \nData uper untuk PKK tersebut sudah ada \nHarap cek kembali");
+			window.location = "<?=HOME?>request.extramovement/";
+		}
+		else
+		{
+			$.unblockUI({
+			onUnblock: function(){ }
+			});
+			alert("Failed...");
+			window.location = "<?=HOME?>request.extramovement/";
+		}
+	});	
+}
+
+function add_reqexmo()
+{
+	$('#add_reqexmo').load("<?=HOME?>request.extramovement.ajax/reqexmo_insert").dialog({closeOnEscape: false, modal:true, height:600,width:900, title : "Insert Request Extra Movement", open: function(event,ui){$(".ui-dialog-titlebar-close",ui.dialog).hide();}});
+}
+
+function reqexmo_edit(id)
+{
+	var url	= "<?=HOME?>request.extramovement.ajax/edit_reqexmo";
+	var jum_detail = $("#jum_detail").val();
+	var counter = "";
+	var no_cont = "";
+	var id_brg = "";
+	var size = "";
+	var type = "";
+	var stat = "";
+	var hz = "";	
+	var vessel = "";	
+	var voyage = "";	
+	var ukk = "";
+	var lift_on = "";
+	var lift_off = "";
+	var ex_mo = "";
+	for (var i=1; i<=jum_detail; i++) {
+		if(counter=="")	counter = $("#counter"+i).val();
+		else			counter = counter + "&" + $("#counter"+i).val();
+		if(no_cont=="")	no_cont = $("#no_cont"+i).val();
+		else			no_cont = no_cont + "&" + $("#no_cont"+i).val();
+		if(id_brg=="")	id_brg = $("#id_brg"+i).val();
+		else			id_brg = id_brg + "&" + $("#id_brg"+i).val();
+		if(size=="")	size = $("#size"+i).val();
+		else			size = size + "&" + $("#size"+i).val();
+		if(type=="")	type = $("#type"+i).val();
+		else			type = type + "&" + $("#type"+i).val();
+		if(stat=="")	stat = $("#stat"+i).val();
+		else			stat = stat + "&" + $("#stat"+i).val();
+		if(hz=="")		hz = $("#hz"+i).val();
+		else			hz = hz + "&" + $("#hz"+i).val();
+		if(vessel=="")	vessel = $("#vessel"+i).val();
+		else			vessel = vessel + "&" + $("#vessel"+i).val();
+		if(voyage=="")	voyage = $("#voyage"+i).val();
+		else			voyage = voyage + "&" + $("#voyage"+i).val();
+		if(ukk=="")		ukk = $("#ukk"+i).val();
+		else			ukk = ukk + "&" + $("#ukk"+i).val();
+		if(lift_on=="")	lift_on = $("#lift_on"+i).val();
+		else			lift_on = lift_on + "&" + $("#lift_on"+i).val();
+		if(lift_off=="")	lift_off = $("#lift_off"+i).val();
+		else				lift_off = lift_off + "&" + $("#lift_off"+i).val();
+		if(ex_mo=="")	ex_mo = $("#ex_mo"+i).val();
+		else			ex_mo = ex_mo + "&" + $("#ex_mo"+i).val();
+	}
+	
+	$.blockUI({ message: '<h1><br>Please wait...</h1><br><img src=<?=HOME;?>images/103.gif width="30" height="30" /><br><br>' });
+	$.post(url,{ID_REQUEST : id, TIPE : $("#tipe_req").val(), EMKL : $("#emkl").val(), COA : $("#coa").val(), ALAMAT : $("#alamat").val(), NPWP : $("#npwp").val(), NO_INSTRUKSI : $("#no_instruksi").val(), KET : $("#ket").val(), JUM_DETAIL : jum_detail, COUNTER : counter, NO_CONT : no_cont, ID_BRG : id_brg, SIZE : size, TYPE : type, STAT : stat, HZ : hz, VESSEL : vessel, VOYAGE : voyage, UKK : ukk, LIFT_ON : lift_on, LIFT_OFF : lift_off, EX_MO : ex_mo},function(data){
+		//alert(data);
+		if(data == "OK")
+			{
+				$.unblockUI({
+				onUnblock: function(){ }
+				});
+				alert("Success...");
+				window.location = "<?=HOME?>request.extramovement/";
+			}
+		else if(data == "NO")
+			{
+				$.unblockUI({
+				onUnblock: function(){ }
+				});
+				alert("Data Not Complete...");
+				window.location = "<?=HOME?>request.extramovement/";
+			}
+		else
+			{
+				$.unblockUI({
+				onUnblock: function(){ }
+				});
+				alert("Failed...");
+				window.location = "<?=HOME?>request.extramovement/";
+			}
+	});	
+}
+
+function edit_reqexmo(id)
+{
+	$('#edit_reqexmo').load("<?=HOME?>request.extramovement.ajax/reqexmo_edit?id="+id).dialog({closeOnEscape: false, modal:true, height:600,width:900, title : "Edit Request Extra Movement", open: function(event,ui){$(".ui-dialog-titlebar-close",ui.dialog).hide();}});
+}
+
+function validation(tableid, id)
+{
+	var cek = true;
+	var tbl = document.getElementById(tableid);
+	var lastRow = tbl.rows.length - 1;
+	var i=0;
+	
+	if($('#tipe_req').val()=="") {
+		alert("Jenis Perdagangan harap dipilih!");
+		cek = false;
+	}
+	/*else if($('#vessel').val()=="" || $('#no_ukk').val()=="") {
+		alert("Vessel harap diisi!");
+		cek = false;
+	}*/
+	else if($('#emkl').val()=="" || $('#npwp').val()=="") {
+		alert("Pelanggan harap diisi!");
+		cek = false;
+	}
+	/*else if($('#no_instruksi').val()=="") {
+		alert("No Instruksi Pemeriksaan harap diisi!");
+		cek = false;
+	}*/
+	else if(lastRow > 0) {
+		for (i=1; i<=lastRow; i++) {
+		  if ($('#no_cont'+i).val()=="" || $('#id_brg'+i).val()=="") {
+			alert('Data Container ke-' + i + ' kosong / tidak valid, harap periksa kembali!');
+			cek = false;
+			break;
+		  }
+		  else if (!($('#lift_on'+i).is(':checked') || $('#lift_off'+i).is(':checked') || $('#ex_mo'+i).is(':checked'))) {
+			alert('Data Container ke-' + i + ' kosong / tidak valid, harap cek minimal 1 jenis pelayanan!');
+			cek = false;
+			break;
+		  }
+		  if($('#lift_on'+i).is(':checked'))	$('#lift_on'+i).val('Y');
+		  else	$('#lift_on'+i).val('T');
+		  if($('#lift_off'+i).is(':checked'))	$('#lift_off'+i).val('Y');
+		  else	$('#lift_off'+i).val('T');
+		  if($('#ex_mo'+i).is(':checked'))	$('#ex_mo'+i).val('Y');
+		  else	$('#ex_mo'+i).val('T');
+		}			
+	}
+	else {
+		alert('Data Container kosong!');
+		cek = false;
+	}
+	if(cek) {
+		question = confirm("data akan disimpan, cek apakah data sudah benar?")
+		if (question != "0") {
+			if(typeof(id)==='undefined')	reqexmo_entry();
+			else							reqexmo_edit(id);
+		}
+	}
+}
+
+function send_keu(id)
+{
+	question = confirm("data akan dikirim ke simkeu dan tidak dapat di-edit lagi,\napa anda yakin?")
+	if (question != "0") {
+		var url	= "<?=HOME?>request.extramovement.ajax/send_keu";
+	
+		$.blockUI({ message: '<h1><br>Please wait...</h1><br><img src=<?=HOME;?>images/103.gif width="30" height="30" /><br><br>' });
+		$.post(url,{ID_REQUEST : id},function(data){
+			//alert(data);
+			if(data == "OK")
+				{
+					$.unblockUI({
+					onUnblock: function(){ }
+					});
+					alert("Success...");
+					window.location = "<?=HOME?>request.extramovement/";
+				}
+			else if(data == "NO")
+				{
+					$.unblockUI({
+					onUnblock: function(){ }
+					});
+					alert("Data Not Complete...");
+					window.location = "<?=HOME?>request.extramovement/";
+				}
+			else
+				{
+					$.unblockUI({
+					onUnblock: function(){ }
+					});
+					alert("Failed...");
+					window.location = "<?=HOME?>request.extramovement/";
+				}
+		});	
+	}
+}
+</script>
+
+
+
+<div class="content">
+<div class="main_side">
+<p>
+<span class="graybrown">
+<img class="icon" border="0" src="images/dokumenbig.png">
+Request Extra Movement
+</span>
+</p>
+<br>
+<br>
+<p>
+<!--<a class="link-button" href="<?=HOME?>request.extramovement/add_req">-->
+<a class="link-button" onclick="add_reqexmo()">
+<img border="0" src="images/tambah.png">
+Tambah
+</a>
+</p>
+<br/>
+<table id='l_extramovement' width="100%"></table> <div id='pg_l_extramovement'></div>
+<div id="dialog-form">
+<form id="mainform">
+	<!--<input type="hidden" name="tes" value="tes"/>-->
+	<div id="add_reqexmo"></div>
+	<div id="edit_reqexmo"></div>
+</form>
+</div>
+
+</div>	
+
+</div>
+

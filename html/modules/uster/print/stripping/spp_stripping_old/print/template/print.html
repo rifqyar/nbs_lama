@@ -1,0 +1,188 @@
+
+<style>
+body { margin:0px; padding-top:10px; width:100%; height:100%; font-family:Arial}
+.style1 {font-size: 18px}
+</style>
+<?php  $i=0; foreach($row_list as $row) { $i++; ?>
+<div style="width:767px; height:487px; border:1px solid  #FFF">   
+<table width="135%" height="564"	 cellpadding="0"  cellspacing="0" style="margin:0px; margin-top:20px; margin-bottom:20px; font-size:12px">
+  <tr> 
+    <td width="15%" height="118">&nbsp;</td>
+    <td width="39%">&nbsp;</td>
+    <td width="13%">&nbsp;</td>
+    <td width="19%" align="right" valign="top">No SPPS&nbsp;&nbsp;&nbsp;&nbsp;: </td>
+    <td width="14%" valign="top"> <p>{$row.NO_REQUEST}</p>
+      <p2>
+        <p></p>
+        <p></p>
+      </p2></td>
+  </tr>
+  <!--
+  <tr>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>{$row.KD_UPER_LUNAS}</td>
+  </tr>
+  -->
+  <tr height="10">
+    <td height="20"></td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td><?
+				if ($row['STATUS_REQ']=='PERP'){
+					echo "#PERPANJANGAN#";
+				}
+			?></td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td height="25" colspan="5" align="right"><span style="padding-right:30px; font-size:24px"></span></td>
+  <tr>
+    <td width="15%" height="35">&nbsp;</td>
+    <td><b style="font-size:24px">{$row.NO_CONTAINER}</b></td>
+    <td>&nbsp;</td>
+    <td >
+		<span class="style1">
+			<strong>USTER IPC</strong>
+		</span>
+	</td>
+    </tr>
+  <tr>
+    <td height="18">&nbsp;</td>
+	<!--
+    <td>{$row.KD_SIZE} /{$row.STAT_CONT}</td>
+	-->
+	<td>{$row.SIZE_} /FCL</td>
+    <td>&nbsp;</td>
+    <td colspan="2">&nbsp;<img alt="testing" src="{$HOME}lib/barcode.php?text=<?php echo $row[NO_CONTAINER] ?>&size=35" /></td>
+    <!-- <td>&nbsp;</td> -->
+  </tr>
+  <tr>
+    <td height="15">&nbsp;</td>
+    <td>{$row.O_VESSEL} / {$row.O_VOYIN}</td>
+    <td>&nbsp;</td>
+    <td valign="bottom"> {$row.TGL_JAM_TIBA}</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td height="18">&nbsp;</td>
+    <td>{$row.EMKL}</td>
+    <td>&nbsp;</td>
+    <td valign="bottom"></td>
+    <td>&nbsp;</td>
+    </tr>
+  <tr>
+    <td height="20">&nbsp;</td>
+    <td ><strong style="font:14px"><span class="style1">{$row.LOKASI_TPK}</strong></td>
+    <td>&nbsp;</td>
+    <td valign="bottom">{$row.NO_DO}</td>
+    <td>&nbsp;</td>
+    </tr>
+  <tr>	
+    <td height="19">&nbsp;</td>
+    <td ><strong>AFTER STRIPPING : {$row.AFTER_STRIP}</strong></td>
+	<td>&nbsp;</td>
+    <td colspan="2"><? if($row["STATUS_REQ"] == 'PERP'){
+		$no_co = $row['NO_CONTAINER'];
+		$no_re = $row['NO_REQUEST'];
+
+		$tgl_awal = "SELECT TO_DATE(a.TGL_BONGKAR+4,'dd/mm/rrrr')+1 TGL_AWAL FROM container_stripping a, request_stripping b where a.no_request = b.no_request
+                and a.no_container = '$no_co' AND a.no_request = '$no_re'";
+    
+		$perp	= $db->query($tgl_awal);
+		$perp_	= $perp->fetchRow(); 
+		
+		echo $row['START_PNKN_'];
+	
+	} else {
+		echo $row['START_PNKN'];
+	}
+	?></td>
+    </tr>
+  <tr>
+    <td height="17">&nbsp;</td>
+    <td valign="top" >........ / ......... - ......... - ......... </td>
+	<td align="left">&nbsp;</td>
+    <td ><? if($row["STATUS_REQ"] == 'PERP'){
+		$tgl_akhir = "SELECT PERP_SD TGL_AKHIR FROM REQUEST_STRIPPING a WHERE a.NO_REQUEST = '$no_re'";
+				echo $tgl_akhir; die();
+		$perp	= $db->query($tgl_akhir);
+		$perp_	= $perp->fetchRow(); 
+		echo $row['END_PNKN_'];
+	} else {
+		echo $row['END_PNKN'];
+	}
+	?></td>
+  </tr>
+   <tr>
+    <td height="17">&nbsp;</td>
+    <td >{$row.CONSIGNEE_PERSONAL}</td>
+	<td>&nbsp;</td>
+    <td >&nbsp;</td>
+  </tr>
+  <tr>
+    <td height="15">&nbsp;</td>
+    <td >&nbsp;ASAL CONTAINER : {$row.ASAL_CONT}</td>
+	<td>&nbsp;</td>
+    <td >&nbsp;<?php if($row["STATUS_REQ"] != 'PERP'){ echo $row['TGL_AWAL']." s/d ".$row['TGL_AKHIR']; } ?></td>
+  </tr>
+  <tr>
+    <td height="15">&nbsp;</td>
+    <td  style="text-transform:uppercase">user print SPPS : {$name}</td>
+	<td>&nbsp;</td>
+    <td >&nbsp;</td>
+    </tr>
+  <tr>
+    <td height="19"></td>
+    <td><span style="text-transform:uppercase"></span></td>
+    <td>&nbsp;</td>
+    <td colspan="2" style="padding-left:15px">&nbsp;<?=date('d M Y')?></td>
+    </tr>
+  <tr>
+    <td height="40">&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td height="102">&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td colspan="2" style="padding-left:15px">&nbsp;</td>
+    </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+</table>
+
+<!-- END DATA -->
+</td>
+</tr> 
+</table>  
+</div>
+<!--<div style=" margin-top:51px;"></div> -->
+<?php $ck = $i%2; if($ck == 0){?>
+
+<div style=" height:20px; border:1px solid #FFF"></div>
+<?php } else {
+	
+ ?>
+<div style=" margin-top:18px;"></div>
+ <?php  }?>
+
+<?php } ?>
+

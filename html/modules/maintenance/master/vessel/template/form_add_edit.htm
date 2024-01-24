@@ -1,0 +1,95 @@
+<style>
+.content{
+	width:95%;
+	margin-left:auto;
+	margin-right:auto;
+	margin-bottom: 10px;
+	margin-top:20px;
+}
+.main_side{
+	width:100%;
+	float:left;
+	text-align:left;
+}
+</style>
+
+<div class="content">
+<div class="main_side">
+
+<? if($status=="ubah") 
+   {?>
+
+<h2>UBAH MASTER VESSEL</h2>
+<br/>
+<form method="POST" action="<?=HOME?>maintenance.master.vessel/simpan_edit?kode={$ubah.KODE_KAPAL}">
+<div class="form-fieldset" style="margin: 5px 5px 5px 5px">
+<table>
+		<tr>
+			<td>KODE KAPAL</td>
+			<td>&nbsp;&nbsp;:&nbsp;&nbsp;</td>
+            <td><input type="text" name="KODE_KAPAL" value={$ubah.KODE_KAPAL} readonly="readonly"/></td>
+		</tr>
+		<tr>
+			<td>NAMA VESSEL</td>
+			<td>&nbsp;&nbsp;:&nbsp;&nbsp;</td>
+            <td><input type="text" name="NAMA_VESSEL" value={$ubah.NAMA_VESSEL}/></td>
+		</tr>
+		<tr>
+			<td>GT</td>
+			<td>&nbsp;&nbsp;:&nbsp;&nbsp;</td>
+            <td><input type="text" name="GT" value={$ubah.GT}/></td>
+		</tr>
+        <tr>
+			<td>LOA</td>			
+			<td>&nbsp;&nbsp;:&nbsp;&nbsp;</td>
+            <td><input type="text" name="LOA" value={$ubah.LOA}/></td>
+		</tr>
+		
+</table>
+</div>
+<br/>
+<input type="submit" value="Simpan" name="Simpan" class="link-button"/>
+</form>
+<br/>
+
+<? }
+    else
+    {
+    ?>
+<h2>TAMBAH MASTER VESSEL</h2>
+<br/>
+<form method="POST" action="<?=HOME?>maintenance.master.vessel/simpan">
+<div class="form-fieldset" style="margin: 5px 5px 5px 5px">
+<table>
+		<tr>
+			<td>KODE KAPAL</td>
+			<td>&nbsp;&nbsp;:&nbsp;&nbsp;</td>
+            <td><input type="text" name="KODE_KAPAL"/></td>
+		</tr>
+		<tr>
+			<td>NAMA VESSEL</td>
+			<td>&nbsp;&nbsp;:&nbsp;&nbsp;</td>
+            <td><input type="text" name="NAMA_VESSEL"/></td>
+		</tr>
+		<tr>
+			<td>GT</td>
+			<td>&nbsp;&nbsp;:&nbsp;&nbsp;</td>
+            <td><input type="text" name="GT"/></td>
+		</tr>
+        <tr>
+			<td>LOA</td>			
+			<td>&nbsp;&nbsp;:&nbsp;&nbsp;</td>
+            <td><input type="text" name="LOA"/></td>
+		</tr>
+		
+</table>
+</div>
+<br/>
+<input type="submit" value="Simpan" name="Simpan" class="link-button"/>
+</form>
+<br/>
+
+<? } ?>
+
+</div>
+</div>

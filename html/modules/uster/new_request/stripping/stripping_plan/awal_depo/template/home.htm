@@ -1,0 +1,71 @@
+
+ 
+<span class="graybrown"><img src='images/dokumenbig.png' border='0' class="icon"/> Perencanaan Stripping Petikemas yang berada di DEPO</span>
+
+
+
+<fieldset class="form-fieldset" style="margin: 5px 5px 5px 5px; ">
+	<center>
+    <table style="margin: 30px 30px 30px 30px;" border="0">
+    	<tr>
+        	<td class="form-field-caption" align="left">No. Request</td>
+            <td class="form-field-caption" align="left"> : </td>
+            <td class="form-field-caption" align="left"> <input type="text" name="No_Req" id="no_req"/></td>
+    	</tr>
+    	<tr>
+        	<td class="form-field-caption" align="left">Tanggal Request</td>
+            <td class="form-field-caption" align="left"> : </td>
+            <td class="form-field-caption" align="left"> <input type="text" name="FROM" id="from"/> s/d <input type="text" name="TO" id="to"/> </td>
+    	</tr>
+        <tr>
+        	<td class="form-field-caption" align="left" colspan="3" align="left"> <input type="button" value=" Cari " onclick="search_request()" /></td>
+        </tr>
+	</table>
+    </center>
+</fieldset>
+
+<fieldset class="form-fieldset" style="margin: 5px 5px 5px 5px; ">
+	&nbsp;&nbsp;<a href='{$HOME}{$APPID}/add' class="link-button"><img src='images/tambah.png' border="0"> Tambah  Request Stripping</a>&nbsp;<br/><br/>
+</fieldset>
+
+<fieldset class="form-fieldset" style="margin: 5px 5px 5px 5px; ">
+	<center>
+    
+    <div id="request_list" style="border:thin inset; margin: 5px 5px 5px 5px">
+    
+    </div>
+    
+    </center>
+</fieldset>
+ 
+<script>
+
+$(function() 
+{	
+	
+	$( "#from" ).datepicker();
+	$( "#from" ).datepicker( "option", "dateFormat", "yy-mm-dd" );
+	$( "#to" ).datepicker();
+	$( "#to" ).datepicker( "option", "dateFormat", "yy-mm-dd" );
+	
+	$("#request_list").load('<?=HOME?><?=APPID?>/req_list #list', function(data) {        	  
+	}); 	
+});
+
+function search_request()
+{
+	var from_ 	= $("#from").val();
+	var to_ 	= $("#to").val();	
+	var cari_	= "cari"; 
+	var no_req_	= $("#no_req").val();
+	var url 	= "<?=HOME?><?=APPID?>/req_list #list";
+	 
+	$("#request_list").load(url,{NO_REQ : no_req_, FROM : from_, TO : to_, CARI : cari_}, function(data){
+	
+	});
+
+}
+
+
+
+</script>

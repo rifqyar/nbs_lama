@@ -1,0 +1,65 @@
+
+<div id="list">
+	<table width="100%">
+    	<thead>
+        	<tr>
+            	<th class="grid-header" width="10px">No.</th>
+            	<th class="grid-header">No Container</th>
+                <th class="grid-header">Size / Type</th>
+				<th class="grid-header">Commodity</th>
+				 <th class="grid-header">Awal</th>
+                <!-- <th class="grid-header">Tanggal Mulai Stuffing</th> -->
+                <th class="grid-header">Perp Empty s/d</th>
+				<!-- <th class="grid-header">Pilih</th> -->
+				<?php if($_GET["overview"] != 'yes') {?>
+                <th class="grid-header"> Info</th>
+				<?php }?>
+            </tr>
+        </thead>
+        <tbody>
+        	<fill src="row_list" var="rows">
+		   	<alt var='bg' list='#f9f9f3,#ffe'/>
+        	<tr bgcolor="{$bg}" style="cursor:pointer;" onMouseOver=this.style.backgroundColor="#BAD5FC" onMouseOut=this.style.backgroundColor="">
+            	<td class="grid-cell" align="center"  style="font-size:9px;">{$__ctr}</td>
+            	<td class="grid-cell" align="center" valign="middle" style="font-family:Arial; font-size:9pt; color:#555555"><b>{$rows.NO_CONTAINER}
+				</b>
+				<input type="hidden" id="NO_CONT_{$__ctr}" name="NO_CONT_{$__ctr}" value="{$rows.NO_CONTAINER}" />
+				</td>
+            	<td align="center" valign="middle" class="grid-cell"  style="font-size:9pt">{$rows.KD_SIZE} / {$rows.KD_TYPE}</td>
+				<td align="center" valign="middle" class="grid-cell"  style="font-size:9pt">{$rows.COMMODITY}</td>
+				<td align="center" valign="middle" class="grid-cell"  style="font-size:9pt">{$rows.TGL_MULAI}</td>
+				<!-- <td align="center" valign="middle" class="grid-cell"  style="font-size:9pt">
+				<?php if($_GET["overview"] != 'yes') {?>
+				<input type="text" id="START_PERP_PNKN{$__ctr}" name="START_PERP_PNKN{$__ctr}" placeholder="{$rows.TGL_MULAI}" readonly="readonly"/>
+				<? } else {?>
+					<input type="text" name="START_PERP_PNKN{$__ctr}" placeholder="{$rows.TGL_MULAI}" readonly="readonly"/>
+				<? } ?>
+				</td> -->
+				
+				<td align="center" valign="middle" class="grid-cell"  style="font-size:9pt">
+				<?php if($_GET["overview"] != 'yes') {?>
+				 <input type="text"  id="TGL_PERP_{$__ctr}" name="TGL_PERP_{$__ctr}" placeholder="{$rows.END_STACK_PNKN}" />
+				<? } else { ?>
+					<input type="text" id="TGL_PERP_{$__ctr}" name="TGL_PERP_{$__ctr}" placeholder="{$rows.END_STACK_PNKN}" readonly="readonly"/>
+				<?php } ?>
+				 
+				 </td>
+				 <!-- <td>
+				 <center><input type="checkbox"  class="case" name="cont_{$__ctr}" id="cont_{$__ctr}"  /></center>
+				 </td> -->
+				<?php if($_GET["overview"] != 'yes') {?>
+            	<td align="center" valign="middle" class="grid-cell"  style="font-size:9pt">
+				<input value="Info" type="button" onclick="info_lapangan();" /> </td>				
+				
+				<?php } else {?>
+				<td align="center" valign="middle" class="grid-cell"  style="font-size:9pt">
+				<input value="Info" type="button" onclick="info_lapangan();" /> </td>	
+				<?}?>
+            </tr>
+            </fill>
+        </tbody>
+    </table>
+	<input type="hidden" id="total" value="{$__ctr}" />
+	
+
+</div>

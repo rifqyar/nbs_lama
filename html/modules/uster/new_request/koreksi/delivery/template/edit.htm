@@ -1,0 +1,282 @@
+<span class="graybrown"><img src='images/sp2_p.png' border='0' class="icon"/><font color="#0378C6"> Request</font> Delivery - SP2 ke LUAR DEPO</span><br/><br/>
+<fieldset class="form-fieldset" style="margin: 5px 5px 5px 5px; ">
+<form action="<?=HOME?><?=APPID?>/edit_do" method="POST">
+	<center>
+       <table class="form-input" style="border:1px; margin: 30px 30px 30px 30px;" >
+	    <tr>
+            <td  class="form-field-caption">NO REQUEST</td>
+            <td> : </td>
+            <td colspan="5"><input type="text" name="NO_REQ" id="NO_REQ" value="{$row_request.NO_REQUEST}" readonly="readonly"/> </td>
+         </tr>
+       <tr>
+            <td  class="form-field-caption">Penumpukan Empty Oleh / EMKL</td>
+            <td> : </td>
+            <td> <input type="text" name="EMKL" id="EMKL" value="{$row_request.NAMA_EMKL}" size="25"/> <input type="hidden" name="ID_EMKL" id="ID_EMKL" /> </td>
+            <td width="50"> </td>
+            <td width="150" class="form-field-caption"> Tanggal Request Delivery</td>
+            <td> : </td>
+            <td width="300"><input type="text" name="tgl_dev"  id="tgl_req_dev" placeholder="{$row_request.TGL_REQUEST_DELIVERY}"/> </td>
+        </tr>
+         <tr>
+            <td  class="form-field-caption">Alamat</td>
+            <td> : </td>
+            <td><input type="text" name="alamat" id="ALAMAT" value="{$row_request.ALAMAT}" size="35" readonly="readonly"/> </td>
+            <td width="50"> </td>
+             <td  class="form-field-caption">Keterangan</td>
+            <td> : </td>
+            <td> <input type="text" name="keterangan" style="width:250px" value="{$row_request.KETERANGAN}"/></td>
+        </tr>
+         <tr>
+            <td  class="form-field-caption">NPWP</td>
+            <td> : </td>
+            <td><input type="text" name="npwp" id="NPWP" size="20" value="{$row_request.NPWP}" readonly="readonly"/> </td>
+            <td width="50"> </td>
+         </tr>
+        <tr>
+            <td colspan="6" align="right"> <input type="submit" value=" Simpan "/></td>
+        </tr>
+    
+	</table>
+    </center>
+</form>
+</fieldset>
+
+<fieldset class="form-fieldset" style="margin: 5px 5px 5px 5px; ">
+	<center>
+    <table class="form-input" style="margin: 30px 30px 30px 30px;"  >
+    	<tr>
+            <td  class="form-field-caption"> Nomor Container </td>
+            <td> : </td>
+            <td> <input type="text" name="NO_CONT" ID="NO_CONT" /> </td>
+            <td style="width:200px;">&nbsp;</td>
+            <td  class="form-field-caption"> Ukuran </td>
+            <td> : </td>
+            <td> <input type="text" name="SIZE" id="SIZE" readonly="readonly" size="5" /></td>
+        </tr>
+        <tr>
+        	<td  class="form-field-caption"> Status </td>
+            <td> : </td>
+            <td> <select name="STATUS" id="STATUS" class="kdemkl" onchange="set_status()"><option value="">--Pilih -- </option> <option value="FCL">FULL</option> <option value="MTY">EMPTY</option> </select></td>
+        	<td style="width:200px;">&nbsp;</td>
+            <td  class="form-field-caption"> TIPE </td>
+            <td> : </td>
+            <td> <input type="text" name="TYPE" id="TYPE" readonly="readonly" size="5"/></td>
+        </tr>
+         <tr>
+            <td  class="form-field-caption"> HZ </td>
+            <td> : </td>
+            <td> <select name="HZ" id="HZ"> <option value="">--Pilih -- </option><option value="Y">Y</option> <option value="N">N</option> </select></td>
+            <td style="width:200px;">&nbsp;</td>
+            <td  class="form-field-caption"> Komoditi </td>
+            <td> : </td>
+            <td> <input type="text" name="komoditi" ID="komoditi" /> </td>
+             </tr>
+         <tr>
+            <td  class="form-field-caption"> VIA</td>
+            <td> : </td>
+            <td> <select name="via" id="via"> <option value="">--Pilih -- </option><option value="darat">DARAT</option> <option value="tongkang">TONGKANG</option> <option value="ship_side">SHIP-SIDE</option>  </select></td>
+            <td style="width:200px;">&nbsp;</td>
+            <td  class="form-field-caption"> Berat </td>
+            <td> : </td>
+            <td> <input type="text" name="berat" ID="berat" /> </td>
+         </tr>
+         <tr>
+            <td  class="form-field-caption"> No Seal</td>
+            <td> : </td>
+            <td> <input type="text" name="no_seal" ID="no_seal" /></td> 
+            <td style="width:200px;">&nbsp;</td>
+            <td  class="form-field-caption"> Keterangan</td>
+            <td> : </td>
+            <td> <input type="text" name="keterangan" ID="keterangan" /></td>
+         </tr>
+        <tr align="center">
+        	<td colspan="7"><input type="button" value=" Tambahkan Container " onClick="add_cont()"/></td>
+        </tr>
+	</table>
+    
+    <div id="cont_list" style="margin: 10px 10px 10px 10px;">
+    
+    </div>
+    
+	</center>
+</fieldset>
+
+<script>
+   $('#form').submit(function(){
+
+
+	if ($('#NO_CONT').val() == '')
+	{
+		alert('No Container Harus Diisi');
+		return false;
+	}
+	else if ($('#STATUS').val() == '')
+	{
+		alert('Status Container Harus Diisi');
+		return false;
+	}
+
+        })
+        
+$(function() {	
+
+	$( "#EMKL" ).autocomplete({
+		minLength: 3,
+		source: "{$HOME}{$APPID}.auto/pbm",
+		focus: function( event, ui ) {
+			$( "#EMKL" ).val( ui.item.NM_PBM );
+			return false;
+		},
+		select: function( event, ui ) {
+			$( "#EMKL" ).val( ui.item.NM_PBM );
+			$( "#ID_EMKL" ).val( ui.item.KD_PBM );
+            $( "#ALAMAT" ).val( ui.item.ALMT_PBM );
+			$( "#NPWP" ).val( ui.item.NO_NPWP_PBM);
+			return false;
+		}
+	})
+	.data( "autocomplete" )._renderItem = function( ul, item ) {
+		return $( "<li></li>" )
+			.data( "item.autocomplete", item )
+			.append( "<a>" + item.NM_PBM + "<br/> "+item.ALMT_PBM+"<br/> "+item.NO_NPWP_PBM+ "</a>" )
+			.appendTo( ul );
+	};
+	
+	
+	
+	$( "#NO_CONT" ).autocomplete({
+		minLength: 3,
+		source: "{$HOME}{$APPID}.auto/cont_delivery",
+		focus: function( event, ui ) {
+			$( "#NO_CONT" ).val( ui.item.NO_CONTAINER );
+			return false;
+		},
+		select: function( event, ui ) {
+			$( "#NO_CONT" ).val( ui.item.NO_CONTAINER );
+			$( "#SIZE" ).val( ui.item.SIZE_);
+			$( "#TYPE" ).val( ui.item.TYPE_);
+			$( "#STATUS" ).val( ui.item.STATUS);
+			return false;
+		}
+	})
+	.data( "autocomplete" )._renderItem = function( ul, item ) {
+		return $( "<li style='text-align:left'></li>" )
+			.data( "item.autocomplete", item )
+			.append( "<a>" + item.NO_CONTAINER + "<br/> "+item.SIZE_+" "+item.TYPE_+"</a>" )
+			.appendTo( ul );
+	};
+        
+     $( "#komoditi" ).autocomplete({
+		minLength: 3,
+		source: "{$HOME}{$APPID}.auto/commodity",
+		focus: function( event, ui ) {
+			$( "#komoditi" ).val( ui.item.NM_COMMODITY );
+			return false;
+		},
+		select: function( event, ui ) {
+			$( "#komoditi" ).val( ui.item.NM_COMMODITY );
+			return false;
+		}
+	})
+	.data( "autocomplete" )._renderItem = function( ul, item ) {
+		return $( "<li style='text-align:left'></li>" )
+			.data( "item.autocomplete", item )
+			.append( "<a>" + item.NM_COMMODITY + "</a>" )
+			.appendTo( ul );
+	};  
+        
+        
+	$("#cont_list").load('<?=HOME?><?=APPID?>/edit_cont_list?no_req={$row_request.NO_REQUEST} #list', function(data) {        	  
+	}); 	
+});
+
+function add_cont()
+{
+	var no_cont_            = $("#NO_CONT").val();
+        var hz_                 = $("#HZ").val();
+	var no_req_		= "{$row_request.NO_REQUEST}";
+	var status_		= $("#STATUS").val();
+        var komoditi_		= $("#komoditi").val();
+        var keterangan_		= $("#keterangan").val();
+        var no_seal_		= $("#no_seal").val();
+        var berat_		= $("#berat").val();
+        var via_		= $("#via").val();
+	var url			= "{$HOME}{$APPID}.ajax/add_cont_dev";
+	
+	$('#cont_list').html('<p align=center><img src={$HOME}images/loadingbox.gif /></p>');
+	
+	$.post(url,{KETERANGAN : keterangan_, NO_SEAL : no_seal_, BERAT : berat_, VIA : via_, KOMODITI: komoditi_, NO_CONT: no_cont_, NO_REQ : no_req_, STATUS : status_, HZ : hz_},function(data){
+		console.log(data);
+		if(data == "NOT_EXIST")
+		{
+			alert("Container Belum Terdaftar");	
+		}
+		else if(data == "OK")
+		{
+			$("#cont_list").load('<?=HOME?><?=APPID?>/edit_cont_list?no_req={$row_request.NO_REQUEST} #list', function(data) {        	  
+			}); 	
+		}
+                else if(data == "BLM_PLACEMENT")
+                {
+                        alert("Container Belum Placement");	
+                } 
+                else if(data == "SDH_REQUEST")
+                {
+                        alert("Container Sudah Mengajukan Request Delivery");	
+                }
+	});	
+	$("#cont_list").load('<?=HOME?><?=APPID?>/edit_cont_list?no_req={$row_request.NO_REQUEST} #list', function(data) {        	  
+			}); 	
+	//prosedur add comment disini, method $.post, include user id dan content id
+}
+
+function del_cont($no_cont)
+{
+	var no_req_		= "{$row_request.NO_REQUEST}";
+	var url			= "{$HOME}{$APPID}.ajax/del_cont";
+	
+	$('#cont_list').html('<p align=center><img src={$HOME}images/loadingbox.gif /></p>');
+	
+	$.post(url,{NO_CONT: $no_cont, NO_REQ : no_req_},function(data){
+		console.log(data);
+		if(data == "OK")
+		{
+			$("#cont_list").load('<?=HOME?><?=APPID?>/edit_cont_list?no_req={$row_request.NO_REQUEST} #list', function(data) {        	  
+			}); 	
+		}
+		
+			$("#cont_list").load('<?=HOME?><?=APPID?>/edit_cont_list?no_req={$row_request.NO_REQUEST} #list', function(data) {        	  
+			}); 	
+	});
+}	
+
+
+function set_status() 
+{
+	if($("#STATUS").val() == "EMPTY")
+	{
+        $('#HZ').val("N");
+		$('#via').val("darat");
+		$('#no_seal').val(" -");
+		$('#komoditi').val(" -");
+		$('#berat').val(" -");
+		
+                
+	}
+	else
+	{
+		$('#via').val("darat");
+		$('#HZ').val("N");
+		
+		
+	}
+}	
+
+
+$(function() {	
+	
+	$( "#tgl_req_dev" ).datepicker();
+	$( "#tgl_req_dev" ).datepicker( "option", "dateFormat", "yy-mm-dd" );
+
+});
+</script>

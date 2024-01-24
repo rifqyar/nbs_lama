@@ -1,0 +1,112 @@
+<style>
+	#list {
+    overflow-x: scroll;
+    width: 1020px;
+	}
+</style>
+<span class="graybrown"><img src='images/sp2_p.png' border='0' class="icon"/><font color="#0378C6"> Laporan</font> SPPS per Kapal</span><br/><br/>
+      <fieldset class="form-fieldset" style="margin: 5px 5px 5px 5px; ">
+        <form id="searchForm" name="searchForm" action="{HOME}delivery.permintaan/search/" method="get">
+		<div style="padding:10px;font-family:Arial; font-size:8pt; color:#555555; font-weight:bold">
+            <table> <tr><td class="form-field-caption" valign="top" align="right">Nama Kapal</td><td class="form-field-caption" valign="top" align="right"> : </td><td class="form-field-caption" valign="top" align="left">
+			<input style="width:300px;" type="text" name="NM_KAPAL" id="NM_KAPAL"/>
+					
+			</td>
+				<td> </td>
+				<td> <select id="kegiatan" style="width:100%;">
+						<option value="stripping"> Stripping </option>
+						<option value="stuffing"> Stuffing </option>
+					</select>
+				</td>
+				<tr><td colspan='3'></td></tr>
+				<tr><td class="form-field-caption" valign="top" align="right"> Voyage </td> <td class="form-field-caption" valign="top" align="right"> : </td><td class="form-field-caption" valign="top" align="left">
+				<input type="text" name="VOYAGE" id="VOYAGE" readonly />			
+				</td>
+				</tr>
+				<tr><td class="form-field-caption" valign="top" align="right"> No UKK / NO Booking </td> <td class="form-field-caption" valign="top" align="right"> : </td><td class="form-field-caption" valign="top" align="left">
+				<input type="text" name="NO_UKK" id="NO_UKK" readonly />	/		
+				<input type="text" name="NO_BOOKING" id="NO_BOOKING" readonly />	
+				</td>
+				</tr>
+				
+				<tr>
+					<td colspan='4'></td>
+					<td align="right"> &nbsp;&nbsp; <a class="link-button" style="height:25" onclick="generate()"><img src='images/cari.png' border='0' />Generate Report</a> &nbsp;&nbsp; <a class="link-button" style="height:25" onclick="toexcel()"><img src='images/cari.png' border='0' />Generate Excel</a> </td>
+				</tr>
+				
+			</table>
+		</div>
+        </form>
+	
+	   </fieldset>
+	<div id="nota_list"></div>
+<script>
+$(function() {	
+	
+
+	$( "#NM_KAPAL" ).autocomplete({
+		minLength: 3,
+		source: "{$HOME}{$APPID}.auto/master_vessel",
+		focus: function( event, ui ) {
+			$( "#NM_KAPAL" ).val( ui.item.NM_KAPAL );
+			return false;
+		},
+		select: function( event, ui ) {
+			$( "#NM_KAPAL" ).val( ui.item.NM_KAPAL );
+			$( "#ID_EMKL" ).val( ui.item.KD_PBM );
+            $( "#NO_UKK" ).val( ui.item.NO_UKK );
+            $( "#VOYAGE" ).val( ui.item.VOYAGE_IN );
+            $( "#NO_BOOKING" ).val( ui.item.NO_BOOKING );
+			return false;
+		}
+	})
+	.data( "autocomplete" )._renderItem = function( ul, item ) {
+		return $( "<li></li>" )
+			.data( "item.autocomplete", item )
+			.append( "<a>[" + item.VOYAGE_IN + "] "+item.NM_KAPAL+"</a>" )
+			.appendTo( ul );
+	};
+
+});
+
+function generate()
+{
+		
+	var ukk 		= $("#NO_UKK").val();
+	var keg 		= $("#kegiatan").val();
+	var nm_kapal 		= $("#NM_KAPAL").val();
+	var voyage 		= $("#VOYAGE").val();
+	var no_booking 		= $("#NO_BOOKING").val();
+	var url 	       = "<?=HOME?><?=APPID?>/cont_list #list";
+	$.blockUI({ message: '<h1>Please wait...</h1>' }); 
+	$("#nota_list").load(url,{NO_UKK : ukk, NM_KAPAL : nm_kapal, VOYAGE : voyage, KEGIATAN : keg, NO_BOOKING : no_booking }, function(data){
+		
+		if(data){
+			
+				$.unblockUI({ 
+				onUnblock: function(){  } 
+				});
+		}
+	});
+}
+
+function topdf(){
+	var tgl_awal_ 	= $("#tgl_awal").val();
+	var tgl_akhir_	= $("#tgl_akhir").val();	
+	var url 	    = "<?=HOME?><?=APPID?>.topdf/print?tgl_awal="+tgl_awal_+"&tgl_akhir="+tgl_akhir_;
+	
+	window.open(url, "_blank");
+}
+
+function toexcel(){
+	var ukk 		= $("#NO_UKK").val();
+	var keg 		= $("#kegiatan").val();
+	var nm_kapal 		= $("#NM_KAPAL").val();
+	var voyage 		= $("#VOYAGE").val();
+	var no_booking 		= $("#NO_BOOKING").val();
+	var url 	    = "<?=HOME?><?=APPID?>.toexcel/toexcel?ukk="+ukk+"&keg="+keg+"&voyage="+voyage+"&no_booking="+no_booking;
+	
+	window.open(url, "_blank");
+}
+</script>
+

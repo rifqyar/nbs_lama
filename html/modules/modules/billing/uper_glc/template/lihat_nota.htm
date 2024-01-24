@@ -1,0 +1,162 @@
+
+ 
+<div id="id_nota" style="margin: 5px 5px 5px 5px">
+	<table border=0 width="100%">
+    	<tr>
+        	<td align="center">
+            	<fieldset>  
+                	<div style="background-color:#fff; height:700px; border:thin #00F groove">
+				<table>
+                <tr><td colspan="32">&nbsp;</td></tr>
+                <tr><td colspan="32">&nbsp;</td></tr>
+                <tr><td colspan="32">&nbsp;</td></tr>
+				<tr>
+                    <td COLSPAN="32" align="left"><b>PT. PELABUHAN INDONESIA II (PERSERO)</b></td>
+                </tr>
+                <tr>
+                    <td COLSPAN="32" align="left"><b>CABANG TANJUNG PRIOK</b></td>
+                </tr>
+				<tr><td colspan="32">&nbsp;</td></tr>
+                <tr>
+					<td colspan="23">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+					<td width="80" align="left"><b>Nomor</b>&nbsp;</td>
+					<td colspan="8" align="left">: {$nomors}</td>
+				</tr>
+				<tr>
+					<td colspan="23">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+					<td align="left"><b>No. Doc</b>&nbsp;</td>
+					<td colspan="8 align="left">: {$id_req}</td>
+				</tr>				
+				<tr>
+					<td colspan="23">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+					<td align="left"><b>Tgl. Proses</b>&nbsp;</td>
+					<td colspan="8 align="left">: {$tnglproses}</td>
+				</tr>
+				<tr><td colspan="32">&nbsp;</td></tr>
+				<tr><td colspan="32">&nbsp;</td></tr>
+				<tr><td colspan="32">&nbsp;</td></tr>
+				<tr><td colspan="32"></td></tr>
+				<tr><td colspan="32"></td></tr>
+				<tr>
+					<td COLSPAN="32" align="center"><font size="2"><b>PERHITUNGAN PELAYANAN JASA SEWA ALAT</b></font></td>
+				</tr>                
+               <tr><td colspan="32">&nbsp;</td></tr>
+               <tr><td colspan="34">-------------------------------------------------------------------------------------------------------------------------------------------------------------------------</td></tr>
+				<tr>
+					<td colspan="4"><b>Perusahaan</b></td>
+					<td colspan="20" align="left">: {$row2.NAMA}</td>
+					<td width="74"></td>
+				</tr> 
+				<tr>
+					<td colspan="4"><b>NPWP</b></td>
+					<td colspan="20" align="left">: {$row2.NPWP}</td>
+					<td></td>
+				</tr>
+				<tr>
+					<td colspan="4"><b>Alamat</b></td>
+					<td colspan="20" align="left">: {$row2.ALAMAT}</td>
+					<td></td>
+				</tr>
+                <tr>
+					<td colspan="4"><b>Vessel/Voyage</b></td>
+					<td colspan="20" align="left">: {$row2.NAMA_VESSEL}/{$row2.VOYAGE}</td>
+					<td></td>
+				</tr>
+                <tr><td colspan="32">-------------------------------------------------------------------------------------------------------------------------------------------------------------------------</td></tr>   
+                <tr><td colspan="32">&nbsp;</td></tr>
+                <tr><td colspan="32">&nbsp;</td></tr>
+				<tr>
+					<td colspan="4" ><b>ALAT</b></td>
+					<td colspan="5" align="center"><b>START</b></td>
+					<td colspan="5" align="center"><b>END</b></td>
+					<td colspan="4" align="center"><b>SHIFT</b></td>
+					<td colspan="5" align="right"><b>TARIF</b></td>
+					<td colspan="2" align="left"><b>VAL</b></td>
+					<td colspan="5" align="right"><b>JUMLAH</b></td>
+					<td colspan="2"></td>
+				</tr>
+				<tr><td colspan="32">-------------------------------------------------------------------------------------------------------------------------------------------------------------------------</td></tr>
+				<? $z=0; ?>
+				<fill src="glc" var="glcs">
+				<alt var='bg' list='#f9f9f3,#ffe'/>
+				<tr>
+					<td colspan="4">{$glcs.ID_ALAT}</td>
+					<td colspan="5" align="center">{$strt.$z}</td>
+					<td colspan="5" align="center">{$end.$z}</td>
+					<td colspan="4" align="center">{$shift.$z}</td>
+					<td colspan="5" align="right">{$tarif}</td>
+					<td colspan="2" align="left">IDR</td>
+					<td colspan="5" align="right">{$jumlah.$z}</td>
+					<td colspan="2"></td>
+				</tr>
+				<? $z++; ?>
+				</fill>
+                <tr><td colspan="32">-------------------------------------------------------------------------------------------------------------------------------------------------------------------------</td></tr>
+				
+				<tr><td></td></tr>
+				<tr><td></td></tr>
+				<tr><td></td></tr>
+				
+				<tr>
+					<td colspan="18"></td>
+					<td colspan="5"  align="right">Discount :</td>
+                    <td colspan="7" align="right">-</td>
+					<td colspan="2"></td>
+				</tr>
+				<tr>
+					<td colspan="18"></td>
+					<td colspan="5"  align="right">Administrasi :</td>
+                    <td colspan="7" align="right">{$adm}</td>
+					<td colspan="2"></td>
+				</tr>
+				<tr>
+					<td colspan="18"></td>
+					<td colspan="5"  align="right">Dasar Pengenaan Pajak :</td>
+                    <td colspan="7" align="right">{$total}</td>
+					<td colspan="2"></td>
+				</tr>
+				<tr>
+					<td colspan="18"></td>
+					<td colspan="5"  align="right">Jumlah PPN :</td>
+                    <td colspan="7" align="right">{$ppns}</td>
+					<td colspan="2"></td>
+				</tr>
+				<tr>
+					<td colspan="18"></td>
+					<td colspan="5"  align="right">Bea Materai :</td>
+                    <td colspan="7" align="right">-</td>
+					<td colspan="2"></td>
+				</tr>
+				<tr>
+					<td colspan="18"></td>
+					<td colspan="5"  align="right">Jumlah Dibayar :</td>
+                    <td colspan="7" align="right">{$bayar}</td>
+					<td colspan="2"></td>
+				</tr>
+                <tr>
+					<td colspan="18">&nbsp;</td>
+					<td colspan="5"></td>
+                    <td colspan="7"></td>
+					<td colspan="2"></td>
+				</tr>
+                <tr>
+					<td colspan="18"># {$terbilang} #</td>
+					<td colspan="5"></td>
+                    <td colspan="7"></td>
+					<td colspan="2"></td>
+				</tr>                  
+			</table>
+                    </div>
+                </fieldset>
+            </td>
+		</tr>
+    </table>
+   <br/>
+	<div align="left"><a class="link-button" style="height:25" href="<?=HOME?>billing.nota_glc.print/print_nota?id_req={$id_req}&adm={$adm}&total={$total}&ppn={$ppns}&bayar={$byr}" target="_blank">
+      <img border="0" src="images/valid.png" />
+      Save Nota</a></div>	
+ </div>
+ 
+ 
+ 
+ 

@@ -1,0 +1,45 @@
+9jo <div id="list">
+     <table class="grid-table" border='0' cellpadding="1" cellspacing="1"  width="100%" >
+                              <tr style=" font-size:10pt">
+                                  <th width="2%" valign="top" class="grid-header"  style="font-size:8pt">No </th>
+                                  <th width="110" valign="top" class="grid-header"  style="font-size:8pt">Nama Blok</th>
+								  <th width="110" valign="top" class="grid-header"  style="font-size:8pt">Nama Yard</th>
+                                  <th width="150" valign="top" class="grid-header"  style="font-size:8pt">Alokasi Kegiatan</th>
+                                  <th width="200" valign="top" class="grid-header"  style="font-size:8pt">Alokasi Pelayaran</th> 
+                                  <th valign="top" class="grid-header"  style="font-size:8pt">Prioritas</th>  
+								  <th valign="top" class="grid-header"  style="font-size:8pt"></th> 
+                              </tr>
+                              <fill src="row_list" var="rows">
+                              <tr bgcolor="#f9f9f3" onMouseOver=this.style.backgroundColor="#BAD5FC" onMouseOut=this.style.backgroundColor="">
+                                  <td width="4%" align="center" valign="middle" class="grid-cell" style="color:#000; font-family:Arial; font-size:9pt">{$__ctr} </td>
+                                  <td width="22%" align="center" valign="middle" class="grid-cell"   style="font-family:Arial; font-size:11pt; color:#555555"><b>{$rows.NAME}</b></td>
+								  <td width="22%" align="center" valign="middle" class="grid-cell"   style="font-family:Arial; font-size:11pt; color:#555555"><b>{$rows.NAMA_YARD}</b></td>
+                                  <td width="15%" align="center" valign="middle" class="grid-cell"  style="font-size:9pt">
+								  <select name="KEGIATAN" id="KEGIATAN">
+									<option selected="selected" value="">{$rows.KEGIATAN}</option>
+									<option value="STRIPPING">STRIPPING</option>
+									<option value="STUFFING">STUFFING</option> 
+									<option value="EMPTY">EMPTY</option>
+									<option value="FULL">FULL</option>
+									<option value="STUFFING">REFEER</option> 
+								  </select>
+								  </td>
+                                  <td width="15%" align="center" valign="middle" class="grid-cell"  style="font-size:9pt;font-family:Arial;"><font color="#0066CC" style="font-size:10pt">
+								  <select name="PELAYARAN" id="PELAYARAN">
+									<option selected="selected" value="">{$rows.KD_SHIPPING_LINE}</option>
+									<option value="TANTO">TANTO</option>
+									<option value="TEMAS">TEMAS</option> 
+									<option value="SAMUDERA INDONESIA">SAMUDERA INDONESIA</option>
+									<option value="ALKEN">ALKEN</option>
+								  </select>
+								  </font></td>
+                                  <td width="20%" align="center" valign="middle" class="grid-cell" style="font-size:9pt;">
+                                     
+								  </td>
+								  <td>
+									<button value=" Hapus " onclick="alloc_block('{$rows.NAME}')" > &nbsp;Alokasikan&nbsp; </button>
+								  </td>
+                              </tr>
+                              </fill>
+                          </table>
+ </div>

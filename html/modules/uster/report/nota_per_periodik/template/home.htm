@@ -1,0 +1,153 @@
+
+<span class="graybrown"><img src='images/sp2_p.png' border='0' class="icon"/><font color="#0378C6"> Nota</font> Per Periodik</span><br/><br/>
+      <fieldset class="form-fieldset" style="margin: 5px 5px 5px 5px; ">
+        <form id="searchForm" name="searchForm" action="{HOME}delivery.permintaan/search/" method="get">
+		<div style="padding:10px;font-family:Arial; font-size:8pt; color:#555555; font-weight:bold">
+            <table> <tr><td class="form-field-caption" valign="top" align="right">Tanggal Awal</td><td class="form-field-caption" valign="top" align="right"> : </td><td class="form-field-caption" valign="top" align="left"><input type="text" name="tgl_awal" id="tgl_awal"/></td>
+				<td class="form-field-caption" valign="top" align="right"> Pembayaran </td>
+				<td> 
+				<select name="bayar" id="id_bayar" >
+					<option value="">   Semua   </option>
+					<option value="BANK">Bank</option>
+					<option value="CASH">Cash</option>
+					<option value="AUTODB">Autodb</option>
+					<option value="DEPOSIT">Deposit</option>
+				</select>
+				
+				</td>
+				<td class="form-field-caption" valign="top" align="right"> Status Pembayaran </td>
+				<td> 
+				<select name="status_bayar" id="status_bayar" >
+					<option value="">   Semua   </option>
+					<option value="YES">Lunas</option>
+					<option value="NO">Belum Lunas</option>
+				</select>
+				
+				</td>
+				</tr>
+                <tr><td class="form-field-caption" valign="top" align="right">Tanggal Akhir</td><td class="form-field-caption" valign="top" align="right"> : </td><td class="form-field-caption" valign="top" align="left"> <input type="text" name="tgl_akhir" id="tgl_akhir"/></td>
+				<td class="form-field-caption" valign="top" align="right"> Kegiatan </td>
+				<td>
+				<select id="option_kegiatan" style="width:100%;">
+						<option value="RECEIVING"> Receiving </option>					
+						<option value="DELIVERY"> Delivery </option>
+						<option value="STRIPPING"> Stripping </option>
+						<option value="STUFFING"> Stuffing </option>
+						<!-- <option value=""> Batal Muat </option>
+						<option value=""> Penumpukan Delivery </option>
+						<option value=""> Penumpukan Stuffing </option>
+						<option value=""> Relokasi MTY </option>
+						<option value=""> Relokasi </option> -->
+						<option value=""> Semua </option>
+				</select>
+				</td>
+				<td class="form-field-caption" valign="top" align="right"> Status Nota </td>
+				<td>
+				<select id="status_nota" style="width:100%;">
+						<option value=""> Semua </option>
+						<option value="NEW"> New </option>					
+						<option value="BATAL"> Batal </option>
+				</select>
+				</td>
+				</tr>
+				<tr>
+					<td class="form-field-caption">Pilih Perusahaan</td>
+					<td class="form-field-caption"> : </td>
+					<td>
+						<select id="corporatetype">
+							<option value="IPC"> PT. PELABUHAN INDONESIA II </option>
+							<option value="IPCTPK"> PT. IPC TERMINAL PETIKEMAS </option>
+						</select>
+					</td>
+				</tr>
+				<tr><td colspan='3'></td></tr>
+				<tr>
+					<td colspan='4'></td>
+					<td align="right"> &nbsp;&nbsp; <a class="link-button" style="height:25" onclick="generate()"><img src='images/cari.png' border='0' />Generate Report</a> </td>
+				</tr>
+				
+			</table>
+		</div>
+        </form>
+	
+	   </fieldset>
+	<div id="nota_list"></div>
+<script>
+$(function() {	
+
+	$( "#tgl_awal" ).datepicker();
+	$( "#tgl_awal" ).datepicker( "option", "dateFormat", "yy-mm-dd" );
+        
+        $( "#tgl_akhir" ).datepicker();
+	$( "#tgl_akhir" ).datepicker( "option", "dateFormat", "yy-mm-dd" );
+
+});
+
+function generate()
+{
+	var tgl_awal_ 	= $("#tgl_awal").val();
+	var tgl_akhir_	= $("#tgl_akhir").val();	
+	var jenis 		= $("#option_kegiatan").val();
+	var pembayaran	= $("#id_bayar").val();
+	var status_bayar	= $("#status_bayar").val();
+	var vcorporatetype =$("#corporatetype").val();
+	var status_nota	= $("#status_nota").val();
+	var url 	       = "<?=HOME?><?=APPID?>/nota_list #list";
+	$.blockUI({ message: '<h1>Please wait...</h1>' }); 
+	$("#nota_list").load(url,{tgl_awal : tgl_awal_, tgl_akhir : tgl_akhir_, jenis : jenis, pembayaran : pembayaran, status_nota : status_nota, status_bayar : status_bayar, corporatetype:vcorporatetype}, function(data){
+		if(data){
+				$.unblockUI({ 
+				onUnblock: function(){  } 
+				});
+		}
+	});
+}
+
+/*function topdf(){
+	var tgl_awal_ 	= $("#tgl_awal").val();
+	var tgl_akhir_	= $("#tgl_akhir").val();	
+	var url 	    = "<?=HOME?><?=APPID?>.topdf/print?tgl_awal="+tgl_awal_+"&tgl_akhir="+tgl_akhir_;
+	
+	window.open(url, "_blank");
+}
+*/
+
+
+function topdf(){
+	var tgl_awal_ 	= $("#tgl_awal").val();
+	var tgl_akhir_	= $("#tgl_akhir").val();	
+	var jenis_ 		= $("#option_kegiatan").val();
+	var pembayaran_	= $("#id_bayar").val();
+	var status_bayar	= $("#status_bayar").val();
+	var status_nota	= $("#status_nota").val();
+	var url 	    = "<?=HOME?><?=APPID?>.topdf/print?tgl_awal="+tgl_awal_+"&tgl_akhir="+tgl_akhir_+"&jenis="+jenis_+"&pembayaran="+pembayaran_+"&status_bayar="+status_bayar+"&status_nota="+status_nota;
+	
+	window.open(url, "_blank");
+}
+
+function topdf2(){
+	var tgl_awal_ 	= $("#tgl_awal").val();
+	var tgl_akhir_	= $("#tgl_akhir").val();	
+	var jenis_ 		= $("#option_kegiatan").val();
+	var pembayaran_	= $("#id_bayar").val();
+	var status_bayar	= $("#status_bayar").val();
+	var status_nota	= $("#status_nota").val();	
+	var url 	    = "<?=HOME?><?=APPID?>.topdf2/print?tgl_awal="+tgl_awal_+"&tgl_akhir="+tgl_akhir_+"&jenis="+jenis_+"&pembayaran="+pembayaran_+"&status_bayar="+status_bayar+"&status_nota="+status_nota;
+	
+	window.open(url, "_blank");
+}
+
+function toexcel(){
+	var tgl_awal_ 	= $("#tgl_awal").val();
+	var tgl_akhir_	= $("#tgl_akhir").val();	
+	var jenis_ 		= $("#option_kegiatan").val();
+	var pembayaran_	= $("#id_bayar").val();
+	var status_bayar	= $("#status_bayar").val();
+	var status_nota	= $("#status_nota").val();
+	var vcorporatetype =$("#corporatetype").val();
+	var url 	    = "<?=HOME?><?=APPID?>.toexcel/toexcel?tgl_awal="+tgl_awal_+"&tgl_akhir="+tgl_akhir_+"&jenis="+jenis_+"&pembayaran="+pembayaran_+"&status_bayar="+status_bayar+"&status_nota="+status_nota+"&corp="+vcorporatetype;
+	
+	window.open(url, "_blank");
+}
+</script>
+

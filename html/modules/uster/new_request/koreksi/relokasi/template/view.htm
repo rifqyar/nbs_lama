@@ -1,0 +1,155 @@
+
+ 
+<span class="graybrown"><img src='images/document-open.png' border='0' class="icon"/><font color="#DE7E21"> Relokasi Antar Depo </font></span>
+
+<fieldset class="form-fieldset" style="margin: 5px 5px 5px 5px; ">
+<form action="<?=HOME?><?=APPID?>/add_edit" method="POST">
+	
+    <center>
+    <table style="margin: 30px 30px 30px 30px;" >
+    	<tr>
+        	<td colspan='3' class="graybrown"> Depo Asal - <font color="#0378C6">{$row_rel.NAMA_YARD_ASAL}</font></td>
+			<input type="hidden" id="yard_asal" value="{$row_rel.YARD_ASAL}"/>
+            <td width="50px">&nbsp;  </td>
+            <td colspan="3" class="graybrown"> Depo Tujuan - <font color="#0378C6">{$row_rel.NAMA_YARD_TUJUAN}<font color="#0378C6"></td>
+        </tr>
+    	<tr>
+        	<td class="form-field-caption">Nomor Request Relokasi</td>
+            <td> : </td>
+            <td  colspan="3" class="form-field-input"> <input type="text" name="NO_REQ_REL" value="{$row_rel.NO_REQUEST}" readonly="readonly" /> </td>
+            
+    	</tr>
+		<tr>
+        	<td class="form-field-caption">Consignee</td>
+            <td> : </td>
+            <td colspan="3" class="form-field-input"> <input type="text" name="NM_PBM" value="{$row_rel.NM_PBM}" readonly="readonly" /> </td>
+            
+    	</tr>
+		<tr>
+        	<td class="form-field-caption">Keterangan</td>
+            <td> : </td>
+            <td colspan="3" class="form-field-input"> <input type="text" name="KETERANGAN" value="{$row_rel.KETERANGAN}" readonly="readonly" /> </td>
+            
+    	</tr>
+	</table>
+    </center>
+    
+</form>
+</fieldset>
+
+<fieldset class="form-fieldset" style="margin: 5px 5px 5px 5px; ">
+	<center>
+    <table style="margin: 30px 30px 30px 30px;border:thin groove; padding-bottom:20px;"  >
+    	<tr>
+        	<td class="form-field-caption"> Nomor Container </td>
+            <td> : </td>
+            <td> <input type="text" name="NO_CONT" ID="NO_CONT" /> </td>
+            <td style="width:200px;">&nbsp;</td>
+            <td class="form-field-caption"> Ukuran </td>
+            <td> : </td>
+            <td> <input type="text" name="SIZE" ID="SIZE" /> </td>
+        </tr>
+        <tr>
+        	<td style="width:200px;" colspan="4">&nbsp;</td>
+            <td class="form-field-caption"> TIPE </td>
+            <td> : </td>
+            <td> <input type="text" name="TIPE" ID="TYPE" /> </td>
+        </tr>
+    	<tr>
+        	<td style="width:200px;" colspan="4">&nbsp;</td>
+            <td>  </td>
+            <td>  </td>
+            <td> </td>
+        </tr>
+        <tr align="center">
+        	<td colspan="7"><a class="link-button" onClick="add_cont()"><img src='images/cont_addnew.gif' border="0"> Tambahkan Container </a>&nbsp;</td>
+        </tr>
+	</table>
+    
+    <div id="cont_list" style="margin: 10px 10px 10px 10px; border:thin inset">
+    
+    </div>
+    
+	</center>
+</fieldset>
+
+<script>
+
+$(function() {	
+	var yard_asal = $("#yard_asal").val();
+	$( "#NO_CONT" ).autocomplete({
+		minLength: 3,
+		source: "{$HOME}{$APPID}.auto/container?yard_asal="+yard_asal,
+		focus: function( event, ui ) {
+			$( "#NO_CONT" ).val( ui.item.NO_CONTAINER );
+			return false;
+		},
+		select: function( event, ui ) {
+			$( "#NO_CONT" ).val( ui.item.NO_CONTAINER );
+			$( "#SIZE" ).val( ui.item.SIZE_);
+			$( "#TYPE" ).val( ui.item.TYPE_);
+			return false;
+		}
+	})
+	.data( "autocomplete" )._renderItem = function( ul, item ) {
+		return $( "<li style='text-align:left'></li>" )
+			.data( "item.autocomplete", item )
+			.append( "<a>" + item.NO_CONTAINER + "<br/> "+item.SIZE_+" "+item.TYPE_+"</a>" )
+			.appendTo( ul );
+	};
+	
+	$("#cont_list").load('<?=HOME?><?=APPID?>/cont_list?no_req={$row_rel.NO_REQUEST} #list', function(data) {        	  
+	}); 	
+});
+
+function add_cont()
+{
+	var no_cont_		= $("#NO_CONT").val();
+	var no_req_rel		= "{$row_rel.NO_REQUEST}";
+	var no_req_del		= "{$row_request_del.NO_REQUEST}";
+	var no_req_rec		= "{$row_request_rec.NO_REQUEST}";
+	var url				= "{$HOME}{$APPID}.ajax/add_cont";
+	var yard_asal		= "{$row_rel.YARD_ASAL}";
+	var yard_tujuan		= "{$row_rel.YARD_TUJUAN}";
+	
+	$('#cont_list').html('<p align=center><img src={$HOME}images/loadingbox.gif /></p>');
+	
+	$.post(url,{NO_CONT: no_cont_, NO_REQ : no_req_rel, NO_REQ_DEL : no_req_del, NO_REQ_REC : no_req_rec, YARD_ASAL : yard_asal, YARD_TUJUAN : yard_tujuan},function(data){
+		console.log(data);
+		if(data == "EXIST" )
+		{
+			alert("Container Sudah Terdaftar dalam daftar delivery");	
+		}
+		else if(data == "OK")
+		{
+			$("#cont_list").load('<?=HOME?><?=APPID?>/cont_list?no_req={$row_rel.NO_REQUEST} #list', function(data) {        	  
+			}); 	
+		}
+		else if(data == "EXIST")
+		{
+			alert("Container tidak ada di Yard");	
+		}
+		$("#cont_list").load('<?=HOME?><?=APPID?>/cont_list?no_req={$row_rel.NO_REQUEST} #list', function(data) {        	  
+			}); 
+	});	
+	//prosedur add comment disini, method $.post, include user id dan content id
+}
+
+function del_cont($no_cont)
+{
+	var no_req_		= "{$row_request.NO_REQUEST}";
+	var url			= "{$HOME}{$APPID}.ajax/del_cont";
+	
+	$('#cont_list').html('<p align=center><img src={$HOME}images/loadingbox.gif /></p>');
+	$.post(url,{NO_CONT: $no_cont, NO_REQ : no_req_},function(data){
+		console.log(data);
+		if(data == "OK")
+		{
+			$("#cont_list").load('<?=HOME?><?=APPID?>/cont_list?no_req={$row_request.NO_REQUEST} #list', function(data) {        	  
+			}); 	
+		}
+		$("#cont_list").load('<?=HOME?><?=APPID?>/cont_list?no_req={$row_request.NO_REQUEST} #list', function(data) {        	  
+			}); 	
+	});	
+}
+</script>

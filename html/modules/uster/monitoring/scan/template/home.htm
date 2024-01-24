@@ -1,0 +1,17 @@
+<html>
+  <head>
+    <title>Scan Code</title>
+    <script type="text/javascript" src="js/get_barcode_from_image.js"></script>
+  </head>
+  <body>
+    <img id="barcode" src="images/barcode1.jpg"/>
+    <br/>
+    <button onclick="getcode()">Scan</button>
+  </body>
+</html>
+<script>
+function getcode(){
+	var dcode = getBarcodeFromImage('barcode');
+	alert(dcode);
+}
+</script>

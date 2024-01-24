@@ -1,0 +1,53 @@
+<div id="request_list">
+<br/>
+<table class="grid-table" border="1" bordercolor="#FFFFFF" width=100% style="border-collapse:collapse">
+	  <tr>
+		<th class="grid-header" height="30">NO</th>
+        <th class="grid-header">REQUEST</th>       
+		<th class="grid-header">KETERANGAN</th>
+		<th class="grid-header">ACTION</th>
+     </tr>
+     	<? $no=0; ?>
+		<fill src="req" var="reqs">
+		<?
+			if($no == 1)
+			{
+				$bgcolor2 = "#E6E6F0";
+			}
+			else if ($no % 2 == 0)
+			{
+				$bgcolor2 = "#ffffff";
+			}
+			else
+			{
+				$bgcolor2 = "#E6E6F0";
+			}
+		?>
+		<tr bgcolor="<?=$bgcolor2;?>">        
+            <td class="grid-cell" align="center" height="34"><?=$no+1;?></td>
+            <td class="grid-cell" align="center" valign="middle"><font size="2"><b>{$reqs.ID_REQ}</b></font></td>
+			<td class="grid-cell" align="left" style="padding:10px 10px 10px 10px;">UPER B/M : <b>{$reqs.NO_UPER_BM}</b><br/>
+                             PBM : <b>{$reqs.NAMA}</b><br/>
+                             Vessel/Voyage : <b>{$reqs.NAMA_VESSEL} / {$reqs.VOYAGE}</b><br/>
+                             Alat : <? if($glc[$no]=='no') { ?> <blink><font color="#FF0000">belum request alat</font></blink> <? } else { ?><b>{$glc.$no}</b><? } ?><br/>
+                             Status : <font color="#FF0000">{$reqs.STATUS}</font></td>  
+            <td class="grid-cell" align="center" valign="middle">
+            <? if($reqs['STATUS']=="I")
+               { ?>
+            <a href="<?=HOME?><?=APPID?>/view?id_req={$reqs.ID_REQ}&remark={$reqs.REMARK}" target="_blank"><img src="<?=HOME?>images/view.png" />View Data</a>
+            <? }
+                else if($reqs['STATUS']=="N")
+               { ?>
+            <a href="<?=HOME?><?=APPID?>/edit?id_req={$reqs.ID_REQ}&remark={$reqs.REMARK}"><img src="<?=HOME?>images/vedit.png" />Edit Data Request</a>
+            <? }
+                else if($reqs['STATUS']=="R")
+                { ?>
+            <a href="<?=HOME?><?=APPID?>/view?id_req={$reqs.ID_REQ}&remark={$reqs.REMARK}" target="_blank"><img src="<?=HOME?>images/view.png" />View Data</a>
+            <? } ?>
+            </td>
+		</tr>
+        <? $no++; ?>
+		</fill>
+	</table>
+	<br/>
+</div>

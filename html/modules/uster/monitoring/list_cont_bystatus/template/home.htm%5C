@@ -1,0 +1,256 @@
+<?php
+	$urlcetak = HOME.APPID."/gate_ex/";
+	$printall = HOME.APPID."/bay_ex/".EI."/".id_jenis_muat."/".NO_UKK."/";
+?>
+<script type="text/javascript" src="{$HOME}lib/jquery.bgiframe.min.js"></script>
+<script type="text/javascript" src="{$HOME}lib/jquery.autocomplete.js"></script>
+<script type="text/javascript" src="{$HOME}lib/localdata.js"></script>
+<script type="text/javascript" src="{$HOME}lib/jquery.listen.js"></script>
+<link rel="stylesheet" type="text/css" href="{$HOME}lib/jquery.autocomplete.css" />
+<script type="text/javascript">
+	$().ready(function() {
+		/****** pkk ******/
+		$(".pkkkapal").autocomplete("{$HOME}<?=APPID?>/pkkkapal/", {
+			minChars: 1,
+			width: 610,
+			align:'left',
+			mustMatch :false,
+			autoFill: false ,
+			formatItem: function(row, i, max) {
+			//alert(row[0]);
+				return  "<p align='left'>[ " + row[4] + " ] "+ row[0]  +" | " + row[3] + " | " + row[5]  +"</p>";
+			},
+			formatMatch: function(row, i, max) {
+
+				return row[0] + " " + row[1];
+			},
+			formatResult: function(row) {
+				return row[0];
+			}
+			
+		});
+		$(".pkkkapal").result(function(event, data, formatted) {
+				if (data){
+						STATUS	= $("#STATUS").val();	
+						$("#NM_KAPAL").val(data[0]);
+						$("#KD_KAPAL").val(data[1]);
+						$("#KD_AGEN").val(data[2]);
+						$("#NM_AGEN").val(data[3]);
+						$("#ID_VOYAGE").val(data[4]);
+						$("#id_NO_UKK").val(data[5]);
+						$("#id_PEB_DEST").focus();
+						
+/*
+$('#txtHint').html('<p align=center><img src={$HOME}images/loadingbox.gif /></p>');
+$.post("{$HOME}report.report_listcontainer/bay/",{'NO_UKK':data[5],'STATUS':STATUS},function(data){ 
+innerHTML =  data; 
+document.getElementById("txtHint").innerHTML= data;
+});
+*/
+						
+						
+						
+				}
+		});
+	});
+	
+
+
+function showUser(STATUS)
+{
+NO_UKK	= $("#id_NO_UKK").val();
+STATUS	= $("#STATUS").val();
+EI	= $("#EI").val();	
+jns_muat = $("#id_jenis_muat").val();
+
+if(NO_UKK == ''){
+$.blockUI({ message: '<div align=center style=font-size:15pt;font-weight:bold;color:#888888 ><img src=images/alert.png align=absmiddle border=0> ENTRY NAMA KAPAL !</div>' ,css: { 'color':'black' ,'width': '300px', 'height': '40px', 'margin-top': '100px', 'padding': '20px' } });
+setTimeout($.unblockUI, 1000); 
+$('#id_NO_UKK').focus();
+}
+else if(EI == ''){
+$.blockUI({ message: '<div align=center style=font-size:15pt;font-weight:bold;color:#888888 ><img src=images/alert.png align=absmiddle border=0> PILIH EXPORT / IMPORT !</div>' ,css: { 'color':'black' ,'width': '300px', 'height': '40px', 'margin-top': '100px', 'padding': '20px' } });
+setTimeout($.unblockUI, 1000); 
+$('#EI').focus();
+}
+
+
+
+$('#txtHint').html('<p align=center><img src={$HOME}images/loadingbox.gif /></p>');
+$.post("{$HOME}report.report_listcontainer/bay/",{'NO_UKK':NO_UKK,'EI':EI,'STATUS':STATUS,'JENIS_MUAT':jns_muat},function(data){ 
+innerHTML =  data; 
+document.getElementById("txtHint").innerHTML= data;
+});
+}
+
+function showUserEI(EI)
+{
+	if(EI =="I"){
+	$('#STATUS').html('<option value=>&nbsp;&nbsp;</option><option value=01>BAYPLAN - (01)&nbsp;&nbsp;</option><option value=02>DISCHARGE - (02)&nbsp;&nbsp;</option><option value=03>PLACEMENT - (03&nbsp;&nbsp;)</option><option value=04>SP2 - (04)&nbsp;&nbsp;</option><option value=10>GATE IN - (10)&nbsp;&nbsp;</option><option value=09>GATE OUT - (09)&nbsp;&nbsp;</option>');
+	$('#import1').html('<table border="0" cellpadding="2"><tr><td valign="top"><span class="style4"> <strong>&nbsp;FIELDS</strong></span><br /><select id="id_menu1" name="menu1" size="5" multiple="multiple" style="width:250;background-color:#FFFFFF"><option value="CONT_NO_BP">Container</option><option value="KD_TYPE">Type</option><option value="KD_SIZE">Size</option><option value="KD_STATUS_CONT">F/E</option><option value="GROSS">Weight</option><option value="ClASS">IMO</option><option value="LOAD_PORT">POL</option><option value="STATUS_CONT">STATUS</option><option value="SLOT_BP">Posisi Bay</option><option value="YARD_POST">Posisi Yard</option><option value="GATE_OUT_DATE">Tgl. Gate Out</option></select></td><td align="center" valign="middle"><br/><table border="0" cellpadding="2" cellspacing="0"><tr><td><img src="images/imgesc.jpg"  id="one2two" style="background-color:#CCFF00"/></td></tr><tr><td><img src="images/imgdesc.jpg"  i="i" id="one2two2" style="background-color:#CCFF00"/></td></tr><tr><td><img src="images/imgreset.jpg"  id="clearData" style="background-color:#CCFF00"/></td></tr></table></td><td valign="top"><span class="style4"> <strong>&nbsp;SORT BY</strong></span><br /><select id="id_menu2" name="menu2[]" size="5" multiple="multiple"  style="width:250;background-color:#FFFFFF"></select></td></tr></table>');
+    $('#export1').html('');
+	}
+	else if(EI =="E"){
+	$('#STATUS').html('<option value=>&nbsp;&nbsp;</option><option value=49>ANNE EXPORT - (49)&nbsp;&nbsp;</option><option value=50>GATE IN - (50)&nbsp;&nbsp;</option><option value=51>PLACEMENT - (51)&nbsp;&nbsp;</option><option value=56>LOADING - (56)&nbsp;&nbsp;</option>');
+	$('#id_jenis_muat').html('<option value=>Semua &nbsp;&nbsp;</option><option value=\'TK\'>Muat Tanpa Kartu &nbsp;&nbsp;</option>');
+	$('#export1').html('<table border="0" cellpadding="2"><tr><td valign="top"><span class="style4"> <strong>&nbsp;FIELDS</strong></span><br /><select id="id_menu1" name="menu1" size="5" multiple="multiple" style="width:250;background-color:#FFFFFF"><option value="NO_CONTAINER">Container</option><option value="STY_NAME">Type</option><option value="SIZE_CONT">Size</option><option value="NM_JENIS_PEMILIK">Stat</option><option value="GROSS">Weight</option><option value="DISC_PORT">POD</option><option value="ISX">IS</option><option value="EMKL">EMKL</option><option value="TGL_GATE">Tanggal Gate</option><option value="TGL_GATE">Gate</option></select></td><td align="center" valign="middle"><br/><table border="0" cellpadding="2" cellspacing="0"><tr><td><img src="images/imgesc.jpg"  id="one2two" style="background-color:#CCFF00"/></td></tr><tr><td><img src="images/imgdesc.jpg"  i="i" id="one2two2" style="background-color:#CCFF00"/></td></tr><tr><td><img src="images/imgreset.jpg"  id="clearData" style="background-color:#CCFF00"/></td></tr></table></td><td valign="top"><span class="style4"> <strong>&nbsp;SORT BY</strong></span><br /><select id="id_menu2" name="menu2[]" size="5" multiple="multiple"  style="width:250;background-color:#FFFFFF"></select></td></tr></table>');
+    $('#import1').html('');
+	}
+}
+
+function print_list(STATUS)
+{
+STATUS	= $("#STATUS").val();
+EI   	= $("#EI").val();	
+NO_UKK	= $("#id_NO_UKK").val();
+//document.location.href='{$HOME}<?=APPID?>/gate_ex/';
+//document.location.href='{$HOME}<?=APPID?>/gate_ex/', '_blank';
+}
+
+
+
+
+</script>	 
+
+
+<block visible='_q._saveok'>
+	<script language="javascript">
+		$(function(){
+			$.growlUI("<img src='images/valid.png' border='0' /><b>Data berhasil disimpan</b>");
+		});
+	</script>
+</block>
+
+<script language= "JavaScript">
+<!--
+$(function(){
+
+	$("#one2two").live("click",function(){
+		var str= "";
+		$("#id_menu1 option:selected").each(function(i){			
+			str = '<option value="'+$(this).val() +' ASC " selected>'+$(this).text()+'  ASC </option>';
+			$("#id_menu2").append(str);		
+			$(this).remove();
+		});
+		
+	});
+		 
+	
+
+$("#one2two2").live("click",function(){
+		var str= "";
+		$("#id_menu1 option:selected").each(function(i){
+			str = '<option value="'+$(this).val() + ' DESC " selected>'+$(this).text()+'  DESC </option>';
+			$("#id_menu2").append(str);		
+			$(this).remove();	
+		});
+		
+	});
+		 
+ $("#clearData").live("click",function(){
+	if($("#EI").val() =="I"){
+	$('#import1').html('<table border="0" cellpadding="2"><tr><td valign="top"><span class="style4"> <strong>&nbsp;FIELDS</strong></span><br /><select id="id_menu1" name="menu1" size="5" multiple="multiple" style="width:250;background-color:#FFFFFF"><option value="CONT_NO_BP">Container</option><option value="KD_TYPE">Type</option><option value="KD_SIZE">Size</option><option value="KD_STATUS_CONT">F/E</option><option value="GROSS">Weight</option><option value="ClASS">IMO</option><option value="LOAD_PORT">POL</option><option value="STATUS_CONT">STATUS</option><option value="SLOT_BP">Posisi Bay</option><option value="YARD_POST">Posisi Yard</option><option value="GATE_OUT_DATE">Tgl. Gate Out</option></select></td><td align="center" valign="middle"><br/><table border="0" cellpadding="2" cellspacing="0"><tr><td><img src="images/imgesc.jpg"  id="one2two" style="background-color:#CCFF00"/></td></tr><tr><td><img src="images/imgdesc.jpg"  i="i" id="one2two2" style="background-color:#CCFF00"/></td></tr><tr><td><img src="images/imgreset.jpg"  id="clearData" style="background-color:#CCFF00"/></td></tr></table></td><td valign="top"><span class="style4"> <strong>&nbsp;SORT BY</strong></span><br /><select id="id_menu2" name="menu2[]" size="5" multiple="multiple"  style="width:250;background-color:#FFFFFF"></select></td></tr></table>');
+    $('#export1').html('');
+	}
+	else if($("#EI").val() =="E"){
+	$('#export1').html('<table border="0" cellpadding="2"><tr><td valign="top"><span class="style4"> <strong>&nbsp;FIELDS</strong></span><br /><select id="id_menu1" name="menu1" size="5" multiple="multiple" style="width:250;background-color:#FFFFFF"><option value="NO_CONTAINER">Container</option><option value="STY_NAME">Type</option><option value="SIZE_CONT">Size</option><option value="NM_JENIS_PEMILIK">Stat</option><option value="GROSS">Weight</option><option value="DISC_PORT">POD</option><option value="ISX">IS</option><option value="EMKL">EMKL</option><option value="TGL_GATE">Gate</option></select></td><td align="center" valign="middle"><br/><table border="0" cellpadding="2" cellspacing="0"><tr><td><img src="images/imgesc.jpg"  id="one2two" style="background-color:#CCFF00"/></td></tr><tr><td><img src="images/imgdesc.jpg"  i="i" id="one2two2" style="background-color:#CCFF00"/></td></tr><tr><td><img src="images/imgreset.jpg"  id="clearData" style="background-color:#CCFF00"/></td></tr></table></td><td valign="top"><span class="style4"> <strong>&nbsp;SORT BY</strong></span><br /><select id="id_menu2" name="menu2[]" size="5" multiple="multiple"  style="width:250;background-color:#FFFFFF"></select></td></tr></table>');
+    $('#import1').html('');
+	}	
+	
+	
+ })
+//-->
+});
+</script>
+ 
+<style type="text/css">
+<!--
+.style4 {color: #666666}
+-->
+</style>
+<table width="100%" cellspacing="0" height="81px" border="0" style="margin-top:-14px;">
+<tr >
+<td class="bg_form1">
+<span class="graybrown "><img src='images/report.png' border='0' class="icon"/>
+<font color="0268AB"> List Container Per Status</font> Import & Export</span></td>
+</tr>
+</table>	
+<fieldset class="form-fieldset" style="width:875px;margin-left:20px;">  
+<form id="cetakForm" name="cetakForm" action="{$urlcetak}" target="_blank" method="post">
+<table class="{$style.gridtable}" border="0" cellpadding="1" cellspacing="1" width="100%" >
+<tr>
+<td class="form-field-caption" valign="top" align="right"></td>
+<td valign="top" class="form-field-input">&nbsp;</td>
+<td valign="top" class="form-field-input">&nbsp;</td>
+</tr>
+<tr>
+<td class="form-field-caption" valign="top" align="right">Nama Kapal </td>
+<td align="center" valign="top" class="form-field-input">:</td>
+<td valign="top" class="form-field-input"><input id="NM_KAPAL" name="NM_KAPAL" type="text"  size="30" class="pkkkapal"  style="font-weight:bold"/> -&nbsp;
+<input id="KD_KAPAL" name="KD_KAPAL" type="text"  size="5"  readonly /></td>
+</tr>
+<tr>
+<td width="19%" align="right" valign="top" class="form-field-caption" >No PKK</td>
+<td width="2%" align="center" valign="top" class="form-field-input">:</td>
+<td width="79%" valign="top" class="form-field-input"><input id="id_NO_UKK" name="NO_UKK" type="text"  size="16" maxlength="16"   class="pkkkapal" /></td>
+</tr>
+<tr>
+<td class="form-field-caption" valign="top" align="right">Voyage</td>
+<td align="center" valign="top" class="form-field-input">:</td>
+<td valign="top" class="form-field-input"><input id="ID_VOYAGE" name="NM_VOYAGE" type="text"  size="5" class="pkkkapal"  readonly style="font-weight:bold; color:#F00" /></td>
+</tr>
+<tr>
+<td class="form-field-caption" valign="top" align="right">Nama Agen</td>
+<td align="center" valign="top" class="form-field-input">:</td>
+<td valign="top" class="form-field-input"><input id="NM_AGEN" name="	" type="text"  size="30"   readonly /> -&nbsp;
+<input id="KD_AGEN" name="KD_AGEN" type="text"  size="3" readonly /></td>
+</tr>
+<tr>
+<td class="form-field-caption" valign="top" align="right">E/I</td>
+<td align="center" valign="top" class="form-field-input">:</td>
+<td valign="top" class="form-field-input"><select name="EI" id="EI" style="margin:0px; padding-left:2px" onchange="showUserEI(this.value)">
+<option value="" selected="selected">-</option>
+<option value="E">EXPORT &nbsp;&nbsp;</option>
+<option value="I">IMPORT &nbsp;&nbsp;</option>
+</select></td>
+</tr>
+<tr>
+	<td class="form-field-caption" valign="top" align="right">Status</td>
+	<td align="center" valign="top" class="form-field-input">:</td>
+	<td valign="top" class="form-field-input"><select name="STATUS" id="STATUS" style="margin:0px; padding-left:2px" ></select></td>
+</tr>
+<tr>
+	<td class="form-field-caption" valign="top" align="right">Jenis</td>
+	<td align="center" valign="top" class="form-field-input">:</td>
+	<td valign="top" class="form-field-input"><select name="jenis_muat" id="id_jenis_muat" style="margin:0px; padding-left:2px" ></select></td>
+</tr>
+<tr>
+<td class="form-field-caption" valign="top" align="right">Pilih Pengurutan  </td>
+<td align="center" valign="top" class="form-field-input">:</td>
+<td valign="top" class="form-field-input">
+<div id="export1"></div>  
+<div id="import1"></div>  
+  </td>
+</tr>
+<tr>
+<td class="form-field-caption" valign="top" align="right"></td>
+<td class="form-field-input">&nbsp;</td>
+<td class="form-field-input">&nbsp;
+
+<a  onclick="showUser();" class="link-button" ><img src='images/valid.png' border='0' />&nbsp;&nbsp;Cari&nbsp;&nbsp;</a>&nbsp;&nbsp;
+<a class="link-button" href="{$printall}"><img src="images/print.png" border="0" />Cetak Cari</a>&nbsp;&nbsp;
+&nbsp;&nbsp;<a  id="submitForm" onclick="submitForm('cetakForm')"  class="link-button" target="_blank" ><img src='images/print.png' border='0' />&nbsp;&nbsp;Print&nbsp;&nbsp;</a></td>
+</tr>
+<tr>
+<td colspan="3" align="right" valign="top" class="form-field-caption">&nbsp;</td>
+</tr>
+<tr>
+<td colspan="3" align="center" valign="top" class="form-field-caption"><div id="txtHint"><b></b></div></td>
+</tr>
+<tr>
+<td colspan="3" align="right" valign="top" class="form-field-caption">&nbsp;</td>
+</tr>
+  </table>  
+</form>
+</fieldset>
+<br/>

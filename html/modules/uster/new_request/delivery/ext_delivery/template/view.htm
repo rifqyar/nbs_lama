@@ -1,0 +1,149 @@
+<script type="text/javascript">		
+$().ready(function() {  
+$('#add').click(function() {  
+return !$('#select1 option:selected').remove().appendTo('#select2');  
+});  
+$('#remove').click(function() {  
+return !$('#select2 option:selected').remove().appendTo('#select1');  
+});  
+});  
+$('form').submit(function() {  
+$('#select2 option').each(function(i) {  
+$(this).attr("selected", "selected");  
+});  
+}); 
+
+$(function() {	
+
+	$( "#tgl_perpanjangan" ).datepicker();
+	$( "#tgl_perpanjangan" ).datepicker( "option", "dateFormat", "yy-mm-dd" );
+})
+</script>
+<form id="form" method="POST" action="<?=HOME?><?=APPID?>/add_do">
+<span class="graybrown"><img src='images/sp2_p.png' border='0' class="icon"/><font color="#0378C6"> Perpanjangan</font> Delivery - SP2</span><br/><br/>
+<fieldset class="form-fieldset" style="margin: 5px 5px 5px 5px; ">
+	<center>
+    <table class="form-input" style="margin: 30px 30px 30px 30px;" >
+
+    	<tr>
+            <td class="form-field-caption">Nomor Request Sebelumnya</td>
+            <td> : </td>
+            <td> <input type="text" id="NO_REQ" name="NO_REQ" value="{$row_request.NO_REQUEST}" readonly="readonly" /> </td>
+            <td></td>
+            <td class="form-field-caption"> Tgl Request</td>
+            <td> : </td>
+            <td><input type="text" name="tgl_dev"  id="tgl_dev" value="{$row_request.TGL_REQUEST}" readonly="readonly"/> </td>
+    	
+    	</tr>
+    	<tr>
+            <td class="form-field-caption">E.M.K.L</td>
+            <td> : </td>
+            <td> <input type="text" name="EMKL" id="EMKL" size="40" value="{$row_request.NAMA_EMKL}" readonly="readonly"/> <input type="hidden" name="ID_EMKL" id="ID_EMKL" /> </td>
+                 <td></td>
+              <td class="form-field-caption">Keterangan</td>
+            <td> : </td>
+            <td> <input type="text" name="keterangan" style="width:250px" value="{$row_request.KETERANGAN}" readonly="readonly"/>
+			<input type="hidden" id="jumlah" style="width:250px" value="{$row_count.JUMLAH}"/></td>
+        
+    	</tr>
+       
+	</table>
+            <!--<table>
+			<tr>
+			<td class="form-field-caption"><font color="#0378C6"  style="font-size:12pt; font-weight:bold"> Perpanjangan s/d tanggal : </font><input type="text" name="tgl_perpanjangan" id="tgl_perpanjangan"/> 
+			</td>
+			</tr>
+			</table>-->
+    </center>
+</fieldset>
+
+<fieldset class="form-fieldset" style="margin: 5px 5px 5px 5px; ">
+	<center>
+   <!-- <div id="cont_list" style="margin: 10px 10px 10px 10px; border:thin inset">-->
+   <div id="cont_list" style="margin: 10px 10px 10px 10px;"></div>
+   <table width="100%">
+       <tr>
+           <td width="906" colspan="2" class="form-footer">&nbsp;&nbsp; 
+		   <span id="saveit">
+		   <a id="resetForm" onclick="simpanarea();" class="link-button" style="font-weight:bold; color:#F00" ><img src='images/valid.png' border='0' />&nbsp;<blink>Simpan Perpanjangan SP2</blink></a> &nbsp;&nbsp; <!--<input tabindex="11" style="height:30px" type="button" value="Perpanjangan SP2" onclick="simpanarea();"  />-->
+               </span>&nbsp;&nbsp; 
+               <a id="resetForm"  href="{$HOME}{$APPID}" class="link-button" ><img src='images/reset.png' border='0' />&nbsp;Kembali</a>&nbsp;&nbsp; 
+
+           </td>
+       </tr>
+   </table>
+        <div id="question" style="display:none; cursor: default"><h1><img src="images/warning.png" align="absbottom" border="0" /> Apakah Anda ingin melanjutkan proses ?.</h1><input type="button" id="yes" value="Yes" /> &nbsp; <input type="button" id="no" value="No" /><br /><br /><font color="#FF0000" style="font-weight:bold">Perhatian : Container di kolom SP2 Perpanjangan harus di blok semuanya ! </font></div>
+    
+    </div>
+    
+	</center>
+</fieldset>
+
+</form>
+<style>
+fieldset { -moz-border-radius: 8px; border-radius: px; margin:10px }
+legend { margin-left:10px; color:#666; font-weight:bold }
+input { font-size:12px; color:#000}
+   .all {  
+    display: block;  
+    border: 1px solid #aaa;  
+    text-decoration: none;  
+    background-color: #fafafa;  
+    color: #123456;  
+    margin: 2px;  
+    clear:both;  
+   }  
+   .divall {  
+    float:left;  
+    text-align: center;  
+    margin: 10px;  
+   }  
+    .selectall {
+    width: 300px;  
+    height:300px;  
+	font-size:11pt; font-weight:bold; font-family:Arial
+   }  
+</style>
+
+<script type="text/javascript">
+	var url = '{$HOME}{$APPID}/cont_list';
+	$(function(){
+		$("#cont_list").load('<?=HOME?><?=APPID?>/cont_list?no_req={$row_request.NO_REQUEST} #list', function(data) {
+			<?php $no = $row_count["JUMLAH"];
+					$i=0;
+			?>
+			<?php	
+				  foreach($row_tgl as $rowt){
+					$i++;
+                    echo '$( "#TGL_PERP_'.$i.'" ).datepicker({
+						dateFormat : "yy-mm-dd",
+						setDate : "'.$rowt["TGL_DELIVERY"].'",
+						changeMonth: true,
+						changeYear: true,
+						numberOfMonths: 1,
+						minDate : "'.$rowt["TGL_DELIVERY"].'",
+						onClose: function( selectedDate ) {							
+							$("#TGL_PERP_'.$i.'").datepicker( "option", "dateFormat", "yy-mm-dd" );
+                            $( "#TGL_PERP_'.$i.'" ).datepicker( "option", "minDate", "'.$rowt["TGL_DELIVERY"].'" );
+						}
+					}); ';
+				}
+				
+		?>
+		
+		}); 
+		
+	});
+    function simpanarea(){
+    //DATA_SP2     = $('#select2').val();	
+	/*var total		 = $('#total').val();
+	var NO_REQ       = $('#NO_REQ').val();	
+	var TGL_DEV      = $('#tgl_dev').val();		
+	for($i=1;$i<=total;$i++;){
+		var TGL_PERP_$i = 
+	}*/
+
+     $('#form').submit();
+}
+
+</script>  

@@ -1,0 +1,91 @@
+<style>
+.content2{
+	width:95%;
+	margin-left:auto;
+	margin-right:auto;
+	margin-bottom: 10px;
+	margin-top:20px;
+
+}
+</style>
+<script>
+
+	function tambah_container_print()
+	{
+		var size_           = document.getElementById("size").value;
+		var type_           = document.getElementById("type").value;
+		var status_         = document.getElementById("status").value;
+		var no_cont_         = document.getElementById("no_cont").value;
+		
+		var hz_             = document.getElementById("hz").value;
+		var no_req_			= document.getElementById("no_req").value;
+		var url				= "{$HOME}request.delivery/add_cont_print_sp2";
+		$.post(url,{SIZE : size_, TYPE : type_, STATUS : status_, NO_CONT : no_cont_, HZ: hz_, ID_REQ: no_req_});	
+		$('#table_cont').load("<?=HOME?>request.delivery/list_cont?id="+no_req_+" #list_cont_print");
+	}
+	
+	$(document).ready(function() 
+	{	
+		$('#table_cont').load("<?=HOME?>request.delivery/list_cont?id=<?=$no?> #list_cont_print");
+	
+	});  
+
+</script>
+
+
+
+<div class="content2">
+	<p>
+	<h2> <img src="<?=HOME?>images/delivery.png" height="5%" width="5%" style="vertical-align:middle"> Add Container SP2 Delivery</h2></p>
+	
+	<p><br/>
+	  </p>
+	
+	<hr width="870" color="#e1e0de"></hr><p><br/></p>
+	<table id="koma">
+	  <tr>
+		<td>No Container</td>
+		<td>:</td>
+		<td><input type="text" size="11" name="no_cont" id="no_cont" maxlength="11" />
+			<input type="text" size="50" name="no_req" id="no_req" value={$no} hidden />
+			<td>&nbsp;</td>
+		<td>Size</td>
+		<td>:</td>
+		<td><select name="size" id="size">
+			<option value="20">20</option>
+			<option value="40">40</option>
+			<option value="45">45</option>
+		</select></td>
+     	<td>Type</td>
+		<td>:</td>
+		<td><select name="type" id="type">
+			<option value="DRY">DRY</option>
+			<option value="RFR">RFR</option>
+			<option value="OVD">OVD</option>
+			<option value="OT">OT</option>
+			<option value="TNK">TNK</option>
+			<option value="HQ">HQ</option>
+			<option value="FLT">FLT</option>
+		</select></td>
+		<td>Status</td>
+		<td>:</td>
+		<td><select name="sts" id="status">
+			<option value="FCL">FCL</option>
+			<option value="MTY">MTY</option>
+		</select></td>
+		<td>Hz</td>
+		<td>:</td>
+		<td><select name="hz" id="hz">
+			<option value="T">T</option>
+			<option value="Y">Y</option>
+		</select></td>
+		</td>
+		<td><input type="submit" value="tambah" onclick="tambah_container_print()" /></td>
+		</tr>
+	</table>
+	<br>
+	
+	<br/>
+	<br/>	
+	<div id="table_cont"></div>
+</div>

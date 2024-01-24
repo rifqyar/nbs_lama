@@ -1,0 +1,143 @@
+
+<span class="graybrown"><img src='images/sp2_p.png' border='0' class="icon"/><font color="#0378C6"> Laporan</font> Realisasi Stuffing Stripping</span><br/><br/>
+      <fieldset class="form-fieldset" style="margin: 5px 5px 5px 5px; ">
+        <form id="searchForm" name="searchForm" action="{$HOME}{$APPID}.toexcel/toexcel" method="POST">
+		<div style="padding:10px;font-family:Arial; font-size:8pt; color:#555555; font-weight:bold">
+			
+            <table> <tr><td class="form-field-caption" valign="top" align="right">Tanggal Realisasi</td><td class="form-field-caption" valign="top" align="right"> : </td><td class="form-field-caption" valign="top" align="left"><input type="text" name="tgl_awal" id="tgl_awal"/></td>
+				<td> </td>
+				<td> 
+				</td>
+                <tr><td class="form-field-caption" valign="top" align="right">s/d</td><td class="form-field-caption" valign="top" align="right"> : </td><td class="form-field-caption" valign="top" align="left"> <input type="text" name="tgl_akhir" id="tgl_akhir"/></td></tr>
+				<tr><td colspan='3'></td></tr>
+				<tr><td class="form-field-caption" valign="top" align="right">Kegiatan</td><td class="form-field-caption" valign="top" align="right"> : </td><td class="form-field-caption" valign="top" align="left"> <select name="jenis" id="option_kegiatan">
+						<option value="STRIPPING"> Stripping </option>
+						<option value="STUFFING"> Stuffing </option>
+						<!-- <option value=""> All </option> -->
+					</select></td></tr>
+				<tr>
+				<td align="right" valign="top" class="form-field-caption"><br/>Pilih Pengurutan </td>
+				<td align="center" valign="top"><br/>:</td>
+				<td valign="top"><table border="0" cellpadding="2">
+				  <tr>
+					<td valign="top"><span class="style4"> <strong>&nbsp;FIELDS</strong></span><br />
+						<select id="id_menu1" name="menu1" size="5" multiple="multiple" style="width:250;background-color:#FFFFFF">
+						  <option value="NO_CONTAINER">No. Container</option>
+						  <option value="NO_REQUEST">NO. Request</option>
+						  <option value="TGL_REQUEST">Tgl. Request</option>
+						  <option value="TGL_REALISASI">Tgl. Realisasi</option>
+						  <option value="SIZE_">Size</option>
+						  <option value="TYPE_">Type</option>
+						  <option value="NM_PBM">Nama Consignee</option>
+						</select>
+					</td>
+					<td align="center" valign="middle"><br />
+						<table border="0" cellpadding="2" cellspacing="0">
+				<tr>
+				  <td><img src="images/imgesc.jpg"  id="one2two" style="background-color:#CCFF00"/></td>
+				</tr>
+				<tr>
+				  <td><img src="images/imgdesc.jpg"  id="one2two2" style="background-color:#CCFF00"/></td>
+				</tr>
+				<tr>
+				  <td><img src="images/imgreset.jpg"  id="clearData" style="background-color:#CCFF00"/></td>
+				</tr>
+					  </table></td>
+					<td valign="top"><span class="style4"> <strong>&nbsp;SORT BY</strong></span><br />
+						<select id="id_menu2" name="menu2[]" size="5" multiple="multiple"  style="width:250;background-color:#FFFFFF" readonly="true">
+						</select>
+					</td>
+				  </tr> 
+				</table></td>
+			</tr>
+				<tr>
+					<td colspan='2' align="left"> &nbsp;&nbsp; <a class="link-button" style="height:25" onclick="generate()"><img src='images/cari.png' border='0' />Generate Report</a> </td>
+					<td align="left"> &nbsp;&nbsp; <a class="link-button" style="height:25" onclick="$('#searchForm').submit()"><img src='images/cari.png' border='0' />Generate Excel</a> </td>
+					
+				</tr>
+				
+			</table>
+		</div>
+        </form>
+	
+	   </fieldset>
+	<div id="nota_list"></div>
+<script>
+$(function() {	
+
+	$( "#tgl_awal" ).datepicker();
+	$( "#tgl_awal" ).datepicker( "option", "dateFormat", "yy-mm-dd" );
+        
+        $( "#tgl_akhir" ).datepicker();
+	$( "#tgl_akhir" ).datepicker( "option", "dateFormat", "yy-mm-dd" );
+
+});
+
+function generate()
+{
+	var tgl_awal_ 	= $("#tgl_awal").val();
+	var tgl_akhir_	= $("#tgl_akhir").val();	
+	var jenis 		= $("#option_kegiatan").val();
+	var id_menu2	= $("#id_menu2").val();
+	var url 	       = "<?=HOME?><?=APPID?>/nota_list #list";
+	$.blockUI({ message: '<h1>Please wait...</h1>' }); 
+	$("#nota_list").load(url,{tgl_awal : tgl_awal_, tgl_akhir : tgl_akhir_, jenis : jenis, id_menu2 : id_menu2}, function(data){
+		if(data){
+				$.unblockUI({ 
+				onUnblock: function(){  } 
+				});
+		}
+	});
+}
+
+function topdf(){
+	var tgl_awal_ 	= $("#tgl_awal").val();
+	var tgl_akhir_	= $("#tgl_akhir").val();	
+	var url 	    = "<?=HOME?><?=APPID?>.topdf/print?tgl_awal="+tgl_awal_+"&tgl_akhir="+tgl_akhir_;
+	
+	window.open(url, "_blank");
+}
+
+function toexcel(){
+	var tgl_awal_ 	= $("#tgl_awal").val();
+	var tgl_akhir_	= $("#tgl_akhir").val();
+	var jenis_ 		= $("#option_kegiatan").val();	
+	var url 	    = "<?=HOME?><?=APPID?>.toexcel/toexcel?tgl_awal="+tgl_awal_+"&tgl_akhir="+tgl_akhir_+"&jenis="+jenis_;
+	
+	window.open(url, "_blank");
+}
+
+$(function(){
+
+	$("#one2two").live("click",function(){
+		var str= "";
+		$("#id_menu1 option:selected").each(function(i){			
+			str = '<option value="'+$(this).val() +' ASC " selected>'+$(this).text()+'  ASC </option>';
+			$("#id_menu2").append(str);		
+			$(this).remove();
+		});
+		
+	});
+		 
+	
+
+$("#one2two2").live("click",function(){
+		var str= "";
+		$("#id_menu1 option:selected").each(function(i){
+			str = '<option value="'+$(this).val() + ' DESC " selected>'+$(this).text()+'  DESC </option>';
+			$("#id_menu2").append(str);		
+			$(this).remove();	
+		});
+		
+	});
+ 
+ $("#clearData").live("click",function(){
+    $("#id_menu1").html("<option value='NO_CONTAINER'>No. Container</option><option value='NO_REQUEST'>NO. Request</option><option value='TGL_REQUEST'>Tgl. Request</option> <option value='TGL_REALISASI'>Tgl. Realisasi</option> <option value='SIZE_'>Size</option> <option value='TYPE_'>Type</option> <option value='STATUS'>Status</option><option value='NM_PBM'>Nama Consignee</option>");
+    $("#id_menu2").html("");
+ });
+
+  
+ });
+
+</script>
+

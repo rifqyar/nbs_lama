@@ -1,0 +1,63 @@
+<style>
+.content{
+	width:95%;
+	margin-left:auto;
+	margin-right:auto;
+	margin-bottom: 10px;
+	margin-top:20px;
+}
+.main_side{
+	width:100%;
+	float:left;
+	text-align:left;
+}
+</style>
+
+<script type="text/javascript">
+jQuery(function() {
+ jQuery("#print_bm").jqGrid({
+	url:'<?=HOME?>datanya/data_dso_delivery?q=print_bm_del',
+	mtype : "post",
+	datatype: "json",
+	colNames:['','Request','EMKL','Vessel','Jml Container','Batal Muat','B/A Gate'], 
+	colModel:[
+		{name:'aksi', width:120, valign:"center", align:"center",sortable:false,search:false},
+		{name:'id_req',index:'id_req', width:180, align:"center"},
+		{name:'emkl',index:'emkl', width:200, align:"center"},
+		{name:'vessel',index:'vessel', width:200, align:"center"},
+		{name:'jum_cont',index:'jum_cont', width:120, align:"center"},
+		{name:'bm',index:'bm', width:120, align:"center"},
+		{name:'gate',index:'gate', width:120, align:"center"}
+	],
+	rowNum:6,
+	width: 865,
+	height: "100%",//250
+
+	rowList:[10,20,30,40,50,60],
+	loadonce:true,
+	rownumbers: true,
+	rownumWidth: 15,
+	gridview: true,
+	pager: '#pg_print_bm',
+	viewrecords: true,
+	shrinkToFit: false,
+	caption:"Data Print Batal Muat"
+ });
+  jQuery("#print_bm").jqGrid('navGrid','#pg_print_bm',{del:false,add:false,edit:false,search:false}); 
+ jQuery("#print_bm").jqGrid('filterToolbar',{stringResult: true,searchOnEnter : false});
+ 
+});
+</script>
+
+<div class="content">
+	<div class="main_side">
+	<h2><span class="graybrown">
+    	<img class="icon" border="0" src="images/cetak.png" />
+        &nbsp;<font color="#0378C6">Cetak</font> Batal Muat
+        </span></h2>	
+	<p><br/></p>
+    <table id='print_bm' width="100%"></table> <div id='pg_print_bm'></div>
+	<br/>
+	<br/>
+	</div>
+</div>

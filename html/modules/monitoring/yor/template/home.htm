@@ -1,0 +1,482 @@
+<script src="<?=HOME?>js_chart/js/highcharts.js"></script>
+
+<style>
+.content{
+	width:95%;
+	margin-left:auto;
+	margin-right:auto;
+	margin-bottom: 10px;
+	margin-top:20px;
+}
+.main_side{
+	width:100%;
+	float:left;
+	text-align:left;
+}
+.rightside{ 
+	width:25%;
+	float:right;
+	text-align:center;
+}
+.ganjil {
+  background-color: #FFF; /* Warna untuk baris ganjil */
+}
+.genap {
+  background-color: #bbe3fe; /* Warna untuk baris genap */
+}   
+
+.content{
+	width:95%;
+	margin-left:auto;
+	margin-right:auto;
+	margin-bottom: 10px;
+	margin-top:20px;
+}
+.main_side{
+	width:100%;
+	float:left;
+	text-align:left;
+}
+
+</style>
+<?php
+header("Cache-Control: no-cache, must-revalidate"); // HTTP/1.1
+$backuri                      = str_replace('&_saveok=1', '', $_SERVER['REQUEST_URI']);
+$_SESSION['__uriback'][APPID] = $backuri . (strpos($_SERVER['REQUEST_URI'], '?') === false ? '?' : '');
+
+?>
+
+
+<script type="text/javascript">	
+
+
+jQuery(function() {
+ jQuery("#yor_table").jqGrid({
+	url:'<?=HOME?>datanya/data?q=yor_daily',
+	mtype : "post",
+	datatype: "json",
+	colNames:['Blok','Slot','Row','Tier','Capacity (TEUS)','Used (Teus)','Box','YOR(%)'], 
+	colModel:[
+		{name:'blok', width:80, align:"center",sortable:true,search:false},
+		{name:'slot',index:'slot', width:80, height:40, align:"center",sortable:true,search:false,sorttype:'int'},
+		{name:'row',index:'row', width:80, align:"center",sortable:true,search:false,sorttype:'int'},
+		{name:'tier',index:'tier', width:100, align:"center",sortable:true,search:false,sorttype:'int'},
+		{name:'capacity',index:'capacity', width:100, align:"center",sortable:true,search:false,sorttype:'int'},
+		{name:'used',index:'used', width:100, align:"center",sortable:true,search:false,sorttype:'int'},
+		{name:'box',index:'box', width:100, align:"center",sortable:true,search:false,sorttype:'int'},
+		{name:'yor',index:'yor', width:100, align:"center",sortable:true,search:false,sorttype:'int'},
+	],
+	rowNum:40,
+	width: 850,
+	height: "100%",//250
+
+	//rowList:[10,20,30,40,50,60],
+	loadonce:true,
+	rownumbers: true,
+	rownumWidth: 15,
+	gridview: true,
+	//pager: '#pg_l_yor_table',
+	viewrecords: true,
+	shrinkToFit: false,
+	//grid.setRowData ( id, false, {height: 30} ),
+	caption:"YOR per Blok"
+ });
+  jQuery("#yor_table").jqGrid('navGrid','#pg_l_yor_tabble',{del:false,add:false,edit:false,search:false}); 
+  //jQuery("#yor_table").grid.setGridHeight('50px');
+ jQuery("#yor_table").jqGrid('filterToolbar',{stringResult: true,searchOnEnter : false});
+ 
+});
+
+jQuery(function() {
+ jQuery("#vessel_table").jqGrid({
+	url:'<?=HOME?>datanya/data?q=vessel_schedule',
+	mtype : "post",
+	datatype: "json",
+	colNames:['Vessel','Voy In','Voy Out','Berthing Est','Berthing Act','Departure Est','Departure Act','Remarks'], 
+	colModel:[
+		{name:'ves', width:130, align:"center",sortable:true,search:false},
+		{name:'voyin',index:'voyin', width:70, height:40, align:"center",sortable:true,search:false,sorttype:'int'},
+		{name:'voyout',index:'voyout', width:70, align:"center",sortable:true,search:false,sorttype:'int'},
+		{name:'berthest',index:'berthest', width:100, align:"center",sortable:true,search:false,sorttype:'int'},
+		{name:'berthact',index:'bertact', width:100, align:"center",sortable:true,search:false,sorttype:'int'},
+		{name:'depest',index:'depest', width:100, align:"center",sortable:true,search:false,sorttype:'int'},
+		{name:'depact',index:'depact', width:100, align:"center",sortable:true,search:false,sorttype:'int'},
+		{name:'remarks',index:'remarks', width:70, align:"center",sortable:true,search:false,sorttype:'int'},
+	],
+	rowNum:6,
+	width: 850,
+	height: "100%",//250
+
+	//rowList:[10,20,30,40,50,60],
+	loadonce:true,
+	rownumbers: true,
+	rownumWidth: 15,
+	gridview: true,
+	pager: '#pg_l_vessel_table',
+	viewrecords: true,
+	shrinkToFit: false,
+	//grid.setRowData ( id, false, {height: 30} ),
+	caption:"Vessel"
+ });
+  jQuery("#vessel_table").jqGrid('navGrid','#pg_l_vessel_tabble',{del:false,add:false,edit:false,search:false}); 
+  //jQuery("#yor_table").grid.setGridHeight('50px');
+ jQuery("#vessel_table").jqGrid('filterToolbar',{stringResult: true,searchOnEnter : false});
+ 
+});
+
+jQuery(function() {
+ jQuery("#crane_table").jqGrid({
+	url:'<?=HOME?>datanya/data_crane',
+	mtype : "post",
+	datatype: "json",
+	colNames:['Crane','Status','Perform','Container Weight','Vessel','Voyage','Container No.'], 
+	colModel:[
+		{name:'crane', width:160, align:"center",sortable:true,search:false},
+		{name:'status',index:'status', width:80, height:40, align:"center",sortable:true,search:false,sorttype:'int'},
+		{name:'perform',index:'perform', width:100, align:"center",sortable:true,search:false,sorttype:'int'},
+		{name:'container_weight',index:'container_weight', width:100, align:"center",sortable:true,search:false,sorttype:'int'},
+		{name:'vessel',index:'vessel', width:100, align:"center",sortable:true,search:false,sorttype:'int'},
+		{name:'voyage',index:'voyage', width:100, align:"center",sortable:true,search:false,sorttype:'int'},
+		{name:'container_no',index:'container_no', width:100, align:"center",sortable:true,search:false,sorttype:'int'},
+	],
+	rowNum:6,
+	width: 850,
+	height: "100%",//250
+
+	//rowList:[10,20,30,40,50,60],
+	loadonce:true,
+	rownumbers: true,
+	rownumWidth: 15,
+	gridview: true,
+	pager: '#pg_l_crane_table',
+	viewrecords: true,
+	shrinkToFit: false,
+	//grid.setRowData ( id, false, {height: 30} ),
+	caption:"Crane Status"
+ });
+  jQuery("#vessel_table").jqGrid('navGrid','#pg_l_vessel_tabble',{del:false,add:false,edit:false,search:false}); 
+  //jQuery("#yor_table").grid.setGridHeight('50px');
+ jQuery("#vessel_table").jqGrid('filterToolbar',{stringResult: true,searchOnEnter : false});
+ 
+});
+
+function log_email(i)
+{
+	//alert(i);
+	$('#log_em').load("<?=HOME?>monitoring.rbm.ajax/log_email?no_ukk="+i).dialog({modal:true, height:300,width:400});
+}
+
+function comment_add(i)
+{
+	$('#add_comment').load("<?=HOME?>monitoring.rbm.ajax/wall_comment?no_ukk="+i).dialog({modal:true, height:400,width:400});
+}
+
+var chart1; // globally available
+var chart2; // globally available
+
+$(document).ready(function() 
+{
+	chart1 = new Highcharts.Chart({
+		chart: {
+            renderTo: 'graph_cont',
+            
+            //type: 'pie'
+        },
+        title: {
+            text: 'YOR Overall'
+        },
+		tooltip: {
+        	    pointFormat: '<b>{point.percentage}%</b>',
+            	percentageDecimals: 1
+        },
+		plotOptions: 
+		{
+                pie: {
+                    allowPointSelect: true,
+                    cursor: 'pointer',
+                    dataLabels: {
+                        enabled: false
+                    },
+					showInLegend: true
+                }
+        },		
+        series: [{
+                type: 'pie',
+                name: 'Capacity',
+                data: [
+                    
+                    ['Space Available <?=$available?> TEUs',       <?=$available?>],
+					['Used for Export <?=$used_export?> TEUs - <?=$boxExport?> Box',   <?=$used_export?>],
+					['Used for Import <?=$used_import?> TEUs - <?=$boxImport?> Box',   <?=$used_import?>],
+                    
+                ],
+				          
+			}]
+      });
+	  
+	  function createBlokChart(){
+		  chart2 = new Highcharts.Chart({
+			chart: {
+				renderTo: 'graph_cont3',
+				
+				//type: 'pie'
+			},
+			title: {
+				text: 'Export & Import per Blok'
+			},
+			tooltip: {
+					pointFormat: '{series.name}: {point.y} <b>{point.percentage}%</b>',
+					percentageDecimals: 1
+			},
+			plotOptions: 
+			{
+					pie: {
+						allowPointSelect: true,
+						cursor: 'pointer',
+						dataLabels: {
+							enabled: false
+						},
+						
+						events: {
+							click: function(event) {
+							chart2_create();
+							}
+						},
+						
+						showInLegend: true
+					}
+			},		
+			series: [{
+					type: 'pie',
+					name: 'Capacity',
+					data: [
+						
+						//['Export',       <?=$jumlah_E?>],
+						//['Import',   <?=$jumlah_I?>]
+						
+		<?
+			foreach ($blokExport as $key => $value) {
+				echo "['Export $key',       $value],";
+			}
+			foreach ($blokImport as $key => $value) {
+				echo "['Import $key',       $value],";
+			}
+		?>
+					]}]
+		  });
+	  }
+	  
+	  function createBlokChartWithType(blok,e_i){
+		  $.ajax({
+			type: 'get',
+			url: '<?=HOME?>datanya/data_container_per_blok?blok='+blok+'&e_i='+e_i,
+			success: function(data) {
+				//alert(data);
+				var tempString=data;
+				var myarr = tempString.split(";");
+				
+				//alert(myarr.length);
+				var xyz = new Array();
+				for(var i=0;i<myarr.length;i++){
+					var myarr2 = myarr[i].split("#");
+					if(myarr2[1]!=null){
+						xyz.push([myarr2[0],parseInt(myarr2[1])]);
+					}
+				}
+				blabla = xyz;
+		  
+			  chart2 = new Highcharts.Chart({
+				chart: {
+					renderTo: 'graph_cont3',
+				},
+				title: {
+					text: 'Tipe Container Blok '+blok+' ('+e_i+')'
+				},
+				tooltip: {
+						pointFormat: '{series.name}: {point.y} <b>{point.percentage}%</b>',
+						percentageDecimals: 1
+				},
+				plotOptions: 
+				{
+						pie: {
+							allowPointSelect: true,
+							cursor: 'pointer',
+							dataLabels: {
+								enabled: false
+							},
+							
+							events: {
+								click: function(event) {
+								chart2_create();
+								}
+							},
+							
+							showInLegend: true
+						}
+				},		
+				series: [{
+						type: 'pie',
+						name: 'Capacity',
+						data: blabla
+						}]
+			  });
+					}
+					});
+	  }
+	  
+		var highchartsOptions = Highcharts.setOptions(Highcharts.theme);
+		g_array_temp = new Array();
+		
+	<?
+		$tempArray;
+		foreach ($arrayBlok as $key => $value) {
+			$t1[]=$key;
+			echo("g_array_temp.push(\"$key\");");
+			$t2[]=$value["E"];	
+			$t3[]=$value["I"];
+		}
+	?>
+		var g_array1=new Array();
+		var g_array2=new Array();
+		var g_array3=new Array();
+		
+		g_array=<?echo json_encode($t1);?>;
+		
+		g_array2=<?echo json_encode($t2);?>;
+		g_array3=<?echo json_encode($t3);?>;
+
+		chart = new Highcharts.Chart({
+            chart: {
+                renderTo: 'graph_cont2',
+                type: 'column'
+            },
+            title: {
+                text: 'Jumlah Container Per Blok'
+            },
+            xAxis: {
+                categories: g_array,
+                title: {
+                    text: null
+                }
+            },
+            yAxis: {
+                min: 0,
+                title: {
+                    text: 'TEUs',
+                    align: 'high'
+                },
+                labels: {
+                    overflow: 'justify'
+                }
+            },
+            tooltip: {
+                formatter: function() {
+					var cmt=' TEUs';
+					return ''+
+                        this.series.name +': '+ this.y +cmt;
+                }
+            },
+            plotOptions: {
+                bar: {
+                    dataLabels: {
+                        enabled: true
+                    }
+                }
+            },
+            legend: {
+                layout: 'vertical',
+                align: 'right',
+                verticalAlign: 'top',
+                x: -100,
+                y: 100,
+                floating: true,
+                borderWidth: 1,
+                backgroundColor: '#FFFFFF',
+                shadow: true
+            },
+            credits: {
+                enabled: false
+            },
+            series: [{
+                name: 'Export',
+                data: g_array2,
+				point:{
+					events:{
+					click: function (event) {
+                      createBlokChartWithType(g_array_temp[this.x],"E");
+					}
+					}
+				}
+            }, {
+                name: 'Import',
+                data: g_array3,
+				point:{
+					events:{
+					click: function (event) {
+                      createBlokChartWithType(g_array_temp[this.x],"I");
+					}
+					}
+				}
+            }]
+        });
+});
+</script>
+
+
+
+<div class="content">
+	<div class="main_side">
+	<p>
+	<h2> <img src="<?=HOME?>images/kapal_.gif" height="7%" width="7%" style="vertical-align:middle"> <font color="#81cefa">Monitoring </font>
+	<font size="3px" color="#606263">Vessel - YOR</font></h2></p>
+	<br/>
+	<table id='vessel_table' width="100%"></table> <div id='pg_l_vessel_table'></div>
+	<br/>
+	<div align='center'>
+	<table>
+		<tr>
+			<td colspan=2>
+				<div id="graph_cont2" style="width: 740px; height: 500px"></div>
+				<?
+				/*	foreach ($blokExport as $key => $value) {
+						echo "Export $key = $value. ";
+					}
+					foreach ($blokImport as $key => $value) {
+						echo "Import $key = $value. ";
+					}*/					
+				?>
+				<br><br>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<div id="graph_cont" style="width: 370px; height: 300px"></div>
+				<!--<br>Total Cell Used for Export={$used_export} TEUs - {$boxExport} box<br>Total Cell Used for Import={$used_import} TEUs - {$boxImport} box<br>Available Cell={$available}TEUs<br>-->
+				<br/>
+			</td>
+			<td>
+				<div id="graph_cont3" style="width: 370px; height: 300px"></div>
+				<br/>
+			<td/>
+		</tr>
+		
+	</table>
+	</div>
+	<br/>
+	<table id='yor_table' width="100%"></table> <div id='pg_l_yor_table'></div>
+	
+	<br/>
+	<table id='crane_table' width="100%"></table> <div id='pg_l_crane_table'></div>
+
+	
+	<div id="dialog-form">
+	<form>
+		<div id="table_profil"></div>
+	</form>
+	</div>
+	<br/>
+	<br/>
+	</div>
+</div>
+<div id="log_em"></div>
+<div id="add_comment"></div>

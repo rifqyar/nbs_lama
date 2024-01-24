@@ -1,0 +1,76 @@
+<style>
+.content{
+	width:95%;
+	margin-left:auto;
+	margin-right:auto;
+	margin-bottom: 10px;
+	margin-top:20px;
+}
+.main_side{
+	width:100%;
+	float:left;
+	text-align:left;
+}
+.rightside{ 
+	width:25%;
+	float:right;
+	text-align:center;
+}
+  
+
+</style>
+
+<script type="text/javascript">
+  /*$(document).ready(function() {
+    $("tr:odd").addClass("ganjil");
+    $("tr:even").addClass("genap");
+  });*/
+</script>
+
+<div class="content">
+	<div class="main_side">
+	<h2>Master Tarif</h2>
+	<p><br/>
+	  <a href="<?=HOME?>maintenance.master.tarif/add" class="link-button">
+      <img border="0" src="images/tambah.png" />
+      Tambah Tarif</a>	  </p>
+	  <p><br/>
+	  </p>
+	<p><br/></p>
+	<table id="zebra" border="1" bordercolor="#FFFFFF" width=100% style="border-collapse:collapse">
+	  <tr>
+		<th height="34">NO</th>
+        <th>KODE CONT</th>
+		<th>DESC CONT</th>
+        <th>JENIS BIAYA</th>
+		<th>BIAYA LAINNYA</th>
+        <th>TARIF</th>
+		<th>VAL</th>
+		<th>OI</th>
+		<th>Start Period</th>
+		<th>End Period</th>
+		<th>ACTION</th>
+     </tr>
+     	<? $no=1; ?>
+		<fill src="tarif" var="tarifs">
+		<tr>        
+            <td align="center" height="34">{$no}</td>
+            <td align="center">{$tarifs.ID_CONT}</td>
+			<td align="center">{$tarifs.UKURAN} {$tarifs.TYPE} {$tarifs.STATUS} {$tarifs.HEIGHT_CONT} </td>
+			<td align="center"><b>{$tarifs.JENIS_BIAYA}</b></td>
+			<td align="center"><b>{$tarifs.JENIS_BIAYA2}</b></td>
+			<td align="center"><b>{$tarifs.TARIF}</b></td>
+			<td align="center"><b>{$tarifs.VAL}</b></td>
+			<td align="center"><b>{$tarifs.OI}</b></td>
+			<td align="center"><b>{$tarifs.START_PERIOD}</b></td>
+			<td align="center"><b>{$tarifs.END_PERIOD}</b></td>
+		    <td align="center"><a href="<?=HOME?>maintenance.master.tarif/edit?id={$tarifs.ID_CONT}&jenis={$tarifs.JENIS_BIAYA}&val={$tarifs.VAL}&oi={$tarifs.OI}"><img src="<?=HOME?>images/edit.png" /></a>&nbsp;&nbsp;</td>
+			<!--<a href="<?=HOME?>maintenance.master.tarif/delete?id={$tarifs.ID_CONT}&jenis={$tarifs.JENIS_BIAYA}&val={$tarifs.VAL}&oi={$tarifs.OI}"><img src="<?=HOME?>images/ico_delete.gif" /></a>-->
+		</tr>
+        <? $no++; ?>
+		</fill>
+	</table>
+	<br/>
+	<br/>
+	</div>
+</div>

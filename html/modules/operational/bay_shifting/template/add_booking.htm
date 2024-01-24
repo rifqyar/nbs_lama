@@ -1,0 +1,146 @@
+
+<div class="content">
+	<div class="main_side">
+	<h2> Add booking</h2>
+<fieldset style="margin: 30px 10px 10px 10px; height:160px;vertical-align:middle; border-radius: 10px 10px 10px 10px;-moz-border-radius: 10px 10px 10px 10px; 
+-webkit-border-radius: 10px 10px 10px 10px;">
+<table border='0' width="700" align="center">
+<tr height="25">
+<td width="250"></td>
+<td colspan="2" class="form-field-caption" valign="top" align="right"></td>
+</tr>
+<tr height="25">
+<td class="form-field-caption" valign="top" align="right"> SIZE </td>
+<td class="form-field-caption" valign="top" align="left">: 
+		<select name="size" class="form-field-caption" id="size" >
+                  <option value=""> -- Pilih -- </option>
+				  <option value="20"> 20" </option>
+				  <option value="40"> 40" </option>
+				  <option value="45"> 45" </option>
+            </select>
+	  <input type="hidden" name="id_vs" id="id_vs" value={$id_vs} />
+</td>
+<td></td>
+<td class="form-field-caption" valign="top" align="right"> TOTAL BOX</td>
+<td class="form-field-caption" valign="top" align="left">: <input type="text" name="box" id="box" size="5"/> BOX
+</td>
+</tr>
+<tr height="25">
+<td class="form-field-caption" valign="top" align="right"> TYPE </td>
+<td class="form-field-caption" valign="top" align="left">:
+ <select name="type" id="type" class="form-field-caption" valign="top" align="right">
+                  <option value=""> -- Pilih -- </option>
+				  <option value="DRY"> DRY </option>
+				  <option value="FLT"> FLAT TRACK </option>
+				  <option value="OT"> OPEN TOP </option>
+				  <option value="OVD"> OVD </option>
+				  <option value="RFR"> REFFER </option>
+				  <option value="TNK"> TANK </option>
+            </select>
+</td>
+<td></td>
+<td class="form-field-caption" valign="top" align="right"> TOTAL TEUS</td>
+<td class="form-field-caption" valign="top" align="left">: <input type="text" name="teus" id="teus" size="5"/> BOX
+</td>
+</tr>
+<tr height="25">
+<td class="form-field-caption" valign="top" align="right"> STATUS </td>
+<td class="form-field-caption" valign="top" align="left">:	
+<select name="status" id="status" class="form-field-caption" valign="top" align="right">
+                  <option value=""> -- Pilih -- </option>
+				  <option value="FCL"> FCL </option>
+				  <option value="MTY"> MTY </option>
+				  <option value="LCL"> LCL </option>
+				   <option value="UC"> UC </option>
+            </select>
+</td>
+<td></td>
+<td class="form-field-caption" valign="top" align="right"> PELABUHAN</td>
+<td class="form-field-caption" valign="top" align="left">: <input type="text" name="pelabuhan" id="pelabuhan" size="20"/>
+<input type="text" name="id_pelabuhan" id="id_pelabuhan" size="5"/>
+</td>
+
+</tr>
+<tr height="10">
+	<td colspan="6"></td>
+</tr>
+<tr>
+
+<td colspan='6' class="form-field-caption" valign="top" align="center"> 
+    <input type="button" name="add_booking" value="Add Booking" onclick="add_booking()" />
+</td>
+</tr>
+<tr>
+
+<td>&nbsp;</td>
+</tr>
+</table>
+
+</fieldset>
+
+<div id="loadx"></div>
+</div>
+
+
+<script type='text/javascript'>
+$(document).ready(function() 
+{	
+		$('#loadx').load("<?=HOME?>planning.booking/detail_booking?id=<?=$id_vs?> #list");
+		
+        $( "#pelabuhan" ).autocomplete({
+		minLength: 3,
+		source: "<?=HOME?>planning.booking.auto/pelabuhan",
+		focus: function( event, ui ) {
+			$( "#pelabuhan" ).val( ui.item.PELABUHAN);
+			return false;
+		},
+		select: function( event, ui ) {
+			$( "#pelabuhan" ).val( ui.item.PELABUHAN);
+            $( "#id_pelabuhan" ).val( ui.item.ID_PEL);
+			return false;
+		}
+	})
+	.data( "autocomplete" )._renderItem = function( ul, item ) {
+		return $( "<li></li>" )
+			.data( "item.autocomplete", item )
+			.append( "<a>" + item.PELABUHAN + " | " + item.ID_PEL + "</a>")
+			.appendTo( ul );
+	};  
+});
+
+function edit($size, $type, $status, $box, $teus, $id_pel, $pel_tuj){
+	    $('#size').val('{$size}');
+		$('#id_vs').val('{$id_vs}');
+		$('#box').val('{$box}');
+		$('#teus').val('{$teus}');
+		$('#type').val('{$status}');
+		$('#id_pelabuhan').val('{$id_pelabuhan}');
+		$('#status').val('{$status}');
+		$('#pelabuhan').val('{$pelabuhan}');
+}
+
+function add_booking(){
+	    var size_ 		= $("#size").val();
+		var id_vs_		= $("#id_vs").val();	
+		var box_		= $("#box").val();
+		var type_ 		= $("#type").val();
+		var teus_ 		= $("#teus").val();	
+		var status_		= $("#status").val();
+		var pelabuhan_	= $("#pelabuhan").val();
+		var id_pelabuhan_	= $("#id_pelabuhan").val();
+		var url 	= "<?=HOME?><?=APPID?>.ajax/save_booking #list";
+	 
+		$("#loadx").load(url,{size :size_, id_vs : id_vs_,box:box_, type :type_,teus : teus_,status :status_, pelabuhan:pelabuhan_, id_pelabuhan : id_pelabuhan_}, function(data){
+		$('#loadx').load("<?=HOME?>planning.booking/detail_booking?id=<?=$id_vs?> #list");
+		});
+}
+
+function delete($id_book){
+	    var id_book_ 		= $id_book;
+		var url 			= "<?=HOME?><?=APPID?>.ajax/delete #list";
+	 
+		$("#loadx").load(url,{id_book :id_book_}, function(data){
+		$('#loadx').load("<?=HOME?>planning.booking/detail_booking?id=<?=$id_vs?> #list");
+		});
+}
+</script>

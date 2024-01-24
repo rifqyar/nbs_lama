@@ -1,0 +1,98 @@
+<style>
+.content{
+	width:95%;
+	margin-left:auto;
+	margin-right:auto;
+	margin-bottom: 10px;
+	margin-top:20px;
+}
+.main_side{
+	width:100%;
+	float:left;
+	text-align:left;
+}
+</style>
+
+<script type="text/javascript">
+jQuery(function() {
+ jQuery("#p_nota_glc").jqGrid({
+	url:'<?=HOME?>datanya/data_dso?q=p_nota_glc&template=false',
+	mtype : "post",
+	datatype: "json",
+	colNames:['REQUEST','PENGGUNA JASA','NO UPER B/M','TGL KEGIATAN','VESSEL / VOYAGE','ALAT','STATUS','ACTION'], 
+	colModel:[
+		{name:'id_req',index:'id_req', width:100, align:"center"},
+		{name:'pbm',index:'pbm', width:200, align:"center"},		
+		{name:'no_uper',index:'no_uper', width:120, align:"center"},
+		{name:'tgl_kegiatan',index:'tgl_kegiatan', width:230, align:"center"},
+		{name:'vessel',index:'vessel', width:200, align:"center"},
+		{name:'alat',index:'alat', width:200, align:"center"},
+		{name:'status',index:'status', width:80, align:"center"},
+		{name:'action',index:'action', width:180, align:"center"}
+	],
+	rowNum:10,
+	width: 865,
+	height: 300,//250
+
+	rowList:[10,20,30,40,50,60],
+	loadonce:true,
+	rownumbers: true,
+	rownumWidth: 15,
+	gridview: true,
+	pager: '#pg_p_nota_glc',
+	viewrecords: true,
+	shrinkToFit: false,
+	caption:"Data Sewa GLC"
+ });
+  jQuery("#p_nota_glc").jqGrid('navGrid','#pg_p_nota_glc',{del:false,add:false,edit:false,search:false}); 
+ jQuery("#p_nota_glc").jqGrid('filterToolbar',{stringResult: true,searchOnEnter : false});
+ 
+});
+</script>
+
+<script>
+function tambah(b)
+{
+	//alert(b);
+	$('#table_jkm').load("<?=HOME?>billing.nota_glc/insert_jkm?id="+b+" #jkm_input").dialog({modal:true, height:200,width:300});
+}
+
+function insert_jkm(id_rq)
+{
+	//alert(id_rq);
+	var jkm_nota_ = document.getElementById("jkm_nota").value;
+	var faktur_nota_ = document.getElementById("faktur_nota").value;
+	var no_req_ = id_rq;
+	var url		= "{$HOME}billing.nota_glc.ajax/jkm_input";
+	
+	$.post(url,{ID_REQ: no_req_, JKM_NOTA : jkm_nota_, FAKTUR_NOTA : faktur_nota_},function(data){
+		console.log(data);
+		if(data == "OK")
+		{
+			alert("Insert JKM Berhasil");
+			window.location = "{$HOME}{$APPID}";
+		}
+		else if(data == "gagal")
+		{
+			alert("Gagal Insert JKM...!!!");
+		}		
+	});
+}
+</script>
+
+<div class="content">
+	<div class="main_side">
+	<h2><span class="graybrown">
+    	<img class="icon" border="0" src="images/cetak.png" />
+        &nbsp;<font color="#0378C6">Nota</font> GLC
+        </span></h2>	
+	<p><br/></p>
+    <table id='p_nota_glc' width="100%"></table> <div id='pg_p_nota_glc'></div>
+	
+	<form>
+		<div id="table_jkm"></div>
+	</form>
+	<br/>
+	<br/>
+	</div>
+</div>

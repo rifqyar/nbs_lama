@@ -1,0 +1,48 @@
+ <h2>Change Password </h2>
+ <fieldset class="form-fieldset" style="margin: 5px 5px 5px 5px; height:400px; vertical-align:middle">
+ <table>
+	<tr>
+		<td>Nama</td>
+		<td>:</td>
+		<td>{$row_u.NAMA_LENGKAP}</td>
+	</tr>
+	<tr>
+		<td>NIPP</td>
+		<td>:</td>
+		<td>{$row_u.NIPP}</td>
+	</tr>
+	<tr>
+		<td>Password</td>
+		<td>:</td>
+		<td><input type="password" id="password" /></td>
+	</tr>
+	<tr>
+		<td>Confirm Password</td>
+		<td>:</td>
+		<td><input type="password" id="con_password" /></td>
+	</tr>
+	<tr>
+		<td colspan="3"><br/><a class="link-button" onclick="change_password('{$row_u.ID}');">Change Password</a></td>
+	</tr>
+	
+ </table>
+ 	
+ </fieldset>
+ <script>
+	function change_password($id_user){
+		var password = $("#password").val();
+		var con_password = $("#con_password").val();
+		if(password != con_password){
+			alert("Password dan Confirm Password Tidak Sama");
+		}
+		else{
+			var url = '<?=HOME?><?=APPID?>/change_pass_do'
+			$.post(url, {ID_USER : $id_user, PASSWORD : password, CON_PASSWORD : con_password}, function(data){
+				if(data == "OK"){
+					alert("Password Changed");
+				}
+			});
+		}
+	}
+ </script>
+ 

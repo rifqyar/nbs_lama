@@ -1,0 +1,116 @@
+
+ 
+<span class="graybrown ">
+	<table width="100%" cellspacing="0" height="81px" border="0" style="margin-top:-14px;">
+    	<tr align='left'>
+        	<td width='100px' > 
+            	&nbsp;&nbsp;&nbsp;&nbsp;<img src='images/cont_gate.png' border='0' width="80%" height='100%' class="icon"/></td><td ><font color="RED" size="+3">Form Gate Out </font><font color="0268AB" size="+3">[ Truk Engkel ]</font>
+            </td>
+        </tr>
+    </table>
+</span>
+
+<fieldset class="form-fieldset" style="margin: 5px 5px 5px 5px; ">
+	<center>
+    <table style="margin: 30px 30px 30px 30px;" border="0">
+    	<tr>
+        	<td>No. Kartu</td>
+            <td> : </td>
+            <td> <input type="text" name="NO_KARTU" ID="NO_KARTU" style="font-size:20px; font-weight:bold; text-transform:uppercase" tabindex="2"/> </td>
+    	</tr>
+        <tr>
+        	<td>No. Container</td>
+            <td> : </td>
+            <td> <input type="text" name="NO_CONT" ID="NO_CONT" readonly="readonly" placeholder="AUTO" style="font-size:20px; font-weight:bold; text-transform:uppercase" tabindex="2" /> </td>
+    	</tr>
+		<tr>
+        	<td>No. POLISI</td>
+            <td> : </td>
+            <td> <input type="text" name="NO_POL" ID="NO_POL" style="font-size:20px; font-weight:bold; text-transform:uppercase" tabindex="2" /> 
+				<input type="hidden" id="LOKASI"/>
+			</td>
+    	</tr>
+	</table>
+    </center>
+</fieldset>
+
+<fieldset class="form-fieldset" style="margin: 5px 5px 5px 5px; text-align:center">
+	<input type="button" value=" GATE OUT " onclick="set_gateout()" />
+</fieldset>
+
+<script>
+
+$(function() {	
+	$( "#NO_KARTU" ).autocomplete({
+		minLength: 3,
+		source: "{$HOME}{$APPID}.auto/kartu",
+		focus: function( event, ui ) {
+			$( "#NO_KARTU" ).val( ui.item.NO_KARTU );
+			return false;
+		},
+		select: function( event, ui ) {
+			$( "#NO_KARTU" ).val( ui.item.NO_KARTU );
+			$( "#NO_CONT" ).val( ui.item.NO_CONTAINER);
+			$( "#NO_POL" ).val( ui.item.NO_POL);
+			$( "#LOKASI" ).val( ui.item.LOKASI);
+			return false;
+		}
+	})
+	.data( "autocomplete" )._renderItem = function( ul, item ) {
+		return $( "<li style='text-align:left'></li>" )
+			.data( "item.autocomplete", item )
+			.append( "<a><font style='font-size:20px'>" + item.NO_KARTU + "</font><br/> <font style='font-size:16px;color:red'>"+item.NO_CONTAINER+"</font></a>" )
+			.appendTo( ul );
+	};
+	
+	$( "#NO_POL" ).autocomplete({
+		minLength: 3,
+		source: "{$HOME}{$APPID}.auto/no_pol",
+		focus: function( event, ui ) {
+			$( "#NO_POL" ).val( ui.item.NO_POL );
+			return false;
+		},
+		select: function( event, ui ) {
+			$( "#NO_KARTU" ).val( ui.item.NO_KARTU );
+			$( "#NO_CONT" ).val( ui.item.NO_CONTAINER);
+			$( "#NO_POL" ).val( ui.item.NO_POL);
+			return false;
+		}
+	})
+	.data( "autocomplete" )._renderItem = function( ul, item ) {
+		return $( "<li style='text-align:left'></li>" )
+			.data( "item.autocomplete", item )
+			.append( "<a>" + item.NO_KARTU + "<br/> "+item.NO_CONTAINER+" "+item.SIZE_+"\"</a>" )
+			.appendTo( ul );
+	};
+});
+
+function set_gateout()
+{
+	var no_cont_	= $("#NO_CONT").val();
+	var no_kartu_	= $("#NO_KARTU").val();
+	var no_pol_		= $("#NO_POL").val();
+	var lokasi_		= $("#LOKASI").val();
+	var url			= "{$HOME}{$APPID}.ajax/add_gateout";
+	var url2		= "{$HOME}{$APPID}.autoprint/jobslip";
+	
+	$.blockUI({ message: '<h1>Please wait...</h1>' });
+	$.post(url,{NO_CONT: no_cont_, NO_KARTU : no_kartu_, NO_POL : no_pol_},function(data){
+		console.log(data);
+		if(data == "OK")
+		{
+			$.unblockUI({ 
+				onUnblock: function(){
+				} 
+				});
+			alert("GET OUT BERHASIL");
+			//window.open(url2+'?no_cont='+no_cont_+'&no_req='+no_kartu_+'&lokasi='+lokasi_)
+		
+			 $("#NO_CONT").val("");
+			 $("#NO_KARTU").val("");
+			 $("#NO_POL").val("");
+		}
+	});	
+}
+
+</script>

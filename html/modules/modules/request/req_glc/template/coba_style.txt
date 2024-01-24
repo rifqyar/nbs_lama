@@ -1,0 +1,24 @@
+<?php
+$i = 1;
+foreach($hasil as $key=>$data){
+//echo $data['STATUS'];
+if($data['STATUS'] == 1)
+{
+$bgcolor_ = "#A0D7F9";
+}
+else
+{
+$bgcolor_ = "#ffffff";
+}
+
+?>
+<tr valign='top' bgcolor="<?php echo $bgcolor_?>" onMouseOver="this.className='highlight'" onMouseOut="this.className='normal'">
+
+
+<STYLE>
+tr { }
+.initial { background-color: #DDDDDD; color:#000000 }
+.normal1 { background-color: #C0BBBB }
+.normal2 { background-color: #E1DEDE }
+.highlight { background-color: #82F759 }
+</style>

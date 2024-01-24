@@ -1,0 +1,34 @@
+
+<span class="graybrown"><img src='images/sp2_p.png' border='0' class="icon"/><font color="#0378C6"><b> Detail Komponen </b></font> Nota <?=$nota['NAMA_NOTA']?></span><br/><br/>
+		<br/><br/>
+<fieldset class="form-fieldset" style="margin: 5px 5px 5px 5px; ">
+	<center>
+   
+    <table class="grid-table" border='0' cellpadding="1" cellspacing="1"  width="70%" >
+                              <tr style=" font-size:10pt">
+                                  <th width="2%" valign="top" class="grid-header"  style="font-size:8pt">No </th>
+								  <th width="50" valign="top" class="grid-header"  style="font-size:8pt">ID</th>
+                                  <th width="110" valign="top" class="grid-header"  style="font-size:8pt">KOMPONEN NOTA</th>
+                                  <th width="150" valign="top" class="grid-header"  style="font-size:8pt">STATUS</th>
+                                  <th valign="top" class="grid-header"  style="font-size:8pt">ACTION</th>  
+                              </tr>
+                              <fill src="komp_nota" var="rows">
+                              <tr bgcolor="#f9f9f3" onMouseOver=this.style.backgroundColor="#BAD5FC" onMouseOut=this.style.backgroundColor="">
+                                  <td width="4%" align="center" valign="middle" class="grid-cell" style="color:#000; font-family:Arial; font-size:9pt">{$__ctr} </td>
+								  <td width="15%" align="left" valign="middle" class="grid-cell"   style="font-family:Arial; font-size:11pt; color:#555555"><b>{$rows.ID_KOMP_NOTA}</b></td>
+                                  <td width="22%" align="left" valign="middle" class="grid-cell"   style="font-family:Arial; font-size:11pt; color:#555555"><b>{$rows.KOMPONEN_NOTA}</b></td>
+                                  <td width="15%" align="center" valign="middle" class="grid-cell"  style="font-size:9pt">{$rows.STATUS}</td>
+                                  <td width="20%" align="center" valign="middle" class="grid-cell" style="font-size:9pt;">
+                                  <a href="{$HOME}{$APPID}/edit?id_nota={$rows.ID_NOTA}&komp_nota={$rows.ID_KOMP_NOTA}"><img src='images/cont_edit.gif' border='0' />&nbsp; Edit </a>
+                              </tr>
+                              </fill>
+                          </table>
+	
+	<!--<div id="nota_list" style="margin: 10px 10px 10px 10px;">-->
+    
+    </div>
+    
+	</center>
+</fieldset>
+		
+        

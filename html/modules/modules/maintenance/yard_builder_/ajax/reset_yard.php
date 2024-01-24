@@ -1,0 +1,1 @@
+<?php$db=getDb();$user=$_SESSION["NAMA_LENGKAP"];$db->query("begin ISWS.reset_placement('$user','81'); end;");echo "OK";?>

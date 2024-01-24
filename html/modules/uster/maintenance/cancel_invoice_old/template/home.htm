@@ -1,0 +1,134 @@
+
+<div id="showdiv"></div>
+<span class="graybrown"><img src='images/dokumenbig.png' border='0' class="icon"/> Cancel Invoice</span><br/><br/>
+<form id="form-add" enctype="multipart/form-data" action="#" method="POST">
+<fieldset class="form-fieldset" style="margin: 5px 5px 5px 5px; ">
+	<legend></legend>
+	<table class="form-input" cellspacing='2' cellpadding='2' border='0' width="100%" style="margin-top:10px;"> <block visible="error">
+		<tr><td colspan="2">Invalid Form Entry</td></tr></block> 
+		<tr>
+			<td class="form-field-caption" valign="middle" align="right" width="200">NO NOTA </td>
+			<td valign="top" class="form-field-input">:            
+		    <input  style="font-size:26px; font-weight:bold; text-transform:uppercase"  id="NO_NOTA" name="NO_NOTA" size="20"  class="suggestuwriter" type="text"  maxlength="16"  value="{$row.NO_NOTA}"  /></td>
+		</tr>
+								<tr>
+									<td class="form-field-caption" valign="middle" align="right" width="200">No. Permintaan</td><td valign="top" class="form-field-input">: 
+										<input id="NO_REQUEST" name="NO_REQUEST" type="text" value="{$row.NO_REQUEST}" size="50"  readonly />
+										<input id="KEGIATAN" name="KEGIATAN" type="text" value="{$row.KEGIATAN}" size="50"  readonly />
+									</td>									
+								</tr>
+                               
+                                <tr>
+									<td class="form-field-caption" valign="middle" align="right" width="200">Nama Pelanggan</td><td valign="top" class="form-field-input">: 
+										<input id="NM_PBM" name="NM_PBM" type="text" value="{$row.NM_PBM}" size="50" readonly />
+									</td>									
+								</tr>
+								   <tr>
+									<td class="form-field-caption" valign="middle" align="right" width="200">Alamat</td><td valign="top" class="form-field-input">: 
+										<input id="ALAMAT" name="ALAMAT" type="text" value="{$row.ALAMAT}" size="100" readonly />
+									</td>									
+								</tr>
+                                <tr>
+									<td class="form-field-caption" valign="middle" align="right" width="200">No. NPWP</td><td valign="top" class="form-field-input">: 
+										<input id="NO_NPWP" name="NO_NPWP" type="text" value="{$row.NO_NPWP}" size="50" readonly />
+									</td>									
+								</tr>
+								<tr>
+									<td class="form-field-caption" valign="middle" align="right" width="200">Total Tagihan</td><td valign="top" class="form-field-input">: 
+										<input id="TOTAL" name="TOTAL" type="text" value="{$row.TOTAL}" size="50"   readonly size="15" />
+									</td>
+								</tr>
+								<tr>
+									<td class="form-field-caption" valign="middle" align="right" width="200">PPN</td><td valign="top" class="form-field-input">: 
+										<input id="PPN" name="PPN" type="text"  readonly value="{$row.PPN}" size="10" />
+									</td>
+								</tr>
+							<tr>
+								<td class="form-field-caption" valign="middle" align="right" width="200">Jumlah yang dibayar</td><td valign="top" class="form-field-input">: 
+								<input id="TOTAL_TAGIHAN" name="TOTAL_TAGIHAN" type="text" value="{$row.TOTAL_TAGIHAN}" size="35"   readonly /></td>
+							</tr>	
+							   <tr>
+									<td class="form-field-caption" valign="middle" align="right" width="200">Status Lunas / Tanggal Lunas</td><td valign="top" class="form-field-input">: 
+										<input id="LUNAS" name="LUNAS" type="text" value="{$row.LUNAS}" size="20" readonly />
+										<input id="TGL_LUNAS" name="TGL_LUNAS" type="text" value="{$row.TGL_LUNAS}" size="20" readonly />
+									</td>									
+								</tr>
+                                <tr>
+									<td class="form-field-caption" valign="middle" align="right" width="200">Status Transfer</td><td valign="top" class="form-field-input">: 
+										<input id="TRANSFER" name="TRANSFER" type="text" value="{$row.TRANSFER}" size="50" readonly />
+									</td>									
+								</tr>
+
+		<tr><td class="form-field-caption" valign="top" align="right">Keterangan</td><td class="form-field-input" valign="top">&nbsp; <textarea id="id_KETERANGAN" name="PEB_KETERANGAN" cols="70" rows="2" onkeyup="cUpper(this)" ><?=$row["KETERANGAN"]?></textarea><block visible="error.PEB_KETERANGAN"><span class="form-field-error">{$error.PEB_KETERANGAN}</span></block></td></tr>
+		<tr><td colspan="2">&nbsp;</td></tr>
+		<tr><td colspan="2" align="center"><input type="button" value=" SIMPAN " onclick="cancel()"   class="butsave" /><br /><br /></td></tr>
+		<!--<tr><td colspan="2" class="form-footer"><a id="submitForm" onclick="submitForm('dataForm')" class="link-button" ><img src='images/valid.png' border='0' />&nbsp;Simpan</a> &nbsp;&nbsp; <a id="resetForm" onclick="resetForm('dataForm')" class="link-button" ><img src='images/reset.png' border='0' />&nbsp;Reset</a> &nbsp;&nbsp; <a id="cancelForm" onclick="cancelForm('dataForm')" class="link-button" ><img src='images/batal.png' border='0' />&nbsp;Batal</a></td></tr>-->
+		
+	</table>
+</fieldset>
+</form> 
+
+ 
+<script>
+function cUpper(cObj)
+	{
+		cObj.value=cObj.value.toUpperCase();
+	}
+        
+$(function() {	
+	$( "#NO_NOTA" ).autocomplete({
+		minLength: 3,
+		source: "{$HOME}{$APPID}.auto/nota",
+		focus: function( event, ui ) {
+			$( "#NO_NOTA" ).val( ui.item.NO_NOTA );
+			return false;
+		},
+		select: function( event, ui ) {
+			$( "#NO_NOTA" ).val( ui.item.NO_NOTA );
+			$( "#NO_REQUEST" ).val( ui.item.NO_REQUEST );
+            $( "#NM_PBM" ).val( ui.item.EMKL);
+			$( "#NO_NPWP" ).val( ui.item.NO_NPWP_PBM);
+			$( "#ALAMAT" ).val( ui.item.ALAMAT);
+			$( "#NO_NPWP" ).val( ui.item.NPWP);
+			$( "#TOTAL_TAGIHAN" ).val( ui.item.TOTAL_TAGIHAN);
+			$( "#PPN" ).val( ui.item.PPN);
+			$( "#TOTAL" ).val( ui.item.TOTAL);
+			$( "#LUNAS" ).val( ui.item.LUNAS);
+			$( "#TRANSFER" ).val( ui.item.TRANSFER);
+			$( "#TGL_LUNAS" ).val( ui.item.TGL_LUNAS);
+			$( "#KEGIATAN" ).val( ui.item.KEGIATAN);
+			return false;
+		}
+	})
+	.data( "autocomplete" )._renderItem = function( ul, item ) {
+		return $( "<li></li>" )
+			.data( "item.autocomplete", item )
+			.append( "<a>" + item.NO_NOTA + " <br> "+item.EMKL+"</a>")
+			.appendTo( ul );
+	};
+        
+      
+
+});
+
+function cancel(){
+	var NO_NOTA_ = $('#NO_NOTA').val();
+	var NO_REQUEST_ = $('#NO_REQUEST').val();
+	var KEGIATAN = $('#KEGIATAN').val();
+	var KETERANGAN = $('#id_KETERANGAN').val();
+	var url = '<?=HOME?><?=APPID?>/cancel';
+	$.blockUI({ message: '<h1>Please wait...</h1><p align=center><img src={$HOME}images/loadingbox.gif /></p>' });		
+	$.post(url,{NO_NOTA : NO_NOTA_, NO_REQUEST : NO_REQUEST_, KEGIATAN : KEGIATAN, KETERANGAN : KETERANGAN}, function(data){
+		if(data == 'sukses'){
+				$.unblockUI({ 
+				onUnblock: function(){ alert('Cancel Invoice Succeed'); } 
+				});
+		}else {
+				$.unblockUI({ 
+				onUnblock: function(){ alert('Cancel Invoice Succeed'); } 
+				});
+		}	
+	});
+}
+
+</script>

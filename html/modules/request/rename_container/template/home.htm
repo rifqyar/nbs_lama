@@ -1,0 +1,229 @@
+<style>
+.content{
+	width:95%;
+	margin-left:auto;
+	margin-right:auto;
+	margin-bottom: 10px;
+	margin-top:20px;
+}
+</style>
+<script type="text/javascript">
+jQuery(function() {
+ jQuery("#l_renamecontainer").jqGrid({
+	url:'<?=HOME?>datanya/data?q=l_renamecontainer',
+	mtype : "post",
+	datatype: "json",
+	colNames:['','No Rename','Tanggal Rename','No Ex Container','No Container New','Vessel / Voyage'], 
+	colModel:[
+		{name:'aksi', width:100, valign:"center", align:"center",sortable:false,search:false},
+		{name:'NO_RENAME',index:'NO_RENAME', width:125, align:"center"},
+		{name:'TGL_RENAME',index:'TGL_RENAME', width:150, align:"center"},
+		{name:'NO_EX_CONTAINER',index:'NO_EX_CONTAINER', width:125, align:"center"},
+		{name:'NO_CONTAINER',index:'NO_CONTAINER', width:125, align:"center"},
+		{name:'VESVOY',index:'VESVOY', width:150, align:"center"}
+	],
+	rowNum:20,
+	width: 865,
+	height: "100%",//250
+	sortname: "TGL_RENAME",
+	sortorder: "desc",
+	rowList:[10,20,30,40,50,60],
+	//loadonce:true,
+	rownumbers: true,
+	rownumWidth: 15,
+	gridview: true,
+	pager: '#pg_l_renamecontainer',
+	viewrecords: true,
+	shrinkToFit: false,
+	caption:"Data Rename Container"
+ });
+  jQuery("#l_renamecontainer").jqGrid('navGrid','#pg_l_renamecontainer',{del:false,add:false,edit:false,search:false}); 
+ jQuery("#l_renamecontainer").jqGrid('filterToolbar',{stringResult: true,searchOnEnter : false});
+});
+
+function reqbh_entry()
+{
+	alert($("#custaddr").val());
+	var url = "<?=HOME?>request.rename_container.ajax/add_reqbh";
+	
+	$.blockUI({ message: '<h1><br>Please wait...</h1><br><img src=<?=HOME;?>images/103.gif width="30" height="30" /><br><br>' });
+	
+	$.post(url,{KD_BARANG:$("#kd_barang").val(),
+				TIPE : $("#ei").val(), 
+				VESSEL : $("#vessel").val(), 
+				VOYAGE_IN : $("#voyage_in").val(),
+				VOYAGE_OUT : $("#voyage_out").val(), 
+		   		NO_UKK : $("#no_ukk").val(), 
+		   		CARRIER : $("#carrier").val(),
+		   		POD : $("#pod").val(),
+		   		FPOD : $("#fpod").val(), 
+		   		POL : $("#pol").val(), 
+		   		BOOKING_SL : $("#booking_sl").val(), 
+		   		CUSTNO : $("#custno").val(), 
+		   		KET : $("#ket").val(),
+		   		BIAYA : $("#biaya").val(), 
+		   		SIZE_:$("#size_").val(), 
+		   		TYPE_:$("#type_").val(), 
+		   		NO_CONT: $("#no_cont").val(),
+		   		NO_EX_CONT: $("#no_ex_cont").val(),
+		   		STATUS:$("#status").val(),	
+		   		CUSTNAME:$("#custname").val(),
+		   		CUSTADDR:$("#custaddr").val(),
+		   		CUSTID:$("#custid").val(),
+		   		NPWP:$("#npwp").val(),
+				OI:$("#tipe_oi").val()
+		   }, function(data){
+		alert(data);
+		//console.log(data);
+		if(data == "OK")
+		{
+			$.unblockUI({
+			onUnblock: function(){ }
+			});
+			alert("Success...");
+			window.location = "<?=HOME?>request.rename_container/";
+		}
+		else
+		{
+			$.unblockUI({
+			onUnblock: function(){ }
+			});
+			alert("Failed...");
+			window.location = "<?=HOME?>request.rename_container/";
+		}
+	});	
+}
+
+function add_reqbh()
+{
+	$('#add_reqbh').load("<?=HOME?>request.rename_container.ajax/reqbh_insert").dialog({closeOnEscape: false, modal:true, height:500,width:600, title : "Insert Rename Container", open: function(event,ui){$(".ui-dialog-titlebar-close",ui.dialog).hide();}});
+}
+
+function reqbh_edit(id)
+{
+	var url			= "<?=HOME?>request.rename_container.ajax/edit_reqbh";
+	$.blockUI({ message: '<h1><br>Please wait...</h1><br><img src=<?=HOME;?>images/103.gif width="30" height="30" /><br><br>' });
+	$.post(url,{NO_RENAME : $("#no_rename").val(), NO_EX_CONT : $("#no_ex_cont").val(), NO_CONT : $("#no_cont").val(), REMARKS : $("#ket").val(), BIAYA : $("#biaya").val(), CUSTNAME:$("#custname").val(), CUSTADDR:$("#custadd").val(), CUSTID:$("#custid").val(), NPWP:$("#npwp").val(), OI:$("#tipe_oi").val()},function(data){
+		//alert(data);
+		if(data == "OK")
+			{
+				$.unblockUI({
+				onUnblock: function(){ }
+				});
+				alert("Success...");
+				window.location = "<?=HOME?>request.rename_container/";
+			}
+		else if(data == "NO")
+			{
+				$.unblockUI({
+				onUnblock: function(){ }
+				});
+				alert("Data Not Complete...");
+				window.location = "<?=HOME?>request.rename_container/";
+			}
+		else
+			{
+				$.unblockUI({
+				onUnblock: function(){ }
+				});
+				alert("Failed...");
+				window.location = "<?=HOME?>request.rename_container/";
+			}
+	});	
+}
+
+function edit_reqbh(id)
+{
+	$('#edit_reqbh').load("<?=HOME?>request.rename_container.ajax/reqbh_edit?id="+id).dialog({closeOnEscape: false, modal:true, height:600,width:600, title : "Edit Request Rename Container", open: function(event,ui){$(".ui-dialog-titlebar-close",ui.dialog).hide();}});
+}
+
+function validation()
+{
+	var cek = true;
+	
+	if($('#e_i').val()=="") {
+		alert("Jenis Kegiatan Harap Diisi!");
+		cek = false;
+	}
+	else if($('#no_cont').val()=="") {
+		alert("No Container Baru Harap Diisi");
+		cek = false;
+	}
+	
+	if(cek) {
+		question = confirm("data akan disimpan, cek apakah data sudah benar?")
+		reqbh_entry();
+	}
+}
+
+function send_keu(id)
+{
+	question = confirm("data akan dikirim ke simkeu dan tidak dapat di-edit lagi,\napa anda yakin?")
+	if (question != "0") {
+		var url	= "<?=HOME?>request.rename_container.ajax/send_keu";
+	
+		$.blockUI({ message: '<h1><br>Please wait...</h1><br><img src=<?=HOME;?>images/103.gif width="30" height="30" /><br><br>' });
+		$.post(url,{ID_REQUEST : id},function(data){
+			//alert(data);
+			if(data == "OK")
+				{
+					$.unblockUI({
+					onUnblock: function(){ }
+					});
+					alert("Success...");
+					window.location = "<?=HOME?>request.rename_container/";
+				}
+			else if(data == "NO")
+				{
+					$.unblockUI({
+					onUnblock: function(){ }
+					});
+					alert("Data Not Complete...");
+					window.location = "<?=HOME?>request.rename_container/";
+				}
+			else
+				{
+					$.unblockUI({
+					onUnblock: function(){ }
+					});
+					alert("Failed...");
+					window.location = "<?=HOME?>request.extramovement/";
+				}
+		});	
+	}
+}
+</script>
+
+
+
+<div class="content">
+<div class="main_side">
+<p>
+<span class="graybrown">
+<img class="icon" border="0" src="images/contaier.png">
+Rename Container
+</span>
+</p>
+<br>
+<br>
+<p>
+<!--<a class="link-button" href="<?=HOME?>request.rename_container/add_req">-->
+<a class="link-button" onclick="add_reqbh()">
+<img border="0" src="images/tambah.png">
+Tambah
+</a>
+</p>
+<br/>
+<table id='l_renamecontainer' width="100%"></table> <div id='pg_l_renamecontainer'></div>
+<div id="dialog-form">
+<form id="mainform">
+	<!--<input type="hidden" name="tes" value="tes"/>-->
+	<div id="add_reqbh"></div>
+	<div id="edit_reqbh"></div>
+</form>
+</div>
+
+</div>	
+
+</div>
+

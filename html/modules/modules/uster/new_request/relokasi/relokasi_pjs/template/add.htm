@@ -1,0 +1,95 @@
+<span class="graybrown"><img src='images/sp2_p.png' border='0' class="icon"/><font color="#0378C6"> Request</font> Relokasi dari Pengguna Jasa </span><br/><br/>
+<fieldset class="form-fieldset" style="margin: 5px 5px 5px 5px; ">
+<form id="form" action="<?=HOME?><?=APPID?>/add_do" method="POST">
+	<center>
+    <table class="form-input" style="margin: 30px 30px 30px 30px;" >
+		<tr>
+			<td class="form-field-caption">Penerima / Consignee</td>
+            <td class="form-field-caption"> : </td>
+            <td class="form-field-caption" > 
+            	<input type="text" id="CONSIGNEE" size="40" name="CONSIGNEE" type="text" class="kdemkl " placeholder=" AUTOCOMPLETE" style="background-color:#FFFFCC;" /> 
+                <input size="40" name="KD_EMKL" id="KD_EMKL" type="hidden" />
+            </td>
+		</tr>
+		<tr>
+			<td class="form-field-caption">No Release Order(RO)</td>
+            <td class="form-field-caption"> : </td>
+            <td class="form-field-caption"> 
+            	<input type="text" id="RO" size="40" name="RO" type="text" /> 
+            </td>
+		</tr>
+    	<tr>
+        	<td class="form-field-caption">Depo Asal </td>
+            <td class="form-field-caption"> : </td>
+            <td class="form-field-caption"> 
+					<?=get_yard_origin()?> 
+
+            </td>
+            <td width="30" align="center" class="form-field-caption"><font size="5pt"> => </font></td>
+            <td class="form-field-caption"> Depo Tujuan</td>
+            <td class="form-field-caption"> : </td>
+            <td class="form-field-caption"> 
+					<?=get_yard_dest()?> 
+
+            </td>
+    	
+    	</tr>
+        <tr>
+			<td class="form-field-caption">Keterangan</td>
+            <td class="form-field-caption"> : </td>
+            <td class="form-field-caption"> <input id="keterangan" name="KETERANGAN" /></td>
+			
+            <td colspan="7" align="right"> <a class="link-button" onclick="save()"><img src='images/cont_addnew.gif' border="0"> Simpan </a>&nbsp;</td>
+        </tr>
+    
+	</table>
+    </center>
+</form>
+</fieldset>
+
+ 
+<script>
+function save(){
+	if($("#YARD_DEST").val() == $("#YARD_ORI").val()){
+		$.blockUI({ message: '<div align=left style=font-size:15pt;font-weight:bold;color:red ><img src=\'images/cont_invalid.png\' align=absmiddle border=0>Asal dan Tujuan tidak boleh sama</div>' ,css: { 'left': '450px','margin-top': '100px', 'width': '350px', 'height': '40px', 'padding': '20px','align':'center' } });
+			$('.blockOverlay').attr('title','Klik untuk menutup').click($.unblockUI); 
+			setTimeout($.unblockUI, 2000); 
+			return false;
+	}
+	else if($("#CONSIGNEE").val() == ''){
+		$.blockUI({ message: '<div align=left style=font-size:15pt;font-weight:bold;color:red ><img src=\'images/cont_invalid.png\' align=absmiddle border=0>Data Consignee Harus Diisi</div>' ,css: { 'left': '450px','margin-top': '100px', 'width': '350px', 'height': '40px', 'padding': '20px','align':'center' } });
+			$('.blockOverlay').attr('title','Klik untuk menutup').click($.unblockUI); 
+			setTimeout($.unblockUI, 2000); 
+			return false;
+	}
+	else {
+		$("#form").submit();
+	}
+}
+$(function(){
+	$( "#CONSIGNEE" ).autocomplete({
+		minLength: 3,
+		source: "{$HOME}{$APPID}.auto/pbm",
+		focus: function( event, ui ) {
+			$( "#CONSIGNEE" ).val( ui.item.NM_PBM );
+			return false;
+		},
+		select: function( event, ui ) {
+			$( "#CONSIGNEE" ).val( ui.item.NM_PBM );
+			$( "#KD_EMKL" ).val( ui.item.KD_PBM );
+			return false;
+		}
+	})
+	.data( "autocomplete" )._renderItem = function( ul, item ) {
+		return $( "<li></li>" )
+			.data( "item.autocomplete", item )
+			.append( "<a>" + item.NM_PBM + "</a>" )
+			.appendTo( ul );
+	};
+
+
+
+});
+
+
+</script>

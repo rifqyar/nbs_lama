@@ -1,0 +1,158 @@
+<style>
+.content{
+	width:95%;
+	margin-left:auto;
+	margin-right:auto;
+	margin-bottom: 10px;
+	margin-top:20px;
+}
+.main_side{
+	width:100%;
+	float:left;
+	text-align:left;
+}
+</style>
+
+<!--javascript datepicker-->
+<script>
+	$(function() {
+		$( "#datepicker" ).datepicker({
+			showOn: "button",
+			buttonImage: "images/cal.gif",
+			buttonImageOnly: true,
+			dateFormat: 'dd-mm-yy' 
+		});
+	});
+</script>
+<!----------end------------->
+
+<!--javascript untuk pengurangan jumlah pas-->
+<script type="text/javascript">
+  function startCalc(){
+    interval = setInterval("calc()",1);
+  }
+  function calc(){
+    one = document.autoSumForm.seri_awal.value;     //autoSumForm dideklarasikan pada nama form
+    two = document.autoSumForm.seri_akhir.value;    //seri_awal & seri_akhir disesuaikan dengan nama text_field
+    document.autoSumForm.lembar.value = ((two * 1) - (one * 1))+1;//lembar adalah text_field penerima hasil pengurangan
+  }
+  function stopCalc(){
+    clearInterval(interval);
+  }
+</script>
+<!----------end------------->
+
+<script type="text/javascript">
+function isNumberKey(evt)
+{
+	var charCode = (evt.which) ? evt.which : event.keyCode;
+	if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+		if(charCode=="46" || charCode=="110")	return true;
+		else	return false;
+	}	
+	return true;
+}
+</script>
+
+
+<div class="content">
+<div class="main_side">
+
+
+<block name='form'> <span class="graybrown"><img border="0" width="50" height="50" src="images/tickets.png" /><font color=#FF9900><b>{$formtitle}</b></font>&nbsp;<font color=#0378C6>PAS OVER BAGASI</font></span>
+<br/>
+<form id="dataForm" action="{$formurl}" method=POST name="autoSumForm"><!--nama form autoSumForm dari javascript-->
+<input type="hidden" name="__pbkey" value="" />
+<div class="form-fieldset" style="margin: 15px 0px 0px 0px ">
+<table style="padding: 5px 5px">
+		<!--<tr>
+			<td>Nomor Request Stok</td>
+			<td>&nbsp;&nbsp;:&nbsp;&nbsp;</td>
+      <td colspan="2"><input type="text" name="no_stok" style="background-color:#FFFF99;color:#FF3300;" readonly="readonly"/>&nbsp;
+          <i>autogenerate number</i>
+      </td>
+		</tr>-->
+		<block visible="error">
+        <tr>
+          <td colspan="2"> Invalid Form Entry </td>
+        </tr>
+    </block>
+		<tr>
+			<td><b>Tanggal Stok</b></td>
+			<td>&nbsp;&nbsp;:&nbsp;&nbsp;</td>
+      <td><input type="text" id="datepicker" align="right" name="tgl" style="background-color:#FFCCFF;"/></td>
+		</tr>
+		<tr>
+			<td><b>Periode</b></td>			
+			<td>&nbsp;&nbsp;:&nbsp;&nbsp;</td>
+      <td><select name="periode" style="background-color:#FFCCFF;">
+          <option value="2012">2012</option>
+          <option value="2013">2013</option>
+          <option value="2014">2014</option>
+          <option value="2015">2015</option>
+          <option value="2016">2016</option>
+          </select>
+      </td>
+		</tr>
+		<tr>
+			<td><b>Nomor Seri Pas</b></td>
+			<td>&nbsp;&nbsp;:&nbsp;&nbsp;</td>
+      <td align="center">awal</td>
+      <td align="center">akhir</td>
+		</tr>
+		<tr>
+		  <td></td>
+		  <td></td>
+		  <td><input type="text" name="seri_awal" style="background-color:#FFEAC4" value="" onFocus="startCalc();" onBlur="stopCalc();"/> s/d </td>
+		  <td><input type="text" name="seri_akhir" style="background-color:#FFEAC4" value="" onFocus="startCalc();" onBlur="stopCalc();"/></td>
+		</tr>
+    <tr>
+			<td><b>Jumlah Lembar</b></td>
+			<td>&nbsp;&nbsp;:&nbsp;&nbsp;</td>
+      <td><input type="text" name="lembar" style="background-color:#FFEAC4" readonly="readonly" size="5"/> lembar</td>
+		</tr>
+		<tr>
+			<td><b>Keterangan</b></td>
+			<td>&nbsp;&nbsp;:&nbsp;&nbsp;</td>
+      <td colspan="2"><input type="text" size="50" name="keterangan" style="background-color:#FFCCFF;"/></td>
+		</tr>
+		<!--<tr>
+        <td colspan="2" class="form-footer">
+          <a id="submitForm" onclick="submitForm('dataForm')" class="link-button"> 
+            <img src='images/valid.png' border='0' /> &nbsp;Simpan </a> &nbsp;&nbsp; 
+          <a id="resetForm" onclick="resetForm('dataForm')" class="link-button"> 
+            <img src='images/reset.png' border='0' /> &nbsp;Reset </a> &nbsp;&nbsp; 
+          <a id="cancelForm" onclick="cancelForm('dataForm')" class="link-button"> 
+            <img src='images/batal.png' border='0' /> &nbsp;Batal </a> 
+        </td>
+    </tr>-->
+</table>
+</div>
+
+<!--<input type="submit" value="Simpan" name="Simpan" class="link-button"/>&nbsp;-->
+
+<!--<a href="<?//=HOME?>request.pob/simpan" class="link-button">
+   <img border="0" src="images/save_peb.gif" /> Simpan
+</a>-->
+
+<!--<a href="<?=HOME?>request.pob_req/" class="link-button">
+   <img border="0" src="images/cont_red_delete.png" /> Batal
+</a>-->
+<p class="form-footer">
+        <a id="submitForm" onclick="submitForm('dataForm')" class="link-button"> 
+            <img src='images/valid.png' border='0' /> &nbsp;Simpan </a> &nbsp;&nbsp; 
+          <a id="resetForm" onclick="resetForm('dataForm')" class="link-button"> 
+            <img src='images/reset.png' border='0' /> &nbsp;Reset </a> &nbsp;&nbsp; 
+          <a id="cancelForm" onclick="cancelForm('dataForm')" class="link-button"> 
+            <img src='images/batal.png' border='0' /> &nbsp;Batal </a> 
+</p>
+</form>
+<br/>
+
+</block>
+
+<block name='nodata'>
+  <div class='form-nodata'> No Data Match </div>
+</block>
+</div>
+</div>

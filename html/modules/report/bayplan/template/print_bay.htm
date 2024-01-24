@@ -1,0 +1,32 @@
+<div id="print_html_perbay">
+<br>
+<form method="post" enctype="multipart/form-data" action="<?=HOME?>print.profil.perbay/simpan?id_vs={$req.ID_VS}">
+		<table>
+			<tr height='20'>
+				<td class="form-field-caption" align="right"></td>
+				<td class="form-field-caption" align="right"></td>
+				<td></td>			
+			</tr>
+			<tr>
+				<td class="form-field-caption" align="center">BAY</td>
+				<td class="form-field-caption" align="center"> : </td>
+				<td class="form-field-caption" align="center"><select id="modus" name="modus">
+															<option value=''> -- Pilih --</option>
+															<option value="{$req.BAY}"> <?{$req.BAY}?></option>
+															<?php 					
+																/*foreach($req)
+																{	
+																	echo "<option value="{$req.BAY}"> "{$req.BAY}"</option>";                
+																}*/
+															?></select></td>
+			</tr>
+			<tr>
+				<td colspan="3">&nbsp;</td>
+			</tr>
+			<tr>
+				<td colspan="3" align="right"> <input type="submit" name="upload" value="OK" /> </td>
+			</tr>
+			
+		</table>
+	</form>
+</div>

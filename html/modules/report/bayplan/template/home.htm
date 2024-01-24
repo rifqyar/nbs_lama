@@ -1,0 +1,128 @@
+<style>
+.content{
+	width:95%;
+	margin-left:auto;
+	margin-right:auto;
+	margin-bottom: 10px;
+	margin-top:20px;
+}
+.main_side{
+	width:100%;
+	float:left;
+	text-align:left;
+}
+</style>
+
+<script>
+function tambah(b,c)
+{
+	//alert(b);
+	$('#table_profil').load("<?=HOME?>planning.profil/insert_profil?id="+b+" #profil_input").dialog({modal:true, height:250,width:280,title: c});
+}
+
+function print_perbay(x,y)
+{
+	//alert(b);
+	$('#table_profil').load("<?=HOME?>print.bayplan.perbay/get_bay?id="+x+" #print_html_perbay").dialog({modal:true, height:250,width:280,title: y});
+}
+
+function bay_acc(id_vs,vesvoy)
+{
+	var id_vs_ = id_vs;
+	var url	= "{$HOME}{$APPID}.ajax/acc_bay";	
+	
+	var r=confirm("Bayplan "+vesvoy+" akan disetujui, pastikan data sudah benar");
+	if(r==true)
+	{
+		$.post(url,{REMARK : remark_},function(data){
+		console.log(data);
+			if(data == "OK")
+			{			
+				alert("Proses Invoice Berhasil");
+				window.location = "{$HOME}{$APPID}";
+			}
+			else if(data == "NO")
+			{
+				alert("Data Tidak Lengkap...Proses Invoice Gagal");
+			}
+			else if(data == "gagal")
+			{
+				alert("Proses Invoice Gagal");
+			}
+			else if(data == "UPER")
+			{
+				alert("Uper Alat Belum Lunas...!!!");
+			}
+			else if(data == "RTD")
+			{
+				alert("Realisasi Keberangkatan Kapal Belum Terisi...!!!");
+			}
+			else if(data == "SUDAH")
+			{
+				alert("Sudah Invoice Sebelumnya...");
+			}
+		});
+		return true;
+	}
+	else
+	{
+		return false;
+	}	
+}
+
+</script>
+
+<script type="text/javascript">
+jQuery(function() {
+ jQuery("#v_bayplan").jqGrid({
+	url:'<?=HOME?>datanya/data_dso?q=v_bayplan&template=false',
+	mtype : "post",
+	datatype: "json",
+	colNames:['ACTION','NO UKK','VESSEL','VOYAGE','ARRIVAL','DEPARTURE','BAYPLAN APPROVAL'], 
+	colModel:[
+		{name:'action',index:'action', width:150, align:"center",sortable:false,search:false},
+		{name:'ukk',index:'ukk', width:120, align:"center"},
+		{name:'vessel',index:'vessel', width:180, align:"center"},
+		{name:'voyage',index:'voyage', width:100, align:"center"},
+		{name:'datang',index:'datang', width:150, align:"center"},		
+		{name:'berangkat',index:'berangkat', width:150, align:"center"},
+		{name:'bayplan',index:'bayplan', width:160, align:"center",sortable:false,search:false}
+	],
+	rowNum:20,
+	width: 865,
+	height: "100%",//250
+
+	rowList:[10,20,30,40,50,60],
+	loadonce:true,
+	rownumbers: true,
+	rownumWidth: 15,
+	gridview: true,
+	pager: '#pg_v_bayplan',
+	viewrecords: true,
+	shrinkToFit: false,
+	caption:"Data Kapal"
+ });
+  jQuery("#v_bayplan").jqGrid('navGrid','#pg_v_bayplan',{del:false,add:false,edit:false,search:false}); 
+ jQuery("#v_bayplan").jqGrid('filterToolbar',{stringResult: true,searchOnEnter : false});
+ 
+});
+</script>
+
+<div class="content">
+	<div class="main_side">
+	<h2><span class="graybrown">
+    	<img class="icon" border="0" src="images/dokumenbig.png" width="32" height="32"/>
+        &nbsp;<font color="#0378C6">List</font> Bayplan
+        </span></h2>	
+	<p><br/></p>
+    <table id='v_bayplan' width="100%"></table> <div id='pg_v_bayplan'></div>
+	
+	<div id="dialog-form">
+	<form>
+		<div id="table_profil"></div>
+	</form>
+	</div>
+	<br/>
+	<br/>
+	</div>
+</div>

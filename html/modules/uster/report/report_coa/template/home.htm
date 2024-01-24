@@ -1,0 +1,152 @@
+
+<span class="graybrown"><img src='images/sp2_p.png' border='0' class="icon"/><font color="#0378C6"> Report COA Penumpukan </font></span><br/><br/>
+      <fieldset class="form-fieldset" style="margin: 5px 5px 5px 5px; ">
+        <form id="searchForm" name="searchForm" method="POST" action="{$HOME}{$APPID}.toexcel/toexcel">
+		<div style="padding:10px;font-family:Arial; font-size:8pt; color:#555555; font-weight:bold">
+            <table> <tr>
+						<td class="form-field-caption" valign="top" align="right">Periode Gate</td>
+						<td class="form-field-caption" valign="top" align="right"> : </td>
+						<td class="form-field-caption" valign="top" align="left">
+						<input type="text" name="tgl_awal" id="tgl_awal"/> s/d  <input type="text" name="tgl_akhir" id="tgl_akhir"/></td>
+				<tr>
+				<td class="form-field-caption" valign="top" align="right">Jenis Kegiatan </td><td class="form-field-caption" valign="top" align="right"> : </td><td class="form-field-caption" valign="top" align="left">
+				<select id="option_kegiatan" name="option_kegiatan">
+				<option value=""> -- Pilih -- </option>		
+						<option value="REPO"> REPO </option>
+						<option value="STUFFING"> STUFFING </option>
+						<option value="STRIPPING"> STRIPPING </option>
+					</select>
+				</td>
+				</tr>
+				<tr>
+					<td colspan="3" class="form-field-caption" valign="top" align="left" align="left"> &nbsp;&nbsp; <a class="link-button" style="height:25" onclick="generate()"><img src='images/cari.png' border='0' />Generate Report</a> &nbsp;&nbsp;
+					<a class="link-button" style="height:25" onclick="$('#searchForm').submit()"><img src='images/cari.png' border='0' />Generate Excel</a></td>
+				</tr>
+				
+			</table>
+		</div>
+        </form>
+	
+	   </fieldset>
+	<div id="list"></div>
+	<div id="dialog-detail"></div>
+<script>
+$(function() {
+
+	var noreq;
+	var kegiatan;
+
+	$( "#tgl_awal" ).datepicker();
+	$( "#tgl_awal" ).datepicker( "option", "dateFormat", "dd/mm/yy" );
+        
+    $( "#tgl_akhir" ).datepicker();
+	$( "#tgl_akhir" ).datepicker( "option", "dateFormat", "dd/mm/yy" );
+
+		$( "#dialog-detail" ).dialog({
+			autoOpen: false,
+			height: 700,
+			width: screen.width - 400,
+			modal: true,
+			buttons: {
+			"Generate Excel": function() {
+				toexcel_detail();
+			$( this ).dialog( "close" );
+			},
+			"Close": function() {
+				$( this ).dialog( "close" );
+			return false;
+			}
+			},
+			close: function() {
+
+			}
+		});
+
+});
+
+function test() {
+	alert(noreq);
+}
+
+function toexcel_detail(){
+	var url = "<?=HOME?><?=APPID?>.toexcel/toexcel_detail?noreq="+noreq+"&kegiatan="+kegiatan;
+	console.log(url);
+	window.open(url, "_blank");
+}
+
+function list_detail(no_req){
+	var url = "{$HOME}{$APPID}/repo_detail #detail";
+
+	$("#dialog-detail").load(url,{NO_REQ : no_req}, function(data){
+	});
+	$("#dialog-detail").dialog("open");
+
+	noreq = no_req;
+	kegiatan = 'REPO';
+}
+
+function list_detail_strip(no_req, jenis){
+	var url = "{$HOME}{$APPID}/strip_detail #detail";
+
+	$("#dialog-detail").load(url,{NO_REQ : no_req, JENIS : jenis}, function(data){
+	});
+	$("#dialog-detail").dialog("open");
+
+	noreq = no_req;
+	kegiatan = jenis;
+}
+
+function generate()
+{
+
+		var tgl_awal_ 	= $("#tgl_awal").val();
+		var tgl_akhir_	= $("#tgl_akhir").val();	
+		var jenis 		= $("#option_kegiatan").val();
+		var url 	       = "<?=HOME?><?=APPID?>/list #list";
+		
+		if ($("#tgl_awal").val() == ''){
+			alert('periode kegiatan harus diisi');
+		} else if ($("#tgl_akhir").val() == ''){
+			alert('periode kegiatan harus diisi');
+		} else if ($("#option_kegiatan").val() == ''){
+			alert('jenis kegiatan harus diisi');
+		} else {
+		$.blockUI({ message: '<h1><br>Please wait...</h1><br><img src={$HOME}images/loadingbox.gif /><br><br>' }); 
+		$("#list").load(url,{tgl_awal : tgl_awal_, tgl_akhir : tgl_akhir_, jenis : jenis}, function(data){
+			if(data){
+					$.unblockUI({ 
+					onUnblock: function(){  } 
+					});
+			}
+		});
+		}
+	
+}
+
+function topdf(){
+	var tgl_awal_ 	= $("#tgl_awal").val();
+	var tgl_akhir_	= $("#tgl_akhir").val();	
+	var url 	    = "<?=HOME?><?=APPID?>.topdf/print?tgl_awal="+tgl_awal_+"&tgl_akhir="+tgl_akhir_;
+	
+	window.open(url, "_blank");
+}
+
+function toexcel(){
+	var tgl_awal_ 	= $("#tgl_awal").val();
+	var tgl_akhir_	= $("#tgl_akhir").val();
+	var jenis_ 		= $("#option_kegiatan").val();	
+	var url 	    = "<?=HOME?><?=APPID?>.toexcel/toexcel?tgl_awal="+tgl_awal_+"&tgl_akhir="+tgl_akhir_+"&jenis="+jenis_;
+	
+	if ($("#tgl_awal").val() == ''){
+		alert('periode kegiatan harus diisi');
+	} else if ($("#tgl_akhir").val() == ''){
+		alert('periode kegiatan harus diisi');
+	} else if ($("#option_kegiatan").val() == ''){
+		alert('jenis kegiatan harus diisi');
+	} else {
+	window.open(url, "_blank");
+	}
+}
+
+</script>
+

@@ -1,0 +1,163 @@
+<script type="text/javascript"> 
+jQuery(function() {
+ jQuery("#l_user").jqGrid({
+	url:'maintenance.master.user.data/',
+	mtype : "post",
+	datatype: "json",
+	colNames:['AKSI','ID USER','NAME','NIP','DIVISI','JABATAN','USERNAME','PASSWORD','GROUP','AKTIF'], 
+	colModel:[
+		{name:'aksi', width:40, align:"center",sortable:false,search:false},
+		{name:'id_user',index:'id_user', width:50, align:"left"},
+		{name:'name',index:'name', width:150, align:"left"},
+		{name:'nip',index:'nip', width:60, align:"center"},
+		{name:'divisi',index:'divisi', width:150, align:"left"},
+		{name:'jabatan',index:'jabatan', width:150, align:"left"},
+		{name:'username',index:'username', width:90, align:"left"},
+		{name:'password',index:'password', width:90, align:"left"},
+		{name:'group',index:'group', width:125, align:"left"},
+		{name:'aktif',index:'aktif', width:40, align:"center"}
+	],
+	rowNum:10,
+	width: 875,
+	height: "100%",//250
+	rowList:[10,20,30,40,50],
+	loadonce:true,
+	rownumbers: true,
+	rownumWidth: 15,
+	gridview: true,
+	pager: '#pg_user',
+	viewrecords: true,
+	shrinkToFit: false,
+	addurl: "maintenance.master.user/add/",
+	caption:"Data Master User"
+ }).navGrid('#pg_user',{
+	search:false,
+	add:false,
+	edit:false,
+	del:false
+ });
+ jQuery("#l_user").jqGrid('filterToolbar',{stringResult: true,searchOnEnter : false});
+});
+
+function user_entry()
+{
+	var url			= "<?=HOME?>maintenance.master.user.ajax/add_user";
+	
+	$.blockUI({ message: '<h1><br>Please wait...</h1><br><img src=<?=HOME;?>images/103.gif width="30" height="30" /><br><br>' });
+	$.post(url,{NAMA : $("#nama").val(), NIPP : $("#nipp").val(), DIVISI : $("#divisi").val(), JABATAN : $("#jabatan").val(), USERNAME : $("#username").val(), PASSWORD : $("#password").val(), GROUP : $("#group").val(), AKTIF : $("#aktif").val()},function(data){
+		//alert(data);
+		if(data == "OK")
+			{
+				$.unblockUI({
+				onUnblock: function(){ }
+				});
+				alert("Success...");
+				window.location = "<?=HOME?>maintenance.master.user/";
+			}
+		else if(data == "NO")
+			{
+				$.unblockUI({
+				onUnblock: function(){ }
+				});
+				alert("Data Not Complete...");
+				window.location = "<?=HOME?>maintenance.master.user/";
+			}
+		else
+			{
+				$.unblockUI({
+				onUnblock: function(){ }
+				});
+				alert("Failed...");
+				window.location = "<?=HOME?>maintenance.master.user/";
+			}
+	});	
+}
+
+function valid_entry()
+{
+	if($('#nama').val()=="")	alert("Nama harus diisi!");
+	else if($('#username').val()=="")	alert("Username harus diisi!");
+	else if($('#password').val()=="")	alert("Password harus diisi!");
+	else	user_entry();
+}
+
+function add_user()
+{
+	$('#add_user').load("<?=HOME?>maintenance.master.user.ajax/user_insert").dialog({closeOnEscape: false, modal:true, height:280,width:450, title : "Insert User", open: function(event,ui){$(".ui-dialog-titlebar-close",ui.dialog).hide();}});
+}
+
+function user_edit(id)
+{
+	var url			= "<?=HOME?>maintenance.master.user.ajax/edit_user";
+	
+	$.blockUI({ message: '<h1><br>Please wait...</h1><br><img src=<?=HOME;?>images/103.gif width="30" height="30" /><br><br>' });
+	$.post(url,{ID_USER : id, NAMA : $("#nama").val(), NIPP : $("#nipp").val(), DIVISI : $("#divisi").val(), JABATAN : $("#jabatan").val(), PASSWORD : $("#password").val(), GROUP : $("#group").val(), AKTIF : $("#aktif").val()},function(data){
+		//alert(data);
+		if(data == "OK")
+			{
+				$.unblockUI({
+				onUnblock: function(){ }
+				});
+				alert("Success...");
+				window.location = "<?=HOME?>maintenance.master.user/";
+			}
+		else if(data == "NO")
+			{
+				$.unblockUI({
+				onUnblock: function(){ }
+				});
+				alert("Data Not Complete...");
+				window.location = "<?=HOME?>maintenance.master.user/";
+			}
+		else
+			{
+				$.unblockUI({
+				onUnblock: function(){ }
+				});
+				alert("Failed...");
+				window.location = "<?=HOME?>maintenance.master.user/";
+			}
+	});	
+}
+
+function valid_edit(id)
+{
+	if($('#nama').val()=="")	alert("Nama harus diisi!");
+	else if($('#username').val()=="")	alert("Username harus diisi!");
+	else if($('#password').val()=="")	alert("Password harus diisi!");
+	else	user_edit(id);
+}
+
+function edit_user(id)
+{
+	$('#edit_user').load("<?=HOME?>maintenance.master.user.ajax/user_edit?id="+id).dialog({closeOnEscape: false, modal:true, height:280,width:450, title : "Edit User", open: function(event,ui){$(".ui-dialog-titlebar-close",ui.dialog).hide();}});
+}
+
+</script>
+<style>
+.content{
+	width:95%;
+	margin-left:auto;
+	margin-right:auto;
+	margin-bottom: 10px;
+	margin-top:20px;
+}
+</style>
+
+<div class="content">
+<h2>&nbsp;<img class="icon" border="0" src="images/Person.png" />&nbsp;Master User</h2>
+<br />
+<a class="link-button" style="height:25" onclick="add_user()">
+	<img border="0" src="<?=HOME?>images/tambah.png">
+	Tambah User
+</a>
+<p><br/></p>
+<table id='l_user'></table> <div id='pg_user'></div>
+<div id="dialog-form">
+<form id="mainform">
+	<div id="add_user"></div>
+	<div id="edit_user"></div>
+</form>
+</div>
+
+</div>

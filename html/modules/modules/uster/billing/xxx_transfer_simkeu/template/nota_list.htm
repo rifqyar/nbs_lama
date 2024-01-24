@@ -1,0 +1,70 @@
+
+ <div id="list">
+	<center>	
+	<fieldset>
+	<table>
+		<tr>
+			<td><h2><font color="blue"> Jumlah Nota </font></h2></td>
+			<td><h2><font color="blue"> : </font></h2></td>
+			<td><h2><font color="blue"> <input type="text" value="10" readonly="readonly"/></font></h2></td>
+			<td width="200"></td>
+			<td><h2><font color="blue"> Total SIMOP</font></h2></td>
+			<td><h2><font color="blue"> : </font></h2> </td>
+			<td><h2><font color="blue"> <input type="text" value="10" readonly="readonly"/></font></h2></td>
+		</tr>
+		<tr>
+			<td><h2><font color="blue"> Jumlah Nota Valid</font></h2></td>
+			<td><h2><font color="blue"> : </font></h2></td>
+			<td><h2><font color="blue"> <input type="text" value="{$valid}" readonly="readonly"/> </font></h2></td>
+			<td></td>
+			<td><h2><font color="blue"> Total SIMKEU </font></h2></td>
+			<td><h2><font color="blue"> : </font></h2></td>
+			<td> <input type="text" value="10" readonly="readonly"/></td>
+			
+		</tr>
+		<tr>
+			<td><h2><font color="red"> Jumlah Nota Anval</font></h2></td>
+			<td><h2><font color="red"> : </font></h2></td>
+			<td><h2><font color="blue"> <input type="text" value="{$anval}" readonly="readonly"/></font></h2></td>
+			<td></td>
+			<td><h2><font color="red"> Total SELISIH</font></h2> </td>
+			<td><h2><font color="red"> :</font></h2></td>
+			<td> <input type="text" value="10" readonly="readonly"/></td>
+		</tr>
+		
+	</table>
+	</fieldset>
+	</center>
+	
+     <table class="grid-table" border='0' cellpadding="1" cellspacing="1"  width="100%" >
+                              <tr style=" font-size:10pt">
+                                  <th valign="top" class="grid-header"  style="font-size:8pt">No </th>
+                                  <th valign="top" class="grid-header"  style="font-size:8pt">NO. NOTA </th>
+                                  <th  valign="top" class="grid-header"  style="font-size:8pt">NO. REQUEST </th>
+                                  <th  valign="top" class="grid-header"  style="font-size:8pt">Kegiatan</th> 
+                                  <th valign="top" class="grid-header"  style="font-size:8pt">Tgl Kegiatan</th>
+                                  <th valign="top" class="grid-header"  style="font-size:8pt">Pemilik Barang</th>
+                                  <th valign="top" class="grid-header"  style="font-size:8pt">Total Tagihan</th> 
+								  <th valign="top" class="grid-header"  style="font-size:8pt">Keterangan</th> 
+                              </tr>
+                              <fill src="row_list" var="rows">
+                              <tr bgcolor="#f9f9f3" onMouseOver=this.style.backgroundColor="#BAD5FC" onMouseOut=this.style.backgroundColor="">
+                                  <td width="4%" align="center" valign="middle" class="grid-cell" style="color:#000; font-family:Arial; font-size:9pt">{$__ctr} </td>
+                                  <td width="22%" align="center" valign="middle" class="grid-cell"   style="font-family:Arial; font-size:11pt; color:#555555"><b>{$rows.NO_NOTA}</b></td>
+                                  <td width="15%" align="center" valign="middle" class="grid-cell"  style="font-size:9pt">{$rows.NO_REQUEST}</td>
+                                  <td width="15%" align="center" valign="middle" class="grid-cell"  style="font-size:9pt;font-family:Arial;"><font color="#0066CC" style="font-size:10pt">{$rows.NAMA_MODUL}</font></td>
+                                  <td width="15%" align="center" valign="middle" class="grid-cell"  style="font-size:9pt;font-family:Arial;"><font color="#0066CC" style="font-size:10pt">{$rows.TGL_KEGIATAN}</font></td>
+                                  <td width="15%" align="center" valign="middle" class="grid-cell"  style="font-size:9pt;font-family:Arial;"><font color="#0066CC" style="font-size:10pt">{$rows.NM_EMKL}</font></td>
+                                  <td width="15%" align="center" valign="middle" class="grid-cell"  style="font-size:9pt;font-family:Arial;"><font color="#0066CC" style="font-size:10pt">Rp {$rows.TOTAL_TAGIHAN},-</font></td>
+								  <td width="15%" align="center" valign="middle" class="grid-cell"  style="font-size:9pt;font-family:Arial;"><font color="#0066CC" style="font-size:10pt"> {$rows.SIMKEU_PROSES_INVOICE} </font></td>
+                              </tr>
+                              </fill>
+							<?php if(count($rows) > 0) {?>
+							<!--<tr>
+								<td colspan="5" align="right"><input type="button" value=" Cetak Detail Nota 1 " onclick="topdf()"/> </td>
+								<td align="right"><input type="button" value=" Cetak Detail Nota 2 " onclick="topdf2()"/> </td>
+								<td align="right"> <input type="button" value=" Transfer ke SIMKEU " onclick="transfer()" /> </td>
+							</tr> -->
+							<?php } ?>
+        </table>
+ </div>

@@ -1,0 +1,1 @@
+<yard><width>20</width><height>10</height><index>91,92,93,94,111,112,113,114,131,132,133,134</index><block><name>A</name><color>red</color><cell>91,92,93,94,111,112,113,114,131,132,133,134</cell></block></yard>

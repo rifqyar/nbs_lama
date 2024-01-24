@@ -1,0 +1,227 @@
+<style>
+.content{
+	width:95%;
+	margin-left:auto;
+	margin-right:auto;
+	margin-bottom: 10px;
+	margin-top:20px;
+}
+.main_side{
+	width:100%;
+	float:left;
+	text-align:left;
+}
+h2 {text-transform:uppercase;}
+</style>
+<?php
+?>
+<script type="text/javascript">
+
+$(document).ready(function() 
+{	
+	//--- container ---//
+	$( "#idcon" ).autocomplete({
+		minLength: 3,
+		source: "maintenance.master.tarif.auto/cont",
+		focus: function( event, ui ) 
+		{
+			$( "#idcon" ).val( ui.item.ID_CONT);
+			return false;
+		},
+		select: function( event, ui ) 
+		{
+			//$( "#idcon" ).val( ui.item.ID_CONT);
+			//$( "#pkcon" ).val( ui.item.ID_CONT);
+		
+			return false;
+		}
+	})
+	.data( "autocomplete" )._renderItem = function( ul, item ) 
+	{
+		return $( "<li></li>" )
+		.data( "item.autocomplete", item )
+		.append( "<a>" + item.ID_CONT + " </a>")
+		.appendTo( ul );
+	
+	};
+	
+	
+	
+	$("#s_period").datepicker({
+		dateFormat: 'dd-mm-yy'
+		});
+		
+	$("#e_period").datepicker({
+		dateFormat: 'dd-mm-yy'
+		});
+	
+});
+
+function isNumberKey(evt)
+{
+	var charCode = (evt.which) ? evt.which : event.keyCode;
+	if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+		if(charCode=="46" || charCode=="110")	return true;
+		else	return false;
+	}	
+	return true;
+ }
+
+</script>
+
+<?php
+	
+	$combolist["VAL_ID"] = array (
+	0 =>   array (    'id' => 'IDR',    '' => 'IDR',  ),
+	1 =>   array (    'id' => 'USD',    '' => 'USD'  ),
+	);
+	
+	$combolist["UKURAN"] = array (
+	'20' =>   array (    'id' => '20',    '' => '20',  ),
+	'40' =>   array (    'id' => '40',    '' => '40'  ),
+	'45' =>   array (    'id' => '45',    '' => '45'  ),
+	);
+	
+	$combolist["TIPE"] = array (
+	'HQ' =>   array (    'id' => 'HQ',    '' => 'HQ',  ),
+	'OVD' =>   array (    'id' => 'OVD',    '' => 'OVD'  ),
+	'TNK' =>   array (    'id' => 'TNK',    '' => 'TNK',  ),
+	'DRY' =>   array (    'id' => 'DRY',    '' => 'DRY'  ),
+	'RFR' =>   array (    'id' => 'RFR',    '' => 'RFR',  ),
+	'OT' =>   array (    'id' => 'OT',    '' => 'OT'  ),
+	'FLT' =>   array (    'id' => 'FLT',    '' => 'FLT'  ),
+	);
+	
+	$combolist["STATUS"] = array (
+	'MTY' =>   array (    'id' => 'MTY',    '' => 'MTY',  ),
+	'FCL' =>   array (    'id' => 'FCL',    '' => 'FCL'  ),
+	'UC' =>   array (    'id' => 'UC',    '' => 'UC',  ),
+	);
+	
+	$combolist["HEIGHT"] = array (
+	'OOG' =>   array (    'id' => 'OOG',    '' => 'OOG',  ),
+	'BIASA' =>   array (    'id' => 'BIASA',    '' => 'BIASA'  ),
+	);
+?>
+
+<div class="content">
+<div class="main_side">
+
+
+<h2> {$status} TARIF</h2>
+</br>
+
+<form method="POST" action="<?=HOME?>maintenance.master.tarif/simpan">
+<div class="form-fieldset" style="margin: 5px 5px 5px 5px">
+<table>
+		<block visible="error">
+        <tr>
+          <td colspan="2"> Invalid Form Entry </td>
+        </tr>
+		</block>
+		<tr>
+			<td>UKURAN</td>
+			<td>&nbsp;&nbsp;:&nbsp;&nbsp;</td>
+            <td>
+				<select id="id_UKURAN" name="id_UKURAN" selected="ubah.UKURAN" 
+				list="combolist.UKURAN" key="id" label="" > </select>
+				<input type="text" name="pkUkuran" value={$ubah.UKURAN} id="pkUkuran" hidden="true"/>
+				<block visible="error.id_UKURAN"> <span class="form-field-error"> {$error.id_UKURAN} </span> </block> 
+			</td>
+		</tr>
+		<tr>
+			<td>TYPE</td>
+			<td>&nbsp;&nbsp;:&nbsp;&nbsp;</td>
+            <td>
+				<select id="id_TYPE" name="id_TYPE" selected="ubah.TYPE" 
+				list="combolist.TIPE" key="id" label="" > </select>
+				<input type="text" name="pkType" value={$ubah.TYPE} id="pkType" hidden="true"/>
+				<block visible="error.id_TYPE"> <span class="form-field-error"> {$error.id_TYPE} </span> </block> 
+			</td>
+		</tr>
+		<tr>
+			<td>STATUS</td>
+			<td>&nbsp;&nbsp;:&nbsp;&nbsp;</td>
+            <td>
+				<select id="id_STATUS" name="id_STATUS" selected="ubah.STATUS" 
+				list="combolist.STATUS" key="id" label="" > </select>
+				<input type="text" name="pkStatus" value={$ubah.STATUS} id="pkStatus" hidden="true"/>
+				<block visible="error.id_STATUS"> <span class="form-field-error"> {$error.id_STATUS} </span> </block> 
+			</td>
+		</tr>
+		<tr>
+			<td>HEIGHT</td>
+			<td>&nbsp;&nbsp;:&nbsp;&nbsp;</td>
+            <td>
+				<select id="id_HEIGHT" name="id_HEIGHT" selected="ubah.HEIGHT" 
+				list="combolist.HEIGHT" key="id" label="" > </select>
+				<input type="text" name="pkHeight" value={$ubah.HEIGHT} id="pkHeight" hidden="true"/>
+				<block visible="error.id_HEIGHT"> <span class="form-field-error"> {$error.id_HEIGHT} </span> </block> 
+			</td>
+		</tr>
+		<tr>
+			<td>KODE CONT</td>
+			<td>&nbsp;&nbsp;:&nbsp;&nbsp;</td>
+            <td><input type="text" id="idcon" name="idcon" value={$ubah.ID_CONT} readonly />
+				<input type="text" id="pkcon" name="pkcon" value={$ubah.ID_CONT} hidden="true"/>
+				
+				<block visible="error.idcon"> <span class="form-field-error"> {$error.idcon} </span> </block> 
+			</td>
+		</tr>
+		<tr>
+			<td>JENIS BIAYA</td>
+			<td>&nbsp;&nbsp;:&nbsp;&nbsp;</td>
+            <td><input type="text" name="jenis_biaya" value={$ubah.JENIS_BIAYA} id="jenis_biaya"/>
+				<input type="text" name="pkjnsBiaya" value={$ubah.JENIS_BIAYA} id="pkjnsBiaya" hidden="true"/>
+				<block visible="error.jenis_biaya"> <span class="form-field-error"> {$error.jenis_biaya} </span> </block> 
+			</td>
+			
+		</tr>
+		<tr>
+			<td>BIAYA LAINNYA</td>
+			<td>&nbsp;&nbsp;:&nbsp;&nbsp;</td>
+            <td><input type="text" name="jenis_biaya2" value={$ubah.JENIS_BIAYA2} id="jenis_biaya2"/>
+				<block visible="error.jenis_biaya2"> <span class="form-field-error"> {$error.jenis_biaya2} </span> </block> 
+			</td>
+			
+		</tr>
+		<tr>
+			<td>VALUE</td>
+			<td>&nbsp;&nbsp;:&nbsp;&nbsp;</td>
+            <td>
+				<select id="id_VAL" name="id_VAL" selected="ubah.VAL" 
+				list="combolist.VAL_ID" key="id" label="" > </select>
+				<input type="text" name="pkVal" value={$ubah.VAL} id="pkVal" hidden="true"/>
+				<block visible="error.id_VAL"> <span class="form-field-error"> {$error.id_VAL} </span> </block> 
+			</td>
+		</tr>
+		<tr>
+			<td>TARIF</td>
+			<td>&nbsp;&nbsp;:&nbsp;&nbsp;</td>
+            <td><input type="text" name="tarif" id="tarif" value={$ubah.TARIF} onkeypress='return isNumberKey(event)'/>
+				<block visible="error.tarif"> <span class="form-field-error"> {$error.tarif} </span> </block> 
+			</td>
+		</tr>
+		<tr>
+			<td>START PERIOD</td>
+			<td>&nbsp;&nbsp;:&nbsp;&nbsp;</td>
+            <td><input type="text" name="s_period" id="s_period" value={$ubah.START_PERIOD} readonly="readonly" />
+				<block visible="error.s_period"> <span class="form-field-error"> {$error.s_period} </span> </block> 
+			</td>
+		</tr>
+		<tr>
+			<td>END PERIOD</td>
+			<td>&nbsp;&nbsp;:&nbsp;&nbsp;</td>
+            <td><input type="text" name="e_period" id="e_period" value={$ubah.END_PERIOD} readonly="readonly"/>
+				<block visible="error.e_period"> <span class="form-field-error"> {$error.e_period} </span> </block> 
+			</td>
+		</tr>
+</table>
+</div>
+<br/>
+<input type="submit" value="Simpan" name="Simpan" class="link-button"/>
+</form>
+<br/>
+
+</div>
+</div>

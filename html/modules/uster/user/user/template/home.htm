@@ -1,0 +1,431 @@
+<html>
+<script type="text/javascript" src="{$HOME}lib/jquery-ui-tabs.js"></script>
+<script type="text/javascript" src="{$HOME}lib/jquery.bgiframe.min.js"></script>
+<script type="text/javascript" src="{$HOME}lib/jquery.ajaxQueue.js"></script>
+<script type="text/javascript" src="{$HOME}lib/thickbox-compressed.js"></script>
+<script type="text/javascript" src="{$HOME}lib/jquery.autocomplete.js"></script>
+<script type="text/javascript" src="{$HOME}lib/localdata.js"></script>
+<link rel="stylesheet" type="text/css" href="{$HOME}lib/jquery.autocomplete.css" />
+</style><span class="graybrown"><img src='images/information.png' width="50" height="50" border='0' class="icon"/>Customers Information Center</span><br/><br/>
+<form enctype="multipart/form-data" method="post" class="form-input" name="formyard">
+ <script>
+$(function() {
+$( "#tabs" ).tabs();
+$( "#tabspage" ).tabs();
+$( "#tabspage1" ).tabs();
+$( "#tabspage2" ).tabs();
+});
+</script>
+<body>
+<div id="tabs">
+<ul>
+<li><a href="#tabs-1">History Container</a></li>
+<li><a href="#tabs-2">Stripping Information</a></li>
+<li><a href="#tabs-3">Vessel Schedule</a></li>
+</ul>
+<div id="tabs-1">	
+	<b><font size="5">Container No : </font></b><input style="font-size:26px; font-weight:bold;" id="NO_CONT" size="12" class="suggestuwriter" type="text" maxlength="11" value="" /> (min.5 karakter) 
+	<input name="VESSEL" type="hidden" id="VESSEL" style="background-color:#FFCCFF;color:#0000CC" value="" size="40" maxlength="5" readonly=	"readonly" />&nbsp; 
+	<input name="VOYAGE" type="hidden" id="VOYAGE" value="" size="9" readonly="readonly" style="background-color:#FFCCFF;color:#0000CC;font-weight:bold;" />
+	<input name="VESSEL" type="hidden" id="NO_BOOKING" value="" size="17" style="background-color:#FFCCFF;" readonly="readonly" /> 
+	<input name="VESSEL" type="hidden" id="BP_ID" value="" size="24" readonly="readonly" style="background-color:#FFCCFF;" />
+	<input name="VESSEL" type="hidden" id="SIZE" value="" size="3" style="background-color:#FFEAC4;font-weight:bold;" readonly="readonly" />
+	<input name="VESSEL" type="hidden" id="TYPE" value="" size="3" style="background-color:#FFEAC4;font-weight:bold;" readonly="readonly" />
+	<input name="VESSEL" type="hidden" id="STATUS" value="" size="3" style="background-color:#FFEAC4;font-weight:bold;" readonly="readonly" />
+	<input name="VESSEL" type="hidden" id="LOCATION" value="" size="24" readonly="readonly" style="background-color:#FFCCFF;" />
+
+	<fieldset class="form-fieldset" style="margin: 5px 5px 5px 5px; background-color:#ffffff; vertical-align:middle; border-radius: 10px 10px 10px 10px;-moz-border-radius: 10px 10px 10px 10px; 
+-webkit-border-radius: 10px 10px 10px 10px;border-color:#eeeeee; border-style:solid;">
+		<div id="tabspage" class="tabss">
+				<ul>
+				<li><a href="#tabspage-1">Handling</a></li>
+				<li><a href="#tabspage-2">Placement</a></li>
+				<li><a href="#tabspage-3">Stripping</a></li>
+				<li><a href="#tabspage-4">Stuffing</a></li>
+				<li><a href="#tabspage-5">Receiving</a></li>
+				<li><a href="#tabspage-6">Delivery</a></li>								
+				</ul>
+				<div id="tabspage-1">
+				<center>
+				<div id="handling">
+				
+				</div>
+				</center>
+				</div>
+				<div id="tabspage-2">
+				<center>
+				<div id="placement">
+				
+				</div>
+				</center>
+				</div>
+				<div id="tabspage-3">				
+				<center>
+				<div id="stripping">
+				
+				</div>
+				</center>
+				</div>
+				<div id="tabspage-4">
+				<center>
+				<div id="stuffing">
+				
+				</div>
+				</center>
+				</div>
+				<div id="tabspage-5">
+				<center>
+				<div id="receiving">
+				
+				</div>
+				</center>
+				</div>
+				<div id="tabspage-6">
+				<center>
+				<div id="delivery">
+				
+				</div>
+				</center>
+				</div>
+				
+	</div>
+	</fieldset>
+</div>
+<div id="tabs-2">
+	
+	    <b><font size="5">E.M.K.L : </font> </b>
+		<input style="font-size:26px; font-weight:bold;" id="EMKL" size="20" class="suggestuwriter" type="text" maxlength="20" value="" /> (min.5 karakter) 
+		<input style="font-size:26px; font-weight:bold;" id="KD_PBM" size="12" class="suggestuwriter" type="hidden" maxlength="11" value="" /> 
+	<fieldset class="form-fieldset" style="margin: 5px 5px 5px 5px; background-color:#ffffff; vertical-align:middle; border-radius: 10px 10px 10px 10px;-moz-border-radius: 10px 10px 10px 10px; 
+-webkit-border-radius: 10px 10px 10px 10px;border-color:#eeeeee; border-style:solid;">
+<div id="tabspage1" class="tabss">
+				<ul>
+				<li><a href="#tabspage-1">Detail Information</a></li>							
+				</ul>
+				<div id="tabspage-1">
+				<center>
+				<div id="detail"></div>
+				</center>
+				</div>
+				
+	</div>
+</fieldset>
+</div>
+<div id="tabs-3">
+<div id="list">
+	<font color="red"><font size="5">Daftar Kapal Yang Open Stack</font></font><br>
+	<table width="100%">
+    	<thead>
+		<block visible='multipage'>
+			<tr>
+			  <td align="center" style="padding-bottom:4px;" colspan="8" >
+				  <block visible="prevvisible"> <a onclick="change_page(parseFloat($('#navsel_').val())-1)" style="cursor:pointer;">< Sebelumnya</a>   </block>
+				  <select id="navsel_" name="p" list="navlist" selected="navpage" onchange="change_page($('#navsel_').val())"
+						style="font-size:10px; border: solid 1px #333333; background-color:#FFFDCA;">
+				  </select>
+				  <block visible="nextvisible">   <a onclick="change_page(parseFloat($('#navsel_').val())+1)" style="cursor:pointer;">Selanjutnya ></a> </block>
+				</td>
+			</tr>
+		</block>
+        	<tr>
+            	<th class="grid-header" width="10px;">No.</th>
+            	<th class="grid-header">NAMA KAPAL</th>
+            	<th class="grid-header">VOYAGE IN</th>
+                <th class="grid-header">NO BOOKING</th>
+				<th class="grid-header">NO PKK</th>
+				<th class="grid-header">OPEN STACK</th>
+				<th class="grid-header">CLOSING CARGO</th>
+				<th class="grid-header">CLOSING TPK</th>
+			</tr>
+        </thead>
+        <tbody>
+        	<fill src="row_list" var="rows">
+		   	<alt var='bg' list='#f9f9f3,#ffe'/>
+        	<tr bgcolor="{$bg}" style="cursor:pointer;" onMouseOver=this.style.backgroundColor="#BAD5FC" onMouseOut=this.style.backgroundColor="">
+            	<td class="grid-cell" align="center" style="font-size:14px;">{$__ctr}</td>
+            	<td class="grid-cell" align="center" valign="middle" style="font-family:Arial; font-size:9pt; color:#555555">{$rows.NM_KAPAL}</td>
+            	<td class="grid-cell" align="center" valign="middle" style="font-family:Arial; font-size:9pt; color:#555555">{$rows.VOYAGE_IN}</td>
+            	<td align="center" valign="middle" class="grid-cell"  style="font-size:9pt">{$rows.NO_BOOKING}</td>
+                <td align="center" valign="middle" class="grid-cell"  style="font-size:9pt">{$rows.NO_UKK}</td>
+				<td align="center" valign="middle" class="grid-cell"  style="font-size:9pt">{$rows.OPEN_STUFF}</td>
+				<td align="center" valign="middle" class="grid-cell"  style="font-size:9pt">{$rows.CLOSING_CARGO}</td>
+				<td align="center" valign="middle" class="grid-cell"  style="font-size:9pt">{$rows.CLOSING_STUFF}</td>
+            	         					
+            	
+            </tr>
+            </fill>
+        </tbody>
+    </table>
+</div>
+</div>
+</div>
+
+</body></html>
+	
+<script>
+
+$().ready(function() {
+	/*$("#NO_CONT" ).autocomplete({
+			minLength: 8,
+			source: "{$HOME}{$APPID}.auto/container",
+			focus: function( event, ui ) {
+				$("#NO_CONT").val( ui.item.NO_CONTAINER );
+				return false;
+			},
+			select: function( event, ui ) {
+				$("#NO_CONT").val( ui.item.NO_CONTAINER );
+				$("#NO_CONT2").val( ui.item.NO_CONTAINER );
+				$("#SIZE").val( ui.item.SIZE_);
+				//$("#STATUS").val( ui.item.STATUS);
+				$("#TYPE").val( ui.item.TYPE_);
+				$("#LOCATION").val( ui.item.LOCATION);
+				//$("#VESSEL").val( ui.item.NM_KAPAL);
+				var booking = ui.item.NO_BOOKING;
+				//alert(booking);
+				
+				$.post("<?=HOME?><?=APPID?>.auto/get_status_cont",{NO_CONT : ui.item.NO_CONTAINER, NO_BOOKING : ui.item.NO_BOOKING, COUNTER : ui.item.COUNTER}, function(datf){
+					$("#STATUS").val(datf);
+				});
+				
+				if(ui.item.NO_BOOKING == "VESSEL_NOTHING"){
+					var booking = '';
+					//$("#VESSEL").val('VESSEL_NOTHING');
+				}
+				/*else{ 
+					if(booking == ''){						
+						$.post("<?=HOME?><?=APPID?>.auto/get_booking_temp",{NO_CONT : ui.item.NO_CONTAINER }, function(datea){
+							if(datea != ''){
+								booking = datea;
+								$.post("<?=HOME?><?=APPID?>.auto/con_vessel?NO_CONT="+ui.item.NO_CONTAINER+"&NO_BOOK="+booking, function(datax){
+								var datax = $.parseJSON(datax); 					
+								$("#VESSEL").val(datax.NM_KAPAL);
+								$("#VOYAGE").val(datax.VOYAGE_IN+"-"+datax.VOYAGE_OUT);
+								$("#NO_BOOKING").val(datax.NO_BOOKING);	
+								$("#BP_ID").val(datax.BP_ID);
+								//$("#BP_ID").val(datax.item.NM_KAPAL);	
+								//$("#ASAL_CONT").val(datax.item.NM_KAPAL);	
+								//$("#NO_BOOKING").val(datax.item.NM_KAPAL);
+								});	
+							}
+							else{
+								booking = '';
+								$("#VESSEL").val('VESSEL_NOTHING'); 
+								$("#VOYAGE").val('');
+								$("#NO_BOOKING").val('');	
+								$("#BP_ID").val('');
+							}							
+						});
+					}
+					else {
+						$.post("<?=HOME?><?=APPID?>.auto/con_vessel?NO_CONT="+ui.item.NO_CONTAINER+"&NO_BOOK="+booking, function(datax){
+								var datax = $.parseJSON(datax); 					
+								$("#VESSEL").val(datax.NM_KAPAL);
+								$("#VOYAGE").val(datax.VOYAGE_IN+"-"+datax.VOYAGE_OUT);
+								$("#NO_BOOKING").val(datax.NO_BOOKING);	
+								$("#BP_ID").val(datax.BP_ID);
+								//$("#BP_ID").val(datax.item.NM_KAPAL);	
+								//$("#ASAL_CONT").val(datax.item.NM_KAPAL);	
+								//$("#NO_BOOKING").val(datax.item.NM_KAPAL);
+							});	
+					}
+					
+					
+					//alert(booking);
+					
+				/*}					
+				
+				$('#handling').html('<p align=center><img src={$HOME}images/loadingbox.gif /></p>');
+				$('#stripping').html('<p align=center><img src={$HOME}images/loadingbox.gif /></p>');
+				$('#receiving').html('<p align=center><img src={$HOME}images/loadingbox.gif /></p>');
+				$('#stuffing').html('<p align=center><img src={$HOME}images/loadingbox.gif /></p>');
+				$('#delivery').html('<p align=center><img src={$HOME}images/loadingbox.gif /></p>');
+				$('#placement').html('<p align=center><img src={$HOME}images/loadingbox.gif /></p>');
+				
+				$("#handling").load("<?=HOME?><?=APPID?>/get_detail?ACT=handling&NO_CONT="+ui.item.NO_CONTAINER+"&COUNTER="+ui.item.COUNTER+"&NO_BOOK="+ui.item.NO_BOOKING+" #handling");
+				$("#stripping").load("<?=HOME?><?=APPID?>/get_detail?ACT=stripping&NO_CONT="+ui.item.NO_CONTAINER+" #stripping");
+				$("#receiving").load("<?=HOME?><?=APPID?>/get_detail?ACT=receiving&NO_CONT="+ui.item.NO_CONTAINER+" #receiving");
+				$("#stuffing").load("<?=HOME?><?=APPID?>/get_detail?ACT=stuffing&NO_CONT="+ui.item.NO_CONTAINER+" #stuffing");
+				$("#delivery").load("<?=HOME?><?=APPID?>/get_detail?ACT=delivery&NO_CONT="+ui.item.NO_CONTAINER+" #delivery");
+				$("#placement").load("<?=HOME?><?=APPID?>/get_detail?ACT=placement&NO_CONT="+ui.item.NO_CONTAINER+" #placement");
+				//$("#SLOT").val( ui.item.SLOT_);
+				//$("#ROW").val( ui.item.ROW_);
+				//$("#TIER").val( ui.item.TIER_);
+				
+				return false;
+			}
+		})
+		.data( "autocomplete" )._renderItem = function( ul, item ) {
+			return $( "<li style='text-align:left'></li>" )
+				.data( "item.autocomplete", item )
+				.append( "<a>" + item.NO_CONTAINER + "<br/> "+item.SIZE_+" "+item.TYPE_+" | "+item.NO_BOOKING+"</a>" )
+				.appendTo( ul );
+				
+		}; */
+		function findValueCallback(event, data, formatted) {
+		$("<li>").html( !data ? "No match!" : "Selected: " + formatted).appendTo("#result");
+	}
+	
+	function formatItemX(row) {
+	   return row[0] + " (<strong>id: " + row[1] +" "+ row[2] +" "+ row[3] + "</strong>)";
+	}
+	function formatResultX(row) {
+		return row[0].replace(/(<.+?>)/gi, '');
+	}
+		
+		$("#EMKL" ).autocomplete("{$HOME}{$APPID}/pbm/",{
+			minChars: 3,
+			max : 10,
+			scroll: true ,
+			width: 450,
+			height: 70,
+			matchContains: true,
+			autoFill: false,
+			formatItemX: function(row, i, max) {
+			//alert(row[0]);
+		
+				return  "<p style='text-align:left;font-size:20px; height:50px; vertical-align:middle;'>ADAD<b>" + row[0] + "</b> ["+ row[1] +"] </p>";
+			},
+			formatMatch: function(row, i, max) {
+				return row[0] + " " + row[1];
+			},
+			formatResultX: function(row) {
+				return row[0]; 
+			}
+		});
+		$("#EMKL").result(function(event, data, formatted) {
+	
+			if (data){ 
+				$("#EMKL").val(data[0]);
+				$("#KD_PBM").val(data[1]);
+				$('#detail').html('<p align=center><img src={$HOME}images/loadingbox.gif /></p>');
+				$("#detail").load("<?=HOME?><?=APPID?>/get_detail?ACT=detail_emkl&KD_PBM="+data[1]+" #detail_emkl");
+			}
+		
+		});
+});
+
+$().ready(function() {
+function findValueCallback(event, data, formatted) {
+		$("<li>").html( !data ? "No match!" : "Selected: " + formatted).appendTo("#result");
+	}
+	
+	function formatItem(row) {
+	   return row[0] + " (<strong>id: " + row[1] +" "+ row[2] +" "+ row[3] + "</strong>)";
+	}
+	function formatResult(row) {
+		return row[0].replace(/(<.+?>)/gi, '');
+	}
+$("#kapal").change(function(){
+	$("#kapal").val('ok');
+});
+$("#NO_CONT").autocomplete("{$HOME}{$APPID}/view/",{
+		minChars: 8,
+		max : 10,
+		scroll: true ,
+		width: 450,
+		height: 70,
+		matchContains: true,
+		autoFill: false,
+		formatItem: function(row, i, max) {
+		//alert(row[0]);
+	
+			return  "<p style='text-align:left;font-size:20px; height:50px; vertical-align:middle;'><b>" + row[0] + "</b> ["+ row[1] +"] <span style='font-size:15px;'> <br/> "+ row[7]  +"</span> <span><b>"+ row[6] +"</b></span></p>";
+		},
+		formatMatch: function(row, i, max) {
+			return row[0] + " " + row[1];
+		},
+		formatResult: function(row) {
+			return row[0]; 
+		}
+		
+	});
+	//$('#GROSS_BP').val(row[0]);
+	$("#NO_CONT").result(function(event, data, formatted) {
+	
+		if (data){
+			$('#SIZE').val(data[1]);
+			$('#TYPE').val(data[2]);
+			//$('#LOCATION').val(data[3]);
+			var booking = data[4];
+			var booking_ = data[4];
+			$.post("<?=HOME?><?=APPID?>.auto/get_status_cont",{NO_CONT : data[0], NO_BOOKING : data[4]}, function(datf){
+					$("#STATUS").val(datf);
+			});
+			$.post("<?=HOME?><?=APPID?>.auto/get_location",{NO_CONT : data[0]}, function(datz){
+					$("#LOCATION").val(datz);
+			});
+			if(data[4] == "VESSEL_NOTHING"){
+					var booking = '';
+					$("#VESSEL").val('VESSEL_NOTHING');
+			}
+
+					if(booking == ''){						
+						$.post("<?=HOME?><?=APPID?>.auto/get_booking_temp",{NO_CONT : data[0] }, function(datea){
+							if(datea != ''){
+								booking = datea;
+								$.post("<?=HOME?><?=APPID?>.auto/con_vessel?NO_CONT="+data[0]+"&NO_BOOK="+booking, function(datax){
+								var datax = $.parseJSON(datax); 					
+								$("#VESSEL").val(datax.NM_KAPAL);
+								$("#VOYAGE").val(datax.VOYAGE_IN+"-"+datax.VOYAGE_OUT);
+								$("#NO_BOOKING").val(datax.NO_BOOKING);	
+								$("#BP_ID").val(datax.BP_ID);
+								//$("#BP_ID").val(datax.item.NM_KAPAL);	
+								//$("#ASAL_CONT").val(datax.item.NM_KAPAL);	 
+								//$("#NO_BOOKING").val(datax.item.NM_KAPAL);
+								});	
+							}
+							else{
+								booking = '';
+								$("#VESSEL").val('VESSEL_NOTHING'); 
+								$("#VOYAGE").val('');
+								$("#NO_BOOKING").val('');	
+								$("#BP_ID").val('');
+							}							
+						});
+					}
+					else {
+						$.post("<?=HOME?><?=APPID?>.auto/con_vessel?NO_CONT="+data[0]+"&NO_BOOK="+booking, function(datax){
+								var datax = $.parseJSON(datax); 					
+								$("#VESSEL").val(datax.NM_KAPAL);
+								$("#VOYAGE").val(datax.VOYAGE_IN+"-"+datax.VOYAGE_OUT);
+								$("#NO_BOOKING").val(datax.NO_BOOKING);	
+								$("#BP_ID").val(datax.BP_ID);
+								//$("#BP_ID").val(datax.item.NM_KAPAL);	
+								//$("#ASAL_CONT").val(datax.item.NM_KAPAL);	
+								//$("#NO_BOOKING").val(datax.item.NM_KAPAL);
+							});	
+					}
+
+					$('#handling').html('<p align=center><img src={$HOME}images/loadingbox.gif /></p>');
+					$('#stripping').html('<p align=center><img src={$HOME}images/loadingbox.gif /></p>');
+					$('#receiving').html('<p align=center><img src={$HOME}images/loadingbox.gif /></p>');
+					$('#stuffing').html('<p align=center><img src={$HOME}images/loadingbox.gif /></p>');
+					$('#delivery').html('<p align=center><img src={$HOME}images/loadingbox.gif /></p>');
+					$('#placement').html('<p align=center><img src={$HOME}images/loadingbox.gif /></p>');
+					
+					$("#handling").load("<?=HOME?><?=APPID?>/get_detail?ACT=handling&NO_CONT="+data[0]+"&COUNTER="+data[5]+"&NO_BOOK="+data[4]+" #handling");
+					$("#stripping").load("<?=HOME?><?=APPID?>/get_detail?ACT=stripping&NO_CONT="+data[0]+"&COUNTER="+data[5]+"&NO_BOOK="+data[4]+" #stripping");
+					$("#receiving").load("<?=HOME?><?=APPID?>/get_detail?ACT=receiving&NO_CONT="+data[0]+"&COUNTER="+data[5]+"&NO_BOOK="+booking_+" #receiving");
+					$("#stuffing").load("<?=HOME?><?=APPID?>/get_detail?ACT=stuffing&NO_CONT="+data[0]+"&COUNTER="+data[5]+"&NO_BOOK="+data[4]+" #stuffing");
+					$("#delivery").load("<?=HOME?><?=APPID?>/get_detail?ACT=delivery&NO_CONT="+data[0]+"&COUNTER="+data[5]+"&NO_BOOK="+data[4]+" #delivery");
+					$("#placement").load("<?=HOME?><?=APPID?>/get_detail?ACT=placement&NO_CONT="+data[0]+"&COUNTER="+data[5]+"&NO_BOOK="+data[4]+" #placement");
+		}
+	
+	});
+	
+	$("#clear").click(function() {
+		$(":input").unautocomplete();
+	});
+});
+function toexcel(kd_pbm){	
+	var url 	    = "<?=HOME?><?=APPID?>.toexcel/toexcel?kd_pbm="+kd_pbm;
+	
+	window.open(url, "_blank");
+}
+/*
+function cetak(kd_pbm){
+	var url 	    = "<?=HOME?><?=APPID?>.topdf/print?kd_pbm="+kd_pbm;
+	window.open(url, "_blank");
+}
+*/
+</script>

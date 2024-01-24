@@ -1,0 +1,69 @@
+<span class="graybrown"><img src='images/sp2_p.png' border='0' class="icon"/><font color="#0378C6"><b> Detail Komponen </b></font> Nota {$nama_nota}</span><br/><br/><br/><br/>
+<fieldset class="form-fieldset" style="margin: 5px 5px 5px 5px; ">
+	<center>
+   
+ <table class="grid-table" border='0' cellpadding="1" cellspacing="1"  width="70%" >
+                            <tr>	
+									<td class="form-field-caption" valign="top" align="right">ID Komponen Nota</td>
+									<td class="form-field-caption" valign="top" align="center">:</td>
+									<td class="form-field-caption" valign="top" align="left"><input type="input" name="id_komp" value="{$row.ID_KOMP_NOTA}" readonly="readonly"/></td>
+							</tr>
+							 <tr>	
+									<td class="form-field-caption" valign="top" align="right">Komponen Nota</td>
+									<td class="form-field-caption" valign="top" align="center">:</td>
+									<td class="form-field-caption" valign="top" align="left"><input type="input" name="id_komp" value="{$row.KOMPONEN_NOTA}" readonly="readonly"/></td>
+							</tr>
+							 <tr>	
+									<td class="form-field-caption" valign="top" align="right">Status Aktif</td>
+									<td class="form-field-caption" valign="top" align="center">:</td>
+									<td class="form-field-caption" valign="top" align="left"><input type="input" name="id_komp" value="{$row.STATUS}" readonly="readonly"/></td>
+							</tr>
+							<tr>	
+									<td class="form-field-caption" valign="top" align="right">Edit Status</td>
+									<td class="form-field-caption" valign="top" align="center">:</td>
+									<td class="form-field-caption" valign="top" align="left">
+									<select id="status">			
+											<option value=""> -- Pilih --  </option>
+											<option value="AKTIF"> AKTIF </option>					
+											<option value="NON AKTIF"> NON AKTIF </option>
+									</select>
+									</td>
+							</tr>
+							<tr>
+								<td colspan="3" class="form-field-caption" valign="top" align="center"> &nbsp;&nbsp; <a class="link-button" style="height:25" onclick="edit('{$row.ID_NOTA}','{$row.ID_KOMP_NOTA}')"><img src='images/cari.png' border='0' /> Edit </a> </td>
+							</tr>
+						
+                          </table>
+    
+    </div>
+    
+	</center>
+</fieldset>
+		
+		
+         
+						  
+<script>
+function edit($id_nota, $id_komp_nota)
+{
+	var status_ 	= $("#status").val();
+	var id_nota 	= $id_nota;
+	var komp_nota 	= $id_komp_nota;
+	var url 	       = "<?=HOME?><?=APPID?>/edit_proses";
+	
+	$.blockUI({ message: '<h1><br>Please wait...</h1><br><img src={$HOME}images/loadingbox.gif /><br><br>' }); 
+	$.post(url,{status : status_, id_nota : id_nota, komp_nota : komp_nota}, function(data){
+		if(data == 'sukses'){
+				$.unblockUI({ 
+				onUnblock: function(){  } 
+				});
+				alert('Status Update');
+		} else {
+			   $.unblockUI({ 
+				onUnblock: function(){  } 
+				});
+				alert('Status Update');
+		}
+	});
+}
+</script>

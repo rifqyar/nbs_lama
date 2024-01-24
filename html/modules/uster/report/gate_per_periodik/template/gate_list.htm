@@ -1,0 +1,39 @@
+
+ <div id="list">
+     <table class="grid-table" border='0' cellpadding="1" cellspacing="1"  width="100%" >
+                              <tr style=" font-size:10pt">
+                                  <th valign="top" class="grid-header"  style="font-size:8pt">No </th>
+                                  <th valign="top" class="grid-header"  style="font-size:8pt">No. Container </th>
+                                  <th  valign="top" class="grid-header"  style="font-size:8pt">No. Request </th>
+                                  <th  valign="top" class="grid-header"  style="font-size:8pt">TGL GATE</th> 
+                                  <th valign="top" class="grid-header"  style="font-size:8pt">NOPOL<br>NO SEAL</th>
+                                  <th valign="top" class="grid-header"  style="font-size:8pt">USERNAME</th> 
+								  <th valign="top" class="grid-header"  style="font-size:8pt">NAMA PBM</th>
+								  <th valign="top" class="grid-header"  style="font-size:8pt">NAMA YARD</th>
+								  <th valign="top" class="grid-header"  style="font-size:8pt">KEGIATAN</th>
+								  <?php if(($jenis == 'GATO' && $lokasi == '06') || ($jenis == 'GATO' && $lokasi == 'ALL')) {?>
+								  <th valign="top" class="grid-header"  style="font-size:8pt">VESSEL</th>
+								  <th valign="top" class="grid-header"  style="font-size:8pt">VOY</th>
+								  <?php } ?>
+									
+                              </tr>
+                              <fill src="row_list" var="rows">
+                              <tr bgcolor="#f9f9f3" onMouseOver=this.style.backgroundColor="#BAD5FC" onMouseOut=this.style.backgroundColor="">
+                                  <td width="4%" align="center" valign="middle" class="grid-cell" style="color:#000; font-family:Arial; font-size:9pt">{$__ctr} </td>
+                                  <td width="20%" align="center" valign="middle" class="grid-cell"   style="font-family:Arial; font-size:11pt; color:#555555"><b>{$rows.NO_CONTAINER} <br> {$rows.SIZE_} | {$rows.TYPE_} | {$rows.STATUS}</b></td>
+                                  <td width="10%" align="center" valign="middle" class="grid-cell"  style="font-size:9pt">{$rows.NO_REQUEST}</td>
+                                  <td width="15%" align="center" valign="middle" class="grid-cell"  style="font-size:9pt;font-family:Arial;"><font color="#0066CC" style="font-size:10pt">{$rows.TGL_IN}</font></td>
+                                  <td width="15%" align="center" valign="middle" class="grid-cell"  style="font-size:9pt;font-family:Arial;"><font color="#0066CC" style="font-size:10pt">{$rows.NOPOL} <br> {$rows.NO_SEAL}</font></td>
+                                  <td width="10%" align="center" valign="middle" class="grid-cell"  style="font-size:9pt;font-family:Arial;"><font color="#0066CC" style="font-size:10pt">{$rows.USERNAME}</font></td>
+                                  <td width="30%" align="center" valign="middle" class="grid-cell"  style="font-size:9pt;font-family:Arial;"><font color="#0066CC" style="font-size:10pt">{$rows.NM_PBM}</font></td>
+                                  <td width="15%" align="center" valign="middle" class="grid-cell"  style="font-size:9pt;font-family:Arial;"><font color="#0066CC" style="font-size:10pt">{$rows.NAMA_YARD}</font></td>
+                                  <td width="15%" align="center" valign="middle" class="grid-cell"  style="font-size:9pt;font-family:Arial;"><font color="#0066CC" style="font-size:10pt">{$rows.KEGIATAN}</font></td>
+								  <?php if(($jenis == 'GATO' && $lokasi == '06') || ($jenis == 'GATO' && $lokasi == 'ALL')) {?>
+                                  <td width="15%" align="center" valign="middle" class="grid-cell"  style="font-size:9pt;font-family:Arial;"><font color="#0066CC" style="font-size:10pt">{$rows.VESSEL}</font></td>
+                                  <td width="15%" align="center" valign="middle" class="grid-cell"  style="font-size:9pt;font-family:Arial;"><font color="#0066CC" style="font-size:10pt">{$rows.VOYAGE}</font></td>
+								  <?php } ?>
+								  </tr>
+                              </fill>
+							
+        </table>
+ </div>

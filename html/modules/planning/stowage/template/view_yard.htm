@@ -1,0 +1,641 @@
+<style>
+.content{
+	width:95%;
+	margin-left:auto;
+	margin-right:auto;
+	margin-bottom: 10px;
+	margin-top:20px;
+}
+.main_side{
+	width:100%;
+	float:left;
+	text-align:left;
+}
+.tabss{
+	margin-top: 20px;
+}
+</style>
+
+<script type="text/javascript">
+      	
+function stow(b,d,e)
+{
+	$('#table_stow').load('<?=HOME?>planning.stowage.ajax/stow_bay?bay='+b).dialog({modal:true, height:500,width:800, title:"STOWAGE : Block-"+b+" Row-"+d+" Slot-"+e});
+}
+
+function stowage(b,d,e)
+{
+	//alert(b);
+	$('#table_stow').load("<?=HOME?><?=APPID?>/stowage_bay?bay="+b+" #baystow_input").dialog({modal:true, height:500,width:800, title:"STOWAGE : Block-"+b+" Row-"+d+" Slot-"+e});
+}
+
+function openWin(b,s,r,t)
+{
+myWindow=window.open('<?=HOME?>planning.stowage.ajax/stow_bay?block='+b+'&slot='+s+'&row='+r+'&tier='+t,'','width=960,height=600,scrollbars=yes,resizable=no');
+myWindow.focus();
+}
+
+function insert_jkm(id_rq)
+{
+	//alert(id_rq);
+	var jkm_uper_ = document.getElementById("jkm_uper").value;
+	var faktur_uper_ = document.getElementById("faktur_uper").value;
+	var no_req_ = id_rq;
+	var url		= "{$HOME}billing.uper_glc.ajax/jkm_input";
+	
+	$.post(url,{ID_REQ: no_req_, JKM_UPER : jkm_uper_, FAKTUR_UPER : faktur_uper_},function(data){
+		console.log(data);
+		if(data == "OK")
+		{
+			alert("Insert JKM Berhasil");
+			window.location = "{$HOME}{$APPID}";
+		}
+		else if(data == "gagal")
+		{
+			alert("Gagal Insert JKM...!!!");
+		}		
+	});
+}
+
+</script>
+
+<div class="content">
+	<h2><span class="graybrown">
+    	<img class="icon" border="0" src="images/cont_set_yard.png" width="36" height="36"/>
+        &nbsp;<font color="#0378C6">Stowage</font> Plan
+        </span></h2>
+	<br/>
+	<hr width="870" color="#e1e0de"></hr><p><br/></p>
+<div class="main_side">
+<table width="100%" cellspacing="10">
+	<tbody>
+		<tr>
+			<td align="center" colspan="2">
+			<span class="graybrown"></span>
+				<h3>
+				<span class="graybrown">
+				<font color="#308CF2"> LAPANGAN EX TBB - </font>
+				OJA
+				</span>
+				</h3>
+			<span class="graybrown"></span>
+			</td>
+		</tr>
+	<tr>
+	<td align="center">
+	<div style="font-weight:bold; font-size:10px; font-family:Tahoma">BLOCK A </div>
+	<table cellspacing="1" cellpadding="1" bordercolor="#037ACA" border="0">
+	<tbody>
+	<tr>
+	<td width="20" align="center">
+	<div style="font-size:7px; font-family:Tahoma; color: #000000;">20</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF"><a href="javascript:openWin('A','6','1','1')">0</a></div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	</td>
+	<td width="20" align="center">
+	<div style="font-size:7px; font-family:Tahoma; color: #000000;">19</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	</td>
+	<td width="20" align="center">
+	<div style="font-size:7px; font-family:Tahoma; color: #000000;">18</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#94BF3A">1</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	</td>
+	<td width="20" align="center">
+	<div style="font-size:7px; font-family:Tahoma; color: #000000;">17</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	</td>
+	<td width="20" align="center">
+	<div style="font-size:7px; font-family:Tahoma; color: #000000;">16</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#94BF3A">1</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	</td>
+	<td width="20" align="center">
+	<div style="font-size:7px; font-family:Tahoma; color: #000000;">15</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	</td>
+	<td width="20" align="center">
+	<div style="font-size:7px; font-family:Tahoma; color: #000000;">14</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#94BF3A">1</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	</td>
+	<td width="20" align="center">
+	<div style="font-size:7px; font-family:Tahoma; color: #000000;">13</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#94BF3A">1</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	</td>
+	<td width="20" align="center">
+	<div style="font-size:7px; font-family:Tahoma; color: #000000;">12</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#94BF3A">1</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	</td>
+	<td width="20" align="center">
+	<div style="font-size:7px; font-family:Tahoma; color: #000000;">11</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#94BF3A">1</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	</td>
+	<td width="20" align="center">
+	<div style="font-size:7px; font-family:Tahoma; color: #000000;">10</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#94BF3A">1</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	</td>
+	<td width="20" align="center">
+	<div style="font-size:7px; font-family:Tahoma; color: #000000;">9</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#94BF3A">1</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	</td>
+	<td width="20" align="center">
+	<div style="font-size:7px; font-family:Tahoma; color: #000000;">8</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#94BF3A">1</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	</td>
+	<td width="20" align="center">
+	<div style="font-size:7px; font-family:Tahoma; color: #000000;">7</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#94BF3A">1</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	</td>
+	</tr>
+	</tbody>
+	</table>
+	</td>
+	
+	<td valign="top" align="center">
+	<div style="font-weight:bold; font-size:10px; font-family:Tahoma">BLOCK B </div>
+	<table cellspacing="1" cellpadding="1" bordercolor="#037ACA" border="0">
+	<tbody>
+	<tr>
+	<td width="20" align="center">
+	<div style="font-size:7px; font-family:Tahoma; color: #000000;">20</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	</td>
+	<td width="20" align="center">
+	<div style="font-size:7px; font-family:Tahoma; color: #000000;">19</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	</td>
+	<td width="20" align="center">
+	<div style="font-size:7px; font-family:Tahoma; color: #000000;">18</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#94BF3A">1</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	</td>
+	<td width="20" align="center">
+	<div style="font-size:7px; font-family:Tahoma; color: #000000;">17</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	</td>
+	<td width="20" align="center">
+	<div style="font-size:7px; font-family:Tahoma; color: #000000;">16</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#94BF3A">1</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	</td>
+	<td width="20" align="center">
+	<div style="font-size:7px; font-family:Tahoma; color: #000000;">15</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	</td>
+	<td width="20" align="center">
+	<div style="font-size:7px; font-family:Tahoma; color: #000000;">14</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#94BF3A">1</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	</td>
+	<td width="20" align="center">
+	<div style="font-size:7px; font-family:Tahoma; color: #000000;">13</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#94BF3A">1</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	</td>
+	<td width="20" align="center">
+	<div style="font-size:7px; font-family:Tahoma; color: #000000;">12</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#94BF3A">1</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	</td>
+	<td width="20" align="center">
+	<div style="font-size:7px; font-family:Tahoma; color: #000000;">11</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#94BF3A">1</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	</td>
+	<td width="20" align="center">
+	<div style="font-size:7px; font-family:Tahoma; color: #000000;">10</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#94BF3A">1</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	</td>
+	<td width="20" align="center">
+	<div style="font-size:7px; font-family:Tahoma; color: #000000;">9</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#94BF3A">1</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	</td>
+	<td width="20" align="center">
+	<div style="font-size:7px; font-family:Tahoma; color: #000000;">8</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#94BF3A">1</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	</td>
+	<td width="20" align="center">
+	<div style="font-size:7px; font-family:Tahoma; color: #000000;">7</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#94BF3A">1</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	</td>
+	</tr>
+	</tbody>
+	</table>
+	</td>
+	</tr>
+
+<tr>
+<td valign="bottom" align="center">
+<div style="font-weight:bold; font-size:10px; font-family:Tahoma">BLOCK C </div>
+<table cellspacing="1" cellpadding="1" bordercolor="#037ACA" border="0">
+<tbody>
+<tr>
+	<td width="20" align="center">
+	<div style="font-size:7px; font-family:Tahoma; color: #000000;">20</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	</td>
+	<td width="20" align="center">
+	<div style="font-size:7px; font-family:Tahoma; color: #000000;">19</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	</td>
+	<td width="20" align="center">
+	<div style="font-size:7px; font-family:Tahoma; color: #000000;">18</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#94BF3A">1</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	</td>
+	<td width="20" align="center">
+	<div style="font-size:7px; font-family:Tahoma; color: #000000;">17</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	</td>
+	<td width="20" align="center">
+	<div style="font-size:7px; font-family:Tahoma; color: #000000;">16</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#94BF3A">1</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	</td>
+	<td width="20" align="center">
+	<div style="font-size:7px; font-family:Tahoma; color: #000000;">15</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	</td>
+	<td width="20" align="center">
+	<div style="font-size:7px; font-family:Tahoma; color: #000000;">14</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#94BF3A">1</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	</td>
+	<td width="20" align="center">
+	<div style="font-size:7px; font-family:Tahoma; color: #000000;">13</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#94BF3A">1</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	</td>
+	<td width="20" align="center">
+	<div style="font-size:7px; font-family:Tahoma; color: #000000;">12</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#94BF3A">1</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	</td>
+	<td width="20" align="center">
+	<div style="font-size:7px; font-family:Tahoma; color: #000000;">11</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#94BF3A">1</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	</td>
+	<td width="20" align="center">
+	<div style="font-size:7px; font-family:Tahoma; color: #000000;">10</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#94BF3A">1</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	</td>
+	<td width="20" align="center">
+	<div style="font-size:7px; font-family:Tahoma; color: #000000;">9</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#94BF3A">1</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	</td>
+	<td width="20" align="center">
+	<div style="font-size:7px; font-family:Tahoma; color: #000000;">8</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#94BF3A">1</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	</td>
+	<td width="20" align="center">
+	<div style="font-size:7px; font-family:Tahoma; color: #000000;">7</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#94BF3A">1</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	</td>
+	</tr>
+</tbody>
+</table>
+</td>
+
+<td valign="bottom" align="center">
+<div style="font-weight:bold; font-size:10px; font-family:Tahoma">BLOCK D </div>
+<table cellspacing="1" cellpadding="1" bordercolor="#037ACA" border="0">
+<tbody>
+<tr>
+	<td width="20" align="center">
+	<div style="font-size:7px; font-family:Tahoma; color: #000000;">20</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	</td>
+	<td width="20" align="center">
+	<div style="font-size:7px; font-family:Tahoma; color: #000000;">19</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	</td>
+	<td width="20" align="center">
+	<div style="font-size:7px; font-family:Tahoma; color: #000000;">18</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#94BF3A">1</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	</td>
+	<td width="20" align="center">
+	<div style="font-size:7px; font-family:Tahoma; color: #000000;">17</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	</td>
+	<td width="20" align="center">
+	<div style="font-size:7px; font-family:Tahoma; color: #000000;">16</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#94BF3A">1</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	</td>
+	<td width="20" align="center">
+	<div style="font-size:7px; font-family:Tahoma; color: #000000;">15</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	</td>
+	<td width="20" align="center">
+	<div style="font-size:7px; font-family:Tahoma; color: #000000;">14</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#94BF3A">1</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	</td>
+	<td width="20" align="center">
+	<div style="font-size:7px; font-family:Tahoma; color: #000000;">13</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#94BF3A">1</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	</td>
+	<td width="20" align="center">
+	<div style="font-size:7px; font-family:Tahoma; color: #000000;">12</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#94BF3A">1</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	</td>
+	<td width="20" align="center">
+	<div style="font-size:7px; font-family:Tahoma; color: #000000;">11</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#94BF3A">1</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	</td>
+	<td width="20" align="center">
+	<div style="font-size:7px; font-family:Tahoma; color: #000000;">10</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#94BF3A">1</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	</td>
+	<td width="20" align="center">
+	<div style="font-size:7px; font-family:Tahoma; color: #000000;">9</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#94BF3A">1</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	</td>
+	<td width="20" align="center">
+	<div style="font-size:7px; font-family:Tahoma; color: #000000;">8</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#94BF3A">1</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	</td>
+	<td width="20" align="center">
+	<div style="font-size:7px; font-family:Tahoma; color: #000000;">7</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#94BF3A">1</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	<div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+	</td>
+	</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+
+<p><br/></p>
+<div id="dialog-form">
+	<form>
+		<div id="table_stow"></div>
+	</form>
+</div>	
+</div>
+</div>

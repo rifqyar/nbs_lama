@@ -1,0 +1,23 @@
+<?php
+$no_cont		= strtoupper($_GET["term"]);
+
+$db 			= getDB("storage");
+$id_yard		= $_SESSION["IDYARD_STORAGE"];
+$query 			= "SELECT MASTER_CONTAINER.*, 
+                        CONTAINER_RECEIVING.*, REQUEST_RECEIVING.TGL_REQUEST, CASE WHEN PERALIHAN IS NULL THEN 'RECEIVING MTY' ELSE REQUEST_RECEIVING.PERALIHAN END PERALIHAN
+                    FROM CONTAINER_RECEIVING INNER JOIN MASTER_CONTAINER ON CONTAINER_RECEIVING.NO_CONTAINER = MASTER_CONTAINER.NO_CONTAINER
+                    INNER JOIN REQUEST_RECEIVING ON CONTAINER_RECEIVING.NO_REQUEST = REQUEST_RECEIVING.NO_REQUEST 
+                    WHERE MASTER_CONTAINER.LOCATION = 'GATI' 
+                    	AND	CONTAINER_RECEIVING.AKTIF = 'Y' 
+                    --AND CONTAINER_RECEIVING.DEPO_TUJUAN = '$id_yard' 
+                    AND CONTAINER_RECEIVING.NO_CONTAINER LIKE '%$no_cont%'
+                    --ORDER BY REQUEST_RECEIVING.TGL_REQUEST DESC";
+$result			= $db->query($query);
+$row			= $result->getAll();	
+
+//print_r($row);
+
+echo json_encode($row);
+
+
+?>

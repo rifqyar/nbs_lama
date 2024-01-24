@@ -1,0 +1,97 @@
+<style>
+.content{
+	width:95%;
+	margin-left:auto;
+	margin-right:auto;
+	margin-bottom: 10px;
+	margin-top:20px;
+}
+</style>
+<div class="content">
+<div class="main_side">
+	<p>
+	 <img src="<?=HOME?>images/upload_excel.png" height="5%" width="5%" style="vertical-align:middle"> <font size=5px color='#7cb15e'>Upload </font> <font size=5px color='#606263'>Container</font></p>
+	
+	<p><br/>
+	  </p>
+	
+	<hr width="870" color="#e1e0de"></hr><p><br/></p>
+	
+	<fieldset style="border: 1px solid #e1e0de;-moz-border-radius:5px;">
+	<legend class="form-field-caption" align="left"><font color='#0482d5'>  Data booking yang akan diupload </font></legend>
+		<table>
+			<tr height='20'>
+				<td class="form-field-caption" align="right"></td>
+				<td class="form-field-caption" align="right"></td>
+				<td></td>			
+			</tr>
+			<tr>
+				<td class="form-field-caption" align="right">Nama Kapal</td>
+				<td class="form-field-caption" align="right">:</td>
+				<td class="form-field-caption" align="left"><input type='text' name='vessel' readonly='readonly' size='25' value='{$vessel.NAMA_VESSEL}' /></td>
+			</TR>
+			<TR>
+				<td class="form-field-caption" align="right">Voyage</td>
+				<td class="form-field-caption" align="right">:</td>
+				<td class="form-field-caption" align="left"><input type='text' name='vessel' readonly='readonly' size='5' value='{$vessel.VOYAGE}' /></td>
+			</tr>
+			<tr>
+				<td class="form-field-caption" align="right">No Booking</td>
+				<td class="form-field-caption" align="right">:</td>
+				<td class="form-field-caption" align="left"><input type='text' name='vessel' readonly='readonly' size='15' value='{$vessel.NO_BOOKING}' /></td>
+				
+			</tr>
+			<tr>
+				<td class="form-field-caption" align="right">Estimate Time Arrival</td>
+				<td class="form-field-caption" align="right">:</td>
+				<td class="form-field-caption" align="left"><input type='text' name='vessel' readonly='readonly' size='10' value='{$vessel.ETA}' /></td>
+			</tr>
+			<tr>
+				<td class="form-field-caption" align="right">Estimate Time Departure</td>
+				<td class="form-field-caption" align="right">:</td>
+				<td class="form-field-caption" align="left"><input type='text' name='vessel' readonly='readonly' size='10' value='{$vessel.ETD}' /></td>
+			</tr>
+			<tr height='20'>
+				<td class="form-field-caption" align="right"></td>
+				<td class="form-field-caption" align="right"></td>
+				<td></td>			
+			</tr>
+		</table>	
+	</fieldset>
+	<br />
+	<fieldset width='80%' style="border: 1px solid #e1e0de;-moz-border-radius:5px;">
+	<legend class="form-field-caption" align="left"><font color='#0482d5'> Upload Container</font> </legend>
+	<form method="post" enctype="multipart/form-data" action="<?=HOME?>planning.booking/upload_save?id=<?=$id_vessel?>">
+		<table>
+			<tr height='20'>
+				<td class="form-field-caption" align="right"></td>
+				<td class="form-field-caption" align="right"></td>
+				<td></td>			
+			</tr>
+			<tr>
+				
+				<td class="form-field-caption" align="right">Upload File Excel</td>
+				<td class="form-field-caption" align="right"> : </td>
+				<td colspan='4'><input type="file" name="uploadfile" size="20" />
+                                    <input type="hidden" name="id_vs" value="{$vessel.ID_VS}" /></td>			
+			</tr>
+			<tr>
+				<td class="form-field-caption" align="right">Status Data</td>
+				<td class="form-field-caption" align="right"> : </td>
+				<td class="form-field-caption" align="left"><select id="modus" name="modus"><option value='-'> -- Pilih --</option><option value='overwrite'>Overwrite</option><option value='append'>Append</option></select></td>
+			</tr>
+			<tr>
+				<td colspan="3"> <input type="submit" name="upload" value="upload" /> </td>
+			</tr>
+			<tr height='20'>
+				<td class="form-field-caption" align="right"></td>
+				<td class="form-field-caption" align="right"></td>
+				<td></td>			
+			</tr>
+		</table>
+	</form>
+	</fieldset>
+	<hr width="870" color="#e1e0de"></hr><p><br/></p>
+	
+	</div>
+</div>

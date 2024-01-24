@@ -1,0 +1,162 @@
+<span class="graybrown"><img src='images/dokumenbig.png' border='0' class="icon"/><font color="#0378C6"> Rename </font> Container</span>
+
+<fieldset class="form-fieldset" style="margin: 5px 5px 5px 5px; ">
+<form id="form" action="<?=HOME?><?=APPID?>/add_do" method="POST">
+
+	<fieldset class="form-fieldset" style="margin: 5px 5px 5px 5px; border-radius: 10px 10px 10px 10px;-moz-border-radius: 10px 10px 10px 10px; 
+-webkit-border-radius: 10px 10px 10px 10px; ">
+	<legend>&nbsp &nbsp  <font color="red"><b>Detail No Container Existing</b></font></legend>
+    <table style="margin: 10px 10px 10px 10px;" >
+		<tr>
+        	<td class="form-field-caption" valign="middle" align="right">NO CONTAINER LAMA</td>
+            <td  class="form-field-caption"> : </td>
+            <td> <input type="text" value="" maxlength="11" class="suggestuwriter" size="12" id="NO_CONTAINER_OLD" style="font-size:26px; font-weight:bold; color:#F00" tabindex="1"/> *min 8 karakter <input type="hidden" id="NO_BOOKING" name="NO_BOOKING"/>  </td>
+            
+    	</tr>
+    	<tr>
+        	<td class="form-field-caption" valign="middle" align="right">SIZE - TYPE - STATUS</td>
+            <td  class="form-field-caption"> : </td>
+            <td> <input type="text" readonly="readonly" size="5" value="" name="SIZE" id="SIZE"/> - 
+			<input type="text" readonly="readonly" size="5" value="" name="TYPE" id="TYPE"/> - <input type="text" readonly="readonly" size="5" value="" name="STATUS" id="STATUS/> </td>
+            
+    	 </tr>
+		<tr>
+        	<td class="form-field-caption" valign="middle" align="right">Kapal / Voyage</td>
+            <td  class="form-field-caption"> : </td>
+            <td> <input type="text" name="NM_KAPAL" id="NM_KAPAL" placeholder="Autocomplete" size="40" maxlength="100" style="background-color:#FFFFCC;"/>  </td>
+            
+    	</tr>
+		<tr>
+        	<td class="form-field-caption" valign="middle" align="right">Agen</td>
+            <td  class="form-field-caption"> : </td>
+            <td> <input type="text" name="NM_AGEN" id="NM_AGEN" placeholder="Autocomplete" size="40" maxlength="100" style="background-color:#FFFFCC;"/>  </td>
+            
+    	</tr>
+	</table>
+	</fieldset>
+	<fieldset class="form-fieldset" style="margin: 5px 5px 5px 5px; border-radius: 10px 10px 10px 10px;-moz-border-radius: 10px 10px 10px 10px; 
+-webkit-border-radius: 10px 10px 10px 10px; ">
+	<legend> &nbsp &nbsp  <font color="red"><b>No Container Baru</b></font></legend>
+    <table style="margin: 10px 10px 10px 10px;" >
+		 <tr>
+					<td class="form-field-caption" valign="middle" align="right">NO CONTAINER BARU </td>
+					<td  class="form-field-caption"> : </td>
+					<td colspan="5" class="form-field-caption" >
+					<input type="text" value="" maxlength="11" class="suggestuwriter" size="12" id="NO_CONTAINER_NEW" style="font-size:26px; font-weight:bold; color:#F00" tabindex="1"/> </td>
+					
+		</tr>
+		<tr>
+					 <td class="form-field-caption" valign="top" align="right">SIZE</td>
+					 <td  class="form-field-caption"> : </td>
+					 <td width="300" class="form-field-caption" > 
+					 <select name="SIZE_NEW" ID="SIZE_NEW">
+						<option value="20">20</option>
+						<option value="40">40</option> 
+						<option value="45">45</option>
+					</select>
+					 </td>
+					 
+           
+		</tr>	
+		<tr>
+		  <td class="form-field-caption" valign="top" align="right" >TYPE</td>
+		  <td  class="form-field-caption"> : </td>
+		  <td class="form-field-caption" >
+		  	<select id="TYPE_NEW" name="TYPE_NEW">
+				<option value="DRY">DRY</option>
+				<!-- <option value="FLT">FLT</option> -->
+				<option value="HQ">HQ</option>
+				<option value="OT">OT</option>
+				<option value="OVD">OVD</option>
+				<option value="RFR">RFR</option>
+				<option value="TNK">TNK</option>
+			</select>
+			</td>					
+		</tr>
+		<tr>
+		  <td class="form-field-caption" valign="middle" align="right" >KETERANGAN</td>
+		  <td  class="form-field-caption"> : </td>
+		  <td class="form-field-caption" >
+			<textarea rows="2" cols="40" name="PEB_KETERANGAN" id="id_PEB_KETERANGAN"></textarea>
+		  </td>
+					
+		</tr>		
+	</table>
+	</fieldset>
+	
+	<br />
+	 <align="right"><a onclick="save()" class="link-button" ><img src='images/valid.png' border='0' />&nbsp;Simpan</a></align>
+    </center></form>
+</fieldset>
+<script>
+$(function(){
+	$( "#NO_CONTAINER_OLD" ).autocomplete({
+		minLength: 8,
+		source: "{$HOME}{$APPID}.auto/container",
+		focus: function( event, ui ) {
+			$( "#NO_CONTAINER_OLD" ).val( ui.item.NO_CONTAINER );
+			return false;
+		},
+		select: function( event, ui ) {
+			$( "#NO_CONTAINER_OLD" ).val( ui.item.NO_CONTAINER );
+			$( "#NO_CONTAINER_NEW" ).val( ui.item.NO_CONTAINER );
+			$( "#NO_BOOKING" ).val( ui.item.NO_BOOKING );
+			$( "#SIZE" ).val( ui.item.SIZE_);
+			$( "#SIZE_NEW" ).val( ui.item.SIZE_);
+			$( "#TYPE" ).val( ui.item.TYPE_);
+			$( "#TYPE_NEW" ).val( ui.item.TYPE_);
+			$("#VOYAGE").val( ui.item.VOYAGE_IN);
+			$("#NM_KAPAL").val( ui.item.NM_KAPAL);
+			$("#TGL_BONGKAR").val( ui.item.TGL_BONGKAR);
+			$( "#NM_AGEN" ).val( ui.item.NM_AGEN);
+			return false;
+		}
+	})
+	.data( "autocomplete" )._renderItem = function( ul, item ) {
+		return $( "<li style='text-align:left'></li>" )
+			.data( "item.autocomplete", item )
+			.append( "<a>" + item.NO_CONTAINER + "<br/> "+item.NM_KAPAL+" "+item.VOYAGE_IN+"</a>" )
+			.appendTo( ul );
+	};
+	
+}); 
+
+function save(){
+	if($("#NO_CONTAINER_OLD").val() == '' || $("#NO_CONTAINER_NEW").val() == ''){
+		$.blockUI({ message: '<h1>No.Container Lama / Baru Harus Diisi</h1>' }); 
+			setTimeout($.unblockUI, 1000);  	
+		return false;
+	}
+	else {
+		var no_cont_old = $("#NO_CONTAINER_OLD").val();
+		var no_cont_new = $("#NO_CONTAINER_NEW").val();
+		var size_new = $("#SIZE_NEW").val();
+		var type_new = $("#TYPE_NEW").val(); 
+		
+		var answer = confirm("Yakin untuk menyimpan ini? Pastikan Inputan Anda Sudah Benar");
+		if(answer){
+		  var url	= "{$HOME}{$APPID}/save_rename";
+		  $.blockUI({ message: '<h1>Please Wait !!!</h1>' });
+		  $.post(url,{NO_CONT_OLD : no_cont_old, NO_CONT_NEW : no_cont_new, SIZE_NEW : size_new, TYPE_NEW : type_new}, function(data){
+			if(data == "Y"){
+				$.blockUI({ message: '<h1>Rename Success</h1>' }); 
+				setTimeout($.unblockUI, 1000);  		
+			}
+			else if(data == "LOGIN") {
+				$.blockUI({ message: '<h1>Silahkan Login Ulang</h1>' });
+				setTimeout($.unblockUI, 1000);  
+			}
+			else if(data == "Z"){
+				$.blockUI({ message: '<h1>Maaf, No. Container Baru Sudah Ada</h1>' });
+				setTimeout($.unblockUI, 1000);  
+			}
+			else {
+				alert(data);
+				$.blockUI({ message: '<h1>Failed</h1>' });
+				setTimeout($.unblockUI, 1000);  
+			}
+		  });
+		}
+	}
+}
+</script>

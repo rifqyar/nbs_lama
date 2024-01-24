@@ -1,0 +1,27 @@
+
+<div>
+<table border=1 width="100%" align="center">
+	<tr align="center">
+		<th class="grid-header"  style="font-size:8pt">No.</th>
+		<th class="grid-header"  style="font-size:8pt">BLOCK STUFFING INVENTORY</th>
+		<th class="grid-header"  style="font-size:8pt">{$tanggal.H}</th>
+		<th class="grid-header"  style="font-size:8pt">{$tanggal.H_1}</th>
+		<th class="grid-header"  style="font-size:8pt">{$tanggal.H_2}</th>
+		<th class="grid-header"  style="font-size:8pt">{$tanggal.H_3}</th>
+	</tr>
+	<fill src='row' var='row'>
+		<tr >
+			<td align="center" valign="middle" class="grid-cell"  style="font-size:9pt">{$row.NO}</td>
+			<td align="left" valign="middle" class="grid-cell"  style="font-size:9pt">{$row.KEGIATAN}</td>
+			<td align="center" valign="middle" class="grid-cell"  style="font-size:9pt">{$row.H}</td>
+			<td align="center" valign="middle" class="grid-cell"  style="font-size:9pt">{$row.H1}</td>
+			<td align="center" valign="middle" class="grid-cell"  style="font-size:9pt">{$row.H2}</td>
+			<td align="center" valign="middle" class="grid-cell"  style="font-size:9pt">{$row.H3}</td>
+		</tr>
+	</fill>
+	<tr align="center">
+		<td colspan="3" align="center" valign="middle" class="grid-cell"  style="font-size:9pt"> Container di Blok Stuffing :</td>
+		<td colspan="3" align="center" valign="middle" class="grid-cell"  style="font-size:9pt">{$row_cap.STF}</td>
+	</tr>
+</table>
+</div>

@@ -1,0 +1,103 @@
+
+ 
+<span class="graybrown"><img src='images/document-open.png' border='0' class="icon"/><font color="#0378C6"> Request</font> Receiving Dari TPK</span><br/><br/>
+
+
+<fieldset class="form-fieldset" style="margin: 5px 5px 5px 5px; ">
+<form action="<?=HOME?><?=APPID?>/add_do" method="POST">
+	<center>
+	
+	
+    <table style="margin: 30px 30px 30px 30px;" >
+		<tr>
+        	<td>Receiving Dari</td>
+            <td> : </td>
+            <td> <select id="REC_DARI" name="REC_DARI">
+				  <option>TPK</option>
+				  <option>Luar</option>
+				 </select> 
+			</td>
+    	</tr>
+    	<tr>
+        	<td>E.M.K.L</td>
+            <td> : </td>
+			
+			
+            <td> <input type="text" id="EMKL" size="40" name="EMKL" type="text" class="kdemkl " placeholder=" AUTOCOMPLETE" style="background-color:#FFFFCC;" /> <input type="hidden" name="ID_EMKL" id="ID_EMKL" /> </td>
+    	</tr>
+        <tr>
+       		<td>Voyage / Kapal</td>
+            <td> : </td>
+            <td> <input type="text" name="VOYAGE" id="VOYAGE" placeholder=" AUTOCOMPLETE" style="background-color:#FFFFCC;" /> / <input  name="VESSEL" id="VESSEL"style="background-color:#FFFFCC;" /> <input type="hidden" name="NO_BOOKING" id="NO_BOOKING" /> </td></td>
+        </tr>
+		<tr>
+		</tr>
+         <tr>
+       		<td>Keterangan</td>
+            <td> : </td>
+            <td> <input type="text" name="KETERANGAN"  style="width:250px"/></td>
+        </tr>
+        <tr>
+			<!--<td colspan="2" class="form-footer"><a id="submitForm" onclick="submitManual()" class="link-button" ><img src='images/valid.png' border='0' />&nbsp;Simpan</a> 
+			<a href="{$HOME}{$APPID}/view?no_req={$rows.NO_REQUEST}"><img src='images/ico_approval.gif' border='0' />&nbsp; LIHAT </a>
+			<td colspan="3"><a onclick="submitManual() class="link-button"><img src='images/valid.png' border='0' />&nbsp; SIMPAN </a></td>
+        	 -->
+			<td colspan="3"><input type="submit" class="link-button" value="Simpan" src='images/valid.png'><img src='images/valid.png' border='0' /></input></td>
+			
+        </tr>
+	</table>
+    </center>
+</form> 
+</fieldset>
+
+
+ 
+<script>
+
+$(function() {	
+	$( "#EMKL" ).autocomplete({
+		minLength: 3,
+		source: "{$HOME}{$APPID}.auto/pbm",
+		focus: function( event, ui ) {
+			$( "#EMKL" ).val( ui.item.NAMA );
+			return false;
+		},
+		select: function( event, ui ) {
+			$( "#EMKL" ).val( ui.item.NAMA );
+			$( "#ID_EMKL" ).val( ui.item.ID );
+			return false;
+		}
+	})
+	.data( "autocomplete" )._renderItem = function( ul, item ) {
+		return $( "<li></li>" )
+			.data( "item.autocomplete", item )
+			.append( "<a>" + item.NAMA + "</a>" )
+			.appendTo( ul );
+	};
+	
+	$( "#VOYAGE" ).autocomplete({
+		minLength: 3,
+		source: "{$HOME}{$APPID}.auto/voyage",
+		focus: function( event, ui ) {
+			$( "#VOY" ).val( ui.item.VOYAGE );
+			return false;
+		},
+		select: function( event, ui ) {
+			$( "#VOYAGE" ).val( ui.item.VOYAGE );
+			$( "#VESSEL" ).val( ui.item.VESSEL );
+			$( "#NO_BOOKING" ).val( ui.item.NO_BOOKING );
+			return false;
+		}
+	})
+	.data( "autocomplete" )._renderItem = function( ul, item ) {
+		return $( "<li></li>" )
+			.data( "item.autocomplete", item )
+			.append( "<a>" + item.VOYAGE + " | "+item.VESSEL +"</a>" )
+			.appendTo( ul );
+	};
+});
+
+
+
+
+</script>

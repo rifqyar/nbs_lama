@@ -1,0 +1,36 @@
+<div id="list">
+<STYLE>
+	<!--
+	tr { }
+	.initial { background-color: #DDDDDD; color:#000000 }
+	.highlight { background-color: #8888FF }
+	//-->
+</style>
+	<table width="100%">
+    	<thead>
+        	<tr>
+            	<th class="grid-header" width="10">No.</th>
+				<th class="grid-header"  width="20">NO REQUEST</th>
+            	<th class="grid-header"  width="20">NO CONTAINER</th>
+                <th class="grid-header"  width="10">SIZE</th>
+                <th class="grid-header"  width="10">TYPE</th>
+                <th class="grid-header"  width="10">STATUS</th>
+                <th class="grid-header"  width="10">BERBAHAYA</th>
+            </tr>
+        </thead>
+        <tbody>
+        	<fill src="row_list" var="rows">
+		   	<alt var='bg' list='#f9f9f3,#ffe'/>
+        	<tr bgcolor="{$bg}" style="cursor:pointer;" onMouseOver="this.className='highlight'" onMouseOut="this.className='normal'" onclick="fill('{$rows.NO_CONTAINER}')">
+            	<td class="grid-cell" align="center"><font size="2px">{$__ctr}</font></td>
+				<td class="grid-cell" align="center"><font size="2px">{$rows.NO_REQUEST}</font></td>
+            	<td class="grid-cell" align="center"><font size="2px">{$rows.NO_CONTAINER}</font></td>
+            	<td class="grid-cell" align="center"><font size="2px">{$rows.SIZE_}</font></td>
+            	<td class="grid-cell" align="center"><font size="2px">{$rows.TYPE_}</font></td>
+				<td class="grid-cell" align="center"><font size="2px">{$rows.STATUS}</font></td>
+            	<td class="grid-cell" align="center"><font size="2px">{$rows.HZ}</font></td>
+            </tr>
+            </fill>
+        </tbody>
+    </table>
+</div>

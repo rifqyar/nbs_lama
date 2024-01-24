@@ -1,0 +1,121 @@
+<style>
+.content{
+	width:95%;
+	margin-left:auto;
+	margin-right:auto;
+	margin-bottom: 10px;
+	margin-top:20px;
+}
+.main_side{
+	width:100%;
+	float:left;
+	text-align:left;
+}
+</style>
+
+<div class="content">
+<div class="main_side">
+
+<? if($status=="ubah") 
+   {?>
+
+<h2>UBAH PBM</h2>
+<br/>
+<form method="POST" action="<?=HOME?>maintenance.master.pbm/simpan_edit?id={$ubah.KODE_PBM}">
+<div class="form-fieldset" style="margin: 5px 5px 5px 5px">
+<table>
+		<tr>
+			<td>KODE PBM</td>
+			<td>&nbsp;&nbsp;:&nbsp;&nbsp;</td>
+            <td><input type="text" name="kode_pbm" value={$ubah.KODE_PBM} readonly="readonly"/></td>
+		</tr>
+		<tr>
+			<td>NAMA</td>
+			<td>&nbsp;&nbsp;:&nbsp;&nbsp;</td>
+            <td><input type="text" name="nama" value={$ubah.NAMA}/></td>
+		</tr>
+		<tr>
+			<td>ALAMAT</td>			
+			<td>&nbsp;&nbsp;:&nbsp;&nbsp;</td>
+            <td><input type="text" name="alamat" value={$ubah.ALAMAT}/></td>
+		</tr>
+		<tr>
+			<td>NPWP</td>
+			<td>&nbsp;&nbsp;:&nbsp;&nbsp;</td>
+            <td><input type="text" name="npwp" value={$ubah.NPWP}/></td>
+		</tr>
+        <tr>
+			<td>COA</td>
+			<td>&nbsp;&nbsp;:&nbsp;&nbsp;</td>
+            <td><input type="text" name="coa" value={$ubah.COA}/></td>
+		</tr>
+		<tr>
+			<td>STATUS_PBM</td>
+			<td>&nbsp;&nbsp;:&nbsp;&nbsp;</td>
+            <td><select name="status_pbm" id="dropmenu">
+                  <option value="SELEKSI">SELEKSI</option>
+                  <option value="NON">NON_SELEKSI</option>
+                </select>
+            </td>
+		</tr>
+</table>
+</div>
+<br/>
+<input type="submit" value="Simpan" name="Simpan" class="link-button"/>
+</form>
+<br/>
+
+<? }
+    else
+    {
+    ?>
+<h2>TAMBAH PBM</h2>
+<br/>
+<form method="POST" action="<?=HOME?>maintenance.master.pbm/simpan">
+<div class="form-fieldset" style="margin: 5px 5px 5px 5px">
+<table>
+		<tr>
+			<td>KODE PBM</td>
+			<td>&nbsp;&nbsp;:&nbsp;&nbsp;</td>
+            <td><input type="text" name="kode_pbm"/></td>
+		</tr>
+		<tr>
+			<td>NAMA</td>
+			<td>&nbsp;&nbsp;:&nbsp;&nbsp;</td>
+            <td><input type="text" name="nama"/></td>
+		</tr>
+		<tr>
+			<td>ALAMAT</td>			
+			<td>&nbsp;&nbsp;:&nbsp;&nbsp;</td>
+            <td><input type="text" name="alamat"/></td>
+		</tr>
+		<tr>
+			<td>NPWP</td>
+			<td>&nbsp;&nbsp;:&nbsp;&nbsp;</td>
+            <td><input type="text" name="npwp"/></td>
+		</tr>
+        <tr>
+			<td>COA</td>
+			<td>&nbsp;&nbsp;:&nbsp;&nbsp;</td>
+            <td><input type="text" name="coa"/></td>
+		</tr>
+		<tr>
+			<td>STATUS_PBM</td>
+			<td>&nbsp;&nbsp;:&nbsp;&nbsp;</td>
+            <td><select name="status_pbm" id="dropmenu">
+                  <option value="SELEKSI">SELEKSI</option>
+                  <option value="NON">NON_SELEKSI</option>
+                </select>
+            </td>
+		</tr>
+</table>
+</div>
+<br/>
+<input type="submit" value="Simpan" name="Simpan" class="link-button"/>
+</form>
+<br/>
+
+<? } ?>
+
+</div>
+</div>

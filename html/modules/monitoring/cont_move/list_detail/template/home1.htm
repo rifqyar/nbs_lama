@@ -1,0 +1,465 @@
+<style>
+.content{
+	width:95%;
+	margin-left:auto;
+	margin-right:auto;
+	margin-bottom: 10px;
+	margin-top:20px;
+}
+.main_side{
+	width:100%;
+	float:left;
+	text-align:left;
+}
+.rightside{ 
+	width:25%;
+	float:right;
+	text-align:center;
+}
+.ganjil {
+  background-color: #FFF; /* Warna untuk baris ganjil */
+}
+.genap {
+  background-color: #bbe3fe; /* Warna untuk baris genap */
+}   
+
+.content{
+	width:95%;
+	margin-left:auto;
+	margin-right:auto;
+	margin-bottom: 10px;
+	margin-top:20px;
+}
+.main_side{
+	width:100%;
+	float:left;
+	text-align:left;
+}
+
+</style>
+<?php
+header("Cache-Control: no-cache, must-revalidate"); // HTTP/1.1
+$backuri                      = str_replace('&_saveok=1', '', $_SERVER['REQUEST_URI']);
+$_SESSION['__uriback'][APPID] = $backuri . (strpos($_SERVER['REQUEST_URI'], '?') === false ? '?' : '');
+//$no_ukk=$_GET["id_vessel"];
+//print_r($no_ukk);die;
+?>
+
+<script>
+	function tes()
+	{	
+		alert('tes');
+	}
+
+
+function tambah(b)
+{
+	//alert(b);
+	$('#table_profil').load("<?=HOME?>planning.booking/insert_booking?id="+b+" #add_booking").dialog({modal:true, height:400,width:700,title: 'booking shipping line'});
+	//$('#detail').load("<?=HOME?>planning.booking/detail_booking?id="+b+" #list").dialog({modal:true, height:280,width:400,title: 'booking shipping line'});
+}
+
+function add_booking(id_vs)
+{
+	//alert(id_vs);
+	alert($("#size").val());
+	var size_ = $("size").val;
+	var type_ = $("type").val;
+	var status_ = $("status").val;
+	var box_ = $("box").val;
+	var teus_ = $("teus").val;
+	var pelabuhan_ = $("pelabuhan").val;
+	var id_pelabuhan_ = $("id_pelabuhan").val;
+	var id_vs_ = id_vs;
+	var url		= "{$HOME}planning.booking.ajax/booking_ship";
+	
+	//alert(size_);
+	$.post(url,{ID_VS: id_vs_, SIZE : size_, TYPE : type_, STATUS : status_, BOX : box_, TEUS : teus, PELABUHAN : pelabuhan_,ID_PELABUHAN : id_pelabuhan_ },function(data){
+		console.log(data);
+		if(data == "sukses")
+		{
+			alert("Data Booking Disimpan");
+			//window.location = "{$HOME}{$APPID}";
+		}
+		else
+		{
+			alert("Gagal Simpan Data Booking...!!!");
+		}		
+	});
+}
+</script>
+
+<script type="text/javascript">
+	
+function myFunction(a,b,c,d,e,f,g,h,i,j)
+{
+//alert("{$no_ukk}");
+//var no_req2_	= $("#NO_REQ2").val();
+alert(i);
+//$('#edit_cont').load("<?=HOME?>billing.rbm.ajax/edit_oog?no_ukk="+a+"&no_cont="+b+"&size="+c+"&type="+d+"&status="+e+"&height="+f+"&gross="+g+"&e_i="+h+"&hz="+i+"&trs="+j).dialog({modal:true, height:300,width:800, title:"tes"});
+
+}
+
+function oog(a,b,c,d,e,f,g,h,i,j)
+{
+//alert("{$no_ukk}");
+//var no_req2_	= $("#NO_REQ2").val();
+//alert(i);
+$('#edit_cont').load("<?=HOME?>billing.rbm.ajax/view_edit_oog?no_ukk="+a+"&no_cont="+b+"&size="+c+"&type="+d+"&status="+e+"&height="+f+"&gross="+g+"&e_i="+h+"&hz="+i+"&trs="+j).dialog({modal:true, height:300,width:450, title:"OOG"});
+
+}
+
+function bundle(a)
+{
+//alert(a);
+//var no_req2_	= $("#NO_REQ2").val();
+//alert(i);
+$('#edit_cont').load("<?=HOME?>billing.rbm.ajax/view_create_bundle?no_ukk="+a).dialog({modal:true, height:550,width:700, title:"tes"});
+
+}
+
+//NO_UKK , ID_CONTAINER , SIZE_, TYPE_, STATUS_, WEIGHT, CLASS, TEMP, POD, ID_STATUS, GATE_IN, GATE_OUT, PLACEMENT, PLUG_IN, PLUG_OUT, STAT_SEGEL, CONSIGNEE, EMKL, POS_CY, NPE, NO_SEAL, OPERATOR_SHIP
+jQuery(function() {
+ jQuery("#booking").jqGrid({
+	url:'<?=HOME?>datanya/data_cont_move?q=list_detail_cont_move&list_det_ukk={$no_ukk}',
+	mtype : "post",
+	datatype: "json",
+	//colNames:['Edit OOG','No UKK','No Container','Size','Type','Status','Height','Gross','E_I','HZ','TRS'], 
+	colNames:[
+				
+				'No UKK',
+				'No Container',
+				'Size',
+				'Type',
+				'Status',
+				'Weight',
+				'Class',
+				'Temp',
+				'POD',
+				'Status Code',
+				'Gate IN',
+				'Gate Out',
+				'Placement',
+				'Plug In',
+				'Plug Out',
+				'Red Seal',
+				'Consignee',
+				'EMKL',
+				'POS CY',
+				'NPE',
+				'No Seal',
+				'Operator Ship',
+				'Remark',
+				'Blok',
+				'Slot',
+				'Row',
+				'Tier'
+				], 
+	colModel:[
+		//{name:'edit_oog', width:70, align:"center",sortable:false,search:false},
+		//{name:'edit_bundle', width:70, align:"center",sortable:false,search:false},
+		
+		{name:'no_ukk',index:'no_ukk', width:100, align:"center"},
+		{name:'id_container',index:'id_container', width:95, align:"center"},
+		{name:'size',index:'size', width:50, align:"center"},
+		{name:'type',index:'type', width:50, align:"center"},
+		{name:'status',index:'status', width:50, align:"center"},
+		{name:'weight',index:'height', width:60, align:"center"},
+		{name:'class',index:'class', width:60, align:"center"},
+		{name:'temp',index:'temp', width:60, align:"center"},
+		{name:'pod',index:'pod', width:60, align:"center"},
+		{name:'status_code',index:'status_code', width:60, align:"center"},
+		{name:'gate-in',index:'gate_in', width:60, align:"center"},
+		{name:'gate_out',index:'gate_out', width:60, align:"center"},
+		{name:'placement',index:'placement', width:60, align:"center"},
+		{name:'plug_in',index:'plug_in', width:60, align:"center"},
+		{name:'plug_out',index:'plug_out', width:60, align:"center"},
+		{name:'stat_segel',index:'stat_segel', width:60, align:"center"},
+		{name:'consignee',index:'consignee', width:60, align:"center"},
+		{name:'emkl',index:'emkl', width:60, align:"center"},
+		{name:'pos_cy',index:'pos_cy', width:60, align:"center"},
+		{name:'npe',index:'npe', width:60, align:"center"},
+		{name:'no_seal',index:'no_seal', width:60, align:"center"},
+		{name:'operator_ship',index:'operator_ship', width:60, align:"center"},
+		{name:'rmcont',index:'remark_container', width:60, align:"center"},
+		{name:'blok',index:'blok', width:60, align:"center"},
+		{name:'slot',index:'slot', width:60, align:"center"},
+		{name:'row',index:'row', width:60, align:"center"},
+		{name:'tier',index:'tier', width:60, align:"center"}
+	],
+	rowNum:50,
+	width: 865,
+	height: "100%",//250
+
+	//rowList:[10,20,30,40,50,60],
+	loadonce:true,
+	rownumbers: true,
+	rownumWidth: 15,
+	gridview: true,
+	pager: '#pg_l_booking',
+	viewrecords: true,
+	shrinkToFit: false,
+	caption:"Detail List Container "
+ });
+  jQuery("#booking").jqGrid('navGrid','#pg_l_booking',{del:false,add:false,edit:false,search:false}); 
+ jQuery("#booking").jqGrid('filterToolbar',{stringResult: true,searchOnEnter : false});
+ 
+});
+
+
+function bundle(i)
+{
+	$('#edit_cont').load("<?=HOME?>billing.rbm.ajax/view_create_bundle?no_ukk="+i).dialog({modal:true, height:550,width:700, title:"tes"});
+}
+
+function shift(i)
+{
+	$('#shift_r').load("<?=HOME?>billing.rbm.ajax/shifting_rbm?no_ukk="+i).dialog({modal:true, height:250,width:400});
+}
+function add_hm(i)
+{
+	$('#hatch_m').load("<?=HOME?>billing.rbm.ajax/hatch_mv?no_ukk="+i).dialog({modal:true, height:200,width:400});
+}
+
+
+function ed_bundle(a)
+{
+	$('#edit_cont').load("<?=HOME?>billing.rbm.ajax/view_edit_bundle?no_bundle="+a).dialog({modal:true, height:550,width:660, title:"tes"});
+}
+function del_bundle(a,b)
+{
+	var url="<?=HOME?>billing.rbm.ajax/del_bundle?no_ukk=<?=$no_ukk?>";
+	$.post(url,{NO_CT:a, JNS:b},function(data){
+		console.log(data);
+			if (data=='sudah didelete')
+			{
+				alert(data);
+				$("#tb_shifting").jqGrid('setGridParam',{url:"<?=HOME?>datanya/data?q=shifting_og&no_ukks={$no_ukk}", datatype:"json"}).trigger("reloadGrid");
+			}
+			//document.location.reload(true);
+	});
+}
+
+function del_shift(a,b)
+{
+	var url="<?=HOME?>billing.rbm.ajax/del_shift?no_ukk=<?=$no_ukk?>";
+	$.post(url,{NO_CT:a, JNS:b},function(data){
+		console.log(data);
+			if (data=='sudah didelete')
+			{
+				alert(data);
+				$("#tb_shifting").jqGrid('setGridParam',{url:"<?=HOME?>datanya/data?q=shifting_og&no_ukks={$no_ukk}", datatype:"json"}).trigger("reloadGrid");
+			}
+			//document.location.reload(true);
+	});
+}
+
+function ed_shift(a,b)
+{
+	var url="<?=HOME?>billing.rbm.ajax/ed_shift?no_ukk=<?=$no_ukk?>";
+	$.post(url,{NO_CT:a, JNS:b},function(data){
+		console.log(data);
+			alert(data);
+			$("#tb_shifting").jqGrid('setGridParam',{url:"<?=HOME?>datanya/data?q=shifting_og&no_ukks={$no_ukk}", datatype:"json"}).trigger("reloadGrid");
+	});
+}
+
+
+</script>
+<div class="content" >
+	<div class="main_side">
+	<p>
+	<h2> <img src="<?=HOME?>images/kapal_.gif" height="7%" width="7%" style="vertical-align:middle"> <font color="#81cefa">Detail List </font>
+	<font size="3px" color="#606263">Container Movement Export/Import</font></h2></p>
+	<?php 
+	//$no_ukk = $_GET['no_ukk'];
+	$db=getDb();
+	$qh="SELECT ID_VESSEL, VESSEL, VOYAGE_IN ,VOYAGE_OUT, RTA, RTD, PEL_ASAL, PEL_TUJUAN, PEL_BERIKUTNYA FROM MX_RBM_HEADER where NO_UKK='$no_ukk'";
+	//$qh="select NM_KAPAL, NM_PEMILIK, VOYAGE_IN, VOYAGE_OUT, TGL_JAM_TIBA, TGL_JAM_BERANGKAT from MX_RBM_HEADER where NO_UKK='$no_ukk'";
+	$exh=$db->query($qh);
+	$hsh=$exh->fetchRow();
+	?>
+	<p><br/></p>
+	<table>
+	<tr>
+		<td><b>No. UKK</b></td>
+		<td>:</td>
+		<td><b><?=$no_ukk?></b></td>
+	</tr>
+	<tr>
+		<td><b>Vessel - Voyage</b></td>
+		<td>:</td>
+		<td><b><?=$hsh['VESSEL']?> <?=$hsh['VOYAGE_IN']?>-<?=$hsh['VOYAGE_OUT']?></b></td>
+	</tr>
+	<tr>
+		<td><b>Vessel Code</b></td>
+		<td>:</td>
+		<td><?=$hsh['ID_VESSEL']?></td>
+	</tr>
+	<tr>
+		<td><b>RTA / RTD</b></td>
+		<td>:</td>
+		<td><?=$hsh['RTA']?> / <?=$hsh['RTD']?></td>
+	</tr>
+	<tr>
+		<td><b>POL</b></td>
+		<td>:</td>
+		<td><?=$hsh['PEL_ASAL']?></td>
+	</tr>
+	<tr>
+		<td><b>POD</b></td>
+		<td>:</td>
+		<td><?=$hsh['PEL_TUJUAN']?></td>
+	</tr>
+	</table>	
+	<br>
+	
+	<br />
+	<table id='booking' width="100%"></table> <div id='pg_l_booking'></div>
+	<div id="dialog-form">
+	<form>
+		<div id="edit_cont"></div>
+	</form>
+	<form>
+		<div id="table_profil"></div>
+	</form>
+	<br>
+	</div>
+	
+	<?php 
+		//$no_ukk = $_GET['no_ukk'];
+		$db=getDb();
+		$qh="SELECT COUNT(A.ID_STATUS) AS STATUS49 FROM MX_RBM_DETAIL A, MX_RBM_HEADER B WHERE A.ID_STATUS ='49' AND A.NO_UKK=B.NO_UKK AND A.REMARK_='R' AND B.NO_UKK='$no_ukk'";
+		$exh=$db->query($qh);
+		$hsh=$exh->fetchRow();
+	?>
+	<table>
+	<tr>
+		<td><b>**Total Container Eksport berdasarkan status : </b></td>
+		
+	</tr>
+	<tr>
+		<td><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		Status 49 - Permintaan</b></td>
+		<td>:</td>
+		<td><b><?=$hsh['STATUS49']?></b></td>
+	</tr>
+	
+	<?php 
+		//$no_ukk = $_GET['no_ukk'];
+		$db=getDb();
+		$qh="SELECT COUNT(A.ID_STATUS) AS STATUS50 FROM MX_RBM_DETAIL A, MX_RBM_HEADER B WHERE A.ID_STATUS ='50' AND A.NO_UKK=B.NO_UKK AND A.REMARK_='R' AND B.NO_UKK='$no_ukk'";
+		$exh=$db->query($qh);
+		$hsh=$exh->fetchRow();
+	?>
+	<tr>
+		<td><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		Status 50 - Gate In</b></td>
+		<td>:</td>
+		<td><b><?=$hsh['STATUS50']?></b></td>
+	</tr>
+	
+	<?php 
+		$db=getDb();
+		$qh="SELECT COUNT(A.ID_STATUS) AS STATUS51 FROM MX_RBM_DETAIL A, MX_RBM_HEADER B WHERE A.ID_STATUS ='51' AND A.NO_UKK=B.NO_UKK AND A.REMARK_='R' AND B.NO_UKK='$no_ukk'";
+		$exh=$db->query($qh);
+		$hsh=$exh->fetchRow();
+	?>
+	<tr>
+		<td><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		Status 51 - Placement</b></td>
+		<td>:</td>
+		<td><b><?=$hsh['STATUS51']?></b></td>
+	</tr>
+	<?php 
+		$db=getDb();
+		$qh="SELECT COUNT(A.ID_STATUS) AS STATUS56 FROM MX_RBM_DETAIL A, MX_RBM_HEADER B WHERE A.ID_STATUS ='56' AND A.NO_UKK=B.NO_UKK AND A.REMARK_='R' AND B.NO_UKK='$no_ukk'";
+		$exh=$db->query($qh);
+		$hsh=$exh->fetchRow();
+	?>
+	<tr>
+		<td><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		Status 56 - Loading</b></td>
+		<td>:</td>
+		<td><b><?=$hsh['STATUS56']?></b></td>
+	</tr>
+	
+	</table>
+	<!--IMPORT -->
+	<?php 
+		$db=getDb();
+		$qh="SELECT COUNT(A.ID_STATUS) AS STATUS01 FROM MX_RBM_DETAIL A, MX_RBM_HEADER B WHERE A.ID_STATUS ='01' AND A.NO_UKK=B.NO_UKK AND A.REMARK_='D' AND B.NO_UKK='$no_ukk'";
+		$exh=$db->query($qh);
+		$hsh=$exh->fetchRow();
+	?>
+	<table>
+	<tr>
+		<td><b>**Total Container Import berdasarkan status : </b></td>
+		
+	</tr>
+	<tr>
+		<td><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		Status 01 - Byplan</b></td>
+		<td>:</td>
+		<td><b><?=$hsh['STATUS01']?></b></td>
+	</tr>
+	
+	<?php 
+		//$no_ukk = $_GET['no_ukk'];
+		$db=getDb();
+		$qh="SELECT COUNT(A.ID_STATUS) AS STATUS02 FROM MX_RBM_DETAIL A, MX_RBM_HEADER B WHERE A.ID_STATUS ='02' AND A.NO_UKK=B.NO_UKK AND A.REMARK_='D' AND B.NO_UKK='$no_ukk'";
+		$exh=$db->query($qh);
+		$hsh=$exh->fetchRow();
+	?>
+	<tr>
+		<td><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		Status 02 - Discharge</b></td>
+		<td>:</td>
+		<td><b><?=$hsh['STATUS02']?></b></td>
+	</tr>
+	
+	<?php 
+		$db=getDb();
+		$qh="SELECT COUNT(A.ID_STATUS) AS STATUS03 FROM MX_RBM_DETAIL A, MX_RBM_HEADER B WHERE A.ID_STATUS ='03' AND A.NO_UKK=B.NO_UKK AND A.REMARK_='D' AND B.NO_UKK='$no_ukk'";
+		$exh=$db->query($qh);
+		$hsh=$exh->fetchRow();
+	?>
+	<tr>
+		<td><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		Status 03 - Move</b></td>
+		<td>:</td>
+		<td><b><?=$hsh['STATUS03']?></b></td>
+	</tr>
+	<?php 
+		$db=getDb();
+		$qh="SELECT COUNT(A.ID_STATUS) AS STATUS09 FROM MX_RBM_DETAIL A, MX_RBM_HEADER B WHERE A.ID_STATUS ='09' AND A.NO_UKK=B.NO_UKK AND A.REMARK_='D' AND B.NO_UKK='$no_ukk'";
+		$exh=$db->query($qh);
+		$hsh=$exh->fetchRow();
+	?>
+	<tr>
+		<td><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		Status 09 - Gate Out</b></td>
+		<td>:</td>
+		<td><b><?=$hsh['STATUS09']?></b></td>
+	</tr>
+	
+	<?php 
+		$db=getDb();
+		$qh="SELECT COUNT(A.ID_STATUS) AS STATUS10 FROM MX_RBM_DETAIL A, MX_RBM_HEADER B WHERE A.ID_STATUS ='10' AND A.NO_UKK=B.NO_UKK AND A.REMARK_='D' AND B.NO_UKK='$no_ukk'";
+		$exh=$db->query($qh);
+		$hsh=$exh->fetchRow();
+	?>
+	<tr>
+		<td><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		Status 10 - Gate In</b></td>
+		<td>:</td>
+		<td><b><?=$hsh['STATUS10']?></b></td>
+	</tr>
+	</table>
+	
+	<br/>
+	
+	<br/>
+	</div>
+	</div>
+<!--<button type="button" onclick="myFunction(<?$no_ukk;?>)">Click Me!</button> -->

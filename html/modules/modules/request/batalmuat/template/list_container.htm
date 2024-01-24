@@ -1,0 +1,28 @@
+ <div id="list_cont_rec">
+	<table class="grid-table" border='0' cellpadding="1" cellspacing="1"  width="100%" >
+	<tr>
+		<th class="grid-header">No.</th>	
+		<th class="grid-header">No Container</th>
+		<th class="grid-header">SIZE</th>	
+		<th class="grid-header">TYPE</th>
+		<th class="grid-header">STATUS</th>
+		<th class="grid-header">HZ</th>
+		<th class="grid-header">Action</th>
+	</tr>
+	<? $A=1;?>
+	<fill src="list" var="rows">
+	<tr bgcolor="#FFFFFF" align="center">
+		<tD class="grid-cell" valign="top" style="font-size:14px;color:#3300CC">{$A}</tD>	
+		<td class="grid-cell" valign="top" style="font-size:14px;color:#3300CC" width='130'>{$rows.NO_CONTAINER}</td>
+		<td class="grid-cell" valign="top" style="font-size:14px;color:#3300CC" width='50'>{$rows.UKURAN}</td>
+		<td class="grid-cell" valign="top" style="font-size:14px;color:#3300CC" width='50'>{$rows.TYPE_}</td>
+		<td class="grid-cell" valign="top" style="font-size:14px;color:#3300CC" width='70'>{$rows.STATUS}</td>
+		<tD class="grid-cell" valign="top" style="font-size:14px;color:#3300CC" width='50'>{$rows.HZ}</td>
+		<td class="grid-cell" valign="top" style="font-size:14px;color:#3300CC"><i>
+		<a onclick="del_cont('{$rows.ID_DETAIL}')"><img src='images/cont_red_delete.png' border='0' width="15" height="15" /></a>
+		</td>
+	</tr>
+	<? $A+=1;?>
+	</fill>
+	</table>
+</div>

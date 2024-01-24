@@ -1,0 +1,149 @@
+
+<span class="graybrown"><img src='images/sp2_p.png' border='0' class="icon"/><font color="#0378C6"> Transfer</font> Nota ke SIMKEU</span><br/><br/>
+      <fieldset class="form-fieldset" style="margin: 5px 5px 5px 5px; ">
+          <form id="searchForm" name="searchForm" action="{HOME}delivery.permintaan/search/" method="get">
+              <div style="padding:10px;font-family:Arial; font-size:8pt; color:#555555; font-weight:bold">
+                  <table> 
+				  <tr><td class="form-field-caption" valign="top" align="right">Periode Kegiatan</td><td class="form-field-caption" valign="top" align="right"> : </td><td class="form-field-caption" valign="top" align="left"><input type="text" name="tgl_awal" id="tgl_awal"/> s/d <input type="text" name="tgl_akhir" id="tgl_akhir"/></td></tr> 
+				 <tr><td class="form-field-caption" valign="top" align="right">Status Lunas</td><td class="form-field-caption" valign="top" align="right"> : </td><td class="form-field-caption" valign="top" align="left"> 
+				   <select name="lunas" id="lunas">
+							<option value="">-- Pilih -- </option>
+							<option value="lunas">Lunas</option>
+							<option value="blm_lunas">Belum Lunas</option> 
+				</select></td></tr>
+				 <!--<tr><td class="form-field-caption" valign="top" align="right">Status Nota</td><td class="form-field-caption" valign="top" align="right"> : </td><td class="form-field-caption" valign="top" align="left"> 
+				   <select name="status" id="status">
+							<option value="">-- Pilih -- </option>
+							<option value="batal">Batal</option>
+				</select></td></tr>-->
+				  <tr><td class="form-field-caption" valign="top" align="right">No Nota</td><td class="form-field-caption" valign="top" align="right"> : </td><td class="form-field-caption" valign="top" align="left"> <input type="text" name="NO_NOTA" id="NO_NOTA"/></td></tr>
+			<tr><td colspan='3'></td></tr>
+			<tr><td colspan='4'></td>
+			<td align="right"> <input type="button" value=" Generate Nota " onclick="generate()"/> 
+			<input type="button" value=" Transfer SIMKEU " onclick="transfer_simkeu()"/> </td></tr></table>
+ </div>
+          </form>
+	
+	      </fieldset>
+	<div id="nota_list"></div>
+	<div id="final"></div>
+<script>
+$(function() {	
+	$( "#NO_NOTA" ).autocomplete({
+		minLength: 5,
+		source: "{$HOME}{$APPID}.auto/nota",
+		focus: function( event, ui ) {
+			$( "#NO_NOTA" ).val( ui.item.NO_NOTA );
+			return false;
+		},
+		select: function( event, ui ) {
+			$( "#NO_NOTA" ).val( ui.item.NO_NOTA );
+			$( "#NO_REQUEST" ).val( ui.item.NO_REQUEST );
+			$( "#TOTAL" ).val( ui.item.TOTAL);
+			return false;
+		}
+	})
+	.data( "autocomplete" )._renderItem = function( ul, item ) {
+		return $( "<li></li>" )
+			.data( "item.autocomplete", item )
+			.append( "<a>" + item.NO_NOTA + " <br> "+item.TOTAL+"</a>")
+			.appendTo( ul );
+	};
+        
+      
+
+});
+
+$(function() {	
+
+	$( "#tgl_awal" ).datepicker();
+	$( "#tgl_awal" ).datepicker( "option", "dateFormat", "dd/mm/yy" );
+        
+    $( "#tgl_akhir" ).datepicker();
+	$( "#tgl_akhir" ).datepicker( "option", "dateFormat", "dd/mm/yy" );      
+});
+  
+function transfer_simkeu()
+{
+	var tgl_awal_ 	= $("#tgl_awal").val();
+	var tgl_akhir_	= $("#tgl_akhir").val();
+	var lunas		= $("#lunas").val();
+	var no_nota		= $("#NO_NOTA").val();
+	
+	var url         = "<?=HOME?><?=APPID?>.transfer/transfer_simkeu?tgl_awal="+tgl_awal_+"&tgl_akhir="+tgl_akhir_;
+	
+	
+	$.blockUI({ message: '<h1><br>Please wait...</h1><br> Proses transfer sedang dilakukan ... <br><img src={$HOME}images/loadingbox.gif /><br><br>' }); 
+	$.post(url,{tgl_awal: tgl_awal_, tgl_akhir : tgl_akhir_},function(data){
+		alert(data);
+		console.log(data);
+		if(data)
+		{
+			//alert("Berhasil Transfer Nota");
+			$.unblockUI({ 
+			onUnblock: function(){  } 
+			});
+			
+		}
+	});	
+	
+}
+
+function generate()
+{
+	var tgl_awal_ 	= $("#tgl_awal").val();
+	var tgl_akhir_	= $("#tgl_akhir").val();	
+	var lunas_ 		= $("#lunas").val();
+	var no_nota_	= $("#NO_NOTA").val();
+	var url 	= "<?=HOME?><?=APPID?>/nota_list #list";
+	
+	if ($("#NO_NOTA").val() == '') {
+		if ($("#tgl_awal").val() == ''){
+			alert('periode kegiatan harus diisi');
+		} else if ($("#tgl_akhir").val() == ''){
+			alert('periode kegiatan harus diisi');
+		} else if ($("#lunas").val() == ''){
+			alert('status nota harus diisi');
+		} else {
+			$.blockUI({ message: '<h1><br>Please wait...</h1><br><img src={$HOME}images/loadingbox.gif /><br><br>' }); 
+			$("#nota_list").load(url,{tgl_awal : tgl_awal_, tgl_akhir : tgl_akhir_, no_nota : no_nota_, lunas : lunas_}, function(data){
+				if(data){
+						$.unblockUI({ 
+						onUnblock: function(){  } 
+						});
+				}
+			});
+		}
+	} else {
+			$.blockUI({ message: '<h1><br>Please wait...</h1><br><img src={$HOME}images/loadingbox.gif /><br><br>' }); 
+			$("#nota_list").load(url,{tgl_awal : tgl_awal_, tgl_akhir : tgl_akhir_, no_nota : no_nota_, lunas : lunas_}, function(data){
+				if(data){
+						$.unblockUI({ 
+						onUnblock: function(){  } 
+						});
+				}
+			});
+		
+	
+	}
+}
+
+function topdf(){
+	var tgl_awal_ 	= $("#tgl_awal").val();
+	var tgl_akhir_	= $("#tgl_akhir").val();	
+	var jenis_		= '';	
+	var url 	= "<?=HOME?><?=APPID?>.topdf/print?tgl_awal="+tgl_awal_+"&tgl_akhir="+tgl_akhir_+"&jenis="+jenis_;
+	
+	window.open(url, "_blank");
+}
+
+function topdf2(){
+	var tgl_awal_ 	= $("#tgl_awal").val();
+	var tgl_akhir_	= $("#tgl_akhir").val();	
+	var jenis_		= '';	
+	var url 	    = "<?=HOME?><?=APPID?>.topdf2/print?tgl_awal="+tgl_awal_+"&tgl_akhir="+tgl_akhir_+"&jenis="+jenis_;
+	
+	window.open(url, "_blank");
+}
+</script>
+

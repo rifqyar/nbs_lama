@@ -1,0 +1,91 @@
+
+ 
+<div class="form-fieldset" style="margin: 5px 5px 5px 5px">
+	<h2 class="graybrown" > Gate In</h2>
+</div>
+
+
+<fieldset class="form-fieldset" style="margin: 5px 5px 5px 5px; ">
+	<center>
+    <table style="margin: 30px 30px 30px 30px;" border="0">
+    	<tr>
+        	<td>No. CONTAINER</td>
+            <td> : </td>
+            <td> <input type="text" name="NO_CONT" ID="NO_CONT" /> </td>
+    	</tr>
+        <tr>
+        	<td>No. REQUEST</td>
+            <td> : </td>
+            <td> <input type="text" name="NO_REQ" ID="NO_REQ" readonly="readonly"/> </td>
+    	</tr>
+		<tr>
+        	<td>No. POLISI</td>
+            <td> : </td>
+            <td> <input type="text" name="NO_POL" ID="NO_POL" /> </td>
+    	</tr>
+	</table>
+    </center>
+</fieldset>
+
+<fieldset class="form-fieldset" style="margin: 5px 5px 5px 5px; text-align:center">
+	<input type="button" value=" GATE IN " onclick="set_gatein()" />
+</fieldset>
+
+<script>
+
+$(function() {	
+	$( "#NO_CONT" ).autocomplete({
+		minLength: 3,
+		source: "{$HOME}{$APPID}.auto/container",
+		focus: function( event, ui ) {
+			$( "#NO_CONT" ).val( ui.item.NO_CONTAINER );
+			return false;
+		},
+		select: function( event, ui ) {
+			$( "#NO_CONT" ).val( ui.item.NO_CONTAINER );
+			$( "#NO_REQ" ).val( ui.item.NO_REQUEST);
+			return false;
+		}
+	})
+	.data( "autocomplete" )._renderItem = function( ul, item ) {
+		return $( "<li style='text-align:left'></li>" )
+			.data( "item.autocomplete", item )
+			.append( "<a>" + item.NO_CONTAINER + "<br/> "+item.SIZE_+" "+item.TYPE_+"</a>" )
+			.appendTo( ul );
+	};
+});
+
+function set_gatein()
+{
+	var no_cont_	= $("#NO_CONT").val();
+	var no_req_		= $("#NO_REQ").val();
+	var no_pol_		= $("#NO_POL").val();
+	var url			= "{$HOME}{$APPID}.ajax/add_gatein";
+	
+	
+	$.post(url,{NO_CONT: no_cont_, NO_REQ : no_req_,NO_POL : no_pol_},function(data){
+		console.log(data);
+		if(data == "NO_REQUEST")
+		{
+			alert("Container Belum di Request Receiving");	
+		}
+		else if(data == "NOT_PAID")
+		{
+			alert("Nota Belum Lunas");
+		}
+		else if(data == "OK")
+		{
+			alert("GET IN Berhasil");
+		}
+		else if(data == "NO_POL")
+		{
+			alert("Nomor Polisi Harus diisi");
+		}
+		else if(data == "EXIST")
+		{
+			alert("Container Sudah di GET IN");
+		}
+	});	
+}
+
+</script>

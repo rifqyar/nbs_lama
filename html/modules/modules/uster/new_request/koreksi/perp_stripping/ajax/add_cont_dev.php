@@ -1,0 +1,45 @@
+<?php
+
+$db 		= getDB("storage");
+
+$no_cont	= $_POST["NO_CONT"]; 
+$no_req		= $_POST["NO_REQ"]; 
+$status		= $_POST["STATUS"]; 
+$id_user        = $_SESSION["LOGGED_STORAGE"];
+
+
+$query_cek		= "SELECT a.NO_CONTAINER, b.LOCATION, NVL((SELECT NO_CONTAINER FROM CONTAINER_DELIVERY WHERE NO_CONTAINER = '$no_cont' AND AKTIF = 'Y'), 0) as STATUS FROM CONTAINER_DELIVERY a, MASTER_CONTAINER b WHERE a.NO_CONTAINER = b.NO_CONTAINER AND a.NO_CONTAINER = '$no_cont'";
+$result_cek		= $db->query($query_cek);
+$row_cek		= $result_cek->fetchRow();
+$no_cont		= $row_cek["NO_CONTAINER"];
+$location		= $row_cek["LOCATION"];
+$req_dev                = $row_cek["STATUS"];
+
+//ECHO $query_cek;
+if(($no_cont <> NULL) && ($location == 'YARD') && ($req_dev == 0))
+{
+	$query_insert	= "INSERT INTO CONTAINER_DELIVERY(NO_CONTAINER, NO_REQUEST, STATUS) VALUES('$no_cont', '$no_req', '$status')";
+       // $update         = "UPDATE MASTER_CONTAINER SET LOCATION = 'REQ DELIVERY' WHERE NO_CONTAINER = '$no_cont'";
+       // echo $query_insert;
+        $history        = "INSERT INTO history_container(NO_CONTAINER, NO_REQUEST, KEGIATAN, TGL_UPDATE, ID_USER) 
+                                                      VALUES ('$no_cont','$no_req','PERP STRIPPING',SYSDATE,'$id_user')";
+       
+        $db->query($history);
+       // $db->query($update);
+	if($db->query($query_insert))
+	{
+		echo "OK";
+	}
+} else if (($no_cont <> NULL) && ($location == 'GATI') && ($req_dev == 0))
+{
+	echo "BLM_PLACEMENT";	
+} else if (($no_cont <> NULL) && ($location == 'REQ_DELIVERY') && ($req_dev > 0))
+{
+        echo "SDH_REQUEST";
+} else if (($no_cont <> null) && ($location == 'GATO') && ($req_dev > 0))
+{
+        echo "NOT_EXIST";
+}
+
+        
+?>

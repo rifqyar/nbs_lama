@@ -1,0 +1,70 @@
+
+<span class="graybrown"><img src='images/sp2_p.png' border='0' class="icon"/><font color="#0378C6"> Transfer</font> Nota ke SIMKEU</span><br/><br/>
+      <fieldset class="form-fieldset" style="margin: 5px 5px 5px 5px; ">
+          <form id="searchForm" name="searchForm" action="{HOME}delivery.permintaan/search/" method="get">
+              <div style="padding:10px;font-family:Arial; font-size:8pt; color:#555555; font-weight:bold">
+                  <table> <tr><td class="form-field-caption" valign="top" align="right">Tanggal Awal</td><td class="form-field-caption" valign="top" align="right"> : </td><td class="form-field-caption" valign="top" align="left"><input type="text" name="tgl_awal" id="tgl_awal"/>
+				  <td> </td>
+					<td> <select id="option_kegiatan" style="width:100%;">
+						<option value="RECEIVING"> Receiving </option>					
+						<option value="DELIVERY"> Delivery </option>
+						<option value="STRIPPING"> Stripping </option>
+						<option value="STUFFING"> Stuffing </option>
+						<option value=""> All </option>
+					</select>
+					</td>
+				  
+                  <tr><td class="form-field-caption" valign="top" align="right">Tanggal Akhir</td><td class="form-field-caption" valign="top" align="right"> : </td><td class="form-field-caption" valign="top" align="left"> <input type="text" name="tgl_akhir" id="tgl_akhir"/></td></tr>
+			<tr><td colspan='3'></td></tr>
+			<tr><td colspan='4'></td>
+			<td align="right"> <input type="button" value=" Generate Nota " onclick="generate()" /> </td></tr></table>
+ </div>
+          </form>
+	
+	      </fieldset>
+	<div id="nota_list"></div>
+<script>
+$(function() {	
+
+	$( "#tgl_awal" ).datepicker();
+	$( "#tgl_awal" ).datepicker( "option", "dateFormat", "yy-mm-dd" );
+        
+        $( "#tgl_akhir" ).datepicker();
+	$( "#tgl_akhir" ).datepicker( "option", "dateFormat", "yy-mm-dd" );
+
+});
+
+
+ 
+  
+function generate()
+{
+	var tgl_awal_ 	= $("#tgl_awal").val();
+	var tgl_akhir_	= $("#tgl_akhir").val();	
+	var jenis_		= $("#option_kegiatan").val();	
+	var url 	       = "<?=HOME?><?=APPID?>/nota_list #list";
+	 
+	$("#nota_list").load(url,{tgl_awal : tgl_awal_, tgl_akhir : tgl_akhir_, jenis : jenis_}, function(data){
+	
+	});
+}
+
+function topdf(){
+	var tgl_awal_ 	= $("#tgl_awal").val();
+	var tgl_akhir_	= $("#tgl_akhir").val();	
+	var jenis_		= $("#option_kegiatan").val();	
+	var url 	    = "<?=HOME?><?=APPID?>.topdf/print?tgl_awal="+tgl_awal_+"&tgl_akhir="+tgl_akhir_+"&jenis="+jenis_;
+	
+	window.open(url, "_blank");
+}
+
+function topdf2(){
+	var tgl_awal_ 	= $("#tgl_awal").val();
+	var tgl_akhir_	= $("#tgl_akhir").val();	
+	var jenis_		= $("#option_kegiatan").val();	
+	var url 	    = "<?=HOME?><?=APPID?>.topdf2/print?tgl_awal="+tgl_awal_+"&tgl_akhir="+tgl_akhir_+"&jenis="+jenis_;
+	
+	window.open(url, "_blank");
+}
+</script>
+

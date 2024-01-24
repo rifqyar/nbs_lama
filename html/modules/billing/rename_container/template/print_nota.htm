@@ -1,0 +1,163 @@
+
+ 
+<div class="form-fieldset" style="margin: 5px 5px 5px 5px">
+	<table border=0 width="100%">
+    	<tr>
+        	<td align="center">
+            	<fieldset >
+                	<div style="background-color:#fff; height:700px; border:thin #00F groove">
+						<table>
+                <tr height="25">
+                    <td COLSPAN="32" align="left"></td>
+                </tr>
+						<tr>
+                    <td COLSPAN="32" align="left"><b>{$corporate_name}</b></td>
+                </tr>
+                <tr>
+                    <td COLSPAN="32" align="left"><b></b></td>
+                </tr>
+                <tr height="25">
+                    <td COLSPAN="32" align="left"></td>
+                </tr>
+				<tr>
+					<td colspan="26"></td>
+					<td colspan="5" align="right"><b></b></td>
+				</tr>
+				<tr><td></td></tr>
+				<tr>
+					<td colspan="17"></td>
+					<td colspan="4" align="right">No. Doc</td>
+					<td colspan="1" align="right">:</td>
+					<td colspan="8" align="left">{$no_req}</td>
+				</tr>
+				
+				<tr>
+					<td COLSPAN="17"></td>
+					<td COLSPAN="4" align="right">Tgl.Proses</td>
+					<td colspan="1" align="right">:</td>
+					<td COLSPAN="8" align="left">{$row_nota.TGL_REQUEST}</td>
+				</tr>
+
+                <tr height="30">
+                    <td COLSPAN="32" align="left"></td>
+                </tr>
+				<tr>
+					<td COLSPAN="17"></td>
+					<td COLSPAN="15" align="left"><font size="2"><b>RENAME CONTAINER</b></font></td>
+				</tr>
+               <tr height="30">
+                    <td COLSPAN="32" align="left"></td>
+                </tr>
+				<tr>
+					<td colspan="6"></td>
+					<td colspan="11" align="left">{$row_nota.EMKL}</td>
+					<td ></td>
+				</tr> 
+				<tr>
+					<td colspan="6"></td>
+					<td colspan="11" align="left">{$row_nota.NPWP}</td>
+					<td ></td>
+				</tr>
+				<tr>
+					<td colspan="6"></td>
+					<td colspan="11" align="left">{$row_nota.ALAMAT}</td>
+					<td ></td>
+				</tr>
+				
+				<tr>
+					<td colspan="6"></td>
+					<td colspan="11" align="left">{$row_nota.VESSEL} / {$row_nota.VOYAGE_IN}-{$row_nota.VOYAGE_IN}</td>
+					<td ></td>
+				</tr>
+                 
+               <tr height="30">
+                    <td COLSPAN="32" align="left"></td>
+                </tr>
+				<tr>
+					<td colspan="3"></td>
+					<td colspan="5" width="150"><b>KETERANGAN</b></td>
+					<td align="center" width="40"><b>BOX</b></td>
+					<td align="center" width="40"><b>SZ</b></td>
+					<td align="center"><b>TY</b></td>
+					<td align="center"><b>ST</b></td>
+					<td colspan="5" width="20" align="right"><b>TARIF</b></td>
+					<td colspan="2" width="25" align="right"><b>VAL</b></td>
+					<td colspan="5" align="right" width="25"><b>JUMLAH</b></td>
+					<td colspan="2"></td>
+				</tr>
+				<tr><td colspan="32">----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------</td></tr>
+
+				<fill src="row_detail" var="rows">
+				<alt var='bg' list='#f9f9f3,#ffe'/>
+				<tr>
+					<td colspan="3"></td>
+					<td colspan="5">{$rows.KETERANGAN}</td>
+					<td align="center">{$rows.JML_CONT}</td>
+					<td align="center">{$rows.SIZE_}</td>
+					<td align="center">{$rows.TYPE_}</td>
+					<td align="center">{$rows.STATUS_}</td>
+					<td colspan="5" align="right">{$rows.TARIF}</td>
+					<td colspan="2" align="right">IDR</td>
+					<td colspan="5" align="right">{$rows.BIAYA}</td>
+					<td colspan="2"></td>
+				</tr>
+				</fill>
+	
+                <tr><td colspan="32">----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------</td></tr>
+				
+				<tr><td></td></tr>
+				<tr><td></td></tr>
+				<tr><td></td></tr>
+				
+				<tr>
+					<td colspan="14"></td>
+					<td colspan="7"  align="right">Discount :</td>
+                    <td colspan="3" align="right">{$row_discount.DISCOUNT}</td>
+					<td colspan="2"></td>
+				</tr>
+				<tr>
+					<td colspan="14"></td>
+					<td colspan="7"  align="right">Administrasi :</td>
+                    <td colspan="3" align="right">{$row_adm.ADM}</td>
+					<td colspan="2"></td>
+				</tr>
+				<tr>
+					<td colspan="14"></td>
+					<td colspan="7"  align="right">Dasar Pengenaan Pajak :</td>
+                    <td colspan="3" align="right">{$row_tot.TOTAL_ALL}</td>
+					<td colspan="2"></td>
+				</tr>
+				<tr>
+					<td colspan="14"></td>
+					<td colspan="7"  align="right">Jumlah PPN :</td>
+                    <td colspan="3" align="right">{$row_ppn.PPN}</td>
+					<td colspan="2"></td>
+				</tr>
+				<tr>
+					<td colspan="14"></td>
+					<td colspan="7"  align="right">Bea Materai :</td>
+                    <td colspan="3" align="right">{$row_materai.MATERAI}</td>
+					<td colspan="2"></td>
+				</tr>
+				<tr>
+					<td colspan="14"></td>
+					<td colspan="7"  align="right">Jumlah Dibayar :</td>
+                    <td colspan="3" align="right">{$row_bayar.TOTAL_BAYAR}</td>
+					<td colspan="2"></td>
+				</tr>
+				
+               
+						</table>
+                    </div>
+                </fieldset>
+            </td>
+		</tr>
+    </table>
+ </div>
+ 
+ <fieldset class="form-fieldset" style="margin: 5px 5px 5px 5px; height:100px; text-align:center; vertical-align:middle" id="status_lunas">
+<a href="<?=HOME?><?=APPID?>/insert_nota?no_req={$no_req}" target="_blank" ><img src='images/cetak.png' border='0' /><font color='#0000FF'> <font size='5'> &nbsp SAVE PROFORMA</font></font></a></h1>
+
+ </fieldset>
+ 
+ 

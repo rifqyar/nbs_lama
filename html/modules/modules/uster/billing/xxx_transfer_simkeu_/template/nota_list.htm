@@ -1,0 +1,32 @@
+
+ <div id="list">
+     <table class="grid-table" border='0' cellpadding="1" cellspacing="1"  width="100%" >
+                              <tr style=" font-size:10pt">
+                                  <th valign="top" class="grid-header"  style="font-size:8pt">No </th>
+                                  <th valign="top" class="grid-header"  style="font-size:8pt">NO. NOTA </th>
+                                  <th  valign="top" class="grid-header"  style="font-size:8pt">NO. REQUEST </th>
+                                  <th  valign="top" class="grid-header"  style="font-size:8pt">Kegiatan</th> 
+                                  <th valign="top" class="grid-header"  style="font-size:8pt">Tgl Kegiatan</th>
+                                  <th valign="top" class="grid-header"  style="font-size:8pt">Pemilik Barang</th>
+                                  <th valign="top" class="grid-header"  style="font-size:8pt">Total Tagihan</th> 
+                              </tr>
+                              <fill src="row_list" var="rows">
+                              <tr bgcolor="#f9f9f3" onMouseOver=this.style.backgroundColor="#BAD5FC" onMouseOut=this.style.backgroundColor="">
+                                  <td width="4%" align="center" valign="middle" class="grid-cell" style="color:#000; font-family:Arial; font-size:9pt">{$__ctr} </td>
+                                  <td width="22%" align="center" valign="middle" class="grid-cell"   style="font-family:Arial; font-size:11pt; color:#555555"><b>{$rows.NO_NOTA}</b></td>
+                                  <td width="15%" align="center" valign="middle" class="grid-cell"  style="font-size:9pt">{$rows.NO_REQUEST}</td>
+                                  <td width="15%" align="center" valign="middle" class="grid-cell"  style="font-size:9pt;font-family:Arial;"><font color="#0066CC" style="font-size:10pt">{$rows.KEGIATAN}</font></td>
+                                  <td width="15%" align="center" valign="middle" class="grid-cell"  style="font-size:9pt;font-family:Arial;"><font color="#0066CC" style="font-size:10pt">{$rows.TGL_NOTA}</font></td>
+                                  <td width="15%" align="center" valign="middle" class="grid-cell"  style="font-size:9pt;font-family:Arial;"><font color="#0066CC" style="font-size:10pt">{$rows.EMKL}</font></td>
+                                  <td width="15%" align="center" valign="middle" class="grid-cell"  style="font-size:9pt;font-family:Arial;"><font color="#0066CC" style="font-size:10pt">Rp {$rows.TOTAL_TAGIHAN},-</font></td>
+                              </tr>
+                              </fill>
+							<?php if(count($rows) > 0) {?>
+							<tr>
+								<td colspan="5" align="right"><input type="button" value=" Cetak Detail Nota 1 " onclick="topdf()"/> </td>
+								<td align="right"><input type="button" value=" Cetak Detail Nota 2 " onclick="topdf2()"/> </td>
+								<td align="right"> <input type="button" value=" Transfer ke SIMKEU " onclick="transfer()" /> </td>
+							</tr>
+							<?php } ?>
+        </table>
+ </div>

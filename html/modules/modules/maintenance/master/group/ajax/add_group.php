@@ -1,0 +1,1 @@
+<?php//$id_user = $_SESSION["ID_USER"];$id_group = $_POST['ID_GROUP'];$nama_group = $_POST['NAMA_GROUP'];if(($id_group==""))	echo "NO";else{	$db=getDB();	$db->query("begin group_ins('".$id_group."','".$nama_group."'); end;");	echo "OK";}?>

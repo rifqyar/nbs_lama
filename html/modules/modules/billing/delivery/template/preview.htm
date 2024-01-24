@@ -1,0 +1,242 @@
+<style>
+  
+.nota
+{
+    display: inline-block;
+    border-right-style: solid;
+    border-left-style: solid;
+    border-bottom-style: solid;
+    border-top-style: solid;
+    background-color: white;
+    border-right-color: #cccccc;
+    border-left-color: #cccccc;
+    border-bottom-color: #cccccc;
+    border-top-color: #cccccc;
+    font-size: 9px;
+    font-family: Verdana, Geneva, Arial, Helvetica, Sans-Serif, Calibri;
+}
+.nota table
+{
+    alignment-adjust: central;
+    background-color: white;
+    border-right-style: solid;
+    border-left-style: solid;
+    border-bottom-style: solid;
+    border-top-style: solid;
+    border-right-color: white;
+    border-left-color: white;
+    border-bottom-color: white;
+    border-top-color: white;
+    font-family: Verdana, Geneva, Arial, Helvetica, Sans-Serif, Calibri;
+    font-size: 8px;
+    
+}
+.nota tr
+{
+    height: 5px;
+}
+  
+</style>
+ 
+
+
+
+<div class="form-fieldset" style="margin: 5px 5px 5px 5px;vertical-align:middle">
+    <div class="nota">
+	<table border=0 width="900px" align="center" >
+    	<tr>
+        	<td align="center">
+            	<fieldset > <h1>PREVIEW NOTA SP2 DELIVERY</h1><br/><hr/>
+                <div style="background-color:#fff; border:thin #00F groove">
+                    	 
+                <table>
+                    <tr height="70">
+                        <td  COLSPAN="14" align="left"></td>
+                    </tr>
+                <tr>
+                    <td COLSPAN="14" align="left"><b>PT. PELABUHAN INDONESIA II (PERSERO)</b></td>
+                </tr>
+                <tr>
+                    <td COLSPAN="14" align="left"><b>CABANG TANJUNG PRIOK</b></td>
+                </tr>
+    
+            <fill src="table" var="nota">
+                <tr>
+                    <td COLSPAN="10"></td>
+                    <td COLSPAN="4" align="right"><b>{$nota.ID_NOTA}<br />
+					<?php $x=$nota[ID_NOTA];?>
+								<input type="text" value={$nota.ID_NOTA} name="idn" id="idn" hidden />
+                        <br /><nomor faktur pajak uncreated></b></td>
+                </tr>
+                 <tr height="70">
+                        <td  COLSPAN="14" align="left"></td>
+                 </tr>
+                <tr>
+                    <td COLSPAN="9"></td>
+                    <td COLSPAN="2" align="left">No. Doc</td>
+                    <td COLSPAN="3" align="left">: {$nota.ID_REQ}</td>
+                </tr>
+                <tr>
+                    <td COLSPAN="9"></td>
+                    <td COLSPAN="2" align="left">Tgl. Proses</td>
+                    <td COLSPAN="3" align="left">: <?=date('Y-m-d H:i:s')?>  </td>
+                </tr>    
+                 <tr height="70">
+                        <td  COLSPAN="14" align="left"></td>
+                    </tr>
+                <tr>
+                    <td COLSPAN="7"></td>
+                    <td COLSPAN="7" align="left"><font size="2"><b>PENUMPUKAN / GERAKAN (DELIVERY)</b></font></td> 
+                </tr>
+                 <tr height="70">
+                        <td  COLSPAN="14" align="left"></td>
+                    </tr>
+                <tr>
+                    <td COLSPAN="2"></td>
+                    <td COLSPAN="4" align="left">{$nota.EMKL}</td>
+                    <td colspan="8"></td>
+                </tr>
+                <tr>
+                    <td COLSPAN="2"></td>
+                    <td COLSPAN="4" align="left">{$nota.NPWP}</td>
+                    <td colspan="8"></td>
+                </tr>
+                <tr>
+                    <td COLSPAN="2"></td>
+                    <td COLSPAN="4" align="left">{$nota.ALAMAT}</td>
+                    <td colspan="8"></td>
+                </tr>
+                <tr height="70">
+                        <td  COLSPAN="14" align="left"></td>
+                    </tr>
+                <tr>
+                    <td width="10" align="left"><b>PENUMPUKAN </b></td>
+                    <td width="10"align=""></td>
+                    <td colspan="4"><b>{$nota.TGL_START_STACK} s.d {$nota.TGL_END_STACK}</b></td>
+                    <td colspan="8"></td>
+                </tr>    
+                <tr>
+                    <td>KETERANGAN </td>
+                    <td>:</td>
+                    <td colspan="4">{$nota.TIPE_REQ}</td>
+                    <td></td>
+                    <td colspan="2"></td>
+                    <td colspan="5" align="left"></td>
+                </tr>   
+                  </fill>
+                <tr>
+                    <td>NO. DOCUMENT LAMA </td>
+                    <td>:</td>
+                    <td colspan="3"></td>
+                    <td colspan="9"></td>
+                </tr>    
+                 <tr height="70">
+                        <td  COLSPAN="14" align="left">&nbsp;</td>
+                    </tr>
+                <tr>
+                    <td colspan="3" width="10" ><b>KETERANGAN</b></td>
+                    <td width="10" align="left"><b>TGL AWAL</b></td>
+                    <td width="10" align="left"><b>TGL AKHIR</b></td>
+                    <td width="10"><b>BOX</b></td>
+                    <td width="10"><b>SZ</b></td>
+                    <td width="10"><b>TY</b></td>
+                    <td width="10"><b>ST</b></td>
+                    <td width="10"><b>HZ</b></td>
+                    <td width="10"><b>HR</b></td>
+                    <td width="10" align="center"><b>TARIF</b></td>
+                    <td width="10"><b>VAL</b></td>
+                    <td width="10"><b>JUMLAH</b></td>
+                </tr>
+                <tr>
+                    <td colspan="14">
+                        <hr width="700" />
+                    </td>
+                </tr>
+                
+        <fill src="table2" var="rows">
+		<alt var='bg' list='#f9f9f3,#ffe'/>
+		<tr style="cursor:pointer">
+					<td colspan="3" width="10"><b>{$rows.KETERANGAN}</b></td>
+                    <td width="10" align="center">{$rows.TGL_START_STACK}</td>
+                    <td width="10" align="center">{$rows.TGL_END_STACK}</td>
+                    <td width="10" align="center">{$rows.JUMLAH_CONT}</td>
+                    <td width="10" align="center">{$rows.SIZE}</td>
+                    <td width="10" align="center">{$rows.TYPE}</td>
+                    <td width="10" align="center">{$rows.STATUS}</td>
+                    <td width="10" align="center">{$rows.HZ}</td>
+                    <td width="10" align="center">{$rows.JUMLAH_HARI}</td>
+                    <td width="10" align="right">{$rows.TARIF}</td>
+                    <td width="10" align="center">IDR</td>
+                    <td width="10" align="right">{$rows.SUB_TOTAL}</td>
+		</tr>
+		</fill>
+                <b> <hr></b>
+                  <fill src="table" var="row">
+                <tr>
+                    <td colspan="14">
+                        <hr width="700" />
+                    </td>
+                </tr>
+                    <tr height="70">
+                        <td  COLSPAN="14" align="left"></td>
+                    </tr>
+                  
+                    <tr>
+				<td colspan="13" width="10" align="right">Discount :</td>
+                                <td width="10" align="right">0.00</td>
+                    </tr>
+                    <tr>
+				<td colspan="13" width="10" align="right">Administrasi :</td>
+                                <td width="10" align="right">{$row.ADM_NOTA}</td>
+                    </tr>
+                    <tr>
+				<td colspan="13" width="10" align="right">Dasar Pengenaan Pajak :</td>
+                                <td width="10" align="right">{$row.TAGIHAN}</td>
+                    </tr>
+                    <tr>
+				<td colspan="13" width="10" align="right">Jumlah PPN :</td>
+                                <td width="10" align="right">{$row.PPN}</td>
+                    </tr>
+                    <tr>
+				<td colspan="13" width="10" align="right">Bea Materai :</td>
+                                <td width="10" align="right">0.00</td>
+                    </tr>
+                    <tr>
+				<td colspan="13" width="10" align="right">Jumlah Dibayar :</td>
+                                <td width="10" align="right">{$row.TOTAL}</td>
+                    </tr>
+                      <tr height="500">
+                        <td  COLSPAN="14" align="left"></td>
+                    </tr>
+                </fill>
+                  </table>
+                    </fieldset>
+                </div>                   
+                    
+ <fieldset class="form-fieldset" style="margin: 5px 5px 5px 5px; text-align:center; vertical-align:middle" id="status_lunas">
+	<form method="post" action="<?=HOME?>billing.delivery/save_nota" onSubmit="return konfirm()" >
+     <table id="coba">
+		<tr>
+			<td>
+				<input type="submit" name="submit" value="Simpan Nota" />
+				<input type="text" name="idnt" value={$x} hidden />
+			</td>
+		</tr>
+	 </table>
+	 </form>
+ </fieldset>
+ <script>
+	function konfirm()
+	{
+		var teks=document.getElementById("idn").value;
+		var r=confirm("Nota "+teks+" akan disimpan, pastikan komponen nota sudah benar");
+		if(r==true)
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+ </script>

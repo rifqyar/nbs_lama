@@ -1,0 +1,36 @@
+<?php
+	$td = xliteTemplate("cetak.htm");
+	$kd_consignee = $_GET["KD_CONSIGNEE"];
+	$db = getDB("storage");
+	$qcek_saldo = "SELECT CONTAINER_STRIPPING.NO_CONTAINER, BLOCKING_AREA.NAME BLOK, PLACEMENT.SLOT_ SLOT, PLACEMENT.ROW_ ROW_, PLACEMENT.TIER_ TIER,
+                    CONTAINER_STRIPPING.NO_REQUEST, REQUEST_STRIPPING.KD_CONSIGNEE, REQUEST_STRIPPING.CONSIGNEE_PERSONAL, V_MST_PBM.NM_PBM ,CONTAINER_STRIPPING.TGL_APPROVE, 
+                    CONTAINER_STRIPPING.TGL_REALISASI FROM REQUEST_STRIPPING JOIN CONTAINER_STRIPPING
+                    ON REQUEST_STRIPPING.NO_REQUEST = CONTAINER_STRIPPING.NO_REQUEST
+                    LEFT JOIN V_MST_PBM ON REQUEST_STRIPPING.KD_CONSIGNEE = V_MST_PBM.KD_PBM
+                    LEFT JOIN PLACEMENT ON CONTAINER_STRIPPING.NO_CONTAINER = PLACEMENT.NO_CONTAINER
+                    LEFT JOIN BLOCKING_AREA ON PLACEMENT.ID_BLOCKING_AREA = BLOCKING_AREA.ID
+                    WHERE CONTAINER_STRIPPING.TGL_APPROVE IS NOT NULL
+                    AND CONTAINER_STRIPPING.TGL_REALISASI IS NULL
+                    AND REQUEST_STRIPPING.KD_CONSIGNEE = '$kd_consignee'";
+	$result = $db->query($qcek_saldo);
+	$row_ = $result->getAll();
+	$saldo = count($row_);
+	//$consignee = $row_[0]["NM_PBM"];
+	
+	$td->assign('row', $row_);
+	$td->assign('saldo', $saldo);
+	$td->renderToScreen();
+
+?>
+
+
+
+
+
+
+
+
+
+
+
+

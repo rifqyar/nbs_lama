@@ -1,0 +1,260 @@
+<?php
+	$db = getDb();
+	$qh = "select h.NO_REQ_DEV, 
+		          h.NO_NOTA, 
+				  h.NM_AGEN,
+				  d.NM_KAPAL,
+				  d.VOY_IN,
+				  d.VOY_OUT,
+				  to_char(sum(TARIF), '999,999,999.99') as TOTTARIF,
+				  to_char(sum(TARIF_5_PERSEN), '999,999,999.99') as PENGEMBALIAN,
+				  to_char(sum(PPN_5_PERSEN), '999,999,999.99') as PPN_PENGEMBALIAN,
+				  to_char((sum(TARIF_5_PERSEN)+sum(PPN_5_PERSEN)), '999,999,999.99') as TTL_PENGEMBALIAN
+	        from DISKON_NOTA_DEL_H h, DISKON_NOTA_DEL_DTL d 
+			      where h.NO_REQ_DEV = d.KD_PERMINTAAN
+			      and h.NO_REQ_DEV = '$req'
+			      group by h.NO_REQ_DEV,
+				           h.NO_NOTA,
+						   h.NM_AGEN,
+						   d.NM_KAPAL,
+						   d.VOY_IN,
+						   d.VOY_OUT
+						   ";
+	$res=$db->query($qh);
+	$rd=$res->fetchRow();
+?>
+<style>
+.butsave {
+    background: none repeat scroll 0 0 #CCCCCC;
+    border-color: #CCCCCC black black #CCCCCC;
+    border-style: solid;
+    border-width: 2px;
+	margin-bottom: 10px;
+    font-family: Arial,Helvetica,sans-serif;
+    font-size: 20px;
+    padding: 4px 10px 3px 7px;
+    width: 98%;
+}
+</style>
+
+<script type="text/javascript">
+
+function cetak(req)
+{
+	var url="<?=HOME?>billing.diskon_lolo.ajax/save_ba";
+	var req_ = req;
+	//alert(req);
+	$.post(url,{no_req : req_},function(data) 
+				  {
+					if (data="sukses")
+					{
+						alert("Berita Acara Berhasil Disimpan...!!!");
+						var r=confirm("Cetak Berita Acara...?")
+						if (r==true)
+						  {
+							window.location = "<?=HOME?>billing.diskon_lolo.cetak/cetak_ulang_ba2/?no_req="+req_;
+						  }
+						else
+						  {
+							return false;
+						  }
+					}
+					else
+					{
+						alert("Berita Acara Gagal Disimpan...!!!");
+					}
+			      });	
+}
+
+</script>
+
+<div class="form-fieldset" style="margin: 5px 5px 5px 5px">
+	<table border="1" width="100%">
+    	<tr>
+        	<td align="center">
+            	<fieldset>
+        <div style="background-color:#fff; border:thin #00F groove">
+		<table>
+                <tr height="20">
+                    <td colspan="32" align="left"></td>
+                </tr>
+				<tr>
+                    <td colspan="32" align="center"><u><b><font size="+2">BERITA ACARA</font></b></u></td>
+                </tr>
+                <tr>
+                    <td colspan="32" align="center"><b><font size="+1">No ............................................</font></b></td>
+                </tr>
+				<tr>
+                    <td colspan="32" align="center">&nbsp;</td>
+                </tr>
+				<tr>
+                    <td colspan="32" align="center"><b><font size="2">TENTANG</font></b></td>
+                </tr>
+				<tr>
+                    <td colspan="32" align="center"><font size="2">PEMBERIAN INSENTIF LIFT ON UNTUK BIAYA PENUMPUKAN / GERAKAN (DELIVERY)</font></td>
+                </tr>
+				<tr>
+                    <td colspan="32" align="center"><font size="2">A/N <?=$rd['NM_AGEN']?></font></td>
+                </tr>
+                <tr height="20">
+                    <td COLSPAN="32" align="center"></td>
+                </tr>
+		</table>
+		<p align="justify" style="margin-left:50px; margin-right:50px;"><font size="2">
+			Pada hari ini <? echo hari_indonesia(date("N")); ?>, tanggal <? echo date("d"); ?>&nbsp;<? echo bulan_indonesia(date("m")); ?>&nbsp;<? echo date("Y"); ?> yang bertanda tangan di bawah ini menyatakan bahwa :
+			<ol style="margin-left:50px; margin-right:50px;">
+				<li>
+				<p align="justify"><font size="2">Menunjuk Surat Keputusan Direksi nomor KU.30/3/6/PI.II-12 tanggal 28 Oktober 2012 perihal Pemberian Insentif Terhadap Percepatan Pengeluaran Petikemas Impor Isi.
+				</p>
+				</li>
+				<li>
+				<p align="justify"><font size="2">
+				Mengalir butir 1 (satu) di atas, bersama ini kami sampaikan hal sebagai berikut :
+					<ol type="a" style="margin-left:18px;">
+						<li>
+						<p align="justify"><font size="2">
+							Bahwa <?=$rd['NM_AGEN']?> telah membayar Nota Pelayanan Jasa Penumpukan / Gerakan (Delivery) Nomor <b><?=$rd['NO_NOTA']?></b> pada <?=$rd['NM_KAPAL']?> Voy. <?=$rd['VOY_IN']?>/<?=$rd['VOY_OUT']?> dengan data container, sebagai berikut :
+							<br>
+							<table border="1" width="700px" align="center" style="border-collapse:collapse; border-color:#000000;">
+								<tr>
+									<td align="center" width="30">NO</td>
+									<td align="center">SZ/TY/ST</td>
+									<td align="center">JUMLAH</td>
+									<td align="center">KETERANGAN</td>
+									<td align="center">TARIF DASAR</td>
+									<td align="center">INTENSIF 5%</td>
+									<td align="center">PPN</td>
+									<td align="center">PENGEMBALIAN</td>
+								</tr>
+								<? $no=1; ?>
+								<fill src="row_detail" var="rows">
+								<tr>
+									<td align="center"><? echo $no; ?></td>
+									<td align="center">{$rows.SZ}/{$rows.TY}/{$rows.ST}</td>
+									<td align="center">{$rows.JUM_CONT}</td>
+									<td align="center">{$rows.KETERANGAN}</td>
+									<td align="center">{$rows.TARIF}</td>
+									<td align="center">{$rows.TARIF_5_PERSEN}</td>
+									<td align="center">{$rows.PPN_5_PERSEN}</td>
+									<td align="center">{$rows.TTL_INSENTIF}</td>
+								</tr>
+								<? $no++; ?>
+								</fill>
+								<tr>
+									<td align="center" colspan="4"><b>TOTAL</b></td>
+									<td align="center"><b><? echo $rd['TOTTARIF']; ?></b></td>
+									<td align="center"><b><? echo $rd['PENGEMBALIAN']; ?></b></td>
+									<td align="center"><b><? echo $rd['PPN_PENGEMBALIAN']; ?></b></td>
+									<td align="center"><b><? echo $rd['TTL_PENGEMBALIAN']; ?></b></td>
+								</tr>
+							</table>
+						</p>
+						</li>
+						<li>
+						<p align="justify"><font size="2">
+							Terkait dengan butir a. di atas bahwa data container yang mendapatkan insentif Lift On sebesar 5% dikarenakan masih dalam masa bebas biaya penumpukan dan sudah keluar dari lapangan.
+						</p>
+						</li>
+					</ol>
+				</p>
+				</li>
+				<li>
+				<p align="justify"><font size="2">
+					Mengingat kejadian di atas, maka <?=$rd['NM_AGEN'];?> dapat diberikan insentif Lift On atas Nota Pelayanan Jasa Penumpukan / Gerakan (Delivery) Nomor <?=$rd['NO_NOTA'];?> yaitu sebesar Rp <? echo $rd['TTL_PENGEMBALIAN']; ?> (sudah termasuk PPN 10%).
+				</p>
+				</li>
+				<li>
+				<p align="justify"><font size="2">
+					Demikian Berita Acara ini dibuat dengan sebenarnya untuk diketahui dan dapat dipergunakan seperlunya dan apabila di kemudian hari terdapat kekeliruan dapat diperbaiki sebagaimana semestinya.
+				</p>
+				</li>
+			</ol>
+		</font></p>
+		<p>
+			<br/>
+		</p>
+		<table width="700px">
+				<tr>
+                    <td colspan="32" align="center">&nbsp;</td>
+                </tr>	
+				<tr>
+                    <td colspan="32" align="center"><b><font size="2">DIVERIFIKASI OLEH :</font></b></td>
+                </tr>
+				<tr>
+                    <td colspan="32" align="center">&nbsp;</td>
+                </tr>	
+                <tr>
+                    <td colspan="8" align="center"><b><font size="2">SPV PEMASARAN<br/>OPERASI TERMINAL III</font></b></td>
+					<td colspan="8" align="center"><b><font size="2">SPV NOTA BARANG DAN<br/>RUPA-RUPA</font></b></td>
+					<td colspan="8" align="center"><b><font size="2">SPV PENGOPERASIAN<br/>SISTEM</font></b></td>
+					<td colspan="8" align="center"><b><font size="2">SPV HUBUNGAN<br/>PELANGGAN</font></b></td>
+                </tr>
+				<tr>
+                    <td colspan="32" align="center">&nbsp;</td>
+                </tr>
+				<tr>
+                    <td colspan="32" align="center">&nbsp;</td>
+                </tr>
+				<tr>
+                    <td colspan="32" align="center">&nbsp;</td>
+                </tr>
+				<tr>
+                    <td colspan="32" align="center">&nbsp;</td>
+                </tr>
+				<tr>
+                    <td colspan="8" align="center"><b><font size="2"><u>ARIEF NUGROHO RIADI</u><br/>NIPP. 270115635</font></b></td>
+					<td colspan="8" align="center"><b><font size="2"><u>CECEP TATENG</u><br/>NIPP. 266085865</font></b></td>
+					<td colspan="8" align="center"><b><font size="2"><u>DONALD H. SITOMPUL</u><br/>NIPP. 277066981</font></b></td>
+					<td colspan="8" align="center"><b><font size="2"><u>HENDRI ADOLF</u><br/>NIPP. 270035957</font></b></td>
+                </tr>
+				<tr>
+                    <td colspan="32" align="center">&nbsp;</td>
+                </tr>
+				<tr>
+                    <td colspan="32" align="center"><b><font size="2">MENGETAHUI :</font></b></td>
+                </tr>
+				<tr>
+                    <td colspan="32" align="center">&nbsp;</td>
+                </tr>
+				<tr>
+                    <td colspan="8" align="center"><b><font size="2">MANAGER<br/>PEMASARAN & ADMINISTRASI<br/>OPERASI TERMINAL III</font></b></td>
+					<td colspan="8" align="center"><b><font size="2">ASMAN<br/>PENDAPATAN & PIUTANG</font></b></td>
+					<td colspan="8" align="center"><b><font size="2">ASMAN<br/>SISTEM INFORMASI</font></b></td>
+					<td colspan="8" align="center"><b><font size="2">ASMAN<br/>PELAYANAN PELANGGAN</font></b></td>
+                </tr>
+				<tr>
+                    <td colspan="32" align="center">&nbsp;</td>
+                </tr>
+				<tr>
+                    <td colspan="32" align="center">&nbsp;</td>
+                </tr>
+				<tr>
+                    <td colspan="32" align="center">&nbsp;</td>
+                </tr>
+				<tr>
+                    <td colspan="32" align="center">&nbsp;</td>
+                </tr>
+				<tr>
+                    <td colspan="8" align="center"><b><font size="2"><u>SUNU BEKTI PUDJOTOMO</u><br/>NIPP. 262054566</font></b></td>
+					<td colspan="8" align="center"><b><font size="2"><u>ABDUL LATIEF</u><br/>NIPP. 272086096</font></b></td>
+					<td colspan="8" align="center"><b><font size="2"><u>DICKY SANTOSA</u><br/>NIPP. 274046923</font></b></td>
+					<td colspan="8" align="center"><b><font size="2"><u>SOFYAN GUMELAR S.</u><br/>NIPP. 270045410</font></b></td>
+                </tr>
+		</table>
+		<p>
+			<br/>
+			<br/>
+			<br/>
+		</p>
+        </div>
+                </fieldset>
+            </td>
+		</tr>
+    </table>
+ </div>
+ <center><input id="id_SAVEBUT" class="butsave" type="button" onClick="cetak('{$req}')" value="C E T A K" /></center>
+ <p>
+ <br/>
+ </p>
+ 
+ 

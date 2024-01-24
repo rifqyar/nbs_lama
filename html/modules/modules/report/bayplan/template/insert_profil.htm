@@ -1,0 +1,40 @@
+<div id="profil_input">
+<br>
+<br>
+<table id="tt">
+<tr>
+<td>Jumlah Bay </td>
+<td>: <input type="text" name="jml_bay" id="jml_bay" size="5"/>
+	  <input type="hidden" name="req" id="req" value={$req} />
+</td>
+</tr>
+<tr>
+<td>Jumlah Row </td>
+<td>: <input type="text" name="jml_row" id="jml_row" size="5"/>&nbsp;<i>*ganjil</i>
+</td>
+</tr>
+<tr>
+<td>Jumlah Tier On Deck </td>
+<td>: <input type="text" name="jml_tier_ondeck" id="jml_tier_ondeck" size="5"/>
+</td>
+</tr>
+<tr>
+<td>Jumlah Tier Under Deck </td>
+<td>: <input type="text" name="jml_tier_underdeck" id="jml_tier_underdeck" size="5"/>
+</td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td> &nbsp;</td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td align="right"> 
+    <input type="button" name="insert_profil" value="Insert Profil" onclick="insert_profil('{$req}')" />
+</td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+</tr>
+</table>
+</div>

@@ -1,0 +1,31 @@
+<div id="list" align="center">
+	<table id="zebra" border="1" bordercolor="#FFFFFF" width="80%" style="border-collapse:collapse" align="center">
+	  <tr>
+		<th height="35" width="5">NO</th>
+		<th height="35" width="20">VESSEL/VO</th>
+		<th height="35" width="5">SIZE</th>
+		<th height="35" width="20">TYPE</th>
+        <th height="35" width="10">STATUS</th>   
+		<th height="35" width="10">TOTAL BOX</th>        
+		<th height="35" width="10">TOTAL TEUS</th>
+		<th height="35" width="10">KODE PELABUHAN</th>        
+		<th height="35" width="10">NAMA_PELABUHAN</th>
+     </tr>
+	  <?php $i=1;?>
+	<fill src="data" var="rows">
+	 <tr>
+		<td class="grid-cell" align ="center" valign="top" style="font-size:14px;color:#3300CC"><?=$i;?></td>
+		<td class="grid-cell" valign="top" style="font-size:14px;color:#3300CC">{$rows.NAMA_VESSEL} | {$rows.NAMA_VESSEL}</td>
+		<td class="grid-cell" align ="center" valign="top" style="font-size:14px;color:#3300CC">{$rows.SIZE}</td>
+		<td class="grid-cell" align ="center" valign="top" style="font-size:14px;color:#3300CC">{$rows.TYPE}</td>
+		<td class="grid-cell" align ="center" valign="top" style="font-size:14px;color:#3300CC">{$rows.STATUS}</td>
+				<td class="grid-cell" align ="center" valign="top" style="font-size:14px;color:#3300CC">{$rows.BOX}</td>
+		<td class="grid-cell" align ="center" valign="top" style="font-size:14px;color:#3300CC">{$rows.TEUS}</td>
+		<td class="grid-cell" align ="center" valign="top" style="font-size:14px;color:#3300CC">{$rows.ID_PEL_TUJ}</td>
+		<td class="grid-cell" align ="center" valign="top" style="font-size:14px;color:#3300CC">{$rows.PELABUHAN_TUJUAN}</td>
+	</tr>
+	<? $i++;?>	
+	</fill>
+	</table>
+	
+</div>

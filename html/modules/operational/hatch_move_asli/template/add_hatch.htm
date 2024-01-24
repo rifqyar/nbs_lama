@@ -1,0 +1,265 @@
+<script type="text/javascript" src="{$HOME}js/dateui_js.js"></script> 
+
+<script type="text/javascript">
+
+$(document).ready(function(){
+
+  // Your code here...
+
+});
+function tes(_id){
+
+	$("#"+_id).datepicker({ dateFormat: 'yy-mm-dd' });
+
+}
+function showUser(str)
+{
+
+BP_ID = document.getElementById("id_BP_ID").value;
+
+//alert(BP_ID);
+
+$('#txtHint').html('<p align=center><img src={$HOME}images/ajax-loader01.gif /></p>');
+
+$.post("{$HOME}operational.hatch_move/bay/",{'bay':str,'bp_id':BP_ID},function(data){ 
+
+innerHTML =  data; 
+
+//alert(data);
+
+document.getElementById("txtHint").innerHTML= data;
+
+});
+}
+	var cont = Array();
+	var xcont = Array();
+	var num;
+	function setSafe(str){
+		return encodeURIComponent(str);
+	}
+	function setBack(str){
+		return decodeURIComponent(str);
+	}
+	function getWidth(_idx){
+		return document.getElementById(_idx).offsetWidth;
+	}
+	function _hand(obj){
+		obj.style.cursor='pointer' ;
+	}
+	function addNewRow(drow) {
+		//	$("#cumi1").datepicker({ dateFormat: 'yy-mm-dd' });
+			zInd = document.getElementById('tableedit').tBodies[0].rows.length;
+			var x    = document.getElementById('tableedit').insertRow(zInd);
+		//	bay      = document.getElementById('id_BAY_BP').value;
+			var indexrow  =  parseInt(document.getElementById('indexrow').value);
+			//alert(indexrow);
+			$.post("{$HOME}operational.hatch_move/rows/",{'indexrow':indexrow},function(data){ 
+				x.innerHTML =  data; 
+			});
+			document.getElementById('indexrow').value = indexrow+1		
+    }
+	function removeRowEdit(drow,ID){
+		var i=drow.parentNode.parentNode.rowIndex;
+		document.getElementById('tableedit').deleteRow(i);
+		$.ajax({
+			type: "POST",
+			url: "{$HOME}operational.hatch_move/delete_cont/",
+			data: 	"ID=" + ID ,
+			success: function(html){
+				$("#response").html(html);
+			}
+		});
+	}
+
+	function removeRow(divnum,num){
+		xcont[num] = '';	
+		var d = document.getElementById('contdiv');
+		var olddiv = document.getElementById(divnum);
+		d.removeChild(olddiv);
+	}
+	
+</script>	
+
+<script type="text/javascript">
+	
+
+	function popup_NO_PKK(popString_NO_PKK) { 
+		var pop_NO_PKK = '<iframe src="{$HOME}operational.hatch_move.pop_pkk/" width="395px" height="450px" ></iframe>';
+		$.blockUI({message: $(pop_NO_PKK)});		
+	}
+
+	function popfill_NO_PKK(NO_UKK,KD_KAPAL,NM_KAPAL,KD_AGEN,NM_AGEN,TGL_JAM_TIBA,KETERANGAN,KUNJUNGAN) {
+		$('#popString_NO_PKK').val(NO_UKK);
+		$('#KD_KAPAL').val(ID_VS);
+		$('#NM_KAPAL').val(NM_KAPAL);
+		$('#KD_AGEN').val(KD_AGEN);
+		$('#NM_AGEN').val(NM_AGEN);
+		$('#TGL_JAM_TIBA').val(TGL_JAM_TIBA);
+		$('#KETERANGAN').val(KETERANGAN);
+		$('#KUNJUNGAN').val(KUNJUNGAN);
+		$.unblockUI();
+	}
+	function closeblock() {
+		$.unblockUI();
+     }
+	
+	function submitManual(){
+		alert('Indri');
+		var url = "<?=HOME?>operational.hatch_move/add_hatchmove";
+		
+		$.blockUI({ message: '<h1><br>Please wait...</h1><br><img src=<?=HOME;?>images/103.gif width="30" height="30" /><br><br>' });
+		
+		$.post(url,{NO_UKK : $("#no_ukk").val(), VESSEL : $("#nm_kapal").val(), ID_VS : $("#kd_kapal").val(), VOYAGE_IN : $("#voy_in").val(),  
+					VOYAGE_OUT : $("#voy_out").val(),EMKL : $("#nm_pemilik").val(),TGL_TIBA : $("#tgl_tiba").val(), TGL_BERANGKAT : $("#tgl_berangkat").val(),
+					},function(data){
+			   
+		if(data == "OK")
+		{
+			$.unblockUI({
+			onUnblock: function(){ }
+			});
+			alert("Success...");
+			window.location = "<?=HOME?>request.extramovement/";
+		}
+		else if(data == "KO")
+		{
+			$.unblockUI({
+			onUnblock: function(){ }
+			});
+			alert("Gagal Insert! \nData uper untuk PKK tersebut sudah ada \nHarap cek kembali");
+			window.location = "<?=HOME?>request.extramovement/";
+		}
+		else
+		{
+			$.unblockUI({
+			onUnblock: function(){ }
+			});
+			alert("Failed...");
+			window.location = "<?=HOME?>request.extramovement/";
+		}
+	});	
+	}
+
+
+</script>
+<span class="graybrown"><img src='images/movement.png' border='0' class="icon" width="50" height="50"/><font color="#DE7E21"> Hatch </font><font color="#0066CC">  Movements</font></span><br/>
+	<table cellspacing='2' cellpadding='2' border='0' width="100%" style="margin-top:10px;"> 
+		<tr>
+			<td width="50%" >
+			<table>
+				<tr>
+					<td class="form-field-caption" valign="top" align="right">NO UKK</td><td valign="top" class="form-field-input">: 
+					<input id="no_ukk" name="no_ukk" type="text" value="{$data.NO_UKK}" size="50"   size="15" style="background-color:#FFFFCC;" /></td>
+				</tr>
+				<tr>
+					<td class="form-field-caption" valign="top" align="right">Nama Kapal</td><td valign="top" class="form-field-input">: 
+					<input id="kd_kapal" name="kd_kapal" type="text" value="{$data.KD_KAPAL}" size="50"   size="5" style="background-color:#FFFFCC;" />
+					<input id="nm_kapal" name="nm_kapal" type="text" value="{$data.NM_KAPAL}" size="50"   size="25" style="background-color:#FFFFCC;" /></td>
+				</tr>
+				<tr>
+					<td class="form-field-caption" valign="top" align="right">Voyage</td><td valign="top" class="form-field-input">:
+					<input id="voy" name="voy" type="text" value="{$data.VOYAGE_IN}/{$data.VOYAGE_OUT}" size="50"   size="10" style="background-color:#FFFFCC;" /></td>
+					<input id="voy_in" name="voy_in" type="hidden" value="{$data.VOYAGE_IN}" size="50"   size="5" style="background-color:#FFFFCC;" />
+					<input id="voy_out" name="voy_out" type="hidden" value="{$data.VOYAGE_OUT}" size="50"   size="5" style="background-color:#FFFFCC;" />
+				</tr>
+				<tr>
+					<td class="form-field-caption" valign="top" align="right">Pemilik</td><td valign="top" class="form-field-input">: 
+					<input id="nm_pemilik" name="nm_pemilik" type="text" value="{$data.NM_PEMILIK}" size="50" style="background-color:#FFFFCC;" /></td>
+				</tr>
+				<tr>
+					<td class="form-field-caption" valign="top" align="right" >Tanggal tiba</td><td valign="top" class="form-field-input">: 
+					<input id="tgl_tiba" name="tgl_tiba" type="text" value="{$data.TGL_JAM_TIBA}" size="25" style="background-color:#FFFFCC;" />
+				</tr>
+				<tr>
+					<td class="form-field-caption" valign="top" align="right">Tanggal Berangkat </td><td valign="top" class="form-field-input">: 
+					<input id="tgl_berangkat" name="tgl_berangkat" type="text" value="{$data.TGL_JAM_BERANGKAT}" size="25" style="background-color:#FFFFCC;" />
+					</td>
+				</tr>
+				</table>
+			</td>
+		</tr>				
+<tr>
+
+  <td colspan="4" align="left" class="form-field-caption" ><div id="tableinput"> <hr color="#F0F0F0" size="2" /><br />
+  <h4 style="font-size:14px">&nbsp;<img border="0" src="{$HOME}images/page_attach.png" /> List Of Hatch Movements</h4>
+	<br />
+		<table width="700"  border="0" cellpadding="0" cellspacing="2" id="tableedit" >
+		<tr height="24" bgcolor="#047CCD" style="color:#FFF">
+			<td width="32" align="center" class="grid-heade">BAY</td>
+			<td width="80" align="center" class="grid-heade">JIB CRANE</td>
+			<td width="100" align="center" class="grid-heade">&nbsp;OPEN/CLOSE</td>
+			<td width="359" align="center" class="grid-heade">&nbsp;MOVE TIME</td>
+			<td width="86" align="center" class="grid-heade">&nbsp;OPERATOR</td> 
+			<td width="61" align="center" class="grid-heade">O/I</td>
+			<td width="54" align="center" class="grid-heade">TOTAL UNIT</td>
+			<td width="10"></td>
+		</tr>
+			<input type="hidden" value="1" id="indexrow" />
+		<fill src='rowx' var='rowx' emptyflag='empty'>
+<?
+$cc = $rowx['CRANE'];
+$open_close = $rowx['OPEN_CLOSE'];
+$op_name = $rowx['OP_NAME']; 
+?>   
+		<tr> 
+			<td><input type="hidden" maxlength="11" size="" value="{$rowx.ID}" id="ID" name="ID[]"   />
+			<input type="text" maxlength="11" size="3" value="{$rowx.BAY}" id="BAY" name="BAY[]"   /></td> 
+			<td><select name="CRANE[]" id="CRANE" style="width:80px;">
+				<option value="JC01">JIB CRANE 01</option>
+				<option value="JC02">JIB CRANE 02</option>
+			</select>
+			</td>
+			<td><select name="OPEN_CLOSE[]" id="OPEN_CLOSE" style="width:80px" selected='open_close'>
+					<option value="OPEN">OPEN</option> 
+					<option value="CLOSE">CLOSE</option>
+				</select>
+			</td>
+			<td align="center"> 
+<script type="text/javascript">
+
+$(function(){
+$("#datepicker_{$rowx.ID}{$rowx.BAY}").datepicker({ dateFormat: 'yy-mm-dd' });
+});
+</script>  
+
+<input type="text" maxlength="11" style="width:100px" size="14" value="{$rowx.MOVE_TGL}"  id="datepicker_{$rowx.ID}{$rowx.BAY}" name="MOVE_TGL[]" id = "MOVE_TGL"/>
+&nbsp;
+<input type="text" maxlength="2" style="width:40px" size="1" value="{$rowx.MOVE_JAM}"   name="MOVE_JAM[]" id = "MOVE_JAM" />
+:
+<input type="text" maxlength="2" style="width:40px" size="1" value="{$rowx.MOVE_MNT}"   name="MOVE_MNT[]" id = "MOVE_MNT" />
+</td>
+<td>
+<select name="OP_NAME[]" id="OP_NAME" style="width:80px" selected='op_name'>
+	<option value="JAJANG">JAJANG</option>
+	<option value="ANGGI">ANGGI</option>
+</select>
+</td>
+
+<td>
+<select name="oi[]" id="oi" style="width:80px" ></select>
+</td>
+<td>
+<input type="text" maxlength="3" size="10" value="{$rowx.BOX}" id="BOX" name="BOX[]" />
+</td> 
+
+<td><img src="images/cont_del.gif" onmouseover="_hand(this)" onclick="removeRowEdit(this,'{$rowx.ID}')" border="0" title="Hapus" class="imid" /></td>
+</tr>
+</fill>
+</table>
+
+
+
+<hr color="#F0F0F0" />
+<br />
+<div style="padding-left:2px"><a id="boxcmd"  onclick="addNewRow();"  class="link-button" ><img src='images/ico_create.gif' border='0' />&nbsp;Tambah Baris</a></div>
+
+</div>&nbsp;</td>
+</tr>
+</table>
+</fieldset>
+</div>
+</td>
+</tr>
+<tr><td colspan="2" class="form-footer"><a id="submitForm" onclick="submitManual()" class="link-button" ><img src='images/valid.png' border='0' />&nbsp;Simpan</a> &nbsp;&nbsp; <a id="resetForm" onclick="resetForm('dataForm')" class="link-button" ><img src='images/reset.png' border='0' />&nbsp;Reset</a> &nbsp;&nbsp; <a id="cancelForm" href="{$HOME}receiving./" class="link-button" ><img src='images/batal.png' border='0' />&nbsp;Batal</a></td></tr>
+</table>
+</form> 

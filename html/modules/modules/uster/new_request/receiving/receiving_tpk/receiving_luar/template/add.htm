@@ -1,0 +1,246 @@
+
+ 
+<span class="graybrown"><img src='images/document-open.png' border='0' class="icon"/><font color="#0378C6"> Request</font> Receiving Dari Luar </span><br/><br/>
+
+
+<fieldset class="form-fieldset" style="margin: 5px 5px 5px 5px; ">
+<form id ="form" action="<?=HOME?><?=APPID?>/add_do" method="POST">
+	<center>
+	
+	
+    <table style="margin: 30px 30px 30px 30px;" >
+		<!--
+		<tr>
+        	<td>Receiving Dari</td>
+            <td> : </td>
+            <td> <select id="REC_DARI" name="REC_DARI" width="40" class="kdemkl " onchange="set_voy()">
+				  <option value="TPK">TPK</option>
+				  <option value="LUAR">LUAR</option>
+				 </select> 
+			</td>
+    	</tr>
+		-->
+		<tr>
+			<input size="40" name="REC_DARI" id="REC_DARI" type="hidden" value="LUAR" />
+        	<td>Penerima/Consignee</td>
+            <td> : </td>
+            <td> <input type="text" id="CONSIGNEE" size="40" name="CONSIGNEE" type="text" class="kdemkl " placeholder=" AUTOCOMPLETE" style="background-color:#FFFFCC;" /> 
+<input size="40" name="ID_CONSIGNEE" id="ID_CONSIGNEE" type="hidden" />
+<input size="40" name="ALMT_CONSIGNEE" id="ALMT_CONSIGNEE" type="hidden" />
+<input size="40" name="NPWP_CONSIGNEE" id="NPWP_CONSIGNEE" type="hidden" />
+</td>
+    	</tr>
+		
+		<tr>
+        	<td>Penumpukan Oleh</td>
+            <td> : </td>
+            <td> <input type="text" id="PENUMPUKAN" size="40" name="PENUMPUKAN" type="text" class="kdemkl " placeholder=" AUTOCOMPLETE" style="background-color:#FFFFCC;" /> 
+<input size="40" name="ID_PENUMPUKAN" id="ID_PENUMPUKAN" type="hidden" />
+<input size="40" name="ALMT_PENUMPUKAN" id="ALMT_PENUMPUKAN" type="hidden" />
+<input size="40" name="NPWP_PENUMPUKAN" id="NPWP_PENUMPUKAN" type="hidden" />
+</td>
+    	</tr>
+		
+		<!--
+		<tr>
+        	<td>Nomor DO</td>
+            <td> : </td>
+            <td> <input type="text" id="NO_DO" size="40" name="NO_DO" type="text"  /> </td>
+    	</tr>
+		<tr>
+        	<td>Nomor BL</td>
+            <td> : </td>
+            <td> <input type="text" id="NO_BL" size="40" name="NO_BL" type="text"  />  </td>
+    	</tr>
+		<tr>
+        	<td>Nomor SPPB</td>
+            <td> : </td>
+            <td> <input type="text" id="NO_SPPB" size="40" name="NO_SPPB" type="text"  />  </td>
+    	</tr>
+		<tr>
+		<td>Tanggal SPPB</td>
+            <td> : </td>
+            <td> <input type="text" id="TGL_SPPB"  name="TGL_SPPB"/>
+		</tr>
+		-->
+        <tr>
+       		<td>Keterangan</td>
+            <td> : </td>
+            <td> <input type="text" id ="KETERANGAN" name="KETERANGAN"  style="width:250px"/></td>
+        </tr>
+        <tr>
+			<!--<td colspan="2" class="form-footer"><a id="submitForm" onclick="submitManual()" class="link-button" ><img src='images/valid.png' border='0' />&nbsp;Simpan</a> 
+			<a href="{$HOME}{$APPID}/view?no_req={$rows.NO_REQUEST}"><img src='images/ico_approval.gif' border='0' />&nbsp; LIHAT </a>
+			<td colspan="3"><a onclick="submitManual() class="link-button"><img src='images/valid.png' border='0' />&nbsp; SIMPAN </a></td>
+        	 -->
+			<td colspan="3"><input type="submit" class="link-button" value="Simpan" src='images/valid.png'><img src='images/valid.png' border='0' /></input></td>
+			
+        </tr>
+	</table>
+    </center>
+</form> 
+</fieldset>
+
+
+ 
+<script>
+
+//Validasi form haris diisi
+/*
+$('#form').submit(function(){
+
+
+	if( ($('#REC_DARI').val() == 'LUAR') && ($('#EMKL').val() == '') )
+	{
+		alert('EMKL  Harus Diisi');
+		return false;
+	}
+	else if(($('#REC_DARI').val() == 'TPK')  &&  (($('#NO_DO').val() == '') || ($('#NO_BL').val() == '') || ($('#EMKL').val() == '') || ($('#VOYAGE').val() == '')))
+	{
+		alert('Nomor DO, Nomor BL, EMKL dan Voyage Harus Diisi');
+		return false;
+	}
+
+})
+
+ */
+ // /*
+ 
+ $(function() 
+{	
+	
+	$( "#TGL_SPPB" ).datepicker();
+	$( "#TGL_SPPB" ).datepicker( "option", "dateFormat", "yy-mm-dd" );
+	
+		
+});
+$('#form').submit(function(){
+
+
+	if( $('#ID_CONSIGNEE').val() == '' )
+	{
+		alert('EMKL  Harus Diisi');
+		return false;
+	}
+	
+	if( $('#ID_PENUMPUKAN').val() == '' )
+	{
+		alert('EMKL  Harus Diisi');
+		return false;
+	}
+	
+	/*
+	else if(($('#REC_DARI').val() == 'TPK')  &&  (($('#NO_DO').val() == '') || ($('#NO_BL').val() == '') || ($('#ID_EMKL').val() == '') || ($('#NO_BOOKING').val() == '')  ))
+	{
+		alert('Nomor DO, Nomor BL, Nomor EMKL dan Voyage Harus Diisi');
+		return false;
+	}
+	*/
+})
+
+//  */
+$(function() {	
+	$( "#CONSIGNEE" ).autocomplete({
+		minLength: 3,
+		source: "{$HOME}{$APPID}.auto/pbm",
+		focus: function( event, ui ) {
+			$( "#CONSIGNEE" ).val( ui.item.NM_PBM );
+			return false;
+		},
+		select: function( event, ui ) {
+			$( "#CONSIGNEE" ).val( ui.item.NM_PBM );
+			$( "#ID_CONSIGNEE" ).val( ui.item.KD_PBM );
+			$( "#ALMT_CONSIGNEE" ).val( ui.item.ALMT_PBM );
+			$( "#NPWP_CONSIGNEE" ).val( ui.item.NO_NPWP_PBM );
+			return false;
+		}
+	})
+	.data( "autocomplete" )._renderItem = function( ul, item ) {
+		return $( "<li></li>" )
+			.data( "item.autocomplete", item )
+			.append( "<a>" + item.NM_PBM + "</a>" )
+			.appendTo( ul );
+	};
+	
+	$( "#PENUMPUKAN" ).autocomplete({
+		minLength: 3,
+		source: "{$HOME}{$APPID}.auto/pbm",
+		focus: function( event, ui ) {
+			$( "#PENUMPUKAN" ).val( ui.item.NM_PBM );
+			return false;
+		},
+		select: function( event, ui ) {
+			$( "#PENUMPUKAN" ).val( ui.item.NM_PBM );
+			$( "#ID_PENUMPUKAN" ).val( ui.item.KD_PBM );
+			$( "#ALMT_PENUMPUKAN" ).val( ui.item.ALMT_PBM );
+			$( "#NPWP_PENUMPUKAN" ).val( ui.item.NO_NPWP_PBM );
+			return false;
+		}
+	})
+	.data( "autocomplete" )._renderItem = function( ul, item ) {
+		return $( "<li></li>" )
+			.data( "item.autocomplete", item )
+			.append( "<a>" + item.NM_PBM + "</a>" )
+			.appendTo( ul );
+	};
+	
+	/*
+	$( "#VOYAGE" ).autocomplete({
+		minLength: 3,
+		source: "{$HOME}{$APPID}.auto/voyage",
+		focus: function( event, ui ) {
+			$( "#VOY" ).val( ui.item.VOYAGE );
+			return false;
+		},
+		select: function( event, ui ) {
+			$( "#VOYAGE" ).val( ui.item.VOYAGE );
+			$( "#VESSEL" ).val( ui.item.VESSEL );
+			$( "#NO_BOOKING" ).val( ui.item.NO_BOOKING );
+			return false;
+		}
+	})
+	.data( "autocomplete" )._renderItem = function( ul, item ) {
+		return $( "<li></li>" )
+			.data( "item.autocomplete", item )
+			.append( "<a>" + item.VOYAGE + " | "+item.VESSEL +"</a>" )
+			.appendTo( ul );
+	};
+	
+	*/
+});
+
+
+function set_voy()
+{
+	if($("#REC_DARI").val() == "LUAR")
+	{
+		$('#VOYAGE').val('NOTHING');
+		$('#VESSEL').val('NOTHING');
+		$('#VOYAGE').attr("readonly","readonly");
+		$('#VESSEL').attr("readonly","readonly");
+		$('#NO_DO').val(' -');
+		$('#NO_BL').val(' -');
+		$('#NO_DO').attr("readonly","readonly");
+		$('#NO_BL').attr("readonly","readonly");
+		$('#NO_SPPB').val(' -');
+		$('#NO_SPPB').attr("readonly","readonly");
+		$('#TGL_SPPB').val(' -');
+		$('#TGL_SPPB').attr("readonly","readonly");
+	}
+	else
+	{
+		$('#VOYAGE').val('');
+		$('#VESSEL').val('');
+		$('#NO_DO').val('');
+		$('#NO_BL').val('');
+		$('#NO_SPPB').val('');
+		$('#TGL_SPPB').val('');
+		$('#NO_DO').removeAttr("readonly");
+		$('#NO_BL').removeAttr("readonly");
+		$('#NO_SPPB').removeAttr("readonly");
+		$('#TGL_SPPB').removeAttr("readonly");
+		
+	}
+}
+	
+</script>

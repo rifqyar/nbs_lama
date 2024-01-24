@@ -1,0 +1,438 @@
+
+ 
+<span class="graybrown"><img src='images/document-open.png' border='0' class="icon"/><font color="#0378C6"> Request</font> Receiving </span><br/><br/>
+
+
+<fieldset class="form-fieldset" style="margin: 5px 5px 5px 5px; ">
+<form id="form" action="<?=HOME?><?=APPID?>/add_edit" method="POST">
+	<center>
+    <table style="margin: 30px 30px 30px 30px;" >
+    	<tr>
+        	<td class="form-field-caption">Nomor Request</td>
+            <td class="form-field-caption"> :</td>
+            <td class="form-field-caption"> <input type="text" id="NO_REQ" name="NO_REQ" value="{$row_request.NO_REQUEST}" readonly="readonly" /> </td>
+    	</tr>
+		<!-- -------------------------------------------------------------------------------------------------------------------- -->
+		<!--
+		<tr>
+        	<td>Receiving Dari</td>
+            <td> : </td>
+            <td> <select id="REC_DARI" name="REC_DARI" width="40"  class="kdemkl" onchange="set_voy()">
+				  <option value="LUAR">LUAR</option>
+				  <option value="TPK" >TPK</option>
+				 </select> 
+			</td>
+    	</tr>
+		-->
+		
+		<!-- -------------------------------------------------------------------------------------------------------------------- -->
+		
+		<!--
+		<tr>
+        	<td>Nomor DO</td>
+            <td> : </td>
+            <td> <input type="text" id="NO_DO" size="40" name="NO_DO" value=" -" readonly="readonly"  /> </td>
+    	</tr>
+		<tr>
+        	<td>Nomor BL</td>
+            <td> : </td>
+            <td> <input type="text" id="NO_BL" size="40" name="NO_BL" value=" -" readonly="readonly"   />  </td>
+    	</tr>
+		<tr>
+        	<td>Nomor SPPB</td>
+            <td> : </td>
+            <td> <input type="text" id="NO_SPPB" size="40" name="NO_SPPB" value=" -" readonly="readonly"   />  </td>
+    	</tr>
+		<tr>
+			<td>Tanggal SPPB</td>
+            <td> : </td>
+            <td> <input type="text" id="TGL_SPPB"  name="TGL_SPPB"  value="{$row_request.TGL_SPPB}" readonly="readonly"/>
+		</tr>
+		-->
+		<!-- -------------------------------------------------------------------------------------------------------------------- -->
+    			<tr>
+			<input size="40" name="REC_DARI" id="REC_DARI" type="hidden" value="LUAR" />
+        	<td class="form-field-caption">Penerima/Consignee</td>
+            <td class="form-field-caption"> : </td>
+            <td class="form-field-caption"> <input type="text" id="CONSIGNEE" size="40" name="CONSIGNEE" type="text" class="kdemkl " value="{$row_request.CONSIGNEE}" style="background-color:#FFFFCC;" /> 
+<input size="40" name="ID_CONSIGNEE" id="ID_CONSIGNEE" type="hidden" />
+</td>
+    	</tr>
+		
+		<tr>
+        	<td class="form-field-caption">ALamat</td>
+            <td class="form-field-caption"> : </td>
+            <td class="form-field-caption"> <input type="text" id="ALMT_CONSIGNEE" size="80" name="ALMT_CONSIGNEE" type="text" class="kdemkl " value="{$row_request.ALMT_PBM}" style="background-color:#FFFFCC;" readonly="readonly"/> 
+</td>
+    	</tr>
+		<tr>
+        	<td class="form-field-caption">NPWP</td>
+            <td class="form-field-caption"> : </td>
+            <td class="form-field-caption"> <input type="text" id="NPWP_CONSIGNEE" size="60" name="NPWP_CONSIGNEE" type="text" class="kdemkl " value="{$row_request.NO_NPWP_PBM}"  style="background-color:#FFFFCC;" readonly="readonly" /> 
+</td>
+    	</tr>
+		<!-- -------------------------------------------------------------------------------------------------------------------- -->
+		
+		<!-- -------------------------------------------------------------------------------------------------------------------- -->
+         <tr>
+       		<td class="form-field-caption">Keterangan</td>
+            <td class="form-field-caption"> : </td>
+            <td class="form-field-caption"> <input type="text" name="KETERANGAN" id="KETERANGAN" style="width:250px" value="{$row_request.KETERANGAN}"/></td>
+        </tr>
+        <tr>
+        	<td colspan="3"> <input type="submit" value=" Simpan Hasil Edit "/></td>
+        </tr>
+	</table>
+    </center>
+</form>
+</fieldset>
+
+<fieldset class="form-fieldset" style="margin: 5px 5px 5px 5px; ">
+	<center>
+    <table style="margin: 30px 30px 30px 30px;border:thin groove;"  >
+    	<tr>
+        	<td class="form-field-caption"> Nomor Container </td>
+            <td class="form-field-caption"> : </td>
+            <td class="form-field-caption"> <input type="text" name="NO_CONT" ID="NO_CONT" /> </td>
+            <td style="width:200px;">&nbsp;
+            <input type="hidden" name="NO_DEL_REQ" id="NO_DEL_REQ" value="{$row_request2.NO_DEL_REQ}" />
+            </td>
+            <td class="form-field-caption"> Ukuran </td>
+            <td class="form-field-caption"> : </td>
+            <td class="form-field-caption"> <input type="text" name="SIZE" ID="SIZE" /> </td>
+        </tr>
+        <tr>
+        	<td class="form-field-caption"> Status </td>
+            <td class="form-field-caption"> : </td>
+            
+			<!-- <td> <input type="text" name="STATUS" ID="STATUS" /> </td> -->
+			<td class="form-field-caption"> <select name="STATUS" ID="STATUS">
+				<option value="">--</option>
+				<option value="FCL">FCL</option>
+				<option value="LCL">LCL</option> 
+				<option value="MTY">MTY</option></select>
+			</td>
+        	<td style="width:200px;">&nbsp;</td>
+            <td class="form-field-caption"> Type </td>
+            <td class="form-field-caption"> : </td>
+            <td class="form-field-caption"> <input type="text" name="TIPE" ID="TYPE" /> </td>
+        </tr>
+		<tr>
+        	<td class="form-field-caption"> Berbahaya </td>
+            <td class="form-field-caption"> : </td>
+            <td class="form-field-caption"> <select name="BERBAHAYA" id="BERBAHAYA">
+				<option value="">--</option>
+				<option value="Y">YA</option>
+				<option value="N">TIDAK</option> </select>
+			</td>
+        	<td style="width:200px;">&nbsp;</td>
+			<td class="form-field-caption"> Komoditi </td>
+            <td class="form-field-caption"> : </td>
+            <td class="form-field-caption"> <input type="text" name="KOMODITI" ID="KOMODITI" /> </td>
+            <td>  </td>
+            <td>  </td>
+            <td> </td>
+        </tr>
+		
+		<!--<tr>
+       		<td>Voyage / Kapal</td>
+            <td> : </td>
+            <td> <input type="text" name="VOYAGE" id="VOYAGE" value="NOTHING" readonly="readonly" style="background-color:#FFFFCC;" /> / <input  name="VESSEL" id="VESSEL" value="NOTHING" style="background-color:#FFFFCC;" /></td>
+        </tr>-->
+		<tr>
+		<td class="form-field-caption"> Depo Tujuan </td>
+            <td class="form-field-caption"> : </td>
+			<td class="form-field-caption"> 
+				<?php
+						$db				= getDB("storage");
+						$get_yard		= "SELECT * FROM YARD_AREA";
+						$result_yard	= $db->query($get_yard);
+						$row_yard		= $result_yard->getAll();
+						$y_list	= "<select id='DEPO_TUJUAN' name='DEPO_TUJUAN'>"; 
+						$cur_y	= $_SESSION["IDYARD_STORAGE"];
+				
+						foreach($row_yard as $row)
+						{	
+							$y_id	= $row["ID"];
+							$y_name	= $row["NAMA_YARD"];
+							$y_list	.= "<option value='$y_id' ";
+								if($cur_y == $y_id)
+								{
+									$y_list .= "selected=selected";
+								}
+							$y_list	.= ">$y_name</option>";
+						}
+						
+						$y_list	.= "</select>";
+						echo $y_list;
+			?>
+			</td>
+		</tr>
+		<br />
+        <tr align="center">
+        	<td colspan="7"><input type="button" value=" Tambahkan Container " onClick="add_cont()"/></td>
+        </tr>
+	</table>
+    
+    <div id="cont_list" style="margin: 10px 10px 10px 10px; border:thin inset">
+    
+    </div>
+    
+	</center>
+</fieldset>
+<fieldset class="form-fieldset" style="margin: 5px 5px 5px 5px; ">
+<div style="padding-top:7px; padding-left:15px"><font color="#0066CC"><a onclick="window.open('{$HOME}{$APPID}','_self')" class="link-button" style="height:30" >KEMBALI</a></font> <br/></div>
+</fieldset>
+
+<script>
+ // /*
+$('#form').submit(function(){
+
+
+	if( $('#ID_EMKL').val() == '' )
+	{
+		alert('EMKL  Harus Diisi');
+		return false;
+	}
+	/*
+	else if(($('#REC_DARI').val() == 'TPK')  &&  (($('#NO_DO').val() == '') || ($('#NO_BL').val() == '') || ($('#ID_EMKL').val() == '') || ($('#NO_BOOKING').val() == '')))
+	{
+		alert('Nomor DO, Nomor BL, EMKL dan Voyage Harus Diisi');
+		return false;
+	}
+	*/
+
+})
+
+//  */
+$(function() {	
+
+	$( "#CONSIGNEE" ).autocomplete({
+		minLength: 3,
+		source: "{$HOME}{$APPID}.auto/pbm",
+		focus: function( event, ui ) {
+			$( "#CONSIGNEE" ).val( ui.item.NM_PBM );
+			return false;
+		},
+		select: function( event, ui ) {
+			$( "#CONSIGNEE" ).val( ui.item.NM_PBM );
+			$( "#ID_CONSIGNEE" ).val( ui.item.KD_PBM );
+			$( "#ALMT_CONSIGNEE" ).val( ui.item.ALMT_PBM );
+			$( "#NPWP_CONSIGNEE" ).val( ui.item.NO_NPWP_PBM );
+			return false;
+		}
+	})
+	.data( "autocomplete" )._renderItem = function( ul, item ) {
+		return $( "<li></li>" )
+			.data( "item.autocomplete", item )
+			.append( "<a>" + item.NM_PBM + "</a>" )
+			.appendTo( ul );
+	};
+	
+	$( "#KOMODITI" ).autocomplete({
+		minLength: 3,
+		source: "{$HOME}{$APPID}.auto/komoditi",
+		focus: function( event, ui ) {
+			$( "#KOMODITI" ).val( ui.item.NM_COMMODITY );
+			return false;
+		},
+		select: function( event, ui ) {
+			$( "#KOMODITI" ).val( ui.item.NM_COMMODITY );
+			$( "#ID_KOMODITI" ).val( ui.item.KD_COMMODITI );
+			return false;
+		}
+	})
+	.data( "autocomplete" )._renderItem = function( ul, item ) {
+		return $( "<li></li>" )
+			.data( "item.autocomplete", item )
+			.append( "<a>" + item.NM_COMMODITY + "</a>" )
+			.appendTo( ul );
+	};
+	
+	
+	$( "#NO_CONT" ).autocomplete({
+		minLength: 3,
+		source: "{$HOME}{$APPID}.auto/containertpk",
+		focus: function( event, ui ) {
+			$( "#NO_CONT" ).val( ui.item.CONT_NO_BP );
+			return false;
+		},
+		select: function( event, ui ) {
+			$( "#NO_CONT" ).val( ui.item.CONT_NO_BP );
+			$( "#SIZE" ).val( ui.item.KD_SIZE);
+			$( "#TYPE" ).val( ui.item.KD_TYPE);
+			$("#VOYAGE").val( ui.item.VOYAGE_IN);
+			$("#VESSEL").val( ui.item.NM_KAPAL);
+			$("#TGL_BONGKAR").val( ui.item.TGL_BONGKAR);
+			//$( "#STATUS" ).val( ui.item.KD_STATUS_CONT);
+			return false;
+		}
+	})
+	.data( "autocomplete" )._renderItem = function( ul, item ) {
+		return $( "<li style='text-align:left'></li>" )
+			.data( "item.autocomplete", item )
+			.append( "<a>" + item.CONT_NO_BP + "<br/> "+item.KD_SIZE+" "+item.KD_TYPE+"</a>" )
+			.appendTo( ul );
+	};
+	/*
+	$( "#VOYAGE" ).autocomplete({
+		minLength: 3,
+		source: "{$HOME}{$APPID}.auto/voyage",
+		focus: function( event, ui ) {
+			$( "#VOY" ).val( ui.item.VOYAGE );
+			return false;
+		},
+		select: function( event, ui ) {
+			$( "#VOYAGE" ).val( ui.item.VOYAGE );
+			$( "#VESSEL" ).val( ui.item.VESSEL );
+			$( "#NO_BOOKING" ).val( ui.item.NO_BOOKING );
+			return false;
+		}
+	})
+	.data( "autocomplete" )._renderItem = function( ul, item ) {
+		return $( "<li></li>" )
+			.data( "item.autocomplete", item )
+			.append( "<a>" + item.VOYAGE + " | "+item.VESSEL +"</a>" )
+			.appendTo( ul );
+	};
+	*/
+	
+	$("#cont_list").load('<?=HOME?><?=APPID?>/cont_list?no_req={$row_request.NO_REQUEST} #list', function(data) {        	  
+	}); 	
+});
+
+function add_cont()
+{
+	var no_cont_	= $("#NO_CONT").val();
+	var no_req_		= "{$row_request.NO_REQUEST}";
+	var no_req2_	= $("#NO_REQ2").val();
+	var status_		= $("#STATUS").val();
+	var berbahaya_	= $("#BERBAHAYA").val();
+	var no_do_		= $("#NO_DO").val();
+	var no_bl_		= $("#NO_BL").val();
+	
+	//var no_booking_	= $("#NO_BOOKING").val();
+	var voyage_		= $("#VOYAGE").val();
+	var komoditi_	= $("#KOMODITI").val();
+	var depo_tujuan_ = $("#DEPO_TUJUAN").val();
+	var size_		= $("#SIZE").val();
+	var type_		= $("#TYPE").val();
+	var url			= "{$HOME}{$APPID}.ajax/add_cont";
+	
+	$('#cont_list').html('<p align=center><img src={$HOME}images/loadingbox.gif /></p>');
+	
+	$.post(url,{NO_CONT: no_cont_, NO_REQ : no_req_, STATUS : status_, BERBAHAYA : berbahaya_, VOYAGE : voyage_, KOMODITI : komoditi_, NO_REQ2 : no_req2_, NO_DO : no_do_, NO_BL : no_bl_, DEPO_TUJUAN : depo_tujuan_, SIZE : size_, TYPE : type_ },function(data){
+		console.log(data);
+		if(data == "STATUS")
+		{
+			alert("Status belum diisi")
+		}
+		else if(data == "BERBAHAYA")
+		{
+			alert("Status Berbahaya belum diisi")
+		}
+		
+		else if(data == "VOYAGE")
+		{
+			alert("Voyage Harus Dipilih")
+		}
+		
+		else if(data == "OK")
+		{
+			//alert("Berhasil Tambah Container");
+			alert("Berhasil Tambah Container");
+			$("#cont_list").load('<?=HOME?><?=APPID?>/cont_list?no_req={$row_request.NO_REQUEST} #list', function(data) {        	  
+			}); 	
+			$('#NO_CONT').val('');
+				$('#STATUS').val('');
+				$('#TYPE').val('');
+				$('#BERBAHAYA').val('');
+				$('#SIZE').val('');
+				$('#TGL_BONGKAR').val('');
+				$('#BLOK').val('');
+				$('#SLOT').val('');
+				$('#ROW').val('');
+				$('#TIER').val('');
+				$('#KOMODITI').val('');
+				$('#VOYAGE').val('');
+				$('#VESSEL').val('');
+		}
+		else if(data == "EXIST")
+		{
+			alert("Container Sudah terdaftar Receiving")
+		}
+		
+		$("#cont_list").load('<?=HOME?><?=APPID?>/cont_list?no_req={$row_request.NO_REQUEST} #list', function(data) {        	  
+			}); 
+	});	
+	//prosedur add comment disini, method $.post, include user id dan content id
+}
+
+function del_cont($no_cont)
+{
+	var no_req_		= "{$row_request.NO_REQUEST}";
+	var url			= "{$HOME}{$APPID}.ajax/del_cont";
+	
+	$('#cont_list').html('<p align=center><img src={$HOME}images/loadingbox.gif /></p>');
+	$.post(url,{NO_CONT: $no_cont, NO_REQ : no_req_},function(data){
+		console.log(data);
+		if(data == "OK")
+		{
+			//alert("Berhasil Hapus Container");
+			$("#cont_list").load('<?=HOME?><?=APPID?>/cont_list?no_req={$row_request.NO_REQUEST} #list', function(data) {        	  
+			}); 	
+		}
+	});	
+}
+
+function set_voy() 
+{
+	if($("#REC_DARI").val() == "LUAR")
+	{
+		$('#VOYAGE').val('NOTHING');
+		$('#VESSEL').val('NOTHING');
+		$('#VOYAGE').attr("readonly","readonly");
+		$('#VESSEL').attr("readonly","readonly");
+		
+		$('#NO_DO').val(' -');
+		$('#NO_BL').val(' -');
+		$('#NO_SPPB').val(' -');
+		$('#TGL_SPPB').val(' -');
+		$('#NO_DO').attr("readonly","readonly");
+		$('#NO_BL').attr("readonly","readonly");
+		$('#NO_SPPB').attr("readonly","readonly");
+		$('#TGL_SPPB').attr("readonly","readonly");
+		
+		$('#NO_BOOKING').val('');
+	}
+	else
+	{
+		
+		$('#VOYAGE').val('');
+		$('#VESSEL').val('');
+		$('#VOYAGE').removeAttr("readonly");
+		$('#VESSEL').removeAttr("readonly");
+		
+		$('#NO_DO').val('{$row_request.NO_DO}');
+		$('#NO_BL').val('{$row_request.NO_BL}');
+		$('#NO_SPPB').val('{$row_request.NO_SPPB}');
+		$('#TGL_SPPB').val('{$row_request.TGL_SPPB}');
+		$('#NO_DO').removeAttr("readonly");
+		$('#NO_BL').removeAttr("readonly");
+		$('#NO_SPPB').removeAttr("readonly");
+		$('#TGL_SPPB').removeAttr("readonly");
+		
+		$('#NO_BOOKING').val('{$row_request.NO_BOOKING}');
+	}
+}	
+ $(function() 
+{	
+	
+	$( "#TGL_SPPB" ).datepicker();
+	$( "#TGL_SPPB" ).datepicker( "option", "dateFormat", "yy-mm-dd" );
+	$("#TGL_SPPB").val('{$row_request.TGL_SPPB}');
+	
+		
+});
+
+</script>

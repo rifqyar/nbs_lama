@@ -1,0 +1,31 @@
+<div id="list">
+<span class="graybrown"><img src='images/control_room.png' width="50" height="50" border='0' class="icon"/> Detail container yang belum realisasi</span><br><br>
+<table border='0' width="100%">
+	<tr>
+		<th class="grid-header"  style="font-size:10pt"><b>No.</b></th>
+		<th class="grid-header"  style="font-size:10pt"><b>NO CONTAINER</b></th>
+		<th class="grid-header"  style="font-size:10pt"><b>UKURAN</b></th>
+		<th class="grid-header"  style="font-size:10pt"><b>TIPE</b></th>
+		<th class="grid-header"  style="font-size:10pt"><b>NO REQUEST</b></th>
+		<th class="grid-header"  style="font-size:10pt"><b>LOKASI (B-S-R-T)</b></th>
+		<th size="30" class="grid-header"  style="font-size:10pt"><b>NAMA PBM </b></th>
+		<th class="grid-header"  style="font-size:10pt"><b>TERTANDA </b></th>
+		<th class="grid-header"  style="font-size:10pt"><b>TGL APPROVE </b></th>
+	</tr>
+	<fill src='row' var='row'>
+		<alt var='bg' list='#f9f9f3,#ffe'/>
+		<tr bgcolor="{$bg}" style="cursor:pointer;" onMouseOver=this.style.backgroundColor="#BAD5FC" onMouseOut=this.style.backgroundColor="">
+			<td class="grid-cell"  align="center" style="font-size:10pt"><b>{$__ctr}</b></td>
+			<td class="grid-cell"  align="center" style="font-size:10pt"><b>{$row.NO_CONTAINER}</b></td>
+			<td class="grid-cell" align="center" style="font-size:10pt"><b>{$row.SIZE_}</b></td>
+			<td class="grid-cell" align="center" style="font-size:10pt"><b>{$row.TYPE_}</b></td>
+			<td class="grid-cell" align="center" style="font-size:10pt"><b>{$row.NO_REQUEST}</b></td>
+			<td class="grid-cell" align="center" style="font-size:10pt"><b>{$row.BLOK_} - {$row.SLOT} - {$row.ROW_} - {$row.TIER}</b></td>
+			<td class="grid-cell" align="center" style="font-size:10pt"><b>{$row.NM_PBM}</b></td>
+			<td class="grid-cell" align="center" style="font-size:10pt"><b>{$row.CONSIGNEE_PERSONAL}</b></td>
+			<td class="grid-cell" align="center" style="font-size:10pt"><b>{$row.TGL_APPROVE}</b></td>
+		</tr>
+	</fill>
+	
+</table>
+</div>

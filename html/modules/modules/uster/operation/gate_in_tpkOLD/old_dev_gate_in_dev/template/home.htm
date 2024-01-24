@@ -1,0 +1,163 @@
+
+ <span class="graybrown"><img src='images/cont_gate.png' border='0' class="icon"/><font color="#0378C6"> Gate</font> In Dari TPK </span><br/><br/>
+
+
+<!--
+<fieldset class="form-fieldset" style="margin: 5px 5px 5px 5px; ">
+	<center>
+    <table style="margin: 30px 30px 30px 30px;" border="0">
+    	<tr>
+        	<td>No. CONTAINER</td>
+            <td> : </td>
+            <td> <input type="text" name="NO_CONT" ID="NO_CONT" /> </td>
+    	</tr>
+        <tr>
+        	<td>No. REQUEST</td>
+            <td> : </td>
+            <td> <input type="text" name="NO_REQ" ID="NO_REQ" readonly="readonly"/> </td>
+    	</tr>
+		<tr>
+        	<td>No. POLISI</td>
+            <td> : </td>
+            <td> <input type="text" name="NO_POL" ID="NO_POL" /> </td>
+    	</tr>
+	</table>
+    </center>
+</fieldset>
+-->
+
+<fieldset class="form-fieldset" style="margin: 5px 5px 5px 5px; ">
+            <input type="hidden" name="KD_TRUCK" id="KD_TRUCK"/>
+            
+            <table class="form-input" cellspacing='1' cellpadding='1' border='0' width="100%" >
+                <tr>
+                    <td width="17%" height="40" align="right"  style="font-size:16px; font-weight:bold; font-family:Tahoma; color: #777">No. CONTAINER</td>
+                    <td ><input style="font-size:20px; font-weight:bold; text-transform:uppercase" tabindex="1" name="NO_CONT" ID="NO_CONT" size="15" class="suggestuwriter" type="text" maxlength="11" value="" /></td>
+                    <td align="right" style="font-size:16px; font-weight:bold; font-family:Tahoma; color: #777">No POLISI TRUCK</td>
+                    <td ><input name="NO_POL" ID="NO_POL" style="font-size:20px; font-weight:bold; text-transform:uppercase" tabindex="2" value="" size="10" maxlength="11" />
+                    </td>
+                </tr>
+                <tr>
+                    <td  align="right"  class="form-field-caption">No Request Receiving</td>
+                    <td ><input name="NO_REQ" ID="NO_REQ" value="" size="15" readonly="readonly" style="color:#F00; font-size:12px; font-weight:bold" /></td>
+                   
+                     <td width="15%"  align="right" class="form-field-caption" >NO SEAL</td>
+                    <td width="37%"  valign="top" ><input name="NO_SEAL" id="NO_SEAL" value="" size="10"/></td>
+                </tr>
+                <tr>
+                    <td  align="right"  class="form-field-caption">Ukuran/ Type / Status </td>
+                    <td width="31%" ><input id="SIZE" value="" size="5" readonly="1" /> / <input id="TYPE" value="" size="5" readonly="1" /> / <input id="STATUS" value="" size="5" readonly="1" /></td>
+                     <td  align="right"  class="form-field-caption">Keterangan </td>
+                    <td ><input name="KETERANGAN" id="KETERANGAN" value="" size="40"/></td>
+                    <td  align="right" >&nbsp;</td><td  valign="top" >&nbsp;</td>
+                </tr>
+                 <tr>
+                     <td  align="right"  class="form-field-caption">Penerima /Consignee</td>
+                    <td colspan="3" ><input id="NM_PBM" value="" size="40" readonly="1" /></td>
+                </tr>
+                <tr>
+                    <td  align="right"  class="form-field-caption">No Nota</td>
+                    <td ><input id="NO_NOTA" value="" size="20" readonly="1" /></td>
+                </tr>
+        </table>
+            
+					
+
+</fieldset>
+
+<fieldset class="form-fieldset" style="margin: 5px 5px 5px 5px; text-align:center">
+	<input type="button" value=" GATE IN " onclick="set_gatein()" />
+</fieldset>
+
+<script>
+
+$(function() {	
+	/*
+	$( "#NO_CONT" ).autocomplete({
+		minLength: 3,
+		source: "{$HOME}{$APPID}.auto/container",
+		focus: function( event, ui ) {
+			$( "#NO_CONT" ).val( ui.item.NO_CONTAINER );
+			return false;
+		},
+		select: function( event, ui ) {
+			$( "#NO_CONT" ).val( ui.item.NO_CONTAINER );
+			$( "#NO_REQ" ).val( ui.item.NO_REQUEST);
+			return false;
+		}
+	})
+	.data( "autocomplete" )._renderItem = function( ul, item ) {
+		return $( "<li style='text-align:left'></li>" )
+			.data( "item.autocomplete", item )
+			.append( "<a>" + item.NO_CONTAINER + "<br/> "+item.SIZE_+" "+item.TYPE_+"</a>" )
+			.appendTo( ul );
+	};
+	*/
+	
+	$( "#NO_CONT" ).autocomplete({
+		minLength: 3,
+		source: "{$HOME}{$APPID}.auto/containertpk",
+		focus: function( event, ui ) {
+			$( "#NO_CONT" ).val( ui.item.CONT_NO_BP );
+			return false;
+		},
+		select: function( event, ui ) {
+			$( "#NO_CONT" ).val( ui.item.CONT_NO_BP );
+			$( "#SIZE" ).val( ui.item.KD_SIZE);
+			$( "#STATUS" ).val( ui.item.KD_STATUS_CONT);
+			$( "#TYPE" ).val( ui.item.KD_TYPE);
+			$("#VOYAGE").val( ui.item.VOYAGE_IN);
+			$("#VESSEL").val( ui.item.NM_KAPAL);
+			$("#TGL_BONGKAR").val( ui.item.TGL_BONGKAR);
+			$("#TGL_STACK").val( ui.item.TGL_STACK);
+			$("#NO_UKK").val( ui.item.NO_UKK);	
+			$("#NM_AGEN").val( ui.item.NM_AGEN);
+			$("#BP_ID").val( ui.item.BP_ID);	
+			$("#NO_REQ").val( ui.item.NO_REQUEST);
+			return false;
+		}
+	})
+	.data( "autocomplete" )._renderItem = function( ul, item ) {
+		return $( "<li style='text-align:left'></li>" )
+			.data( "item.autocomplete", item )
+			.append( "<a>" + item.CONT_NO_BP + "<br/> "+item.KD_SIZE+" "+item.KD_TYPE+"</a>" )
+			.appendTo( ul );
+	};
+	
+	
+});
+
+function set_gatein()
+{
+	var no_cont_	= $("#NO_CONT").val();
+	var no_req_		= $("#NO_REQ").val();
+	var no_pol_		= $("#NO_POL").val();
+	var url			= "{$HOME}{$APPID}.ajax/add_gatein";
+	
+	
+	$.post(url,{NO_CONT: no_cont_, NO_REQ : no_req_,NO_POL : no_pol_},function(data){
+		console.log(data);
+		if(data == "NOT_REQUEST")
+		{
+			alert("Container Belum di Request Receiving");	
+		}
+		else if(data == "NOT_PAID")
+		{
+			alert("Nota Belum Lunas");
+		}
+		else if(data == "OK")
+		{
+			alert("GET IN Berhasil");
+		}
+		else if(data == "NO_POL")
+		{
+			alert("Nomor Polisi Harus diisi");
+		}
+		else if(data == "EXIST")
+		{
+			alert("Container Sudah di GET IN");
+		}
+	});	
+}
+
+</script>

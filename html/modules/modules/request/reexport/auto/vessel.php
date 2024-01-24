@@ -1,0 +1,17 @@
+<?php
+
+$nama			= strtoupper($_GET["term"]);
+
+$db 			= getDB('dbint');	
+$query 			= "select VESSEL AS NM_KAPAL, ID_VSB_VOYAGE AS NO_UKK, VOYAGE_IN AS VOYAGE, VOYAGE_OUT, 
+					TO_CHAR(TO_DATE(OPEN_STACK, 'YYYYMMDDHH24MISS'), 'DD-MM-YYYY HH24:Mi') OPEN_STACK, TO_CHAR(TO_DATE(CLOSSING_TIME,'YYYYMMDDHH24MISS'),'DD-MM-YYYY HH24:Mi') CLOSING_TIME, 
+					TO_CHAR(TO_DATE(CLOSSING_TIME,'YYYYMMDDHH24MISS'),'DD-MM-YYYY HH24:Mi') CLOSING_TIME_DOC, TO_CHAR(TO_DATE(ATA,'YYYYMMDDHH24MISS'), 'DD-MM-YYYY HH24:Mi') TGL_JAM_TIBA
+					, TO_CHAR(TO_DATE(ATD,'YYYYMMDDHH24MISS'), 'DD-MM-YYYY HH24:Mi') TGL_JAM_BERANGKAT 
+					from M_VSB_VOYAGE WHERE VESSEL LIKE '%$nama%'";
+$result			= $db->query($query);
+$row			= $result->getAll();	
+//echo $query;
+echo json_encode($row);
+
+
+?>

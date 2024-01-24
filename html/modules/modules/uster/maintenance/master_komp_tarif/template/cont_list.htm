@@ -1,0 +1,19 @@
+<div id="list">
+     <table class="grid-table" border='0' cellpadding="1" cellspacing="1"  width="70%" >
+                              <tr style=" font-size:10pt">
+                                  <th width="2%" valign="top" class="grid-header"  style="font-size:8pt">No </th>
+                                  <th width="110" valign="top" class="grid-header"  style="font-size:8pt">KODE NOTA </th>
+                                  <th width="150" valign="top" class="grid-header"  style="font-size:8pt">JENIS NOTA</th>
+                                  <th valign="top" class="grid-header"  style="font-size:8pt">ACTION</th>  
+                              </tr>
+                              <fill src="komp_nota" var="rows">
+                              <tr style="cursor:pointer;" bgcolor="#f9f9f3" onMouseOver=this.style.backgroundColor="#BAD5FC" onMouseOut=this.style.backgroundColor="">
+                                  <td width="4%" align="center" valign="middle" class="grid-cell" style="color:#000; font-family:Arial; font-size:10pt">{$__ctr} </td>
+                                  <td width="10%" align="center" valign="middle" class="grid-cell"   style="font-family:Arial; font-size:10pt; color:#555555"><b>{$rows.KODE_NOTA}</b></td>
+                                  <td width="20%" align="left" valign="middle" class="grid-cell"  style="font-size:10pt">{$rows.JENIS_NOTA}</td>
+                                  <td width="20%" align="center" valign="middle" class="grid-cell" style="font-size:10pt;">
+                                  <a href="<?=HOME?><?=APPID?>/detail_komp_nota?id_nota=<?=$rows['ID_NOTA']?>"><img src='images/cont_edit.gif' border='0' />&nbsp; Detail </a>
+                              </tr>
+                              </fill>
+                          </table>
+ </div>

@@ -1,0 +1,304 @@
+
+ 
+<span class="graybrown"><img src='images/document-open.png' border='0' class="icon"/><font color="#DE7E21"> Perencanaan Stripping Petikemas yang berada di DEPO</font></span>
+
+<fieldset class="form-fieldset" style="margin: 5px 5px 5px 5px; ">
+<form action="<?=HOME?><?=APPID?>/add_edit" method="POST">
+	<center>
+    <table style="margin: 30px 30px 30px 30px;" >
+    	<tr>
+        	<td class="form-field-caption">Nomor Request</td>
+            <td> : </td>
+            <td class="form-field-input"> <input type="text" name="NO_REQ" value="{$row_request.NO_REQUEST}" readonly="readonly" /> </td>
+    	</tr>
+        <tr>
+        	<td class="form-field-caption">Penerima / Consignee</td>
+            <td> : </td>
+            <td> 
+            	<input type="text" id="CONSIGNEE" size="40" name="CONSIGNEE" type="text" class="kdemkl " placeholder="{$row_request.NAMA_PEMILIK}" style="background-color:#FFFFCC;" /> 
+                <input size="40" name="ID_CONSIGNEE" id="ID_CONSIGNEE" type="hidden" />
+                <input size="40" name="ALMT_CONSIGNEE" id="ALMT_CONSIGNEE" type="hidden" />
+                <input size="40" name="NPWP_CONSIGNEE" id="NPWP_CONSIGNEE" type="hidden" />
+				<input type="hidden" id="PENUMPUKAN" size="40" name="PENUMPUKAN" class="kdemkl " placeholder="{$row_request.NAMA_PENUMPUK}" style="background-color:#FFFFCC;" /> 
+                <input size="40" name="ID_PENUMPUKAN" id="ID_PENUMPUKAN" type="hidden" />
+                <input size="40" name="ALMT_PENUMPUKAN" id="ALMT_PENUMPUKAN" type="hidden" />
+                <input size="40" name="NPWP_PENUMPUKAN" id="NPWP_PENUMPUKAN" type="hidden" />
+            </td>
+    	</tr>
+    	
+        <!--<tr>
+       		<td class="form-field-caption">Tanggal Rencana Mulai Stripping</td>
+            <td> : </td>
+            <td> <input type="text" id="TGL_AWAL"  name="TGL_AWAL" value="{$row_request.TGL_AWAL}" placeholder="{$row_request.TGL_AWAL}"/>
+		</tr>
+        <tr>
+        	<td class="form-field-caption">Tanggal Rencana Selesai Stripping</td>
+            <td> : </td>
+            <td> <input type="text" id="TGL_AKHIR"  name="TGL_AKHIR" value="{$row_request.TGL_AKHIR}" placeholder="{$row_request.TGL_AKHIR}"/>
+		</tr>-->
+        <tr>
+        	<td class="form-field-caption">Nomor D.O</td>
+            <td> : </td>
+            <td class="form-field-input"> <input type="text" name="NO_DO"  placeholder="{$row_request.NO_DO}"/> </td>
+    	</tr>
+        <tr>
+        	<td class="form-field-caption">Nomor B.L</td>
+            <td> : </td>
+            <td class="form-field-input"> <input type="text" name="NO_BL" placeholder="{$row_request.NO_BL}"/> </td>
+    	</tr>
+        <tr>
+        	<td class="form-field-caption">Type Stripping</td>
+            <td> : </td>
+            <td class="form-field-input"> <input type="text" name="TYPE_S" value="{$row_request.TYPE_STRIPPING}" readonly="readonly"/> </td>
+    	</tr>
+        <tr>
+       		<td class="form-field-caption">Keterangan</td>
+            <td> : </td>
+            <td class="form-field-input"> <input type="text" name="keterangan" style="width:250px" value="{$row_request.KETERANGAN}"/></td>
+        </tr>
+        <?php
+        	if($row_request["APPROVE"] == "NY")
+            {
+        ?>
+        <tr>
+        	<td class="form-footer"> <a id="submitForm" onclick="save()" class="link-button" ><img src='images/valid.png' border='0' />&nbsp;Simpan Hasil Edit</a></td>
+	       	<td class="form-footer" colspan=2> <a id="submitForm" href="<?=HOME?><?=APPID?>/approve?no_req={$row_request.NO_REQUEST}" class="link-button" ><img src='images/yes.png' border='0' />&nbsp;APPROVE</a> &nbsp; &nbsp;<a id="submitForm" href="<?=HOME?><?=APPID?>/reject?no_req={$row_request.NO_REQUEST}" class="link-button" ><img src='images/batal.png' border='0' />&nbsp;TOLAK</a></td>
+        </tr>
+        
+        <?php
+        	}
+            else
+            {
+        	}
+        ?>
+	</table>
+    </center>
+</form>
+</fieldset>
+
+<fieldset class="form-fieldset" style="margin: 5px 5px 5px 5px; ">
+	<center>
+    <table style="margin: 30px 30px 30px 30px;border:thin groove; padding-bottom:20px;"  >
+    	<tr>
+        	<td class="form-field-caption"> Nomor Container </td>
+            <td> : </td>
+            <td> <input type="text" name="NO_CONT" ID="NO_CONT" /> </td>
+            <td style="width:200px;">&nbsp;</td>
+            <td class="form-field-caption"> Ukuran </td>
+            <td> : </td>
+            <td> <input type="text" name="SIZE" ID="SIZE" /> </td>
+        </tr>
+        <tr>
+        	<td class="form-field-caption"> Berbahaya </td>
+            <td> : </td>
+            <td> <select name="BERBAHAYA" id="BERBAHAYA">
+				<option value="">--</option>
+				<option value="Y">YA</option>
+				<option value="N">TIDAK</option> 
+                </select>
+            </td>
+        	<td style="width:200px;">&nbsp;</td>
+            <td class="form-field-caption"> TIPE </td>
+            <td> : </td>
+            <td> <input type="text" name="TIPE" ID="TYPE" /> </td>
+        </tr>
+        <tr>
+        	<td class="form-field-caption"> VIA </td>
+            <td> : </td>
+            <td> 
+            	<select name="VIA" id="VIA">
+                    <option value="TPK">DARAT</option>
+                    <option value="TONGKANG">TONGKANG</option> 
+                </select>
+            </td>
+			<td style="width:200px;">&nbsp;</td>
+        	<td class="form-field-caption"> Tujuan Setelah Stripping</td>
+            <td class="form-field-caption"> : </td>
+            <td>
+			<select name="AFTER_STRIP" id="AFTER_STRIP">
+				<option value="">--</option>
+				<option value="Repo Muat">Repo Muat</option>
+				<option value="Depo Empty">Depo Empty</option> 
+				<option value="Depo Luar">Depo Luar</option> 
+				<option value="Stuffing">Stuffing</option> 
+				</select>
+			</td>
+        </tr>
+        <tr>
+        	<td class="form-field-caption"> Tanggal Bongkar </td>
+            <td> : </td>
+            <td> 
+            	<input type="text" id="tgl_bongkar" name="tgl_bongkar"/>
+            </td>
+        	<td style="width:200px;">&nbsp;</td>
+            <td class="form-field-caption"> Berada di Depo </td>
+            <td class="form-field-caption">  : </td>
+            <td> <input type="hidden" id="ID_YARD" name="ID_YARD"/><input type="text" id="NAMA_YARD" name="NAMA_YARD" readonly="readonly"/> </td>
+ 
+        </tr>
+		<tr>
+        	<td style="width:200px;" colspan="4">&nbsp;</td>
+            <td> </td>
+            <td></td>
+            <td></td>
+        </tr>
+        <?php
+        	if($row_request["APPROVE"] == "NY")
+            {
+        ?>
+        <tr align="center">
+        	<td colspan="7"><a class="link-button" onClick="add_cont()"><img src='images/cont_addnew.gif' border="0"> Tambahkan Container </a>&nbsp;</td>
+        </tr>
+        <?php
+        	}
+        ?>
+	</table>
+    
+    <div id="cont_list" style="margin: 10px 10px 10px 10px; border:thin inset">
+    
+    </div>
+    
+	</center>
+</fieldset>
+
+<script>
+
+$(function() {	
+	$( "#tgl_bongkar" ).datepicker();
+	$( "#tgl_bongkar" ).datepicker( "option", "dateFormat", "dd-mm-yy" );
+	
+	
+	$( "#TGL_AWAL" ).datepicker();
+	$( "#TGL_AWAL" ).datepicker( "option", "dateFormat", "yy-mm-dd" );
+	
+	
+	$( "#TGL_AKHIR" ).datepicker();
+	$( "#TGL_AKHIR" ).datepicker( "option", "dateFormat", "yy-mm-dd" );
+	
+	
+	$( "#CONSIGNEE" ).autocomplete({
+		minLength: 3,
+		source: "{$HOME}{$APPID}.auto/pbm",
+		focus: function( event, ui ) {
+			$( "#CONSIGNEE" ).val( ui.item.NM_PBM );
+			return false;
+		},
+		select: function( event, ui ) {
+			$( "#CONSIGNEE" ).val( ui.item.NM_PBM );
+			$( "#ID_CONSIGNEE" ).val( ui.item.KD_PBM );
+			$( "#ALMT_CONSIGNEE" ).val( ui.item.ALMT_PBM );
+			$( "#NPWP_CONSIGNEE" ).val( ui.item.NO_NPWP_PBM );
+			return false;
+		}
+	})
+	.data( "autocomplete" )._renderItem = function( ul, item ) {
+		return $( "<li></li>" )
+			.data( "item.autocomplete", item )
+			.append( "<a>" + item.NM_PBM + "</a>" )
+			.appendTo( ul );
+	};
+	
+	$( "#PENUMPUKAN" ).autocomplete({
+		minLength: 3,
+		source: "{$HOME}{$APPID}.auto/pbm",
+		focus: function( event, ui ) {
+			$( "#PENUMPUKAN" ).val( ui.item.NM_PBM );
+			return false;
+		},
+		select: function( event, ui ) {
+			$( "#PENUMPUKAN" ).val( ui.item.NM_PBM );
+			$( "#ID_PENUMPUKAN" ).val( ui.item.KD_PBM );
+			$( "#ALMT_PENUMPUKAN" ).val( ui.item.ALMT_PBM );
+			$( "#NPWP_PENUMPUKAN" ).val( ui.item.NO_NPWP_PBM );
+			return false;
+		}
+	})
+	.data( "autocomplete" )._renderItem = function( ul, item ) {
+		return $( "<li></li>" )
+			.data( "item.autocomplete", item )
+			.append( "<a>" + item.NM_PBM + "</a>" )
+			.appendTo( ul );
+	};
+	
+	
+	$( "#NO_CONT" ).autocomplete({
+		minLength: 3,
+		source: "{$HOME}{$APPID}.auto/container",
+		focus: function( event, ui ) {
+			$( "#NO_CONT" ).val( ui.item.NO_CONTAINER );
+			return false;
+		},
+		select: function( event, ui ) {
+			$( "#NO_CONT" ).val( ui.item.NO_CONTAINER );
+			$( "#SIZE" ).val( ui.item.SIZE_);
+			$( "#TYPE" ).val( ui.item.TYPE_);
+			$( "#tgl_bongkar" ).val( ui.item.TGL_BONGKAR);
+			$( "#ID_YARD" ).val( ui.item.ID_YARD);
+			$( "#NAMA_YARD" ).val( ui.item.NAMA_YARD);
+			//$( "#VOY" ).val( ui.item.VOYAGE);
+			return false;
+		}
+	})
+	.data( "autocomplete" )._renderItem = function( ul, item ) {
+		return $( "<li style='text-align:left'></li>" )
+			.data( "item.autocomplete", item )
+			.append( "<a>" + item.NO_CONTAINER + "<br/> "+item.SIZE_+" "+item.TYPE_+"</a>" )
+			.appendTo( ul );
+	};
+	
+	$("#cont_list").load('<?=HOME?><?=APPID?>/cont_list?no_req={$row_request.NO_REQUEST} #list', function(data) {        	  
+	}); 	
+});
+
+function add_cont()
+{
+	var no_cont_		= $("#NO_CONT").val();
+	var no_req_strip	= "{$row_request.NO_REQUEST}";
+	var no_req_rec		= "{$row_request.NO_REQUEST_RECEIVING}";
+	var status_			= $("#STATUS").val();
+	var berbahaya_		= $("#BERBAHAYA").val();
+	var via_			= $("#VIA").val();
+	var yard_			= $("#ID_YARD").val();
+	var tgl_			= $("#tgl_bongkar").val();
+	var after_strip_	= $("#AFTER_STRIP").val();
+	var url				= "{$HOME}{$APPID}.ajax/add_cont";
+	
+	
+	$.post(url,{ID_YARD : yard_, NO_CONT: no_cont_, NO_REQ_STRIP : no_req_strip, NO_REQ_REC : no_req_rec, VIA: via_, TGL : tgl_, STATUS : status_, after_strip : after_strip_, BERBAHAYA : berbahaya_},function(data){
+		console.log(data);
+		if(data == "OUTSIDE" )
+		{
+			alert("Container Tidak Ada Dilapangan");	
+		}
+		else if(data == "STATUS")
+		{
+			alert("Status belum diisi")
+		}
+		else if(data == "BERBAHAYA")
+		{
+			alert("Status Berbahaya belum diisi")
+		}
+		else if(data == "OK")
+		{
+			$("#cont_list").load('<?=HOME?><?=APPID?>/cont_list?no_req={$row_request.NO_REQUEST} #list', function(data) {        	  
+			}); 	
+		}
+	});	
+	//prosedur add comment disini, method $.post, include user id dan content id
+}
+
+function del_cont($no_cont)
+{
+	var no_req_		= "{$row_request.NO_REQUEST}";
+	var url			= "{$HOME}{$APPID}.ajax/del_cont";
+	
+	$.post(url,{NO_CONT: $no_cont, NO_REQ : no_req_},function(data){
+		console.log(data);
+		if(data == "OK")
+		{
+			$("#cont_list").load('<?=HOME?><?=APPID?>/cont_list?no_req={$row_request.NO_REQUEST} #list', function(data) {        	  
+			}); 	
+		}
+	});	
+}
+</script>

@@ -1,0 +1,48 @@
+
+<div id="list">
+	<table width="100%">
+    	<thead>
+        	<tr>
+            	<th class="grid-header"  style="font-size:8pt">NO_NOTA</th>
+            	<th class="grid-header"  style="font-size:8pt">TOTAL TAGIHAN</th>
+				<th class="grid-header"  style="font-size:8pt">PEMBAYARAN</th>
+                <th class="grid-header"  style="font-size:8pt">PAYMENT CONFIRMATION</th>
+            </tr>
+        </thead>
+        <tbody>
+        	<fill src="row_cont" var="rows">
+		   	<alt var='bg' list='#f9f9f3,#ffe'/>
+        	<tr bgcolor="{$bg}" style="cursor:pointer;">
+            	<td class="grid-cell" align="center" style="font-size:9pt">{$rows.NO_NOTA}</td>
+            	<td class="grid-cell" align="center" style="font-size:9pt"><b>Rp {$rows.TOTAL_TAGIHAN} ,-</b></td>
+				<td align="center" valign="middle" class="grid-cell" style="color:#000; font-family:Arial; font-size:9pt">
+				<? if ($id_bayar == 0){
+						$bayar = '';
+					} else if ($id_bayar == 1){
+						$bayar = 'BANK';
+					} else if ($id_bayar == 2){
+					    $bayar = 'CASH';
+					} else if ($id_bayar == 3){
+					    $bayar = 'AUTODB';
+					} else if ($id_bayar == 4){
+					    $bayar = 'DEPOSIT';
+					} echo $bayar;?>
+				</td>
+            	<td class="grid-cell" align="center" style="font-size:9pt"><font color="#0066CC" style="font-size:10pt">
+				<? foreach ($row_simkeu as $row){?>
+				<? if(($row['MELALUI']== 'CASH') AND ($row['BOOL']== 'CASH')) {?>
+				<a href="{$HOME}{$APPID}/payment/no_nota=<?=$rows['NO_NOTA']?>&bank='CASH'&receipt_account=<?=$row['RECEIPT_ACCOUNT']?>"><img src='images/logo_cash.png' border='0' class="icon" />Account Bank :<?=$row['RECEIPT_ACCOUNT']?></a>
+				<? } else if (($row['MELALUI']== 'BANK') AND ($row['BOOL']== 'BNI')) {?>
+				<a href="{$HOME}{$APPID}/payment/no_nota=<?=$rows['NO_NOTA']?>&bank='BNI'&receipt_account=<?=$row['RECEIPT_ACCOUNT']?>"><img src='images/logo_bni.png' border='0' class="icon" />Account Bank :<?=$row['RECEIPT_ACCOUNT']?></a>
+				<? } else if (($row['MELALUI']== 'BANK') AND ($row['BOOL']== 'MANDIRI')) {?>
+				<a href="{$HOME}{$APPID}/payment/no_nota=<?=$rows['NO_NOTA']?>&bank='MANDIRI'&receipt_account=<?=$row['RECEIPT_ACCOUNT']?>"><img src='images/logo_bri.png' border='0' class="icon" />Account Bank :<?=$row['RECEIPT_ACCOUNT']?></a>										
+				<?}?>
+				</font>
+				<?}?>
+				</td>
+            	
+            </tr>
+            </fill>
+        </tbody>
+    </table>
+</div>

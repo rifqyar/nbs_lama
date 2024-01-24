@@ -1,0 +1,126 @@
+@charset "UTF-8";
+body {
+	background:url(../images/bg_login.jpg) repeat-x;
+	background-color:#b9b9b9;
+	background-repeat: repeat-x;
+	background-attachment: scroll;
+	font-size: 11px;
+	margin: 0 auto; /* it's good practice to zero the margin and padding of the body element to account for differing browser defaults */
+	padding: 0;
+	text-align: center; /* this centers the container in IE 5* browsers. The text is then set to the left aligned default in the #container selector */
+	color: #000000;
+}
+.home {
+	padding-left:25px;
+}
+.login {
+	background:url(../images/bg_main_login.jpg) no-repeat;
+	width:332px;
+	height:498;
+}
+.button-login {
+	background:url(../images/th.gif) repeat-x;
+	color:#fff;
+	padding: 8px 22px 8px 22px;
+	cursor:pointer;
+}
+.button-login:hover {
+	background:url(../images/menu_h.gif) repeat-x;
+	color:#fff;
+}
+#container {
+	width: 920px;
+	margin:0 auto;
+}
+.header {
+	width:480px;
+	height: 294px;
+	left:0px;
+	top:0px;
+	padding: 0px;
+	z-index:-1;
+	position:absolute;
+}
+#header_logo {
+	width: 274px;
+	height: 0px;
+	padding: 0px;
+	float: left;
+}
+#header_nav {
+	width: 364px;
+	height: 36px;
+	padding-top: 0px;
+	float: right;
+}
+#main {
+	width: 100%;
+ text-align:center margin: 0 auto;
+	background-color:#F6F4E4;
+	border: 8px solid #e1e0de;
+	-moz-border-radius: 9px;
+	-webkit-border-radius: 9px;
+}
+#onecolumn_right {
+	background-color:#fff;
+	width: 200px;
+	height:200px;
+	margin-top:0px;
+	font-size: 12px;
+	line-height: 17px;
+	float:right;
+}
+#onecolumn_left {
+	background-color:#FFF;
+	width: 600px;
+	padding-top: 0px;
+	padding-bottom: 30px;
+	padding-right: 30px;
+	font-size: 12px;
+	line-height: 17px;
+	margin-left:20px;
+}
+#footer {
+	color: #ffffff;
+	text-align: center;
+	clear: both;
+	height: 25px;
+	background-color:#3C434F;
+	margin: 0;
+	padding-top:10px;
+}
+
+
+.portal-right{
+	background: url(../images/portal_kapal.jpg) no-repeat;
+	height:404px;
+}
+.portal-left{
+	background:  url(../images/bgportal.jpg) repeat-x;
+	margin-top:1px;
+	top:1px;
+	height:404px;
+}
+
+.button-portal-reg{
+	background:  url(../images/registrasi_h.jpg) no-repeat;
+	width:149px;
+	height:58px;
+	border:0px;
+	padding-left:149px;
+	padding-top:58px;
+}
+.button-portal-reg:hover{
+	background:  url(../images/registrasi.jpg) no-repeat;
+}
+.button-portal-login{
+	background:  url(../images/login_h.jpg) no-repeat;
+	width:145px;
+	height:58px;
+	border:0px;
+	padding-left:145px;
+	padding-top:58px;
+}
+.button-portal-login:hover{
+	background:  url(../images/login.jpg) no-repeat;
+}

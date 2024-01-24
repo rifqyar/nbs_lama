@@ -1,0 +1,121 @@
+
+<span class="graybrown"><img src='images/sp2_p.png' border='0' class="icon"/><font color="#0378C6"> Laporan Keuangan</font> Per Periodik</span><br/><br/>
+      <fieldset class="form-fieldset" style="margin: 5px 5px 5px 5px; ">
+        <form id="searchForm" name="searchForm" action="{HOME}delivery.permintaan/search/" method="get">
+		<div style="padding:10px;font-family:Arial; font-size:8pt; color:#555555; font-weight:bold">
+            <table> <tr>
+						<td class="form-field-caption" valign="top" align="right">Periode Cetak Nota</td>
+						<td class="form-field-caption" valign="top" align="right"> : </td>
+						<td class="form-field-caption" valign="top" align="left">
+						<input type="text" name="tgl_awal" id="tgl_awal"/> s/d  <input type="text" name="tgl_akhir" id="tgl_akhir"/></td>
+				</tr>
+				 <tr>
+				<td class="form-field-caption" valign="top" align="right">Status Transfer Simkeu </td><td class="form-field-caption" valign="top" align="right"> : </td><td class="form-field-caption" valign="top" align="left"><select id="status_transfer">
+				<option value=""> -- Pilih -- </option>		
+						<option value="1"> Sudah Transfer </option>					
+						<option value="2"> Belum Transfer</option>
+						<option value="3"> ALL </option>
+					</select>
+				</td>
+				</tr>
+								 <tr>
+				<td class="form-field-caption" valign="top" align="right">Status Nota </td><td class="form-field-caption" valign="top" align="right"> : </td><td class="form-field-caption" valign="top" align="left"><select id="status_nota">
+				<option value=""> -- Pilih -- </option>		
+						<option value="1"> Ready to Transfer </option>					
+						<option value="2"> Not Ready to Transfer</option>
+						<option value="3"> ALL </option>
+					</select>
+				</td>
+				</tr>
+               <tr>
+				<td class="form-field-caption" valign="top" align="right">Status Pembayaran </td><td class="form-field-caption" valign="top" align="right"> : </td><td class="form-field-caption" valign="top" align="left"><select id="status_pembayaran">
+				<option value=""> -- Pilih -- </option>		
+						<option value="1"> Lunas </option>					
+						<option value="2"> Belum Lunas</option>
+						<option value="3"> Batal Nota </option>
+						<option value="4"> ALL </option>
+					</select>
+				</td>
+				</tr>
+				 <tr>
+				<td class="form-field-caption" valign="top" align="right">Status Pelunasan </td><td class="form-field-caption" valign="top" align="right"> : </td><td class="form-field-caption" valign="top" align="left"><select id="status_pelunasan">
+				<option value=""> -- Pilih -- </option>		
+						<option value="1"> BANK </option>					
+						<option value="2"> CASH </option>
+						<option value="3"> AUTODB </option>
+						<option value="4"> DEPOSIT </option>
+						<option value="5"> ALL </option>
+					</select>
+				</td>
+				</tr>
+				<tr>
+					<td class="form-field-caption" valign="top" align="right">Nama PBM </td><td class="form-field-caption" valign="top" align="right"> : </td><td class="form-field-caption" valign="top" align="left">
+					<input type="text" name="emkl" id="emkl" size="40"/> <input type="hidden" name="id_emkl" id="id_emkl" />
+					</td>
+				</tr>
+				<tr>
+					<td colspan="3" class="form-field-caption" valign="top" align="left" align="left"> &nbsp;&nbsp; <a class="link-button" style="height:25" onclick="generate()"><img src='images/cari.png' border='0' />Generate Excel</a> </td>
+				</tr>
+				
+			</table>
+		</div>
+        </form>
+	
+	   </fieldset>
+<script>
+$(function() {	
+
+	$( "#tgl_awal" ).datepicker();
+	$( "#tgl_awal" ).datepicker( "option", "dateFormat", "dd/mm/yy" );
+        
+        $( "#tgl_akhir" ).datepicker();
+	$( "#tgl_akhir" ).datepicker( "option", "dateFormat", "dd/mm/yy" );
+
+});
+	
+	$( "#emkl" ).autocomplete({
+		minLength: 3,
+		source: "{$HOME}{$APPID}.auto/pbm",
+		focus: function( event, ui ) {
+			$( "#emkl" ).val( ui.item.NM_PBM );
+			return false;
+		},
+		select: function( event, ui ) {
+			$( "#emkl" ).val( ui.item.NM_PBM );
+			$( "#id_emkl" ).val( ui.item.NO_ACCOUNT_PBM );
+			return false;
+		}
+	})
+	.data( "autocomplete" )._renderItem = function( ul, item ) {
+		return $( "<li></li>" )
+			.data( "item.autocomplete", item )
+			.append( "<a>" + item.NM_PBM + "<br/> "+item.ALMT_PBM+"<br/> "+item.NO_NPWP_PBM+ "</a>" )
+			.appendTo( ul );
+	};
+
+function generate(){
+alert( $("#status_pembayaran").val());
+alert ($("#status_pembayaran").val());
+alert( $("#status_nota").val());
+alert($("#status_transfer").val());
+	var tgl_awal_ 			= $("#tgl_awal").val();
+	var tgl_akhir_			= $("#tgl_akhir").val();
+	var status_pembayaran_	= $("#status_pembayaran").val();
+	var status_pelunasan_	= $("#status_pelunasan").val();
+	var status_nota_		= $("#status_nota").val();
+	var status_transfer_	= $("#status_transfer").val();
+	var id_emkl_			= $("#id_emkl").val();	
+	var url 	   		    = "<?=HOME?><?=APPID?>.toexcel/toexcel?tgl_awal="+tgl_awal_+"&tgl_akhir="+tgl_akhir_+"&status_pembayaran="+status_pembayaran_+"&id_emkl="+id_emkl_+"&status_pelunasan="+status_pelunasan_+"&status_nota="+status_nota_+"&status_transfer="+status_transfer_;
+	
+	if ($("#tgl_awal").val() == ''){
+		alert('periode kegiatan harus diisi');
+	} else if ($("#tgl_akhir").val() == ''){
+		alert('periode kegiatan harus diisi');
+	} else if ($("#status_pembayaran").val() == ''){
+		alert('status_pembayaran harus diisi');
+	} else {
+	window.open(url, "_blank");
+	}
+}
+</script>
+

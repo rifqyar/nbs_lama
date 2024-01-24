@@ -1,0 +1,69 @@
+
+<span class="graybrown"><img src='images/document-open.png' border='0' class="icon"/><font color="#DE7E21"> Relokasi Antar Depo </font></span>
+
+<fieldset class="form-fieldset" style="margin: 5px 5px 5px 5px; ">
+<form action="<?=HOME?><?=APPID?>/add_edit" method="POST">
+	
+    <center>
+    <table style="margin: 30px 30px 30px 30px;" >
+    	<tr>
+        	<td colspan='3' class="graybrown"> Depo Asal - <font color="#0378C6">{$row_rel.NAMA_YARD_ASAL}</font></td>
+			<input type="hidden" id="yard_asal" value="{$row_rel.YARD_ASAL}"/>
+            <td width="50px">&nbsp;  </td>
+            <td colspan="3" class="graybrown"> Depo Tujuan - <font color="#0378C6">{$row_rel.NAMA_YARD_TUJUAN}<font color="#0378C6"></td>
+        </tr>
+    	<tr>
+        	<td class="form-field-caption">Nomor Request Relokasi</td>
+            <td> : </td>
+            <td  colspan="3" class="form-field-input"> <input type="text" name="NO_REQ_REL" value="{$row_rel.NO_REQUEST}" readonly="readonly" /> </td>
+            
+    	</tr>
+	</table>
+    </center>
+    
+</form>
+</fieldset>
+
+<fieldset class="form-fieldset" style="margin: 5px 5px 5px 5px; ">
+	<center>
+    <table style="margin: 30px 30px 30px 30px;border:thin groove; padding-bottom:20px;"  >
+    	<tr>
+        	<td class="form-field-caption"> Nomor Container </td>
+            <td> : </td>
+            <td> <input type="text" name="NO_CONT" ID="NO_CONT" /> </td>
+            <td style="width:200px;">&nbsp;</td>
+            <td class="form-field-caption"> Ukuran </td>
+            <td> : </td>
+            <td> <input type="text" name="SIZE" ID="SIZE" /> </td>
+        </tr>
+        <tr>
+        	<td style="width:200px;" colspan="4">&nbsp;</td>
+            <td class="form-field-caption"> TIPE </td>
+            <td> : </td>
+            <td> <input type="text" name="TIPE" ID="TYPE" /> </td>
+        </tr>
+    	<tr>
+        	<td style="width:200px;" colspan="4">&nbsp;</td>
+            <td>  </td>
+            <td>  </td>
+            <td> </td>
+        </tr>
+        
+	</table>
+    
+    <div id="cont_list" style="margin: 10px 10px 10px 10px; border:thin inset">
+    
+    </div>
+    
+	</center>
+</fieldset>
+
+<script>
+
+$(function() {	
+	
+	$("#cont_list").load('<?=HOME?><?=APPID?>/cont_list?no_req={$row_request_del.NO_REQUEST} #list', function(data) {        	  
+	}); 	
+});
+
+</script>

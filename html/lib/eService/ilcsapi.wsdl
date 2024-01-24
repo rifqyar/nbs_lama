@@ -1,0 +1,886 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Created by TIBCO WSDL-->
+<wsdl:definitions xmlns:ns="ilcs.billpayment.ws" xmlns:tns="http://www.ilcs.co.id/billpayment" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" name="Untitled" targetNamespace="http://www.ilcs.co.id/billpayment">
+    <wsdl:types>
+        <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="ilcs.billpayment.ws" elementFormDefault="qualified" attributeFormDefault="unqualified">
+            <xs:complexType name="ArrayOfBillDetail">
+                <xs:sequence>
+                    <xs:element name="BillDetail" nillable="true" type="ns:BillDetail" minOccurs="0" maxOccurs="unbounded"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="ArrayOfString">
+                <xs:sequence>
+                    <xs:element name="string" nillable="true" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="BillDetail">
+                <xs:sequence>
+                    <xs:element name="billCode" type="xs:string" minOccurs="0"/>
+                    <xs:element name="billName" type="xs:string" minOccurs="0"/>
+                    <xs:element name="billShortName" type="xs:string" minOccurs="0"/>
+                    <xs:element name="billAmount" type="xs:string" minOccurs="0"/>
+                    <xs:element name="reference1" type="xs:string" minOccurs="0"/>
+                    <xs:element name="reference2" type="xs:string" minOccurs="0"/>
+                    <xs:element name="reference3" type="xs:string" minOccurs="0"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="ClickPayRequest">
+                <xs:sequence>
+                    <xs:element name="language" type="xs:string" minOccurs="0"/>
+                    <xs:element name="trxDateTime" type="xs:string" minOccurs="0"/>
+                    <xs:element name="transmissionDateTime" type="xs:string" minOccurs="0"/>
+                    <xs:element name="prodCode" type="xs:string" minOccurs="0"/>
+                    <xs:element name="channelCode" type="xs:string" minOccurs="0"/>
+                    <xs:element name="nmrTrx" type="xs:string" minOccurs="0"/>
+                    <xs:element name="transactionCode" type="xs:string" minOccurs="0"/>
+                    <xs:element name="aid" type="xs:string" minOccurs="0"/>
+                    <xs:element name="fid" type="xs:string" minOccurs="0"/>
+                    <xs:element name="terminalCode" type="xs:string" minOccurs="0"/>
+                    <xs:element name="branchCode" type="xs:string" minOccurs="0"/>
+                    <xs:element name="locationCode" type="xs:string" minOccurs="0"/>
+                    <xs:element name="currencyCode" type="xs:string" minOccurs="0"/>
+                    <xs:element name="paymentAmount" type="xs:string" minOccurs="0"/>
+                    <xs:element name="totalBill" type="xs:string" minOccurs="0"/>
+                    <xs:element name="feeadmin" type="xs:string" minOccurs="0"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="ClickPayResponse">
+                <xs:sequence>
+                    <xs:element name="language" type="xs:string" minOccurs="0"/>
+                    <xs:element name="trxDateTime" type="xs:string" minOccurs="0"/>
+                    <xs:element name="transmissionDateTime" type="xs:string" minOccurs="0"/>
+                    <xs:element name="prodCode" type="xs:string" minOccurs="0"/>
+                    <xs:element name="channelCode" type="xs:string" minOccurs="0"/>
+                    <xs:element name="nmrTrx" type="xs:string" minOccurs="0"/>
+                    <xs:element name="transactionCode" type="xs:string" minOccurs="0"/>
+                    <xs:element name="aid" type="xs:string" minOccurs="0"/>
+                    <xs:element name="fid" type="xs:string" minOccurs="0"/>
+                    <xs:element name="terminalCode" type="xs:string" minOccurs="0"/>
+                    <xs:element name="branchCode" type="xs:string" minOccurs="0"/>
+                    <xs:element name="locationCode" type="xs:string" minOccurs="0"/>
+                    <xs:element name="currencyCode" type="xs:string" minOccurs="0"/>
+                    <xs:element name="paymentAmount" type="xs:string" minOccurs="0"/>
+                    <xs:element name="feeadmin" type="xs:string" minOccurs="0"/>
+                    <xs:element name="totalBill" type="xs:string" minOccurs="0"/>
+                    <xs:element name="billInfo1" type="xs:string" minOccurs="0"/>
+                    <xs:element name="billInfo2" type="xs:string" minOccurs="0"/>
+                    <xs:element name="billInfo3" type="xs:string" minOccurs="0"/>
+                    <xs:element name="billInfo4" type="xs:string" minOccurs="0"/>
+                    <xs:element name="billInfo5" type="xs:string" minOccurs="0"/>
+                    <xs:element name="billInfo6" type="xs:string" minOccurs="0"/>
+                    <xs:element name="billInfo7" type="xs:string" minOccurs="0"/>
+                    <xs:element name="billInfo8" type="xs:string" minOccurs="0"/>
+                    <xs:element name="billInfo9" type="xs:string" minOccurs="0"/>
+                    <xs:element name="billInfo10" type="xs:string" minOccurs="0"/>
+                    <xs:element name="billInfo11" type="xs:string" minOccurs="0"/>
+                    <xs:element name="billInfo12" type="xs:string" minOccurs="0"/>
+                    <xs:element name="billInfo13" type="xs:string" minOccurs="0"/>
+                    <xs:element name="billInfo14" type="xs:string" minOccurs="0"/>
+                    <xs:element name="billInfo15" type="xs:string" minOccurs="0"/>
+                    <xs:element name="billInfo16" type="xs:string" minOccurs="0"/>
+                    <xs:element name="billInfo17" type="xs:string" minOccurs="0"/>
+                    <xs:element name="billInfo18" type="xs:string" minOccurs="0"/>
+                    <xs:element name="billInfo19" type="xs:string" minOccurs="0"/>
+                    <xs:element name="billInfo20" type="xs:string" minOccurs="0"/>
+                    <xs:element name="billDetails" type="ns:ArrayOfBillDetail" minOccurs="0"/>
+                    <xs:element name="status" type="ns:Status" minOccurs="0"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="HoldAmountRequest">
+                <xs:sequence>
+                    <xs:element name="language" type="xs:string" minOccurs="0"/>
+                    <xs:element name="trxDateTime" type="xs:string" minOccurs="0"/>
+                    <xs:element name="transmissionDateTime" type="xs:string" minOccurs="0"/>
+                    <xs:element name="prodCode" type="xs:string" minOccurs="0"/>
+                    <xs:element name="channelCode" type="xs:string" minOccurs="0"/>
+                    <xs:element name="nmrTrx" type="xs:string" minOccurs="0"/>
+                    <xs:element name="transactionCode" type="xs:string" minOccurs="0"/>
+                    <xs:element name="aid" type="xs:string" minOccurs="0"/>
+                    <xs:element name="fid" type="xs:string" minOccurs="0"/>
+                    <xs:element name="terminalCode" type="xs:string" minOccurs="0"/>
+                    <xs:element name="branchCode" type="xs:string" minOccurs="0"/>
+                    <xs:element name="locationCode" type="xs:string" minOccurs="0"/>
+                    <xs:element name="currencyCode" type="xs:string" minOccurs="0"/>
+                    <xs:element name="paymentAmount" type="xs:string" minOccurs="0"/>
+                    <xs:element name="totalBill" type="xs:string" minOccurs="0"/>
+                    <xs:element name="feeadmin" type="xs:string" minOccurs="0"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="HoldAmountResponse">
+                <xs:sequence>
+                    <xs:element name="language" type="xs:string" minOccurs="0"/>
+                    <xs:element name="trxDateTime" type="xs:string" minOccurs="0"/>
+                    <xs:element name="transmissionDateTime" type="xs:string" minOccurs="0"/>
+                    <xs:element name="prodCode" type="xs:string" minOccurs="0"/>
+                    <xs:element name="channelCode" type="xs:string" minOccurs="0"/>
+                    <xs:element name="nmrTrx" type="xs:string" minOccurs="0"/>
+                    <xs:element name="transactionCode" type="xs:string" minOccurs="0"/>
+                    <xs:element name="aid" type="xs:string" minOccurs="0"/>
+                    <xs:element name="fid" type="xs:string" minOccurs="0"/>
+                    <xs:element name="terminalCode" type="xs:string" minOccurs="0"/>
+                    <xs:element name="branchCode" type="xs:string" minOccurs="0"/>
+                    <xs:element name="locationCode" type="xs:string" minOccurs="0"/>
+                    <xs:element name="currencyCode" type="xs:string" minOccurs="0"/>
+                    <xs:element name="paymentAmount" type="xs:string" minOccurs="0"/>
+                    <xs:element name="feeadmin" type="xs:string" minOccurs="0"/>
+                    <xs:element name="totalBill" type="xs:string" minOccurs="0"/>
+                    <xs:element name="billInfo1" type="xs:string" minOccurs="0"/>
+                    <xs:element name="billInfo2" type="xs:string" minOccurs="0"/>
+                    <xs:element name="billInfo3" type="xs:string" minOccurs="0"/>
+                    <xs:element name="billInfo4" type="xs:string" minOccurs="0"/>
+                    <xs:element name="billInfo5" type="xs:string" minOccurs="0"/>
+                    <xs:element name="billInfo6" type="xs:string" minOccurs="0"/>
+                    <xs:element name="billInfo7" type="xs:string" minOccurs="0"/>
+                    <xs:element name="billInfo8" type="xs:string" minOccurs="0"/>
+                    <xs:element name="billInfo9" type="xs:string" minOccurs="0"/>
+                    <xs:element name="billInfo10" type="xs:string" minOccurs="0"/>
+                    <xs:element name="billInfo11" type="xs:string" minOccurs="0"/>
+                    <xs:element name="billInfo12" type="xs:string" minOccurs="0"/>
+                    <xs:element name="billInfo13" type="xs:string" minOccurs="0"/>
+                    <xs:element name="billInfo14" type="xs:string" minOccurs="0"/>
+                    <xs:element name="billInfo15" type="xs:string" minOccurs="0"/>
+                    <xs:element name="billInfo16" type="xs:string" minOccurs="0"/>
+                    <xs:element name="billInfo17" type="xs:string" minOccurs="0"/>
+                    <xs:element name="billInfo18" type="xs:string" minOccurs="0"/>
+                    <xs:element name="billInfo19" type="xs:string" minOccurs="0"/>
+                    <xs:element name="billInfo20" type="xs:string" minOccurs="0"/>
+                    <xs:element name="billDetails" type="ns:ArrayOfBillDetail" minOccurs="0"/>
+                    <xs:element name="status" type="ns:Status" minOccurs="0"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="HoldInquiryRequest">
+                <xs:sequence>
+                    <xs:element name="language" type="xs:string" minOccurs="0"/>
+                    <xs:element name="trxDateTime" type="xs:string" minOccurs="0"/>
+                    <xs:element name="transmissionDateTime" type="xs:string" minOccurs="0"/>
+                    <xs:element name="prodCode" type="xs:string" minOccurs="0"/>
+                    <xs:element name="channelCode" type="xs:string" minOccurs="0"/>
+                    <xs:element name="nmrTrx" type="xs:string" minOccurs="0"/>
+                    <xs:element name="transactionCode" type="xs:string" minOccurs="0"/>
+                    <xs:element name="aid" type="xs:string" minOccurs="0"/>
+                    <xs:element name="fid" type="xs:string" minOccurs="0"/>
+                    <xs:element name="terminalCode" type="xs:string" minOccurs="0"/>
+                    <xs:element name="branchCode" type="xs:string" minOccurs="0"/>
+                    <xs:element name="locationCode" type="xs:string" minOccurs="0"/>
+                    <xs:element name="currencyCode" type="xs:string" minOccurs="0"/>
+                    <xs:element name="paymentAmount" type="xs:string" minOccurs="0"/>
+                    <xs:element name="totalBill" type="xs:string" minOccurs="0"/>
+                    <xs:element name="feeadmin" type="xs:string" minOccurs="0"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="HoldInquiryResponse">
+                <xs:sequence>
+                    <xs:element name="language" type="xs:string" minOccurs="0"/>
+                    <xs:element name="trxDateTime" type="xs:string" minOccurs="0"/>
+                    <xs:element name="transmissionDateTime" type="xs:string" minOccurs="0"/>
+                    <xs:element name="prodCode" type="xs:string" minOccurs="0"/>
+                    <xs:element name="channelCode" type="xs:string" minOccurs="0"/>
+                    <xs:element name="nmrTrx" type="xs:string" minOccurs="0"/>
+                    <xs:element name="transactionCode" type="xs:string" minOccurs="0"/>
+                    <xs:element name="aid" type="xs:string" minOccurs="0"/>
+                    <xs:element name="fid" type="xs:string" minOccurs="0"/>
+                    <xs:element name="terminalCode" type="xs:string" minOccurs="0"/>
+                    <xs:element name="branchCode" type="xs:string" minOccurs="0"/>
+                    <xs:element name="locationCode" type="xs:string" minOccurs="0"/>
+                    <xs:element name="currencyCode" type="xs:string" minOccurs="0"/>
+                    <xs:element name="paymentAmount" type="xs:string" minOccurs="0"/>
+                    <xs:element name="feeadmin" type="xs:string" minOccurs="0"/>
+                    <xs:element name="totalBill" type="xs:string" minOccurs="0"/>
+                    <xs:element name="billInfo1" type="xs:string" minOccurs="0"/>
+                    <xs:element name="billInfo2" type="xs:string" minOccurs="0"/>
+                    <xs:element name="billInfo3" type="xs:string" minOccurs="0"/>
+                    <xs:element name="billInfo4" type="xs:string" minOccurs="0"/>
+                    <xs:element name="billInfo5" type="xs:string" minOccurs="0"/>
+                    <xs:element name="billInfo6" type="xs:string" minOccurs="0"/>
+                    <xs:element name="billInfo7" type="xs:string" minOccurs="0"/>
+                    <xs:element name="billInfo8" type="xs:string" minOccurs="0"/>
+                    <xs:element name="billInfo9" type="xs:string" minOccurs="0"/>
+                    <xs:element name="billInfo10" type="xs:string" minOccurs="0"/>
+                    <xs:element name="billInfo11" type="xs:string" minOccurs="0"/>
+                    <xs:element name="billInfo12" type="xs:string" minOccurs="0"/>
+                    <xs:element name="billInfo13" type="xs:string" minOccurs="0"/>
+                    <xs:element name="billInfo14" type="xs:string" minOccurs="0"/>
+                    <xs:element name="billInfo15" type="xs:string" minOccurs="0"/>
+                    <xs:element name="billInfo16" type="xs:string" minOccurs="0"/>
+                    <xs:element name="billInfo17" type="xs:string" minOccurs="0"/>
+                    <xs:element name="billInfo18" type="xs:string" minOccurs="0"/>
+                    <xs:element name="billInfo19" type="xs:string" minOccurs="0"/>
+                    <xs:element name="billInfo20" type="xs:string" minOccurs="0"/>
+                    <xs:element name="billDetails" type="ns:ArrayOfBillDetail" minOccurs="0"/>
+                    <xs:element name="status" type="ns:Status" minOccurs="0"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="InquiryRequest">
+                <xs:sequence>
+                    <xs:element name="language" type="xs:string" minOccurs="0"/>
+                    <xs:element name="trxDateTime" type="xs:string" minOccurs="0"/>
+                    <xs:element name="transmissionDateTime" type="xs:string" minOccurs="0"/>
+                    <xs:element name="prodCode" type="xs:string" minOccurs="0"/>
+                    <xs:element name="channelCode" type="xs:string" minOccurs="0"/>
+                    <xs:element name="nmrTrx" type="xs:string" minOccurs="0"/>
+                    <xs:element name="transactionCode" type="xs:string" minOccurs="0"/>
+                    <xs:element name="aid" type="xs:string" minOccurs="0"/>
+                    <xs:element name="fid" type="xs:string" minOccurs="0"/>
+                    <xs:element name="terminalCode" type="xs:string" minOccurs="0"/>
+                    <xs:element name="branchCode" type="xs:string" minOccurs="0"/>
+                    <xs:element name="locationCode" type="xs:string" minOccurs="0"/>
+                    <xs:element name="currencyCode" type="xs:string" minOccurs="0"/>
+                    <xs:element name="feeadmin" type="xs:string" minOccurs="0"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="InquiryResponse">
+                <xs:sequence>
+                    <xs:element name="language" type="xs:string" minOccurs="0"/>
+                    <xs:element name="trxDateTime" type="xs:string" minOccurs="0"/>
+                    <xs:element name="transmissionDateTime" type="xs:string" minOccurs="0"/>
+                    <xs:element name="prodCode" type="xs:string" minOccurs="0"/>
+                    <xs:element name="channelCode" type="xs:string" minOccurs="0"/>
+                    <xs:element name="nmrTrx" type="xs:string" minOccurs="0"/>
+                    <xs:element name="transactionCode" type="xs:string" minOccurs="0"/>
+                    <xs:element name="aid" type="xs:string" minOccurs="0"/>
+                    <xs:element name="fid" type="xs:string" minOccurs="0"/>
+                    <xs:element name="terminalCode" type="xs:string" minOccurs="0"/>
+                    <xs:element name="branchCode" type="xs:string" minOccurs="0"/>
+                    <xs:element name="locationCode" type="xs:string" minOccurs="0"/>
+                    <xs:element name="currencyCode" type="xs:string" minOccurs="0"/>
+                    <xs:element name="paymentAmount" type="xs:string" minOccurs="0"/>
+                    <xs:element name="feeadmin" type="xs:string" minOccurs="0"/>
+                    <xs:element name="totalBill" type="xs:string" minOccurs="0"/>
+                    <xs:element name="billInfo1" type="xs:string" minOccurs="0"/>
+                    <xs:element name="billInfo2" type="xs:string" minOccurs="0"/>
+                    <xs:element name="billInfo3" type="xs:string" minOccurs="0"/>
+                    <xs:element name="billInfo4" type="xs:string" minOccurs="0"/>
+                    <xs:element name="billInfo5" type="xs:string" minOccurs="0"/>
+                    <xs:element name="billInfo6" type="xs:string" minOccurs="0"/>
+                    <xs:element name="billInfo7" type="xs:string" minOccurs="0"/>
+                    <xs:element name="billInfo8" type="xs:string" minOccurs="0"/>
+                    <xs:element name="billInfo9" type="xs:string" minOccurs="0"/>
+                    <xs:element name="billInfo10" type="xs:string" minOccurs="0"/>
+                    <xs:element name="billInfo11" type="xs:string" minOccurs="0"/>
+                    <xs:element name="billInfo12" type="xs:string" minOccurs="0"/>
+                    <xs:element name="billInfo13" type="xs:string" minOccurs="0"/>
+                    <xs:element name="billInfo14" type="xs:string" minOccurs="0"/>
+                    <xs:element name="billInfo15" type="xs:string" minOccurs="0"/>
+                    <xs:element name="billInfo16" type="xs:string" minOccurs="0"/>
+                    <xs:element name="billInfo17" type="xs:string" minOccurs="0"/>
+                    <xs:element name="billInfo18" type="xs:string" minOccurs="0"/>
+                    <xs:element name="billInfo19" type="xs:string" minOccurs="0"/>
+                    <xs:element name="billInfo20" type="xs:string" minOccurs="0"/>
+                    <xs:element name="billDetails" type="ns:ArrayOfBillDetail" minOccurs="0"/>
+                    <xs:element name="status" type="ns:Status" minOccurs="0"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="PaymentReleaseRequest">
+                <xs:sequence>
+                    <xs:element name="language" type="xs:string" minOccurs="0"/>
+                    <xs:element name="trxDateTime" type="xs:string" minOccurs="0"/>
+                    <xs:element name="transmissionDateTime" type="xs:string" minOccurs="0"/>
+                    <xs:element name="prodCode" type="xs:string" minOccurs="0"/>
+                    <xs:element name="channelCode" type="xs:string" minOccurs="0"/>
+                    <xs:element name="nmrTrx" type="xs:string" minOccurs="0"/>
+                    <xs:element name="transactionCode" type="xs:string" minOccurs="0"/>
+                    <xs:element name="aid" type="xs:string" minOccurs="0"/>
+                    <xs:element name="fid" type="xs:string" minOccurs="0"/>
+                    <xs:element name="terminalCode" type="xs:string" minOccurs="0"/>
+                    <xs:element name="branchCode" type="xs:string" minOccurs="0"/>
+                    <xs:element name="locationCode" type="xs:string" minOccurs="0"/>
+                    <xs:element name="currencyCode" type="xs:string" minOccurs="0"/>
+                    <xs:element name="paymentAmount" type="xs:string" minOccurs="0"/>
+                    <xs:element name="totalBill" type="xs:string" minOccurs="0"/>
+                    <xs:element name="feeadmin" type="xs:string" minOccurs="0"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="PaymentReleaseResponse">
+                <xs:sequence>
+                    <xs:element name="language" type="xs:string" minOccurs="0"/>
+                    <xs:element name="trxDateTime" type="xs:string" minOccurs="0"/>
+                    <xs:element name="transmissionDateTime" type="xs:string" minOccurs="0"/>
+                    <xs:element name="prodCode" type="xs:string" minOccurs="0"/>
+                    <xs:element name="channelCode" type="xs:string" minOccurs="0"/>
+                    <xs:element name="nmrTrx" type="xs:string" minOccurs="0"/>
+                    <xs:element name="transactionCode" type="xs:string" minOccurs="0"/>
+                    <xs:element name="aid" type="xs:string" minOccurs="0"/>
+                    <xs:element name="fid" type="xs:string" minOccurs="0"/>
+                    <xs:element name="terminalCode" type="xs:string" minOccurs="0"/>
+                    <xs:element name="branchCode" type="xs:string" minOccurs="0"/>
+                    <xs:element name="locationCode" type="xs:string" minOccurs="0"/>
+                    <xs:element name="currencyCode" type="xs:string" minOccurs="0"/>
+                    <xs:element name="paymentAmount" type="xs:string" minOccurs="0"/>
+                    <xs:element name="feeadmin" type="xs:string" minOccurs="0"/>
+                    <xs:element name="totalBill" type="xs:string" minOccurs="0"/>
+                    <xs:element name="billInfo1" type="xs:string" minOccurs="0"/>
+                    <xs:element name="billInfo2" type="xs:string" minOccurs="0"/>
+                    <xs:element name="billInfo3" type="xs:string" minOccurs="0"/>
+                    <xs:element name="billInfo4" type="xs:string" minOccurs="0"/>
+                    <xs:element name="billInfo5" type="xs:string" minOccurs="0"/>
+                    <xs:element name="billInfo6" type="xs:string" minOccurs="0"/>
+                    <xs:element name="billInfo7" type="xs:string" minOccurs="0"/>
+                    <xs:element name="billInfo8" type="xs:string" minOccurs="0"/>
+                    <xs:element name="billInfo9" type="xs:string" minOccurs="0"/>
+                    <xs:element name="billInfo10" type="xs:string" minOccurs="0"/>
+                    <xs:element name="billInfo11" type="xs:string" minOccurs="0"/>
+                    <xs:element name="billInfo12" type="xs:string" minOccurs="0"/>
+                    <xs:element name="billInfo13" type="xs:string" minOccurs="0"/>
+                    <xs:element name="billInfo14" type="xs:string" minOccurs="0"/>
+                    <xs:element name="billInfo15" type="xs:string" minOccurs="0"/>
+                    <xs:element name="billInfo16" type="xs:string" minOccurs="0"/>
+                    <xs:element name="billInfo17" type="xs:string" minOccurs="0"/>
+                    <xs:element name="billInfo18" type="xs:string" minOccurs="0"/>
+                    <xs:element name="billInfo19" type="xs:string" minOccurs="0"/>
+                    <xs:element name="billInfo20" type="xs:string" minOccurs="0"/>
+                    <xs:element name="billDetails" type="ns:ArrayOfBillDetail" minOccurs="0"/>
+                    <xs:element name="status" type="ns:Status" minOccurs="0"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="PaymentRequest">
+                <xs:sequence>
+                    <xs:element name="language" type="xs:string" minOccurs="0"/>
+                    <xs:element name="trxDateTime" type="xs:string" minOccurs="0"/>
+                    <xs:element name="transmissionDateTime" type="xs:string" minOccurs="0"/>
+                    <xs:element name="prodCode" type="xs:string" minOccurs="0"/>
+                    <xs:element name="channelCode" type="xs:string" minOccurs="0"/>
+                    <xs:element name="nmrTrx" type="xs:string" minOccurs="0"/>
+                    <xs:element name="transactionCode" type="xs:string" minOccurs="0"/>
+                    <xs:element name="aid" type="xs:string" minOccurs="0"/>
+                    <xs:element name="fid" type="xs:string" minOccurs="0"/>
+                    <xs:element name="terminalCode" type="xs:string" minOccurs="0"/>
+                    <xs:element name="branchCode" type="xs:string" minOccurs="0"/>
+                    <xs:element name="locationCode" type="xs:string" minOccurs="0"/>
+                    <xs:element name="currencyCode" type="xs:string" minOccurs="0"/>
+                    <xs:element name="paymentAmount" type="xs:string" minOccurs="0"/>
+                    <xs:element name="totalBill" type="xs:string" minOccurs="0"/>
+                    <xs:element name="feeadmin" type="xs:string" minOccurs="0"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="PaymentResponse">
+                <xs:sequence>
+                    <xs:element name="language" type="xs:string" minOccurs="0"/>
+                    <xs:element name="trxDateTime" type="xs:string" minOccurs="0"/>
+                    <xs:element name="transmissionDateTime" type="xs:string" minOccurs="0"/>
+                    <xs:element name="prodCode" type="xs:string" minOccurs="0"/>
+                    <xs:element name="channelCode" type="xs:string" minOccurs="0"/>
+                    <xs:element name="nmrTrx" type="xs:string" minOccurs="0"/>
+                    <xs:element name="transactionCode" type="xs:string" minOccurs="0"/>
+                    <xs:element name="aid" type="xs:string" minOccurs="0"/>
+                    <xs:element name="fid" type="xs:string" minOccurs="0"/>
+                    <xs:element name="terminalCode" type="xs:string" minOccurs="0"/>
+                    <xs:element name="branchCode" type="xs:string" minOccurs="0"/>
+                    <xs:element name="locationCode" type="xs:string" minOccurs="0"/>
+                    <xs:element name="currencyCode" type="xs:string" minOccurs="0"/>
+                    <xs:element name="paymentAmount" type="xs:string" minOccurs="0"/>
+                    <xs:element name="feeadmin" type="xs:string" minOccurs="0"/>
+                    <xs:element name="totalBill" type="xs:string" minOccurs="0"/>
+                    <xs:element name="billInfo1" type="xs:string" minOccurs="0"/>
+                    <xs:element name="billInfo2" type="xs:string" minOccurs="0"/>
+                    <xs:element name="billInfo3" type="xs:string" minOccurs="0"/>
+                    <xs:element name="billInfo4" type="xs:string" minOccurs="0"/>
+                    <xs:element name="billInfo5" type="xs:string" minOccurs="0"/>
+                    <xs:element name="billInfo6" type="xs:string" minOccurs="0"/>
+                    <xs:element name="billInfo7" type="xs:string" minOccurs="0"/>
+                    <xs:element name="billInfo8" type="xs:string" minOccurs="0"/>
+                    <xs:element name="billInfo9" type="xs:string" minOccurs="0"/>
+                    <xs:element name="billInfo10" type="xs:string" minOccurs="0"/>
+                    <xs:element name="billInfo11" type="xs:string" minOccurs="0"/>
+                    <xs:element name="billInfo12" type="xs:string" minOccurs="0"/>
+                    <xs:element name="billInfo13" type="xs:string" minOccurs="0"/>
+                    <xs:element name="billInfo14" type="xs:string" minOccurs="0"/>
+                    <xs:element name="billInfo15" type="xs:string" minOccurs="0"/>
+                    <xs:element name="billInfo16" type="xs:string" minOccurs="0"/>
+                    <xs:element name="billInfo17" type="xs:string" minOccurs="0"/>
+                    <xs:element name="billInfo18" type="xs:string" minOccurs="0"/>
+                    <xs:element name="billInfo19" type="xs:string" minOccurs="0"/>
+                    <xs:element name="billInfo20" type="xs:string" minOccurs="0"/>
+                    <xs:element name="billDetails" type="ns:ArrayOfBillDetail" minOccurs="0"/>
+                    <xs:element name="status" type="ns:Status" minOccurs="0"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="ReleaseAmountRequest">
+                <xs:sequence>
+                    <xs:element name="language" type="xs:string" minOccurs="0"/>
+                    <xs:element name="trxDateTime" type="xs:string" minOccurs="0"/>
+                    <xs:element name="transmissionDateTime" type="xs:string" minOccurs="0"/>
+                    <xs:element name="prodCode" type="xs:string" minOccurs="0"/>
+                    <xs:element name="channelCode" type="xs:string" minOccurs="0"/>
+                    <xs:element name="nmrTrx" type="xs:string" minOccurs="0"/>
+                    <xs:element name="transactionCode" type="xs:string" minOccurs="0"/>
+                    <xs:element name="aid" type="xs:string" minOccurs="0"/>
+                    <xs:element name="fid" type="xs:string" minOccurs="0"/>
+                    <xs:element name="terminalCode" type="xs:string" minOccurs="0"/>
+                    <xs:element name="branchCode" type="xs:string" minOccurs="0"/>
+                    <xs:element name="locationCode" type="xs:string" minOccurs="0"/>
+                    <xs:element name="currencyCode" type="xs:string" minOccurs="0"/>
+                    <xs:element name="paymentAmount" type="xs:string" minOccurs="0"/>
+                    <xs:element name="totalBill" type="xs:string" minOccurs="0"/>
+                    <xs:element name="feeadmin" type="xs:string" minOccurs="0"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="ReleaseAmountResponse">
+                <xs:sequence>
+                    <xs:element name="language" type="xs:string" minOccurs="0"/>
+                    <xs:element name="trxDateTime" type="xs:string" minOccurs="0"/>
+                    <xs:element name="transmissionDateTime" type="xs:string" minOccurs="0"/>
+                    <xs:element name="prodCode" type="xs:string" minOccurs="0"/>
+                    <xs:element name="channelCode" type="xs:string" minOccurs="0"/>
+                    <xs:element name="nmrTrx" type="xs:string" minOccurs="0"/>
+                    <xs:element name="transactionCode" type="xs:string" minOccurs="0"/>
+                    <xs:element name="aid" type="xs:string" minOccurs="0"/>
+                    <xs:element name="fid" type="xs:string" minOccurs="0"/>
+                    <xs:element name="terminalCode" type="xs:string" minOccurs="0"/>
+                    <xs:element name="branchCode" type="xs:string" minOccurs="0"/>
+                    <xs:element name="locationCode" type="xs:string" minOccurs="0"/>
+                    <xs:element name="currencyCode" type="xs:string" minOccurs="0"/>
+                    <xs:element name="paymentAmount" type="xs:string" minOccurs="0"/>
+                    <xs:element name="feeadmin" type="xs:string" minOccurs="0"/>
+                    <xs:element name="totalBill" type="xs:string" minOccurs="0"/>
+                    <xs:element name="billInfo1" type="xs:string" minOccurs="0"/>
+                    <xs:element name="billInfo2" type="xs:string" minOccurs="0"/>
+                    <xs:element name="billInfo3" type="xs:string" minOccurs="0"/>
+                    <xs:element name="billInfo4" type="xs:string" minOccurs="0"/>
+                    <xs:element name="billInfo5" type="xs:string" minOccurs="0"/>
+                    <xs:element name="billInfo6" type="xs:string" minOccurs="0"/>
+                    <xs:element name="billInfo7" type="xs:string" minOccurs="0"/>
+                    <xs:element name="billInfo8" type="xs:string" minOccurs="0"/>
+                    <xs:element name="billInfo9" type="xs:string" minOccurs="0"/>
+                    <xs:element name="billInfo10" type="xs:string" minOccurs="0"/>
+                    <xs:element name="billInfo11" type="xs:string" minOccurs="0"/>
+                    <xs:element name="billInfo12" type="xs:string" minOccurs="0"/>
+                    <xs:element name="billInfo13" type="xs:string" minOccurs="0"/>
+                    <xs:element name="billInfo14" type="xs:string" minOccurs="0"/>
+                    <xs:element name="billInfo15" type="xs:string" minOccurs="0"/>
+                    <xs:element name="billInfo16" type="xs:string" minOccurs="0"/>
+                    <xs:element name="billInfo17" type="xs:string" minOccurs="0"/>
+                    <xs:element name="billInfo18" type="xs:string" minOccurs="0"/>
+                    <xs:element name="billInfo19" type="xs:string" minOccurs="0"/>
+                    <xs:element name="billInfo20" type="xs:string" minOccurs="0"/>
+                    <xs:element name="billDetails" type="ns:ArrayOfBillDetail" minOccurs="0"/>
+                    <xs:element name="status" type="ns:Status" minOccurs="0"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="ReversalRequest">
+                <xs:sequence>
+                    <xs:element name="language" type="xs:string" minOccurs="0"/>
+                    <xs:element name="trxDateTime" type="xs:string" minOccurs="0"/>
+                    <xs:element name="origTrxDateTime" type="xs:string" minOccurs="0"/>
+                    <xs:element name="transmissionDateTime" type="xs:string" minOccurs="0"/>
+                    <xs:element name="origTransmissionDateTime" type="xs:string" minOccurs="0"/>
+                    <xs:element name="prodCode" type="xs:string" minOccurs="0"/>
+                    <xs:element name="channelCode" type="xs:string" minOccurs="0"/>
+                    <xs:element name="nmrTrx" type="xs:string" minOccurs="0"/>
+                    <xs:element name="transactionCode" type="xs:string" minOccurs="0"/>
+                    <xs:element name="origTransactionCode" type="xs:string" minOccurs="0"/>
+                    <xs:element name="aid" type="xs:string" minOccurs="0"/>
+                    <xs:element name="fid" type="xs:string" minOccurs="0"/>
+                    <xs:element name="terminalCode" type="xs:string" minOccurs="0"/>
+                    <xs:element name="branchCode" type="xs:string" minOccurs="0"/>
+                    <xs:element name="locationCode" type="xs:string" minOccurs="0"/>
+                    <xs:element name="currencyCode" type="xs:string" minOccurs="0"/>
+                    <xs:element name="paymentAmount" type="xs:string" minOccurs="0"/>
+                    <xs:element name="feeadmin" type="xs:string" minOccurs="0"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="ReversalResponse">
+                <xs:sequence>
+                    <xs:element name="language" type="xs:string" minOccurs="0"/>
+                    <xs:element name="trxDateTime" type="xs:string" minOccurs="0"/>
+                    <xs:element name="origTrxDateTime" type="xs:string" minOccurs="0"/>
+                    <xs:element name="transmissionDateTime" type="xs:string" minOccurs="0"/>
+                    <xs:element name="origTransmissionDateTime" type="xs:string" minOccurs="0"/>
+                    <xs:element name="prodCode" type="xs:string" minOccurs="0"/>
+                    <xs:element name="channelCode" type="xs:string" minOccurs="0"/>
+                    <xs:element name="nmrTrx" type="xs:string" minOccurs="0"/>
+                    <xs:element name="transactionCode" type="xs:string" minOccurs="0"/>
+                    <xs:element name="origTransactionCode" type="xs:string" minOccurs="0"/>
+                    <xs:element name="aid" type="xs:string" minOccurs="0"/>
+                    <xs:element name="fid" type="xs:string" minOccurs="0"/>
+                    <xs:element name="terminalCode" type="xs:string" minOccurs="0"/>
+                    <xs:element name="branchCode" type="xs:string" minOccurs="0"/>
+                    <xs:element name="locationCode" type="xs:string" minOccurs="0"/>
+                    <xs:element name="currencyCode" type="xs:string" minOccurs="0"/>
+                    <xs:element name="paymentAmount" type="xs:string" minOccurs="0"/>
+                    <xs:element name="feeadmin" type="xs:string" minOccurs="0"/>
+                    <xs:element name="billDetails" type="ns:ArrayOfBillDetail" minOccurs="0"/>
+                    <xs:element name="status" type="ns:Status" minOccurs="0"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="Status">
+                <xs:sequence>
+                    <xs:element name="isError" type="xs:boolean"/>
+                    <xs:element name="errorCode" type="xs:string" minOccurs="0"/>
+                    <xs:element name="statusDescription" type="xs:string" minOccurs="0"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="UpdateHoldAmountRequest">
+                <xs:sequence>
+                    <xs:element name="language" type="xs:string" minOccurs="0"/>
+                    <xs:element name="trxDateTime" type="xs:string" minOccurs="0"/>
+                    <xs:element name="transmissionDateTime" type="xs:string" minOccurs="0"/>
+                    <xs:element name="prodCode" type="xs:string" minOccurs="0"/>
+                    <xs:element name="channelCode" type="xs:string" minOccurs="0"/>
+                    <xs:element name="nmrTrx" type="xs:string" minOccurs="0"/>
+                    <xs:element name="transactionCode" type="xs:string" minOccurs="0"/>
+                    <xs:element name="aid" type="xs:string" minOccurs="0"/>
+                    <xs:element name="fid" type="xs:string" minOccurs="0"/>
+                    <xs:element name="terminalCode" type="xs:string" minOccurs="0"/>
+                    <xs:element name="branchCode" type="xs:string" minOccurs="0"/>
+                    <xs:element name="locationCode" type="xs:string" minOccurs="0"/>
+                    <xs:element name="currencyCode" type="xs:string" minOccurs="0"/>
+                    <xs:element name="paymentAmount" type="xs:string" minOccurs="0"/>
+                    <xs:element name="totalBill" type="xs:string" minOccurs="0"/>
+                    <xs:element name="feeadmin" type="xs:string" minOccurs="0"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="UpdateHoldAmountResponse">
+                <xs:sequence>
+                    <xs:element name="language" type="xs:string" minOccurs="0"/>
+                    <xs:element name="trxDateTime" type="xs:string" minOccurs="0"/>
+                    <xs:element name="transmissionDateTime" type="xs:string" minOccurs="0"/>
+                    <xs:element name="prodCode" type="xs:string" minOccurs="0"/>
+                    <xs:element name="channelCode" type="xs:string" minOccurs="0"/>
+                    <xs:element name="nmrTrx" type="xs:string" minOccurs="0"/>
+                    <xs:element name="transactionCode" type="xs:string" minOccurs="0"/>
+                    <xs:element name="aid" type="xs:string" minOccurs="0"/>
+                    <xs:element name="fid" type="xs:string" minOccurs="0"/>
+                    <xs:element name="terminalCode" type="xs:string" minOccurs="0"/>
+                    <xs:element name="branchCode" type="xs:string" minOccurs="0"/>
+                    <xs:element name="locationCode" type="xs:string" minOccurs="0"/>
+                    <xs:element name="currencyCode" type="xs:string" minOccurs="0"/>
+                    <xs:element name="paymentAmount" type="xs:string" minOccurs="0"/>
+                    <xs:element name="feeadmin" type="xs:string" minOccurs="0"/>
+                    <xs:element name="totalBill" type="xs:string" minOccurs="0"/>
+                    <xs:element name="billInfo1" type="xs:string" minOccurs="0"/>
+                    <xs:element name="billInfo2" type="xs:string" minOccurs="0"/>
+                    <xs:element name="billInfo3" type="xs:string" minOccurs="0"/>
+                    <xs:element name="billInfo4" type="xs:string" minOccurs="0"/>
+                    <xs:element name="billInfo5" type="xs:string" minOccurs="0"/>
+                    <xs:element name="billInfo6" type="xs:string" minOccurs="0"/>
+                    <xs:element name="billInfo7" type="xs:string" minOccurs="0"/>
+                    <xs:element name="billInfo8" type="xs:string" minOccurs="0"/>
+                    <xs:element name="billInfo9" type="xs:string" minOccurs="0"/>
+                    <xs:element name="billInfo10" type="xs:string" minOccurs="0"/>
+                    <xs:element name="billInfo11" type="xs:string" minOccurs="0"/>
+                    <xs:element name="billInfo12" type="xs:string" minOccurs="0"/>
+                    <xs:element name="billInfo13" type="xs:string" minOccurs="0"/>
+                    <xs:element name="billInfo14" type="xs:string" minOccurs="0"/>
+                    <xs:element name="billInfo15" type="xs:string" minOccurs="0"/>
+                    <xs:element name="billInfo16" type="xs:string" minOccurs="0"/>
+                    <xs:element name="billInfo17" type="xs:string" minOccurs="0"/>
+                    <xs:element name="billInfo18" type="xs:string" minOccurs="0"/>
+                    <xs:element name="billInfo19" type="xs:string" minOccurs="0"/>
+                    <xs:element name="billInfo20" type="xs:string" minOccurs="0"/>
+                    <xs:element name="billDetails" type="ns:ArrayOfBillDetail" minOccurs="0"/>
+                    <xs:element name="status" type="ns:Status" minOccurs="0"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:element name="clickpay">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="request" type="ns:ClickPayRequest" minOccurs="0"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="clickpayResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="clickpayResult" type="ns:ClickPayResponse" minOccurs="0"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="holdamount">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="request" type="ns:HoldAmountRequest" minOccurs="0"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="holdamountResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="holdamountResult" type="ns:HoldAmountResponse" minOccurs="0"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="holdinquiry">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="request" type="ns:HoldInquiryRequest" minOccurs="0"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="holdinquiryResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="holdinquiryResult" type="ns:HoldInquiryResponse" minOccurs="0"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="inquiry">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="request" type="ns:InquiryRequest" minOccurs="0"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="inquiryResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="inquiryResult" type="ns:InquiryResponse" minOccurs="0"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="payment">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="request" type="ns:PaymentRequest" minOccurs="0"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="paymentResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="paymentResult" type="ns:PaymentResponse" minOccurs="0"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="paymentrelease">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="request" type="ns:PaymentReleaseRequest" minOccurs="0"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="paymentreleaseResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="paymentreleaseResult" type="ns:PaymentReleaseResponse" minOccurs="0"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="releaseamount">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="request" type="ns:ReleaseAmountRequest" minOccurs="0"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="releaseamountResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="releaseamountResult" type="ns:ReleaseAmountResponse" minOccurs="0"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="reverse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="request" type="ns:ReversalRequest" minOccurs="0"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="reverseResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="reverseResult" type="ns:ReversalResponse" minOccurs="0"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="updateholdamount">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="request" type="ns:UpdateHoldAmountRequest" minOccurs="0"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="updateholdamountResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="updateholdamountResult" type="ns:UpdateHoldAmountResponse" minOccurs="0"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+        </xs:schema>
+    </wsdl:types>
+    <wsdl:service name="Service">
+        <wsdl:port name="ilcsServiceSoapEndpoint1" binding="tns:ilcsServiceSoapEndpoint1Binding">
+            <soap:address location="http://172.16.254.96:7063/tibco_apps"/>
+            <!-- <soap:address location="http://10.8.3.69:7063/tibco_apps"/> -->
+            <!-- <soap:address location="http://172.16.254.106:7063/tibco_apps"/> -->
+            <!-- <soap:address location="http://10.8.3.69:5555/tibco_apps"/> -->
+        </wsdl:port>
+    </wsdl:service>
+    <wsdl:portType name="ilcsServiceSoap">
+        <wsdl:operation name="clickpay">
+            <wsdl:input message="tns:ClickPaySoapIn"/>
+            <wsdl:output message="tns:ClickPaySoapOut"/>
+        </wsdl:operation>
+        <wsdl:operation name="reverse">
+            <wsdl:input message="tns:reverseSoapIn"/>
+            <wsdl:output message="tns:reverseSoapOut"/>
+        </wsdl:operation>
+        <wsdl:operation name="holdinquiry">
+            <wsdl:input message="tns:HoldInquirySoapIn"/>
+            <wsdl:output message="tns:HoldInquirySoapOut"/>
+        </wsdl:operation>
+        <wsdl:operation name="updateholdamount">
+            <wsdl:input message="tns:UpdateHoldAmountSoapIn"/>
+            <wsdl:output message="tns:UpdateHoldAmountSoapOut"/>
+        </wsdl:operation>
+        <wsdl:operation name="inquiry">
+            <wsdl:input message="tns:inquirySoapIn"/>
+            <wsdl:output message="tns:inquirySoapOut"/>
+        </wsdl:operation>
+        <wsdl:operation name="payment">
+            <wsdl:input message="tns:paymentSoapIn"/>
+            <wsdl:output message="tns:paymentSoapOut"/>
+        </wsdl:operation>
+        <wsdl:operation name="holdamount">
+            <wsdl:input message="tns:HoldAmountSoapIn"/>
+            <wsdl:output message="tns:HoldAmountSoapOut"/>
+        </wsdl:operation>
+        <wsdl:operation name="releaseamount">
+            <wsdl:input message="tns:ReleaseAmountSoapIn"/>
+            <wsdl:output message="tns:ReleaseAmountSoapOut"/>
+        </wsdl:operation>
+        <wsdl:operation name="paymentrelease">
+            <wsdl:input message="tns:PaymentReleaseSoapIn"/>
+            <wsdl:output message="tns:PaymentReleaseSoapOut"/>
+        </wsdl:operation>
+    </wsdl:portType>
+    <wsdl:binding name="ilcsServiceSoapEndpoint1Binding" type="tns:ilcsServiceSoap">
+        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsdl:operation name="clickpay">
+            <soap:operation style="document" soapAction="/Channels/Services/Service.serviceagent/ilcsServiceSoapEndpoint1/clickpay"/>
+            <wsdl:input>
+                <soap:body use="literal" parts="parameters"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal" parts="parameters"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="reverse">
+            <soap:operation style="document" soapAction="/Channels/Services/Service.serviceagent/ilcsServiceSoapEndpoint1/reverse"/>
+            <wsdl:input>
+                <soap:body use="literal" parts="parameters"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal" parts="parameters"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="holdinquiry">
+            <soap:operation style="document" soapAction="/Channels/Services/Service.serviceagent/ilcsServiceSoapEndpoint1/holdinquiry"/>
+            <wsdl:input>
+                <soap:body use="literal" parts="parameters"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal" parts="parameters"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="updateholdamount">
+            <soap:operation style="document" soapAction="/Channels/Services/Service.serviceagent/ilcsServiceSoapEndpoint1/updateholdamount"/>
+            <wsdl:input>
+                <soap:body use="literal" parts="parameters"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal" parts="parameters"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="inquiry">
+            <soap:operation style="document" soapAction="/Channels/Services/Service.serviceagent/ilcsServiceSoapEndpoint1/inquiry"/>
+            <wsdl:input>
+                <soap:body use="literal" parts="parameters"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal" parts="parameters"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="payment">
+            <soap:operation style="document" soapAction="/Channels/Services/Service.serviceagent/ilcsServiceSoapEndpoint1/payment"/>
+            <wsdl:input>
+                <soap:body use="literal" parts="parameters"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal" parts="parameters"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="holdamount">
+            <soap:operation style="document" soapAction="/Channels/Services/Service.serviceagent/ilcsServiceSoapEndpoint1/holdamount"/>
+            <wsdl:input>
+                <soap:body use="literal" parts="parameters"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal" parts="parameters"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="releaseamount">
+            <soap:operation style="document" soapAction="/Channels/Services/Service.serviceagent/ilcsServiceSoapEndpoint1/releaseamount"/>
+            <wsdl:input>
+                <soap:body use="literal" parts="parameters"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal" parts="parameters"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="paymentrelease">
+            <soap:operation style="document" soapAction="/Channels/Services/Service.serviceagent/ilcsServiceSoapEndpoint1/paymentrelease"/>
+            <wsdl:input>
+                <soap:body use="literal" parts="parameters"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal" parts="parameters"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:message name="ClickPaySoapIn">
+        <wsdl:part name="parameters" element="ns:clickpay"/>
+    </wsdl:message>
+    <wsdl:message name="ClickPaySoapOut">
+        <wsdl:part name="parameters" element="ns:clickpayResponse"/>
+    </wsdl:message>
+    <wsdl:message name="reverseSoapIn">
+        <wsdl:part name="parameters" element="ns:reverse"/>
+    </wsdl:message>
+    <wsdl:message name="reverseSoapOut">
+        <wsdl:part name="parameters" element="ns:reverseResponse"/>
+    </wsdl:message>
+    <wsdl:message name="HoldInquirySoapIn">
+        <wsdl:part name="parameters" element="ns:holdinquiry"/>
+    </wsdl:message>
+    <wsdl:message name="HoldInquirySoapOut">
+        <wsdl:part name="parameters" element="ns:holdinquiryResponse"/>
+    </wsdl:message>
+    <wsdl:message name="UpdateHoldAmountSoapIn">
+        <wsdl:part name="parameters" element="ns:updateholdamount"/>
+    </wsdl:message>
+    <wsdl:message name="UpdateHoldAmountSoapOut">
+        <wsdl:part name="parameters" element="ns:updateholdamountResponse"/>
+    </wsdl:message>
+    <wsdl:message name="inquirySoapIn">
+        <wsdl:part name="parameters" element="ns:inquiry"/>
+    </wsdl:message>
+    <wsdl:message name="inquirySoapOut">
+        <wsdl:part name="parameters" element="ns:inquiryResponse"/>
+    </wsdl:message>
+    <wsdl:message name="paymentSoapIn">
+        <wsdl:part name="parameters" element="ns:payment"/>
+    </wsdl:message>
+    <wsdl:message name="paymentSoapOut">
+        <wsdl:part name="parameters" element="ns:paymentResponse"/>
+    </wsdl:message>
+    <wsdl:message name="HoldAmountSoapIn">
+        <wsdl:part name="parameters" element="ns:holdamount"/>
+    </wsdl:message>
+    <wsdl:message name="HoldAmountSoapOut">
+        <wsdl:part name="parameters" element="ns:holdamountResponse"/>
+    </wsdl:message>
+    <wsdl:message name="ReleaseAmountSoapIn">
+        <wsdl:part name="parameters" element="ns:releaseamount"/>
+    </wsdl:message>
+    <wsdl:message name="ReleaseAmountSoapOut">
+        <wsdl:part name="parameters" element="ns:releaseamountResponse"/>
+    </wsdl:message>
+    <wsdl:message name="PaymentReleaseSoapIn">
+        <wsdl:part name="parameters" element="ns:paymentrelease"/>
+    </wsdl:message>
+    <wsdl:message name="PaymentReleaseSoapOut">
+        <wsdl:part name="parameters" element="ns:paymentreleaseResponse"/>
+    </wsdl:message>
+</wsdl:definitions>

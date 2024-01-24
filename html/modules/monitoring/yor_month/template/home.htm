@@ -1,0 +1,171 @@
+<script src="<?=HOME?>js_chart/js/highcharts.js"></script>
+
+<style>
+.content{
+	width:95%;
+	margin-left:auto;
+	margin-right:auto;
+	margin-bottom: 10px;
+	margin-top:20px;
+}
+.main_side{
+	width:100%;
+	float:left;
+	text-align:left;
+}
+.rightside{ 
+	width:25%;
+	float:right;
+	text-align:center;
+}
+.ganjil {
+  background-color: #FFF; /* Warna untuk baris ganjil */
+}
+.genap {
+  background-color: #bbe3fe; /* Warna untuk baris genap */
+}   
+
+.content{
+	width:95%;
+	margin-left:auto;
+	margin-right:auto;
+	margin-bottom: 10px;
+	margin-top:20px;
+}
+.main_side{
+	width:100%;
+	float:left;
+	text-align:left;
+}
+
+</style>
+<?php
+header("Cache-Control: no-cache, must-revalidate"); // HTTP/1.1
+$backuri                      = str_replace('&_saveok=1', '', $_SERVER['REQUEST_URI']);
+$_SESSION['__uriback'][APPID] = $backuri . (strpos($_SERVER['REQUEST_URI'], '?') === false ? '?' : '');
+
+?>
+
+
+<script type="text/javascript">	
+jQuery(function() {
+ jQuery("#yor_table").jqGrid({
+	url:'<?=HOME?>datanya/data_yor_month',
+	mtype : "post",
+	datatype: "json",
+	colNames:['Blok','Slot','Row','Tier','Capacity (TEUS)','Used (Teus) 1','YOR(%) 1','Used (Teus) 2','YOR(%) 2','Used (Teus) 3','YOR(%) 3','Used (Teus) 4','YOR(%) 4','Used (Teus) 5','YOR(%) 5','Used (Teus) 6','YOR(%) 6','Used (Teus) 7','YOR(%) 7','Used (Teus) 8','YOR(%) 8','Used (Teus) 9','YOR(%) 9','Used (Teus) 10','YOR(%) 10','Used (Teus) 11','YOR(%) 11','Used (Teus) 12','YOR(%) 12','Used (Teus) 13','YOR(%) 13','Used (Teus) 14','YOR(%) 14','Used (Teus) 15','YOR(%) 15','Used (Teus) 16','YOR(%) 16','Used (Teus) 17','YOR(%) 17','Used (Teus) 18','YOR(%) 18','Used (Teus) 19','YOR(%) 19','Used (Teus) 20','YOR(%) 20','Used (Teus) 21','YOR(%) 21','Used (Teus) 22','YOR(%) 22','Used (Teus) 23','YOR(%) 23','Used (Teus) 24','YOR(%) 24','Used (Teus) 25','YOR(%) 25','Used (Teus) 26','YOR(%) 26','Used (Teus) 27','YOR(%) 27','Used (Teus) 28','YOR(%) 28','Used (Teus) 29','YOR(%) 29','Used (Teus) 30','YOR(%) 30','Used (Teus) 31','YOR(%) 31'], 
+	colModel:[
+		{name:'blok', width:80, align:"center",sortable:true,search:false},
+		{name:'slot',index:'slot', width:80, height:40, align:"center",sortable:true,search:false,sorttype:'int'},
+		{name:'row',index:'row', width:80, align:"center",sortable:true,search:false,sorttype:'int'},
+		{name:'tier',index:'tier', width:100, align:"center",sortable:true,search:false,sorttype:'int'},
+		{name:'capacity',index:'capacity', width:100, align:"center",sortable:true,search:false,sorttype:'int'},
+		{name:'used1',index:'used', width:100, align:"center",sortable:true,search:false,sorttype:'int'},
+		{name:'yor1',index:'yor', width:100, align:"center",sortable:true,search:false,sorttype:'int'},
+		{name:'used2',index:'used', width:100, align:"center",sortable:true,search:false,sorttype:'int'},
+		{name:'yor2',index:'yor', width:100, align:"center",sortable:true,search:false,sorttype:'int'},
+		{name:'used3',index:'used', width:100, align:"center",sortable:true,search:false,sorttype:'int'},
+		{name:'yor3',index:'yor', width:100, align:"center",sortable:true,search:false,sorttype:'int'},
+		{name:'used4',index:'used', width:100, align:"center",sortable:true,search:false,sorttype:'int'},
+		{name:'yor4',index:'yor', width:100, align:"center",sortable:true,search:false,sorttype:'int'},
+		{name:'used5',index:'used', width:100, align:"center",sortable:true,search:false,sorttype:'int'},
+		{name:'yor5',index:'yor', width:100, align:"center",sortable:true,search:false,sorttype:'int'},
+		{name:'used6',index:'used', width:100, align:"center",sortable:true,search:false,sorttype:'int'},
+		{name:'yor6',index:'yor', width:100, align:"center",sortable:true,search:false,sorttype:'int'},
+		{name:'used7',index:'used', width:100, align:"center",sortable:true,search:false,sorttype:'int'},
+		{name:'yor7',index:'yor', width:100, align:"center",sortable:true,search:false,sorttype:'int'},
+		{name:'used8',index:'used', width:100, align:"center",sortable:true,search:false,sorttype:'int'},
+		{name:'yor8',index:'yor', width:100, align:"center",sortable:true,search:false,sorttype:'int'},
+		{name:'used9',index:'used', width:100, align:"center",sortable:true,search:false,sorttype:'int'},
+		{name:'yor9',index:'yor', width:100, align:"center",sortable:true,search:false,sorttype:'int'},
+		{name:'used10',index:'used', width:100, align:"center",sortable:true,search:false,sorttype:'int'},
+		{name:'yor10',index:'yor', width:100, align:"center",sortable:true,search:false,sorttype:'int'},
+		{name:'used11',index:'used', width:100, align:"center",sortable:true,search:false,sorttype:'int'},
+		{name:'yor11',index:'yor', width:100, align:"center",sortable:true,search:false,sorttype:'int'},
+		{name:'used12',index:'used', width:100, align:"center",sortable:true,search:false,sorttype:'int'},
+		{name:'yor12',index:'yor', width:100, align:"center",sortable:true,search:false,sorttype:'int'},
+		{name:'used13',index:'used', width:100, align:"center",sortable:true,search:false,sorttype:'int'},
+		{name:'yor13',index:'yor', width:100, align:"center",sortable:true,search:false,sorttype:'int'},
+		{name:'used14',index:'used', width:100, align:"center",sortable:true,search:false,sorttype:'int'},
+		{name:'yor14',index:'yor', width:100, align:"center",sortable:true,search:false,sorttype:'int'},
+		{name:'used15',index:'used', width:100, align:"center",sortable:true,search:false,sorttype:'int'},
+		{name:'yor15',index:'yor', width:100, align:"center",sortable:true,search:false,sorttype:'int'},
+		{name:'used16',index:'used', width:100, align:"center",sortable:true,search:false,sorttype:'int'},
+		{name:'yor16',index:'yor', width:100, align:"center",sortable:true,search:false,sorttype:'int'},
+		{name:'used17',index:'used', width:100, align:"center",sortable:true,search:false,sorttype:'int'},
+		{name:'yor17',index:'yor', width:100, align:"center",sortable:true,search:false,sorttype:'int'},
+		{name:'used18',index:'used', width:100, align:"center",sortable:true,search:false,sorttype:'int'},
+		{name:'yor18',index:'yor', width:100, align:"center",sortable:true,search:false,sorttype:'int'},
+		{name:'used19',index:'used', width:100, align:"center",sortable:true,search:false,sorttype:'int'},
+		{name:'yor19',index:'yor', width:100, align:"center",sortable:true,search:false,sorttype:'int'},
+		{name:'used20',index:'used', width:100, align:"center",sortable:true,search:false,sorttype:'int'},
+		{name:'yor20',index:'yor', width:100, align:"center",sortable:true,search:false,sorttype:'int'},
+		{name:'used21',index:'used', width:100, align:"center",sortable:true,search:false,sorttype:'int'},
+		{name:'yor21',index:'yor', width:100, align:"center",sortable:true,search:false,sorttype:'int'},
+		{name:'used22',index:'used', width:100, align:"center",sortable:true,search:false,sorttype:'int'},
+		{name:'yor22',index:'yor', width:100, align:"center",sortable:true,search:false,sorttype:'int'},
+		{name:'used23',index:'used', width:100, align:"center",sortable:true,search:false,sorttype:'int'},
+		{name:'yor23',index:'yor', width:100, align:"center",sortable:true,search:false,sorttype:'int'},
+		{name:'used24',index:'used', width:100, align:"center",sortable:true,search:false,sorttype:'int'},
+		{name:'yor24',index:'yor', width:100, align:"center",sortable:true,search:false,sorttype:'int'},
+		{name:'used25',index:'used', width:100, align:"center",sortable:true,search:false,sorttype:'int'},
+		{name:'yor25',index:'yor', width:100, align:"center",sortable:true,search:false,sorttype:'int'},
+		{name:'used26',index:'used', width:100, align:"center",sortable:true,search:false,sorttype:'int'},
+		{name:'yor26',index:'yor', width:100, align:"center",sortable:true,search:false,sorttype:'int'},
+		{name:'used27',index:'used', width:100, align:"center",sortable:true,search:false,sorttype:'int'},
+		{name:'yor27',index:'yor', width:100, align:"center",sortable:true,search:false,sorttype:'int'},
+		{name:'used28',index:'used', width:100, align:"center",sortable:true,search:false,sorttype:'int'},
+		{name:'yor28',index:'yor', width:100, align:"center",sortable:true,search:false,sorttype:'int'},
+		{name:'used29',index:'used', width:100, align:"center",sortable:true,search:false,sorttype:'int'},
+		{name:'yor29',index:'yor', width:100, align:"center",sortable:true,search:false,sorttype:'int'},
+		{name:'used30',index:'used', width:100, align:"center",sortable:true,search:false,sorttype:'int'},
+		{name:'yor30',index:'yor', width:100, align:"center",sortable:true,search:false,sorttype:'int'},
+		{name:'used31',index:'used', width:100, align:"center",sortable:true,search:false,sorttype:'int'},
+		{name:'yor31',index:'yor', width:100, align:"center",sortable:true,search:false,sorttype:'int'},
+	],
+	//rowNum:6,
+	width: 800,
+	height: "100%",//250
+
+	//rowList:[10,20,30,40,50,60],
+	loadonce:true,
+	rownumbers: true,
+	rownumWidth: 15,
+	gridview: true,
+	//pager: '#pg_l_yor_table',
+	viewrecords: true,
+	shrinkToFit: false,
+	//grid.setRowData ( id, false, {height: 30} ),
+	caption:"YOR per Blok"
+ });
+  jQuery("#yor_table").jqGrid('navGrid','#pg_l_yor_tabble',{del:false,add:false,edit:false,search:false}); 
+  //jQuery("#yor_table").grid.setGridHeight('50px');
+ jQuery("#yor_table").jqGrid('filterToolbar',{stringResult: true,searchOnEnter : false});
+ 
+});
+
+function log_email(i)
+{
+	//alert(i);
+	$('#log_em').load("<?=HOME?>monitoring.rbm.ajax/log_email?no_ukk="+i).dialog({modal:true, height:300,width:400});
+}
+
+function comment_add(i)
+{
+	$('#add_comment').load("<?=HOME?>monitoring.rbm.ajax/wall_comment?no_ukk="+i).dialog({modal:true, height:400,width:400});
+}
+
+</script>
+
+
+
+<div class="content">
+	<div class="main_side">
+	<p>
+	<h2> <img src="<?=HOME?>images/kapal_.gif" height="7%" width="7%" style="vertical-align:middle"> <font color="#81cefa">Monitoring </font>
+	<font size="3px" color="#606263">YOR Per Month</font></h2></p>
+	<br/>
+	<table id='yor_table' width="100%"></table> <div id='pg_l_yor_table'></div>
+	<br/>
+	</div>
+</div>

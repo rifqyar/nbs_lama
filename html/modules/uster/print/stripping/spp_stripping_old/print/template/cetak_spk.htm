@@ -1,0 +1,132 @@
+<html>
+	<body>
+	<style>
+
+	
+	body { margin:0px; padding:0px; width:100%; height:100%;}
+
+	.txc { height:2px; padding:0px; margin:0px; line-height:9px }
+
+
+
+	</style>
+	<div style="height:5px; width:767px; height:470px; border:0px solid  #FFF">
+<fill src="row_list" var="row_list">
+<?php 
+  $db = getDB("storage");
+  ?>
+<table align="center" border="0" width="600" height="100">
+		<tr>
+			<td><img src='<?=$HOME?>images/logo.png'></td>
+			<td width="500"></td>
+			
+		</tr>
+		<tr>
+			<td colspan="3" align="center">
+				<font size="2" face="verdana"><b>SURAT PERINTAH KERJA KEGIATAN STRIPPING</b></font><br>
+				
+			</td>
+		</tr>		
+	</table>
+	<br>
+	<table align="center" border="0" width="650" height="100">
+	
+		<tr>
+			<td width="200"><font size="2" face="verdana">NO Request</font></td>
+			<td>:</td>
+			<td>
+				<font size="2" face="verdana">{$row_list.NO_REQUEST}</font>
+			</td>
+		</tr>
+		<!--
+		<tr>
+			<td width="50"><font size="2" face="verdana">NO ID Booking Stack</font></td>
+			<td>:</td>
+			<td>
+				<font size="2" face="verdana">
+					0000000441				</font>
+			</td>
+		</tr>
+		-->
+		<tr>
+			<td colspan="3">
+				<font size="2" face="verdana">
+					Dengan ini diberikan Surat Perintah Kerja untuk melakukan kegiatan STRIPPING dengan rincian kegiatan sebagai berikut :
+				</font>
+			</td>
+		</tr>
+	</table>
+	
+	<br>
+	<table border = "1" style="solid" align="center">
+	
+		<tr>
+			<th width="30">No</th>
+			<th width="120">No Container</th>
+			<th width="120">Size/Type/Status</th>
+			<th width="120">Consignee</th>
+			<th width="120">Vessel/Voy</th>
+			<th width="150">Tgl Berlaku </th>
+		</tr>
+		<tr align="center">
+			<td>1</td>
+			<td>{$row_list.NO_CONTAINER}</td>
+			<td>{$row_list.SIZE_}/{$row_list.TYPE_}/{$row_list.STATUS}</td>
+			<td>{$row_list.EMKL}</td>
+			<td>{$row_list.O_VESSEL}/{$row_list.O_VOYIN}</td>
+			<td>
+			<? if($row_list["STATUS_REQ"] == 'PERP'){
+				$no_co = $row_list['NO_CONTAINER'];
+				$no_re = $row_list['NO_REQUEST'];
+			
+				$tgl_awal = "SELECT ((TO_DATE(a.TGL_APPROVE,'dd/mm/rrrr')+3)+b.PERP_KE-1) TGL_AWAL FROM container_stripping a, request_stripping b where a.no_request = b.no_request
+                and a.no_container = '$no_co' AND a.no_request = '$no_re'";
+				
+				$perp	= $db->query($tgl_awal);
+				$perp_	= $perp->fetchRow(); 
+				//debug($perp_); die;
+				echo $perp_['TGL_AWAL']."-".$perp_['TGL_AWAL'];
+				
+				} else {
+					//echo $row_list['TGL_AWAL']."-".$row_list['TGL_AKHIR'];
+				
+				?>
+					{$row_list.TGL_AWAL} - {$row_list.TGL_AKHIR}
+				
+				<?php }?>
+			
+			</td>
+		</tr>
+    </table>
+	
+	<br height="50">
+	<table align="center" border="0" width="700" height="100">
+		<tr>
+			<td width="200" align=""></td>
+			<td width="150"></td>
+			<td width="350" align="center"><font size="2" face="verdana">Pontianak, {$row_list.SYSDATE_} &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</font></td>
+		</tr>
+		<tr>
+			<td></td>
+			<td ></td>
+			<td align="center">
+				a.n {$rowspv.JABATAN}<br>
+				<font size="2" face="verdana"></font>
+			</td>
+		</tr>
+		<tr height="50">
+		</tr>
+		<tr>
+			<td align="center"></td>
+			<td></td>
+			<td align="center">({$rowspv.NAMA_PEGAWAI})</td>
+		</tr>
+	</table>	
+<hr/>
+</fill>
+	
+</div>
+	
+	
+</body>
+</html>

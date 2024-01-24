@@ -1,0 +1,113 @@
+<div id="table_prod">
+<b>Entry Produksi Alat<b>
+<br/>
+<br/>
+<? if($barang=="container") {?>
+<table id="tt">
+<tr>
+<td>Size </td>
+<td>: <select name="size" id="size">
+			<option value="20">20</option>
+			<option value="40">40</option>
+			<option value="45">45</option>
+		</select></td>
+</tr>
+<tr>
+<td>Type </td>
+<td>: <select name="type" id="type">
+			<option value="DRY">DRY</option>
+			<option value="RFR">RFR</option>
+			<option value="OVD">OVD</option>
+			<option value="OT">OT</option>
+			<option value="TNK">TNK</option>
+			<option value="HQ">HQ</option>
+			<option value="FLT">FLT</option>
+		</select></td>
+		
+</tr>
+<tr>
+<td>Status </td>
+<td>: <select name="status" id="status">
+			<option value="FCL">FCL</option>
+			<option value="MTY">MTY</option>
+		</select></td>
+</tr>
+<tr>
+	<td>Jumlah </td>
+	<td>: <input type="text" name="jml_cont" size="5" id="jml_cont"/></td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td> &nbsp;</td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td align="right"> 
+    <input type="button" name="tambah_detail" value="Tambah Detail" onclick="tambah_ct('{$req}','{$id_details}','{$barang}')" />
+</td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+</tr>
+</table>
+<table class="cb" border='0' cellpadding="1" cellspacing="1"  width="100%" id="uu">
+	<tr>
+		<th class="grid-header">No.</th>
+		<th class="grid-header">Size / Type / Status</th>
+		<th class="grid-header">Jumlah</th>
+		<th class="grid-header">Action</th>
+	</tr>
+	<? $A=1;?>
+	<fill src="list" var="rows">
+	<tr align="center">
+		<td>{$A}</td>
+		<td>{$rows.UKURAN}/{$rows.TYPE}/{$rows.STATUS}</td>
+		<td>{$rows.JUMLAH_CONT}</td>
+		<td><i><button name="min" onclick="minus_ct('{$rows.ID}','{$req}','{$id_details}','{$barang}')">delete</button></td>
+	</tr>
+	<? $A+=1;?>
+	</fill>
+	</table>
+	
+<? } else { ?>
+
+<table id="tt">
+<tr>
+	<td>Jumlah Palka</td>
+	<td>: <input type="text" name="jml_palka" size="5" id="jml_palka"/></td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td> &nbsp;</td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td align="right"> 
+    <input type="button" name="tambah_detail" value="Tambah Detail" onclick="tambah_ct('{$req}','{$id_details}','{$barang}')" />
+</td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+</tr>
+</table>
+<table class="cb" border='0' cellpadding="1" cellspacing="1"  width="100%" id="uu">
+	<tr>
+		<th class="grid-header">No.</th>
+		<th class="grid-header">Jenis</th>
+		<th class="grid-header">Jumlah</th>
+		<th class="grid-header">Action</th>
+	</tr>
+	<? $A=1;?>
+	<fill src="list" var="rows">
+	<tr align="center">
+		<td>{$A}</td>
+		<td>{$rows.ID_CONT}</td>
+		<td>{$rows.JUMLAH_CONT}</td>
+		<td><i><button name="min" onclick="minus_ct('{$rows.ID}','{$req}','{$id_details}','{$barang}')">delete</button></td>
+	</tr>
+	<? $A+=1;?>
+	</fill>
+	</table>
+<? } ?>
+
+</div>

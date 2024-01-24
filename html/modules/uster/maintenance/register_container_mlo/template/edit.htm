@@ -1,0 +1,27 @@
+<span class="graybrown"><img src='images/sp2_p.png' border='0' class="icon"/><font color="#0378C6"> Master</font> Tarif</span><br/><br/>
+<fieldset class="form-fieldset" style="margin: 5px 5px 5px 5px; ">
+	<center>
+	<form enctype="multipart/form-data" action="<?=HOME?><?=APPID?>/edit_tarif" method="post">
+    <table class="form-input" style="margin: 30px 30px 30px 30px;"  >
+    	<tr>
+            <td  class="form-field-caption"> ID ISO </td>
+            <td> : </td>
+            <td> <input type="text" name="id_iso" ID="id_iso" value='{$row.ID_ISO}'/> 
+			<input type="hidden" name="id_group_tarif" ID="id_group_tarif" value='{$row.ID_GROUP_TARIF}'/> </td>
+        </tr>
+        <tr>
+            <td  class="form-field-caption"> Kategori Tarif</td>
+            <td> : </td>
+            <td> <input type="text" name="kategori_tarif" ID="kategori_tarif" value='{$row.KATEGORI_TARIF}'/> </td>
+        </tr>
+        <tr>
+            <td  class="form-field-caption"> Tarif </td>
+            <td> : </td>
+            <td> <input type="text" name="tarif" ID="tarif" value='{$row.TARIF}'/> </td>
+        </tr>
+        <tr align="center">
+        	<td colspan="7"><input type="submit" value=" Simpan " /></td>
+        </tr>
+	</table>
+    </form>
+</fieldset>

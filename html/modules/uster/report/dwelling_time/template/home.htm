@@ -1,0 +1,117 @@
+<span class="graybrown"><img src='images/document-print-preview.png' border='0' class="icon"/><font color="#0378C6"> Cetak</font> Report Dwelling Time</span><br/><br/>
+<fieldset class="form-fieldset" style="margin: 5px 5px 5px 5px; ">
+<form id="searchForm" name="searchForm" action="{HOME}delivery.permintaan/search/" method="get">
+<div style="padding:10px;font-family:Arial; font-size:8pt; color:#555555; font-weight:bold">
+	<table> 
+		<tr>
+		<td>Pilih Lapangan</td>
+		<td> : </td><td>
+			<?php
+				$db				= getDB("storage");
+				$get_yard		= "SELECT * FROM YARD_AREA WHERE STATUS='AKTIF'";
+				$result_yard	= $db->query($get_yard);
+				$row_yard		= $result_yard->getAll();
+				$y_list			= "<select id='lokasi' name='lokasi' onchange='search_request()'>"; 
+				$cur_y			= $_SESSION["IDYARD_STORAGE"];
+						
+				foreach($row_yard as $row)
+				{	
+					$y_id	= $row["ID"];
+					$y_name	= $row["NAMA_YARD"];
+					$y_list	.= "<option value='$y_id' ";
+					if($cur_y == $y_id)
+					{
+						$y_list .= "selected=selected";
+					}
+					$y_list	.= ">$y_name</option>";
+				}
+						
+				$y_list	.= "</select>";
+				echo $y_list;
+			?>
+			
+			</td><td>   
+		</tr>
+		
+		<tr> 
+			<td>MLO </td> 
+			<td> : </td>
+			<td><select id="mlo" onchange="search_request()">
+				<option value="Y">Ya</option>
+				<option value="T">Tidak</option>
+				<option value="A">All</option>				
+				</select>
+			</td>
+		</tr>
+		
+		<tr> 
+			<td>Status </td> 
+			<td> : </td>
+			<td><select id="status" onchange="search_request()">
+				<option value="MTY">MTY</option>
+				<option value="FCL">FCL</option>
+				<option value="LCL">LCL</option>
+				</select>
+			</td>
+		</tr>
+				 
+		<tr>
+			<td> </td>
+			<td></td>
+			<td> <input type="button" value="Cetak" onclick="print()" /> &nbsp;<input type="button" value="Cetak Excel" onclick="toexcel();" /> </td>
+		</tr>
+        
+		<br> 
+	</table>			  
+</div>
+</form>
+</fieldset>
+
+<fieldset class="form-fieldset" style="margin: 5px 5px 5px 5px; ">
+<center>    
+	<div id="dwelling_list" style="margin: 5px 5px 5px 5px">    
+	</div>    
+</center>
+</fieldset>
+ 
+<script>
+
+$(function() 
+{	
+	var lokasi 	= $("#lokasi").val();
+	var mlo 	= $("#mlo").val();
+	var status 	= $("#status").val();
+	
+	$("#dwelling_list").load('<?=HOME?><?=APPID?>/dwelling_list?lokasi='+lokasi+'&mlo='+mlo+'&status='+status+' #list', function(data) {        	  
+	}); 
+});
+
+function search_request()
+{
+	var lokasi 	= $("#lokasi").val();
+	var mlo 	= $("#mlo").val();
+	var status 	= $("#status").val();
+	
+	$("#dwelling_list").load('<?=HOME?><?=APPID?>/dwelling_list?lokasi='+lokasi+'&mlo='+mlo+'&status='+status+' #list', function(data) {        	  
+	});
+
+}
+function toexcel(){
+	var lokasi 	= $("#lokasi").val();
+	var mlo = $("#mlo").val();
+	var status = $("#status").val();
+	var url 	    = "<?=HOME?><?=APPID?>.toexcel/toexcel?lokasi="+lokasi+'&mlo='+mlo+'&status='+status;
+	
+	window.open(url, "_blank");
+}
+
+function print(){
+	var lokasi 	= $("#lokasi").val();
+	var mlo = $("#mlo").val();
+	var status = $("#status").val();
+	var url 	    = "<?=HOME?><?=APPID?>.print/print?lokasi="+lokasi+'&mlo='+mlo+'&status='+status;;
+	
+	window.open(url, "_blank");
+}
+
+</script>

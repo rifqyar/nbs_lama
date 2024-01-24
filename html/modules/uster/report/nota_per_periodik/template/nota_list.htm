@@ -1,0 +1,101 @@
+
+ <div id="list">
+     <table class="grid-table" border='0' cellpadding="1" cellspacing="1"  width="100%" >
+                              <tr style=" font-size:10pt">
+                                  <th valign="top" class="grid-header"  style="font-size:8pt">No </th>
+                                  <th valign="top" class="grid-header"  style="font-size:8pt">No. Nota </th>
+								  <th valign="top" class="grid-header"  style="font-size:8pt">No. Faktur Pajak </th>
+                                  <th  valign="top" class="grid-header"  style="font-size:8pt">No. Request </th>
+                                  <th  valign="top" class="grid-header"  style="font-size:8pt">Kegiatan</th> 
+                                  <th valign="top" class="grid-header"  style="font-size:8pt">Tgl Kegiatan</th>
+                                  <th valign="top" class="grid-header"  style="font-size:8pt">Pemilik Barang</th>
+								  <th valign="top" class="grid-header"  style="font-size:8pt">Pembayaran</th> 
+                                  <th valign="top" class="grid-header"  style="font-size:8pt">Total Tagihan</th> 
+								  <th valign="top" class="grid-header"  style="font-size:8pt">Status Lunas</th> 
+								  <th valign="top" class="grid-header"  style="font-size:8pt">Status Batal/Tidak</th> 
+								  <th valign="top" class="grid-header"  style="font-size:8pt">Status Nota</th>
+								  <th valign="top" class="grid-header"  style="font-size:8pt">Status Transfer Ke Simkeu</th>
+								  <th valign="top" class="grid-header"  style="font-size:8pt">Bank</th>
+                              </tr>
+                              <fill src="row_list" var="rows">
+                              <tr bgcolor="#f9f9f3" onMouseOver=this.style.backgroundColor="#BAD5FC" onMouseOut=this.style.backgroundColor="">
+                                  <td width="4%" align="center" valign="middle" class="grid-cell" style="color:#000; font-family:Arial; font-size:9pt">{$__ctr} </td>
+                                  <td width="22%" align="center" valign="middle" class="grid-cell"   style="font-family:Arial; font-size:11pt; color:#555555"><b>{$rows.NO_NOTA_MTI}</b></td>
+								  <td width="22%" align="center" valign="middle" class="grid-cell"   style="font-family:Arial; font-size:11pt; color:#555555"><b>{$rows.NO_FAKTUR_MTI}</b></td>
+                                  <td width="15%" align="center" valign="middle" class="grid-cell"  style="font-size:9pt">{$rows.NO_REQUEST}</td>
+                                  <td width="15%" align="center" valign="middle" class="grid-cell"  style="font-size:9pt;font-family:Arial;"><font color="#0066CC" style="font-size:10pt">{$rows.KEGIATAN}</font></td>
+                                  <td width="15%" align="center" valign="middle" class="grid-cell"  style="font-size:9pt;font-family:Arial;"><font color="#0066CC" style="font-size:10pt">{$rows.TGL_NOTA}</font></td>
+                                  <td width="15%" align="center" valign="middle" class="grid-cell"  style="font-size:9pt;font-family:Arial;"><font color="#0066CC" style="font-size:10pt">{$rows.EMKL}</font></td>
+								  <td width="15%" align="center" valign="middle" class="grid-cell"  style="font-size:9pt;font-family:Arial;"><font color="#0066CC" style="font-size:10pt">{$rows.BAYAR}</font></td>
+                                  <td width="15%" align="center" valign="middle" class="grid-cell"  style="font-size:9pt;font-family:Arial;"><font color="#0066CC" style="font-size:10pt">Rp {$rows.TOTAL_TAGIHAN},-</font></td>
+								  <td width="15%" align="center" valign="middle" class="grid-cell"  style="font-size:9pt;font-family:Arial;"><font color="#0066CC" style="font-size:10pt">{$rows.LUNAS}</font></td>
+								  <td width="15%" align="center" valign="middle" class="grid-cell"  style="font-size:9pt;font-family:Arial;"><font color="#0066CC" style="font-size:10pt">{$rows.STATUS}</font></td>
+								  <?php //echo $jmlk;
+								  if($rows["ASAL"] == "TPK"){
+									$no_request = $rows["NO_REQUEST"];
+											$db 	= getDB("storage");
+											$query_cek_ = "SELECT * FROM (
+														SELECT CONTAINER_DELIVERY.NO_REQUEST NO_REQUEST, CONTAINER_DELIVERY.NO_CONTAINER NO_CONTAINER, BORDER_GATE_OUT.TGL_IN TGL
+														FROM CONTAINER_DELIVERY LEFT JOIN BORDER_GATE_OUT ON CONTAINER_DELIVERY.NO_REQUEST = BORDER_GATE_OUT.NO_REQUEST
+														UNION
+														SELECT CONTAINER_RECEIVING.NO_REQUEST NO_REQUEST, CONTAINER_RECEIVING.NO_CONTAINER NO_CONTAINER, BORDER_GATE_IN.TGL_IN TGL
+														FROM CONTAINER_RECEIVING LEFT JOIN BORDER_GATE_IN ON CONTAINER_RECEIVING.NO_REQUEST = BORDER_GATE_IN.NO_REQUEST
+														UNION
+														SELECT CONTAINER_STRIPPING.NO_REQUEST NO_REQUEST, CONTAINER_STRIPPING.NO_CONTAINER NO_CONTAINER, BORDER_GATE_IN.TGL_IN TGL
+														FROM CONTAINER_STRIPPING LEFT JOIN BORDER_GATE_IN ON CONTAINER_STRIPPING.NO_REQUEST = BORDER_GATE_IN.NO_REQUEST
+														UNION
+														SELECT CONTAINER_STUFFING.NO_REQUEST NO_REQUEST, CONTAINER_STUFFING.NO_CONTAINER NO_CONTAINER, BORDER_GATE_IN.TGL_IN TGL
+														FROM CONTAINER_STUFFING LEFT JOIN BORDER_GATE_IN ON CONTAINER_STUFFING.NO_REQUEST = BORDER_GATE_IN.NO_REQUEST)
+														WHERE NO_REQUEST LIKE '$no_request'";
+											$res_ungate = $db->query($query_cek_);
+											$row_ungate = $res_ungate->getAll();
+									
+											$jumlah = count($row_ungate);
+											if($jumlah > 0){?> 
+											  <td width="15%" align="center" valign="middle" class="grid-cell"  style="font-size:9pt;font-family:Arial;"><font color="#0066CC" style="font-size:10pt">
+											  <a style="color:red">Not Ready to Transfer</a></font></td>
+											  <?if ($rows['TRANSFER'] == 'Y'){?>
+											  <td width="15%" align="center" valign="middle" class="grid-cell"  style="font-size:9pt;font-family:Arial;"><font color="#0066CC" style="font-size:10pt">
+											  <a style="color:green">Sudah Tertansfer</a></font></td>
+											  <? } else {?>
+												  <td width="15%" align="center" valign="middle" class="grid-cell"  style="font-size:9pt;font-family:Arial;"><font color="#0066CC" style="font-size:10pt">
+												<a style="color:red">Belum Tertansfer</a></font></td>
+											  <?}?>
+								  <?php 
+											}
+											else{?>
+											  <td width="15%" align="center" valign="middle" class="grid-cell"  style="font-size:9pt;font-family:Arial;"><font color="#0066CC" style="font-size:10pt">
+											  <a style="color:green">Ready to Transfer</a></font></td>
+											    <?if ($rows['TRANSFER'] == 'Y'){?>
+											  <td width="15%" align="center" valign="middle" class="grid-cell"  style="font-size:9pt;font-family:Arial;"><font color="#0066CC" style="font-size:10pt">
+											  <a style="color:green">Sudah Tertansfer</a></font></td>
+											  <? } else {?>
+												  <td width="15%" align="center" valign="middle" class="grid-cell"  style="font-size:9pt;font-family:Arial;"><font color="#0066CC" style="font-size:10pt">
+												<a style="color:red">Belum Tertansfer</a></font></td>
+											  <?}?>
+											<?php }?>
+								  <?php
+								  } 
+								  else { ?> 
+											  <td width="15%" align="center" valign="middle" class="grid-cell"  style="font-size:9pt;font-family:Arial;"><font color="#0066CC" style="font-size:10pt">
+											  <a style="color:green">Ready to Transfer</a></font></td>
+											   <?if ($rows['TRANSFER'] == 'Y'){?>
+											  <td width="15%" align="center" valign="middle" class="grid-cell"  style="font-size:9pt;font-family:Arial;"><font color="#0066CC" style="font-size:10pt">
+											  <a style="color:green">Sudah Tertansfer</a></font></td>
+											  <? } else {?>
+												  <td width="15%" align="center" valign="middle" class="grid-cell"  style="font-size:9pt;font-family:Arial;"><font color="#0066CC" style="font-size:10pt">
+												<a style="color:red">Belum Tertansfer</a></font></td>
+											  <?}?>
+								  <?php }?>
+								  <td width="15%" align="center" valign="middle" class="grid-cell"  style="font-size:9pt;font-family:Arial;"><font color="#0066CC" style="font-size:10pt">{$rows.RECEIPT_ACCOUNT}</font></td>
+                              </tr>
+                              </fill>
+							<?php if(count($rows) > 0) {?>
+							<tr>
+								<td colspan="6" align="right"><input type="button" value=" Cetak Detail Nota 1 " onclick="topdf()"/> </td>
+								<td align="right"><input type="button" value=" Cetak Detail Nota 2 " onclick="topdf2()"/> </td>
+								<td align="right"> <input type="button" value=" Export to Excel" onclick="toexcel()" /> </td>
+							</tr>
+							<?php } ?>
+        </table>
+ </div>

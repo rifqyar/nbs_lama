@@ -1,0 +1,69 @@
+
+<span class="graybrown"><img src='images/yard.gif' border='0' class="icon" width="50" height="50"/><font color="#0378C6"> Report YARD </font> Per Periodik</span><br/><br/>
+      <fieldset class="form-fieldset" style="margin: 5px 5px 5px 5px; ">
+        <form id="form" name="form" action="<?=HOME?>report.yard_periodik/filter_yard" method="POST">
+		<div style="padding:10px;font-family:Arial; font-size:8pt; color:#555555; font-weight:bold">
+            <table> <tr>
+						<td class="form-field-caption" valign="top" align="right">Pilih Tanggal Preview Lapangan</td>
+						<td class="form-field-caption" valign="top" align="right"> : </td>
+						<td class="form-field-caption" valign="top" align="left" width="500">
+						<input type="text" name="tgl_awal" id="tgl_awal"/></td>
+				<tr>
+				<tr>
+						<td class="form-field-caption" valign="top" align="right">Pilih periode </td>
+						<td class="form-field-caption" valign="top" align="right"> : </td>
+						<td class="form-field-caption" valign="top" align="left" width="500">
+						<select id="periode" name="periode">
+				<option value=""> -- Pilih -- </option>		
+						<option value="04:00"> Periode 1 (04.00) </option>					
+						<option value="08:00"> Periode 2 (08.00)</option>
+						<option value="12:00"> Periode 3 (12.00) </option>					
+						<option value="16:00"> Periode 4 (16.00)</option>
+						<option value="20:00"> Periode 5 (20.00) </option>					
+						<option value="00.00"> Periode 6 (00.00)</option>
+					</select></td>
+				<tr>
+				<tr>
+						<td class="form-field-caption" valign="top" align="right">Pilih kategori preview </td>
+						<td class="form-field-caption" valign="top" align="right"> : </td>
+						<td class="form-field-caption" valign="top" align="left" width="500">
+						<select id="kategori" name="kategori">
+							<option value=""> -- Pilih -- </option>		
+							<option value="1"> Yard Allocation Planning </option>					
+							<option value="2"> Placement Yard </option>
+					</select></td>
+				<tr>
+				<tr>
+					<td colspan="3" class="form-field-caption" valign="top" align="right" ><a class="link-button" style="height:25" onclick="generate()"><img src='images/cari.png' border='0' />Generate Lapangan</a>  &nbsp;&nbsp; <a class="link-button" style="height:25" onclick="toexcel()"><img src='images/cari.png' border='0' />Export Excel</a> </td>
+				</tr>
+				
+			</table>
+		</div>
+        </form>
+	
+	   </fieldset>
+	   </form>
+<script>
+$(function() {	
+
+	$( "#tgl_awal" ).datepicker();
+	$( "#tgl_awal" ).datepicker( "option", "dateFormat", "dd/mm/yy" );
+        
+});
+
+function generate()
+{
+	var tgl_awal_ 	= $("#tgl_awal").val();
+	var periode		= $("#periode").val();	
+	
+	if ($("#tgl_awal").val() == ''){
+		alert('tanggal kegiatan harus diisi');
+	} else if ($("#periode").val() == ''){
+		alert('periode harus diisi');
+	} else {
+		$('#form').submit();
+	}
+}
+
+</script>
+

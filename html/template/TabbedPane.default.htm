@@ -1,0 +1,68 @@
+<div id='tp_{$name}' style='width:{$width}; height:{$height}; display:block;'>
+  <table width="100%" height="{$height}" cellpadding="0" cellspacing="0" border="0">
+    <tr height="1">
+      <td style="padding-left: 10px;" valign="top"><ul class="{$tab_class}tabs">
+          <fill src='tabs' var='tab'>
+            <li id='tab_{$name}_{$tab.id}' style="{$tab.tabstyle}" onclick="{$name}_showTab('{$name}_{$tab.id}')"> <span class="tab-item"> <span class="tab-item-0"> <a title="click to show content.." style="cursor:default;">{$tab.title}</a> </span> </span> </li>
+          </fill>
+        </ul></td>
+    </tr>
+    <tr>
+      <td style="{$panelstyle}" class="form-fieldset" valign="top"><fill src='tabs' var='tab'>
+          <div id='pane_{$name}_{$tab.id}' style="visibility:hidden; display:none; " > {$tab.text} </div>
+        </fill></td>
+    </tr>
+  </table>
+</div>
+<script language="javascript">
+
+	var {$name}_tabs = new Array(
+							{$ids}	
+						);
+	function {$name}_showTab(id) {
+		//window.alert('finding pane_'+id); 
+		var o = getObject( 'pane_'+id );
+		if (o) {
+			var i;
+			for (i=0;i<{$name}_tabs.length;i++) {
+				var tid = {$name}_tabs[i];
+				if (tid!=id) 
+					{$name}_hideTab( tid );
+			}
+			
+			// pane..
+			o.style.visibility 	= 'visible';
+			o.style.display		= 'block';
+			
+			// tab..
+			o = getObject('tab_'+id);
+			if (o) {
+				o.className = 'tab-active';
+			}
+			
+		} else {
+			window.alert('cannot find pane_'+id);
+		}
+	}
+	
+	function {$name}_hideTab( id ) {
+		var o = getObject('pane_'+id);
+		if (o) {
+			
+			// pane..
+			o.style.visibility 	= 'hidden';
+			o.style.display		= 'none';
+			
+			// tab..
+			o = getObject('tab_'+id);
+			if (o) {
+				o.className = 'tab-normal';
+			}
+		
+		} else {
+			window.alert('cannot find pane_'+id);
+		}
+	}
+	
+	{$name}_showTab('{$name}_{$activetab}');
+</script>

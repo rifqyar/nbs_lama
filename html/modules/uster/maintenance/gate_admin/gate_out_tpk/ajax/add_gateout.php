@@ -1,0 +1,372 @@
+<?php
+
+$db 			= getDB("storage");
+
+
+//echo "dama";die;
+$no_cont		= $_POST["NO_CONT"]; 
+$no_req			= $_POST["NO_REQ"]; 
+$no_nota		= $_POST["NO_NOTA"];
+$no_truck		= $_POST["NO_TRUCK"]; 
+$kode_truck		= $_POST["KD_TRUCK"]; 
+$no_seal		= $_POST["NO_SEAL"]; 
+$status         = $_POST["STATUS"];
+$tgl_gate         = $_POST["tgl_gato"];
+$masa_berlaku   = $_POST["MASA_BERLAKU"]; 
+$keterangan		= $_POST["KETERANGAN"];
+$kd_pmb_dtl		= $_POST["KD_PMB_DTL"]; 
+$gross			= $_POST["GROSS"];
+$ht_op			= $_POST["HT_OP"];
+$no_req_ict		= $_POST["NO_REQ_ICT"];
+
+
+if($gross == NULL){
+	$gross = 0;
+}
+//echo $kd_pmb_dtl;exit;
+//debug($_POST);die;
+
+$qcek_gato = "SELECT COUNT(NO_CONTAINER) AS JUM
+			  FROM BORDER_GATE_OUT
+			  WHERE NO_CONTAINER = '$no_cont'
+			  AND NO_REQUEST = '$no_req'";
+$rcek_gato = $db->query($qcek_gato);
+$rwc_gato = $rcek_gato->fetchRow();
+$jum_gato = $rwc_gato["JUM"];
+if($jum_gato > 0){
+	echo "EXIST_GATO";
+	exit();
+}
+
+$id_user		= $_SESSION["LOGGED_STORAGE"];
+$nm_user		= $_SESSION["NAME"];
+$id_yard        = $_SESSION["IDYARD_STORAGE"];
+
+$selisih        = "SELECT TRUNC(TO_DATE('$masa_berlaku','DD/MM/YYYY') - TO_DATE('$tgl_gate','yy-mm-dd')) SELISIH FROM dual";
+$result_cek		= $db->query($selisih);
+$row_cek		= $result_cek->fetchRow();
+$selisih_tgl    = $row_cek["SELISIH"];
+
+$peralihan_     = "SELECT DELIVERY_KE, PERALIHAN, STATUS FROM request_delivery WHERE NO_REQUEST = '$no_req'";
+//echo $peralihan_;die;
+$result_cek		= $db->query($peralihan_);
+$row_cek		= $result_cek->fetchRow();
+$peralihan		= $row_cek["PERALIHAN"];
+$delivery_ke    = $row_cek["DELIVERY_KE"];
+$stat_req    = $row_cek["STATUS"];
+
+
+$peralihan_     = "SELECT LUNAS FROM nota_delivery WHERE NO_REQUEST = '$no_req'";
+//echo $peralihan_;die;
+$result_cek		= $db->query($peralihan_);
+$row_cek		= $result_cek->fetchRow();
+$lunas			= $row_cek["LUNAS"];
+if($stat_req == "AUTO_REPO"){
+	$cek_batal_muat = $db->query("SELECT * FROM REQUEST_BATAL_MUAT WHERE NO_REQ_BARU = '$no_req'");
+	$rcek_bm =  $cek_batal_muat->fetchRow();
+	$no_rqbm = $rcek_bm["NO_REQUEST"];
+	if($rcek_bm["BIAYA"] == 'T'){
+		$lunas = "YES";
+	}
+	else {
+		$cek_lunas_bm = $db->query("select * from nota_batal_muat where no_request = '$no_rqbm'");
+		$rlunas_bm = $cek_lunas_bm->fetchRow();
+		if($rlunas_bm["LUNAS"] == "YES"){
+			$lunas = "YES";
+		}
+		else {
+			echo "BATAL_MUAT_BLM_LUNAS";
+			exit();
+		}
+	}
+	
+}
+
+$cek_gate       = "SELECT NO_CONTAINER FROM GATE_OUT WHERE NO_CONTAINER = '$no_cont' AND NO_REQUEST = '$no_req'";
+//echo $peralihan_;die;
+$result_cek		= $db->query($cek_gate);
+$row_cek		= $result_cek->fetchRow();
+$cek_gate		= $row_cek["NO_CONTAINER"];
+
+//$get_commodity = "SELECT KOMODITI, BERAT FROM CONTAINER_DELIVERY WHERE NO_CONTAINER = '$no_cont' AND NO_REQUEST = '$no_req'";
+
+
+/*echo $selisih_tgl;
+echo $peralihan;
+echo $delivery_ke;
+echo $no_nota;
+echo $lunas;
+*/
+//echo "selisih tanggal :".$selisih_tanggal."<br/> peralihan :".$peralihan."delivery ke :".$delivery_ke."lunas: ".$lunas; die;
+
+// IF untuk kondisi RELOKASI
+if (($no_nota == NULL) && ($peralihan == 'RELOKASI') && ($selisih_tgl < 0) && ($delivery_ke == NULL) && ($lunas == NULL)) {
+    echo "EXPIRED";
+} else if (($no_nota == NULL) && ($peralihan == 'RELOKASI') && ($selisih_tgl >= 0) && ($delivery_ke <> 'TPK') && ($lunas == NULL)){ 
+
+
+
+//================================= GATE IN SIMOP ============================================//
+	/*
+	$sql 	= "UPDATE PETIKEMAS_CABANG.TTD_CONT_EXBSPL 
+	SET TGL_GATE=SYSDATE,
+	NO_GATE='001', 
+	NO_SEAL='$no_seal', 
+	GROSS='".$GROSS."',
+	TRUCK_NO='$no_truck',
+	TRUCK_OP='".$TRUCK_OP."',
+	KETERANGAN='$keterangan',
+	STATUS_PMB_DTL='1', 
+	USER_ID='$nm_user'  
+	WHERE KD_PMB_DTL='$kd_pmb_dtl'";
+	
+	*/
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+//==================================gate uster==============================================================================================================================	
+	
+	
+	
+    $query_insert	= "INSERT INTO GATE_OUT( NO_REQUEST, NO_CONTAINER, ID_USER, TGL_IN, NOPOL, STATUS, NO_SEAL, TRUCKING, KETERANGAN, ID_YARD) 
+								     VALUES('$no_req', '$no_cont', '$id_user', TO_DATE('$tgl_gate','yy-mm-dd'), '$no_truck', '$status','$no_seal','$kode_truck','$keterangan','$id_yard')";
+   // echo $query_insert;
+    $db->query("UPDATE MASTER_CONTAINER SET LOCATION = 'GATO' WHERE NO_CONTAINER = '$no_cont'");
+    
+    $history  = "INSERT INTO history_container(NO_CONTAINER, NO_REQUEST, KEGIATAN, TGL_UPDATE, ID_USER, STATUS_CONT) 
+                                                      VALUES ('$no_cont','$no_req','GATE OUT',SYSDATE,'$id_user','$status')";
+           // echo $history;die;
+    $db->query($history);
+    
+   // $selisih        = "SELECT a.NO_REQUEST, a.PERALIHAN, a.RECEIVING_DARI FROM REQUEST_RECEIVING a, CONTAINER_RECEIVING b WHERE a.NO_REQUEST = b.NO_REQUEST AND b.NO_CONTAINER = '$no_cont' AND b.AKTIF = 'Y'";
+    //$result_cek     = $db->query($selisih);
+    //$row_cek        = $result_cek->fetchRow();
+    //$no_req_rec     = $row_cek["NO_REQUEST"];
+    //$peralihan      = $row_cek["PERALIHAN"];
+    //$rec_dari       = $row_cek["RECEIVING_DARI"];
+
+   
+    
+    if ($peralihan == 'RELOKASI'){
+        $data = "INSERT INTO HANDLING_PIUTANG (NO_CONTAINER, KEGIATAN, STATUS_CONT, TANGGAL, NO_REQUEST, ID_YARD) VALUES 
+            ('$no_cont','LIFT OFF','$status',TO_DATE('$tgl_gate','yy-mm-dd'),'$no_req', '$id_yard')";
+        $db->query($data);
+        $data2 ="INSERT INTO HANDLING_PIUTANG (NO_CONTAINER, KEGIATAN, STATUS_CONT, TANGGAL, NO_REQUEST, ID_YARD) VALUES 
+            ('$no_cont','HAULAGE','$status',TO_DATE('$tgl_gate','yy-mm-dd'),'$no_req', '$id_yard')";
+        $db->query($data2);
+       // echo $data; echo $data2; die;
+    }    
+    
+    $db->query("UPDATE CONTAINER_DELIVERY SET AKTIF = 'T' WHERE NO_CONTAINER = '$no_cont' AND NO_REQUEST = '$no_req'");
+    $db->query("UPDATE CONTAINER_DELIVERY SET KELUAR = 'Y' WHERE NO_CONTAINER = '$no_cont' AND NO_REQUEST = '$no_req'");
+    if($db->query($query_insert))
+    {
+	echo "OK";
+    }
+	
+	//==================================gate uster==============================================================================================================================
+	
+// IF untuk kondisi DELIVERY KE  LUAR DEPO (bukan TPK)
+} else if (($no_nota <> NULL) && ($peralihan <> 'RELOKASI') && ($selisih_tgl < 0) && ($delivery_ke == 'LUAR') && ($lunas == 'NO')){ 
+    echo "BLM LUNAS DAN EXPIRED";
+} else if (($no_nota <> NULL) && ($peralihan <> 'RELOKASI') && ($selisih_tgl >= 0) && ($delivery_ke == 'LUAR') && ($lunas == 'NO')){ 
+    echo "BLM LUNAS";
+} else if (($no_nota <> NULL) && ($peralihan <> 'RELOKASI') && ($selisih_tgl < 0) && ($delivery_ke == 'LUAR') && ($lunas == 'YES')){ 
+    echo "EXPIRED";
+} else if (($no_nota <> NULL) && ($peralihan <> 'RELOKASI') && ($selisih_tgl >= 0) && ($delivery_ke == 'LUAR') && ($lunas == 'YES')){ 
+   
+   //==================================gate uster==============================================================================================================================
+	
+    $query_insert	= "INSERT INTO GATE_OUT( NO_REQUEST, NO_CONTAINER, ID_USER, TGL_IN, NOPOL, STATUS, NO_SEAL, TRUCKING, KETERANGAN, ID_YARD) VALUES('$no_req', '$no_cont', '$id_user', TO_DATE('$tgl_gate','yy-mm-dd'), '$no_truck', '$status','$no_seal','$kode_truck','$keterangan','$id_yard')";
+   // echo $query_insert;die;
+    $db->query("UPDATE MASTER_CONTAINER SET LOCATION = 'GATO' WHERE NO_CONTAINER = '$no_cont'");
+    
+    $history  = "INSERT INTO history_container(NO_CONTAINER, NO_REQUEST, KEGIATAN, TGL_UPDATE, ID_USER, STATUS_CONT) 
+                                                      VALUES ('$no_cont','$no_req','GATE OUT',SYSDATE,'$id_user','$status')";
+           // echo $history;die;
+              $db->query($history);
+    
+   // $selisih        = "SELECT a.NO_REQUEST, a.PERALIHAN, a.RECEIVING_DARI FROM REQUEST_RECEIVING a, CONTAINER_RECEIVING b WHERE a.NO_REQUEST = b.NO_REQUEST AND b.NO_CONTAINER = '$no_cont' AND b.AKTIF = 'Y'";
+   // $result_cek     = $db->query($selisih);
+   // $row_cek        = $result_cek->fetchRow();
+    //$no_req_rec     = $row_cek["NO_REQUEST"];
+    //$peralihan      = $row_cek["PERALIHAN"];
+    //$rec_dari       = $row_cek["RECEIVING_DARI"];
+
+    
+    
+    if ($peralihan == 'RELOKASI'){
+        $data = "INSERT INTO HANDLING_PIUTANG (NO_CONTAINER, KEGIATAN, STATUS_CONT, TANGGAL, NO_REQUEST, ID_YARD) VALUES 
+            ('$no_cont','LIFT OFF','$status',TO_DATE('$tgl_gate','yy-mm-dd'),'$no_req','$id_yard')";
+        $db->query($data);
+        $data2 ="INSERT INTO HANDLING_PIUTANG (NO_CONTAINER, KEGIATAN, STATUS_CONT, TANGGAL, NO_REQUEST, ID_YARD) VALUES 
+            ('$no_cont','HAULAGE','$status',TO_DATE('$tgl_gate','yy-mm-dd'),'$no_req','$id_yard')";
+        $db->query($data2);
+       // echo $data; echo $data2; die;
+    }    
+    
+    $db->query("UPDATE CONTAINER_DELIVERY SET AKTIF = 'T' WHERE NO_CONTAINER = '$no_cont' AND NO_REQUEST = '$no_req'");
+    $db->query("UPDATE CONTAINER_DELIVERY SET KELUAR = 'Y' WHERE NO_CONTAINER = '$no_cont' AND NO_REQUEST = '$no_req'");
+    if($db->query($query_insert))
+    {
+	echo "OK";
+    }
+	
+	//==================================gate uster==============================================================================================================================
+	
+// IF UNTUK DELIVERY KE TPK
+
+
+} else if (($no_nota <> NULL) && ($peralihan <> 'RELOKASI') && ($selisih_tgl == NULL) && ($delivery_ke == 'TPK') && ($lunas == 'NO')){ 
+    echo "BLM LUNAS DAN EXPIRED";
+} else if (($no_nota <> NULL) && ($peralihan <> 'RELOKASI') && ($selisih_tgl == NULL) && ($delivery_ke == 'TPK') && ($lunas == 'NO')){ 
+    echo "BLM LUNAS";
+}
+/* 
+else if (($no_nota <> NULL) && ($peralihan <> 'RELOKASI') && ($selisih_tgl == NULL) && ($delivery_ke == 'TPK') && ($lunas == 'YES')){ 
+    echo "EXPIRED";
+}*/ 
+else if ( ($peralihan <> 'RELOKASI') && ($delivery_ke == 'TPK') ){
+
+
+//================================= GATE IN SIMOP ============================================//
+	if ($komoditi == '' || $komoditi == NULL)
+	{$kd_komoditi = 'C000000293';}	 
+	
+	if ($gross == '' || $gross == NULL)
+	{$gross = '0';}	 
+   
+	/* $sql 	= "UPDATE PETIKEMAS_CABANG.TTD_CONT_EXBSPL 
+	SET TGL_GATE=TO_DATE('$tgl_gate','yy-mm-dd'),
+	NO_GATE='001', 
+	NO_SEAL='$no_seal', 
+	GROSS='$gross',
+	KD_COMMODITY = '$kd_komoditi',
+	TRUCK_NO='$no_truck',
+	TRUCK_OP='$ht_op',
+	KETERANGAN='$keterangan',
+	STATUS_PMB_DTL='1U', 
+	USER_ID='$nm_user'  
+	WHERE KD_PMB_DTL='$kd_pmb_dtl'"; */
+	
+	// $db->query("UPDATE PETIKEMAS_CABANG.TTD_CONT_EXBSPL SET STATUS_PMB_DTL='1U' WHERE NO_CONTAINER='$no_cont' AND KD_PMB = '$no_req_ict'");
+   
+   //==================================gate uster==============================================================================================================================
+	
+	
+		/* $qcek_pmb = "SELECT STATUS_PMB_DTL FROM PETIKEMAS_CABANG.TTD_CONT_EXBSPL WHERE NO_CONTAINER = '$no_cont' AND KD_PMB_DTL='$kd_pmb_dtl'";		
+		$rcek_pmb = $db->query($qcek_pmb);
+		$row_pmb = $rcek_pmb->fetchRow();
+		if($row_pmb["STATUS_PMB_DTL"] != "1U"){
+			$sql 	= "UPDATE PETIKEMAS_CABANG.TTD_CONT_EXBSPL 
+						SET TGL_GATE=TO_DATE('$tgl_gate','yy-mm-dd'),
+						NO_GATE='001', 
+						NO_SEAL='$no_seal', 
+						GROSS='$gross',
+						KD_COMMODITY = '$kd_komoditi',
+						TRUCK_NO='$no_truck',
+						TRUCK_OP='$ht_op',
+						KETERANGAN='$keterangan',
+						STATUS_PMB_DTL='1U', 
+						USER_ID='$nm_user'  
+						WHERE KD_PMB_DTL='$kd_pmb_dtl'";
+			$db2->query($sql);
+		} */
+		
+		$query_insert = "INSERT INTO BORDER_GATE_OUT
+						( 	NO_REQUEST, 
+							NO_CONTAINER, 
+							ID_USER, 
+							TGL_IN, 
+							NOPOL, 
+							STATUS, 
+							NO_SEAL,
+							TRUCKING,
+							ID_YARD,
+							KETERANGAN,
+							ENTRY_DATE) 
+				   VALUES(	'$no_req', 
+							'$no_cont', 
+							'$id_user', 
+							TO_DATE('$tgl_gate','yy-mm-dd'), 
+							'$no_truck', 
+							'$status',
+							'$no_seal',
+							'$kode_truck',
+							'$id_yard',
+							'$keterangan',
+							SYSDATE)";
+		
+		$db->query("UPDATE MASTER_CONTAINER SET LOCATION = 'GATO' WHERE NO_CONTAINER = '$no_cont'");
+	
+		//Masih pakai data dummy
+		/* $q_getcounter1 = "SELECT NO_BOOKING, COUNTER FROM MASTER_CONTAINER WHERE NO_CONTAINER = '$no_cont' ORDER BY COUNTER DESC";
+		$r_getcounter1 = $db->query($q_getcounter1);
+		$rw_getcounter1 = $r_getcounter1->fetchRow();
+		$cur_booking1  = $rw_getcounter1["NO_BOOKING"];
+		$cur_counter1  = $rw_getcounter1["COUNTER"]; */
+		
+		$qbook = "SELECT NO_BOOKING, COUNTER, TO_CHAR (TGL_UPDATE + interval '10' minute, 'MM/DD/YYYY HH:MI:SS AM') TGL_UPDATE
+		 FROM HISTORY_CONTAINER WHERE NO_CONTAINER = '$no_cont' AND NO_REQUEST = '$no_req'";
+		$rbook = $db->query($qbook);
+		$rwbook = $rbook->fetchRow();
+		$cur_booking1 = $rwbook["NO_BOOKING"];
+		$cur_counter1 = $rwbook["COUNTER"];
+		$tgl_update = $rwbook["TGL_UPDATE"];
+		
+		$history  = "INSERT INTO history_container(NO_CONTAINER, NO_REQUEST, KEGIATAN, TGL_UPDATE, ID_USER, ID_YARD, STATUS_CONT, NO_BOOKING, COUNTER) 
+														  VALUES ('$no_cont','$no_req','BORDER GATE OUT',TO_DATE ('$tgl_update', 'MM/DD/YYYY HH:MI:SS AM'),'$id_user','$id_yard','$status','$cur_booking1','$cur_counter1')"; 
+			   // echo $history;die;
+		$db->query($history);
+		
+		$selisih        = "SELECT a.NO_REQUEST, a.PERALIHAN, a.RECEIVING_DARI FROM REQUEST_RECEIVING a, CONTAINER_RECEIVING b WHERE a.NO_REQUEST = b.NO_REQUEST AND b.NO_CONTAINER = '$no_cont' AND b.AKTIF = 'Y'";
+		$result_cek     = $db->query($selisih);
+		$row_cek        = $result_cek->fetchRow();
+		$no_req_rec     = $row_cek["NO_REQUEST"];
+		//$peralihan      = $row_cek["PERALIHAN"];
+		//$rec_dari       = $row_cek["RECEIVING_DARI"];
+
+		
+
+		
+		if ($peralihan == 'RELOKASI'){
+			$data = "INSERT INTO HANDLING_PIUTANG (NO_CONTAINER, KEGIATAN, STATUS_CONT, TANGGAL, NO_REQUEST, ID_YARD) VALUES 
+				('$no_cont','LIFT OFF','$status',TO_DATE('$tgl_gate','yy-mm-dd'),'$no_req','$id_yard')";
+			$db->query($data);
+			$data2 ="INSERT INTO HANDLING_PIUTANG (NO_CONTAINER, KEGIATAN, STATUS_CONT, TANGGAL, NO_REQUEST, ID_YARD) VALUES 
+				('$no_cont','HAULAGE','$status',TO_DATE('$tgl_gate','yy-mm-dd'),'$no_req','$id_yard')";
+			$db->query($data2);
+		   // echo $data; echo $data2; die;
+		}
+
+		
+
+		$db->query("UPDATE CONTAINER_DELIVERY SET AKTIF = 'T' WHERE NO_CONTAINER = '$no_cont' AND NO_REQUEST = '$no_req'");
+		$db->query("UPDATE CONTAINER_DELIVERY SET KELUAR = 'Y' WHERE NO_CONTAINER = '$no_cont' AND NO_REQUEST = '$no_req'");
+		
+		$db->query("DELETE FROM PLACEMENT WHERE NO_CONTAINER = '$no_cont'");
+		
+		if($db->query($query_insert))
+		{
+		echo "OK";
+		}
+		
+	
+    
+	
+	//==================================gate uster==============================================================================================================================
+	
+}
+else
+{
+	debug($_POST);	
+}
+
+?>

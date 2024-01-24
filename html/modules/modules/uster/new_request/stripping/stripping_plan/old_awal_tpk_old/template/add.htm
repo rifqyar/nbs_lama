@@ -1,0 +1,107 @@
+
+ 
+<div class="form-fieldset" style="margin: 5px 5px 5px 5px">
+	<h2> Request Stripping</h2>
+</div>
+
+
+<fieldset class="form-fieldset" style="margin: 5px 5px 5px 5px; ">
+<form id="form" action="<?=HOME?><?=APPID?>/add_do" method="POST">
+	<center>
+    <table style="margin: 30px 30px 30px 30px;" >
+    	<tr>
+        	<td>Pemilik</td>
+            <td> : </td>
+            <td> <input type="text" name="PEMILIK" id="PEMILIK" /> <input type="hidden" name="ID_PEMILIK" id="ID_PEMILIK" /> </td>
+    	</tr>
+        <tr>
+        	<td>EMKL</td>
+            <td> : </td>
+            <td> <input type="text" name="EMKL" id="EMKL"/> <input type="hidden" name="ID_EMKL" id="ID_EMKL" /> </td>
+    	</tr>
+		<tr>
+        	<td>Nomor D.O</td>
+            <td> : </td>
+            <td> <input type="text" name="NO_DO" id="NO_DO"/> </td>
+		</tr>
+		<tr>
+        	<td>Nomor B.L</td>
+            <td> : </td>
+            <td> <input type="text" name="NO_BL" id="NO_BL"/> </td>
+		</tr>
+		<tr>
+        	<td>Type Stripping</td>
+            <td> : </td>
+            <td> <select name="TYPE_S"> <option value="DOMESTIC"> DALAM NEGERI </option> <option value="INTERNATIONAL"> LUAR NEGERI </option> </select> </td>
+       	</tr>
+        <tr>
+        	<td>Keterangan</td>
+            <td> : </td>
+            <td> <input type="text" name="keterangan" id="KETERANGAN" style="width:250px"/></td>
+        </tr>
+        <tr>
+        	<td colspan="3"> <input type="submit" value=" Simpan "/></td>
+        </tr>
+	</table>
+    </center>
+</form>
+</fieldset>
+
+
+ 
+<script>
+
+$('#form').submit(function() {
+	if(	($("#ID_PEMILIK").val() == "") || ($("#ID_EMKL").val() == "") || ($("#NO_DO").val() == "") || ($("#NO_BL").val() == "") || ($("#KETERANGAN").val() == ""))
+	{
+		alert("Pemilik, EMKL, Keterangan, Nomor DO dan No BL Harus Terisi");
+		return false;		
+	}
+});
+
+$(function() {	
+	$( "#PEMILIK" ).autocomplete({
+		minLength: 3,
+		source: "{$HOME}{$APPID}.auto/pbm",
+		focus: function( event, ui ) {
+			$( "#PEMILIK" ).val( ui.item.NAMA );
+			return false;
+		},
+		select: function( event, ui ) {
+			$( "#PEMILIK" ).val( ui.item.NAMA );
+			$( "#ID_PEMILIK" ).val( ui.item.ID );
+			return false;
+		}
+	})
+	.data( "autocomplete" )._renderItem = function( ul, item ) {
+		return $( "<li></li>" )
+			.data( "item.autocomplete", item )
+			.append( "<a>" + item.NAMA + "</a>" )
+			.appendTo( ul );
+	};
+	
+	$( "#EMKL" ).autocomplete({
+		minLength: 3,
+		source: "{$HOME}{$APPID}.auto/pbm",
+		focus: function( event, ui ) {
+			$( "#EMKL" ).val( ui.item.NAMA );
+			return false;
+		},
+		select: function( event, ui ) {
+			$( "#EMKL" ).val( ui.item.NAMA );
+			$( "#ID_EMKL" ).val( ui.item.ID );
+			return false;
+		}
+	})
+	.data( "autocomplete" )._renderItem = function( ul, item ) {
+		return $( "<li></li>" )
+			.data( "item.autocomplete", item )
+			.append( "<a>" + item.NAMA + "</a>" )
+			.appendTo( ul );
+	};
+});
+
+
+
+
+</script>

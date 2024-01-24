@@ -1,0 +1,29 @@
+<div id="list">
+	<table width="100%">
+    	<thead>
+        	<tr>
+            	<th class="grid-header">No.</th>
+            	<th class="grid-header">No CONTAINER</th>
+                <th class="grid-header">STATUS</th>
+                <th class="grid-header">UKURAN</th>
+                <th class="grid-header">TIPE</th>
+				<th class="grid-header">BERBAHAYA</th>
+                <th width="70px" class="grid-header">&nbsp;</th>
+            </tr>
+        </thead>
+        <tbody>
+        	<fill src="row_list" var="rows">
+		   	<alt var='bg' list='#f9f9f3,#ffe'/>
+        	<tr bgcolor="{$bg}" style="cursor:pointer;">
+            	<td>{$__ctr}</td>
+            	<td>{$rows.NO_CONTAINER}</td>
+            	<td>{$rows.STATUS}</td>
+            	<td>{$rows.SIZE_}</td>
+            	<td>{$rows.TYPE_}</td>
+				<td>{$rows.HZ}</td>
+            	<td style="padding: 5px 5px 5px 5px;"> <button value=" Hapus " onclick="del_cont('{$rows.NO_CONTAINER}')" > &nbsp;Hapus&nbsp; </button></td>
+            </tr>
+            </fill>
+        </tbody>
+    </table>
+</div>

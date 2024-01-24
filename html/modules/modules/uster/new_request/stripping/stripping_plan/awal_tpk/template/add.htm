@@ -1,0 +1,246 @@
+
+ 
+<span class="graybrown"><img src='images/document-open.png' border='0' class="icon"/><font color="#DE7E21"> Perencanaan Stripping Petikemas </font></span>
+
+
+<fieldset class="form-fieldset" style="margin: 5px 5px 5px 5px; ">
+<form id="form-add" enctype="multipart/form-data" action="#" method="POST">
+	<center>
+    <table style="margin: 30px 30px 30px 30px;" >
+    	<tr>
+        	<td>Penerima / Consignee</td>
+            <td> : </td>
+            <td> 
+            	<input type="text" id="CONSIGNEE" size="40" name="CONSIGNEE" type="text" class="kdemkl " placeholder=" AUTOCOMPLETE" style="background-color:#FFFFCC;" /> 
+                <input size="40" name="ID_CONSIGNEE" id="ID_CONSIGNEE" type="hidden" />
+                <input size="40" name="ALMT_CONSIGNEE" id="ALMT_CONSIGNEE" type="hidden" />
+                <input size="40" name="NPWP_CONSIGNEE" id="NPWP_CONSIGNEE" type="hidden" />
+            </td>
+    	</tr>
+		<tr>
+        	<td>Nama Personal Consignee</td>
+            <td> : </td>
+            <td> 
+            	<input type="text" id="CONSIGNEE_PERSONAL" size="40" name="CONSIGNEE_PERSONAL" type="text" />              
+            </td>
+    	</tr>
+        <tr>
+        	<td></td>
+            <td></td>
+            <td> 
+                <input type="hidden" id="PENUMPUKAN" size="40" name="PENUMPUKAN" class="kdemkl " style="background-color:#FFFFCC;" /> 
+                <input size="40" name="ID_PENUMPUKAN" id="ID_PENUMPUKAN" type="hidden" />
+                <input size="40" name="ALMT_PENUMPUKAN" id="ALMT_PENUMPUKAN" type="hidden" />
+                <input size="40" name="NPWP_PENUMPUKAN" id="NPWP_PENUMPUKAN" type="hidden" />
+            </td>
+    	<!--</tr>
+       		<td>Tanggal Rencana Mulai Stripping</td>
+            <td> : </td>
+            <td> <input type="text" id="TGL_AWAL"  name="TGL_AWAL"/>
+		</tr>
+        	<td>Tanggal Rencana Selesai Stripping</td>
+            <td> : </td>
+            <td> <input type="text" id="TGL_AKHIR"  name="TGL_AKHIR"/>
+		</tr>-->
+		<tr>
+        	<td>Nomor D.O</td>
+            <td> : </td>
+            <td> <input type="text" name="NO_DO" id="NO_DO"/> </td>
+		</tr>
+		<tr>
+        	<td>Nomor B.L</td>
+            <td> : </td>
+            <td> <input type="text" name="NO_BL" id="NO_BL"/> </td>
+		</tr>
+        <tr>
+        	<td>Nomor SPPB</td>
+            <td> : </td>
+            <td> <input type="text" id="NO_SPPB" size="40" name="NO_SPPB" type="text"  />  </td>
+    	</tr>
+		<tr>
+		<td>Tanggal SPPB</td>
+            <td> : </td>
+            <td> <input type="text" id="TGL_SPPB"  name="TGL_SPPB" readonly="readonly"/>
+		</tr>
+		<tr>
+        	<td>Type Stripping</td>
+            <td> : </td>
+            <td> <select id ="TYPE_S" name="TYPE_S"> <option value="DOMESTIC"> DALAM NEGERI </option> <option value="INTERNATIONAL"> LUAR NEGERI </option> </select> </td>
+       	</tr>
+        <tr>
+        	<td>Keterangan</td>
+            <td> : </td>
+            <td> <input type="text" name="keterangan" id="KETERANGAN" style="width:250px"/></td>
+        </tr>
+        <tr>
+        	<td colspan="3"> <!--<input id="submit" type="submit" value=" Simpan "/>-->
+			<a id="submit" class="link-button" ><img src='images/valid.png' border='0' />&nbsp;Simpan</a>
+			
+			</td>
+        </tr>
+	</table>
+    </center>
+</form>
+</fieldset>
+<div id="dialog-form">  </div>
+
+ 
+<script>
+/*function cek_saldo_emkl(){
+	var url = '<?=HOME?><?=APPID?>/cek_saldo_emkl/';
+	$.blockUI({ message: '<h1>Please wait...</h1>' });		
+	$.post(url,{tgl_approve : $tgl_approve, no_cont : $no_cont, no_req : no_req, NO_REQ2 : no_req2_, NO_REQ_REC : no_req_rec, NO_DO : no_do_, NO_BL : no_bl_, SP2 : sp2_, KD_CONSIGNEE : kd_consignee_, ASAL_CONT : $asal_cont}, function(data){
+		if(data == 'kosong'){
+			
+		}
+	});
+}*/
+$(function(){
+	$( "#dialog-form" ).dialog({
+			autoOpen: false,
+			height: 300,
+			width: 350,
+			modal: true,
+			buttons: {
+					"Close": function() {
+					//window.open();
+					$( this ).dialog( "close" );
+					return false;
+				}
+			},
+			close: function() {
+
+			}
+		});
+});
+
+$('#submit').click(function(event) {
+	event.preventDefault();	
+	if(	($("#CONSIGNEE").val() == "") || ($("#PENUMPUKAN").val() == ""))
+	{
+		alert("Pemilik Harus Terisi");
+		return false;		
+	}
+	
+	else if($("#form-add").validate().form())
+    {
+		$.blockUI({ message: '<h1>Please wait...</h1>' });
+	   var kd_consignee = $("#ID_CONSIGNEE").val();
+	   //alert(kd_consignee);	
+		var url = '<?=HOME?><?=APPID?>/cek_saldo_emkl/';
+		$.post(url,{KD_CONSIGNEE : kd_consignee}, function(data){
+			//alert(data);
+			//event.preventDefault();			
+			if(data == 'masih'){	
+				$.unblockUI({ 
+				onUnblock: function(){} 
+				});
+				$("#dialog-form").load('<?=HOME?><?=APPID?>/info_saldo?KD_CONSIGNEE='+kd_consignee+' #saldo');
+				$("#dialog-form").dialog( "open" );
+				//event.preventDefault();
+				return false;
+			}
+			else{ 				
+				var ID_CONSIGNEE	= $("#ID_CONSIGNEE").val();
+				var ID_PENUMPUKAN	= $("#ID_PENUMPUKAN").val();
+				var NM_PENUMPUKAN	= $("#PENUMPUKAN").val();
+				var TYPE_S			= $("#TYPE_S").val();
+				var NO_DO			= $("#NO_DO").val();
+				var NO_BL			= $("#NO_BL").val();
+				//var tgl_awal		= $("#TGL_AWAL").val();
+				var NO_SPPB			= $("#NO_SPPB").val();
+				var tgl_sppb		= $("#TGL_SPPB").val();
+				//var tgl_akhir		= $("#TGL_AKHIR").val();
+				var KETERANGAN		= $("#KETERANGAN").val();
+				var CONSIGNEE_PERSONAL		= $("#CONSIGNEE_PERSONAL").val();				
+				var url = '<?=HOME?><?=APPID?>/add_do/';
+				$.post(url,{ID_CONSIGNEE : ID_CONSIGNEE, ID_PENUMPUKAN : ID_PENUMPUKAN, PENUMPUKAN : NM_PENUMPUKAN, 
+							TYPE_S : TYPE_S, NO_DO : NO_DO, NO_BL : NO_BL, NO_SPPB : NO_SPPB,
+							TGL_SPPB : tgl_sppb, keterangan : KETERANGAN, CONSIGNEE_PERSONAL : CONSIGNEE_PERSONAL}, function(data){
+							//alert(data);
+							location.href = '<?=HOME?><?=APPID?>/view?no_req='+data;
+				});
+			} 
+		});	
+    }
+    //else
+    //{
+	   //event.preventDefault();
+	   //$(this).trigger('submit');
+    //}
+	
+	
+	/*else{
+		$("#dialog-form").dialog( "open" );
+		return false;
+	}*/
+
+});
+
+function cetak_saldo($kd_consignee){
+	window.open('<?=HOME?><?=APPID?>.cetak_saldo/cetak?KD_CONSIGNEE='+$kd_consignee, "_blank");
+}
+
+$(function() {	
+
+	
+	$( "#TGL_SPPB" ).datepicker();
+	$( "#TGL_SPPB" ).datepicker( "option", "dateFormat", "yy-mm-dd" );
+	
+	$( "#TGL_AWAL" ).datepicker();
+	$( "#TGL_AWAL" ).datepicker( "option", "dateFormat", "yy-mm-dd" );
+	
+	
+	$( "#TGL_AKHIR" ).datepicker();
+	$( "#TGL_AKHIR" ).datepicker( "option", "dateFormat", "yy-mm-dd" );
+	
+	$( "#CONSIGNEE" ).autocomplete({
+		minLength: 3,
+		source: "{$HOME}{$APPID}.auto/pbm",
+		focus: function( event, ui ) {
+			$( "#CONSIGNEE" ).val( ui.item.NM_PBM );
+			return false;
+		},
+		select: function( event, ui ) {
+			$( "#CONSIGNEE" ).val( ui.item.NM_PBM );
+			$( "#ID_CONSIGNEE" ).val( ui.item.KD_PBM );
+			$( "#ALMT_CONSIGNEE" ).val( ui.item.ALMT_PBM );
+			$( "#NPWP_CONSIGNEE" ).val( ui.item.NO_NPWP_PBM );
+			$( "#PENUMPUKAN" ).val( ui.item.NM_PBM );
+			$( "#ID_PENUMPUKAN" ).val( ui.item.KD_PBM );
+			$( "#ALMT_PENUMPUKAN" ).val( ui.item.ALMT_PBM );
+			$( "#NPWP_PENUMPUKAN" ).val( ui.item.NO_NPWP_PBM );
+			return false;
+		}
+	})
+	.data( "autocomplete" )._renderItem = function( ul, item ) {
+		return $( "<li></li>" )
+			.data( "item.autocomplete", item )
+			.append( "<a>" + item.NM_PBM + "</a>" )
+			.appendTo( ul );
+	};
+	
+	/*$("#PENUMPUKAN" ).autocomplete({
+		minLength: 3,
+		source: "{$HOME}{$APPID}.auto/pbm",
+		focus: function( event, ui ) {
+			$( "#PENUMPUKAN" ).val( ui.item.NM_PBM );
+			return false;
+		},
+		select: function( event, ui ) {
+			$( "#PENUMPUKAN" ).val( ui.item.NM_PBM );
+			$( "#ID_PENUMPUKAN" ).val( ui.item.KD_PBM );
+			$( "#ALMT_PENUMPUKAN" ).val( ui.item.ALMT_PBM );
+			$( "#NPWP_PENUMPUKAN" ).val( ui.item.NO_NPWP_PBM );
+			return false;
+		}
+	})
+	.data( "autocomplete" )._renderItem = function( ul, item ) {
+		return $( "<li></li>" )
+			.data( "item.autocomplete", item )
+			.append( "<a>" + item.NM_PBM + "</a>" )
+			.appendTo( ul );
+	};*/
+	
+});
+</script>

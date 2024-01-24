@@ -1,0 +1,26 @@
+<div id="list">
+                        <table class="grid-table" border='0' cellpadding="1" cellspacing="1"  width="100%">
+                              <tr style=" font-size:10pt">
+                                  <th width="2%" valign="top" class="grid-header"  style="font-size:8pt">No </th>
+                                  <th width="110" valign="top" class="grid-header"  style="font-size:8pt">NO. REQUEST </th>
+                                  <th width="150" valign="top" class="grid-header"  style="font-size:8pt">TGL. REQUEST</th>
+                                  <th width="200" valign="top" class="grid-header"  style="font-size:8pt">EX REQ</th> 
+                                  <th valign="top" class="grid-header"  style="font-size:8pt">EMKL/PEMILIK BARANG</th>
+                                  <th valign="top" class="grid-header"  style="font-size:8pt">TOTAL BOX</th>
+                                  <th valign="top" class="grid-header"  style="font-size:8pt">ACTION</th>  
+                              </tr>
+                              <fill src="row_list" var="rows">
+                              <tr bgcolor="#f9f9f3" onMouseOver=this.style.backgroundColor="#BAD5FC" onMouseOut=this.style.backgroundColor="">
+                                  <td width="4%" align="center" valign="middle" class="grid-cell" style="color:#000; font-family:Arial; font-size:9pt">{$__ctr} </td>
+                                  <td width="10%" align="center" valign="middle" class="grid-cell" style="font-family:Arial; font-size:11pt; color:#555555"><b>{$rows.NO_REQUEST}</b></font></td>
+                                  <td width="15%" align="left" valign="middle" class="grid-cell" style="font-size:9pt">Tgl Request : <font color="#0066CC" style="font-size:10pt">{$rows.TGL_REQUEST}</font><br> Tgl Request Dev : <font color="#0066CC" style="font-size:10pt">{$rows.TGL_REQUEST_DELIVERY}</font></td>
+                                  <td width="10%" align="center" valign="middle" class="grid-cell" style="font-size:9pt">{$rows.PERP_DARI}</td>
+  <td width="20%" align="left" valign="middle" class="grid-cell" style="font-size:9pt;font-family:Arial;">EMKL : <font color="#0066CC" style="font-size:10pt">{$rows.NAMA_EMKL}</font> </td>
+                                  <td width="5%" align="center" valign="middle" class="grid-cell" style="font-size:9pt;font-family:Arial;"><font color="#0066CC" style="font-size:10pt">{$rows.JUMLAH} BOX</font></td>
+                                
+                                  <td width="11%" align="center" valign="middle" class="grid-cell" style="font-size:9pt;">
+                                 <a href="{$HOME}{$APPID}/view?no_req={$rows.NO_REQUEST}"><img src='images/ico_approval.gif' border='0' />&nbsp; PERPANJANGAN </a></td>
+								</tr>
+                              </fill>
+                          </table>
+</div>

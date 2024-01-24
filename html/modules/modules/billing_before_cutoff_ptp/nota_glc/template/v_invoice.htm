@@ -1,0 +1,290 @@
+<style>
+.content{
+	width:95%;
+	margin-left:auto;
+	margin-right:auto;
+	margin-bottom: 10px;
+	margin-top:20px;
+}
+.main_side{
+	width:100%;
+	float:left;
+	text-align:left;
+}
+
+</style>
+
+<script type="text/javascript">
+		$(function() {
+		
+						$( "#tabspage" ).tabs();	
+						/*$('a[rel*=downloadr]').downloadr();*/
+});
+
+
+</script>
+   
+<script>
+
+<!------------------- load detail shift ------------>
+$(function() {
+		
+						$( "#tabspage" ).tabs();
+						//setInterval($('#working').html('<img src="<?=HOME?>images/loadingbox.gif" />'),1000);	
+						$("#glc01").load("<?=HOME?><?=APPID?>/working?id_req={$request.ID_REQ}&remark={$remark}&alat=GLC01 #workingtime_list");
+						$("#glc02").load("<?=HOME?><?=APPID?>/working?id_req={$request.ID_REQ}&remark={$remark}&alat=GLC02 #workingtime_list");
+						$("#glc03").load("<?=HOME?><?=APPID?>/working?id_req={$request.ID_REQ}&remark={$remark}&alat=GLC03 #workingtime_list");
+						$("#glc04").load("<?=HOME?><?=APPID?>/working?id_req={$request.ID_REQ}&remark={$remark}&alat=GLC04 #workingtime_list");
+						$("#glc05").load("<?=HOME?><?=APPID?>/working?id_req={$request.ID_REQ}&remark={$remark}&alat=GLC05 #workingtime_list");
+						$("#glc06").load("<?=HOME?><?=APPID?>/working?id_req={$request.ID_REQ}&remark={$remark}&alat=GLC06 #workingtime_list");				
+	
+});
+<!------------------- load detail shift ------------>
+
+function invoice()
+{
+	var remark_		= "{$request.REMARK}"; //shift,non shift
+	var id_req_     = "{$request.ID_REQ}";
+	var pbm_		= "{$request.NAMA}";
+	var kade_	    = "{$request.KADE}";
+	var terminal_	= "{$request.TERMINAL}";
+	var vessel_ 	= "{$request.NAMA_VESSEL}";
+	var voyage_		= "{$request.VOYAGE}";
+	var ppn_        = "{$ppn}";
+	var total_      = "{$total}";
+	var ttl_uper_   = "{$bayar_uper}";
+	var status_     = "{$request.STATUS}";
+	var status_pbm_ = "{$request.STATUS_PBM}";
+	var rta_		= "{$request.RTA_DATE}";
+	var rta_jam_	= "{$request.RTA_JAM}";
+	var rta_menit_	= "{$request.RTA_MENIT}";
+	var rtd_		= "{$request.RTD_DATE}";
+	var rtd_jam_	= "{$request.RTD_JAM}";
+	var rtd_menit_	= "{$request.RTD_MENIT}";
+	var url			= "{$HOME}{$APPID}.ajax/invoice";	
+	
+	var r=confirm("Request "+id_req_+" akan di-invoice, pastikan data sudah benar");
+	if(r==true)
+	{
+		$.post(url,{REMARK : remark_, ID_REQ : id_req_, PBM : pbm_, KADE : kade_, TERMINAL : terminal_, VESSEL : vessel_, VOYAGE : voyage_, PPN : ppn_, TOTAL : total_, TTL_UPER : ttl_uper_, STATUS : status_, STATUS_PBM : status_pbm_, RTD : rtd_, RTD_JAM : rtd_jam_, RTD_MENIT : rtd_menit_, RTA : rta_, RTA_JAM : rta_jam_, RTA_MENIT : rta_menit_},function(data){
+		console.log(data);
+			if(data == "OK")
+			{			
+				alert("Proses Invoice Berhasil");
+				window.location = "{$HOME}{$APPID}";
+			}
+			else if(data == "NO")
+			{
+				alert("Data Tidak Lengkap...Proses Invoice Gagal");
+			}
+			else if(data == "gagal")
+			{
+				alert("Proses Invoice Gagal");
+			}
+			else if(data == "UPER")
+			{
+				alert("Uper Alat Belum Lunas...!!!");
+			}
+			else if(data == "RTD")
+			{
+				alert("Realisasi Keberangkatan Kapal Belum Terisi...!!!");
+			}
+			else if(data == "SUDAH")
+			{
+				alert("Sudah Invoice Sebelumnya...");
+			}
+		});
+		return true;
+	}
+	else
+	{
+		return false;
+	}	
+	//prosedur add comment disini, method $.post, include user id dan content id
+}
+
+</script>
+  
+   
+<div class="content">
+<div class="main_side">
+
+<!------------------------------------------------------ VIEW ----------------------------------------------->
+<? if($status=="SHIFT") 
+   {?>
+
+<h2><span class="graybrown">
+	<img class="icon" border="0" src="images/dokumenbig.png" />
+	&nbsp;<font color="#0378C6">Pranota</font> Sewa Alat GLC
+    </span></h2>
+<br/>
+<form>
+<fieldset class="form-fieldset" style="padding: 10px 10px 10px 10px;">
+<table width="100%" border="0" cellspacing="1" cellpadding="1">
+		<tr>
+			<td width="100">NO UPER B/M</td>
+			<td width="10">&nbsp;&nbsp;:&nbsp;&nbsp;</td>
+            <td><input type="text" name="no_uper" value={$request.NO_UPER_BM} disabled="disabled"/>
+			           <input type="hidden" name="id_req" id="id_req" value={$request.ID_REQ} /></td>
+            <td width="40"></td>
+            <td>NO REQ</td>
+			<td>&nbsp;&nbsp;:&nbsp;&nbsp;</td>
+            <td><input type="text" name="id_req2" id="id_req2" value={$request.ID_REQ} disabled="disabled"/></td>
+		</tr>
+		<tr>
+			<td>PENGGUNA JASA</td>
+			<td>&nbsp;&nbsp;:&nbsp;&nbsp;</td>
+            <td><input type="text" name="pbm" value={$request.NAMA} disabled="disabled"/></td>
+            <td width="40"></td>
+            <td>ETA</td>
+			<td>&nbsp;&nbsp;:&nbsp;&nbsp;</td>
+            <td><input type="text" name="eta" id="eta" size="10" style="background-color:#E2F7F7" value={$request.ETA_DATE} readonly=readonly />&nbsp;&nbsp;&nbsp;<input type="text" name="eta_jam" id="eta_jam" size="2" maxlength="2" value={$request.ETA_JAM} style="background-color:#E2F7F7" readonly=readonly />&nbsp;:&nbsp;<input type="text" name="eta_menit" id="eta_menit" size="2" maxlength="2" value={$request.ETA_MENIT} style="background-color:#E2F7F7" readonly=readonly /></td>
+		</tr>
+		<tr>
+			<td>VESSEL / VOYAGE</td>
+			<td>&nbsp;&nbsp;:&nbsp;&nbsp;</td>
+            <td><input type="text" name="vessel" value={$request.NAMA_VESSEL} disabled="disabled" size="30"/> / <input type="text" name="voyage" value={$request.VOYAGE} disabled="disabled" size="8"/></td>
+            <td width="40"></td>
+            <td>RTA</td>
+			<td>&nbsp;&nbsp;:&nbsp;&nbsp;</td>
+            <td><input type="text" name="rta" id="rta" size="10" style="background-color:#FFFFD6" value={$request.RTA_DATE} readonly=readonly />&nbsp;&nbsp;&nbsp;<input type="text" name="rta_jam" id="rta_jam" size="2" maxlength="2" value={$request.RTA_JAM} readonly=readonly />&nbsp;:&nbsp;<input type="text" name="rta_menit" id="rta_menit" size="2" maxlength="2" value={$request.RTA_MENIT} readonly=readonly /></td>           
+		</tr>
+        <tr>
+			<td>KADE</td>
+			<td>&nbsp;&nbsp;:&nbsp;&nbsp;</td>
+            <td><input type="text" name="kade" value={$request.KADE} disabled="disabled" size="3"/></td>
+            <td width="40"></td>
+            <td width="40">ETD</td>
+			<td width="10">&nbsp;&nbsp;:&nbsp;&nbsp;</td>
+            <td><input type="text" name="etd" id="etd" size="10" style="background-color:#E2F7F7" value={$request.ETD_DATE} readonly=readonly />&nbsp;&nbsp;&nbsp;<input type="text" name="etd_jam" id="etd_jam" size="2" maxlength="2" value={$request.ETD_JAM} style="background-color:#E2F7F7" readonly=readonly />&nbsp;:&nbsp;<input type="text" name="etd_menit" id="etd_menit" size="2" maxlength="2" value={$request.ETD_MENIT} style="background-color:#E2F7F7" readonly=readonly /></td>
+		</tr>
+		<tr>
+			<td>TERMINAL</td>
+			<td>&nbsp;&nbsp;:&nbsp;&nbsp;</td>
+            <td><input type="text" name="terminal" value={$request.TERMINAL} disabled="disabled" size="3"/></td>
+            <td width="40"></td>
+             <td width="40">RTD</td>
+			<td width="10">&nbsp;&nbsp;:&nbsp;&nbsp;</td>
+            <td><input type="text" name="rtd" id="rtd" size="10" style="background-color:#FFFFD6" value={$request.RTD_DATE} readonly=readonly />&nbsp;&nbsp;&nbsp;<input type="text" name="rtd_jam" id="rtd_jam" size="2" maxlength="2" value={$request.RTD_JAM} readonly=readonly />&nbsp;:&nbsp;<input type="text" name="rtd_menit" id="rtd_menit" size="2" maxlength="2" value={$request.RTD_MENIT} readonly=readonly /></td>
+		</tr>
+</table>
+</fieldset>
+<br/>
+<fieldset class="form-fieldset" style="padding: 10px 10px 10px 10px;">
+<table width="100%" border="0" cellspacing="1" cellpadding="1">
+		<tr>
+			<td width="50">STATUS</td>
+			<td width="10">&nbsp;&nbsp;:&nbsp;&nbsp;</td>
+            <td><input type="text" name="status" value={$request.STATUS} readonly="readonly" size="3"/></td>
+            <td></td>
+            <td></td>
+			<td></td>
+            <td></td>
+			<td></td>
+		</tr>
+		<tr>
+			<td width="50">REMARK</td>
+			<td width="10">&nbsp;&nbsp;:&nbsp;&nbsp;</td>
+            <td><input type="text" name="remark" value={$request.REMARK} readonly="readonly" size="15" /></td>
+            <td></td>
+            <td></td>
+			<td></td>
+            <td></td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>&nbsp;</td>
+			<td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+			<td>&nbsp;</td>
+            <td>&nbsp;</td>
+			<td>&nbsp;</td>
+		</tr>
+		<tr>
+			<td width="50"></td>
+			<td width="10"></td>
+            <td width="130">Tagihan</td>
+            <td width="130">PPN 10%</td>
+            <td width="130">Total Tagihan</td>
+			<td width="130">Kurang Bayar</td>
+            <td width="20"></td>
+			<td></td>
+		</tr>
+		<tr>
+			<td width="50">PRANOTA</td>
+			<td width="10">&nbsp;&nbsp;:&nbsp;&nbsp;</td>
+			<? $ttl = number_format($total,2); 
+			   $ppns = number_format($ppn,2); 
+			   $byr = number_format($bayar,2);
+			   $kurang_bayar = number_format($krng_byr,2);
+			   ?>
+            <td><input type="text" name="jasa_alat" value={$ttl} readonly="readonly" style="background-color:#EBF5FF"/></td>
+            <td><input type="text" name="pajak" value={$ppns} readonly="readonly" style="background-color:#EBF5FF"/></td>
+            <td><input type="text" name="bayar" value={$byr} readonly="readonly" style="background-color:#EBF5FF"/></td>
+			<td><input type="text" name="kurang_bayar" value={$kurang_bayar} readonly="readonly" style="background-color:#FFB2B2"/></td>
+            <td width="20"></td>
+			<td><input type="button" onClick="invoice()" value="Invoice" name="Invoice"/></td>
+		</tr>
+		<tr>
+			<td width="50">UPER</td>
+			<td width="10">&nbsp;&nbsp;:&nbsp;&nbsp;</td>
+			<? $uper = number_format($ttl_uper,2); 
+			   $ppn_uper = number_format($ppnuper,2); 
+			   $byr_uper = number_format($bayar_uper,2); ?>
+            <td><input type="text" name="uper" value={$uper} readonly="readonly" style="background-color:#EBF5FF"/></td>
+            <td><input type="text" name="pajak_uper" value={$ppn_uper} readonly="readonly" style="background-color:#EBF5FF"/></td>
+            <td><input type="text" name="bayar_uper" value={$byr_uper} readonly="readonly" style="background-color:#EBF5FF"/></td>
+			<td>&nbsp;</td>
+            <td width="20"></td>
+			<td></td>
+		</tr>
+</table>
+</fieldset>
+<br/>
+<div id="tabspage" class="tabss">
+				<ul>
+				<li><a href="#tabspage-1">GLC01</a></li>
+				<li><a href="#tabspage-2">GLC02</a></li>
+                <li><a href="#tabspage-3">GLC03</a></li>
+                <li><a href="#tabspage-4">GLC04</a></li>
+				<li><a href="#tabspage-5">GLC05</a></li>
+				<li><a href="#tabspage-6">GLC06</a></li>
+				</ul>
+				<div id="tabspage-1">
+                    <div id="glc01" align="center"></div>
+				</div>
+				<div id="tabspage-2">
+                    <div id="glc02" align="center"></div>
+				</div>
+                <div id="tabspage-3">
+                    <div id="glc03" align="center"></div>
+				</div>
+                <div id="tabspage-4">
+                    <div id="glc04" align="center"></div>
+				</div>
+				<div id="tabspage-5">
+                    <div id="glc05" align="center"></div>
+				</div>
+				<div id="tabspage-6">
+                    <div id="glc06" align="center"></div>
+				</div>
+</div>
+<br/>
+<a class="link-button" style="height:25" href="<?=HOME?><?=APPID?>.print/print_pranota?id={$request.ID_REQ}&remark={$request.REMARK}">
+      <img border="0" src="images/printbig1.png" />
+      Cetak Pranota</a>
+</form>
+<br/>
+<? }
+    else if($status=="NON SHIFT")
+   {
+    ?>
+
+	
+	
+<? } ?>
+<!------------------------------------------------------ VIEW ----------------------------------------------->
+</div>
+</div>

@@ -1,0 +1,86 @@
+<span class="graybrown"><img src='images/sp2_p.png' border='0' class="icon"/><font color="#0378C6"> Request Perpanjangan</font> Delivery - SP2</span><br/><br/>
+<fieldset class="form-fieldset" style="margin: 5px 5px 5px 5px; ">
+<form action="<?=HOME?><?=APPID?>/add_do" method="POST">
+	<center>
+    <table class="form-input" style="margin: 30px 30px 30px 30px;" >
+    	<tr>
+            <td  class="form-field-caption"> E.M.K.L</td>
+            <td class="form-field-caption"> : </td>
+            <td> <input type="text" name="EMKL" id="EMKL" readonly="readonly" /> <input type="hidden" name="ID_EMKL" id="ID_EMKL" /> </td>
+    	</tr>
+        <tr>
+            <td class="form-field-caption"> Tanggal Request Delivery</td>
+            <td class="form-field-caption"> : </td>
+            <td><input type="text" name="tgl_dev" id ="tgl_req_dev" readonly="readonly" /> </td>
+    	</tr>
+         <tr>
+            <td class="form-field-caption"> Keterangan</td>
+            <td class="form-field-caption"> : </td>
+            <td> <input type="text" name="keterangan"  style="width:250px"/></td>
+        </tr>
+        <tr>
+        	<td colspan="3"> <input type="submit" value=" Simpan "/></td>
+        </tr>
+	</table>
+    </center>
+</form>
+</fieldset>
+
+ 
+<script>
+$(function() {	
+
+	$( "#tgl_dev" ).datepicker();
+	$( "#tgl_dev" ).datepicker( "option", "dateFormat", "yy-mm-dd" );
+	
+	$( "#EMKL" ).autocomplete({
+		minLength: 3,
+		source: "{$HOME}{$APPID}.auto/pbm",
+		focus: function( event, ui ) {
+			$( "#EMKL" ).val( ui.item.NAMA );
+			return false;
+		},
+		select: function( event, ui ) {
+			$( "#EMKL" ).val( ui.item.NAMA );
+			$( "#ID_EMKL" ).val( ui.item.ID );
+			return false;
+		}
+	})
+	.data( "autocomplete" )._renderItem = function( ul, item ) {
+		return $( "<li></li>" )
+			.data( "item.autocomplete", item )
+			.append( "<a>" + item.NAMA + "</a>" )
+			.appendTo( ul );
+	};
+	
+	$( "#PNMT" ).autocomplete({
+		minLength: 3,
+		source: "{$HOME}{$APPID}.auto/pbm",
+		focus: function( event, ui ) {
+			$( "#PNMT" ).val( ui.item.NAMA );
+			return false;
+		},
+		select: function( event, ui ) {
+			$( "#PNMT" ).val( ui.item.NAMA );
+			$( "#ID_PNMT" ).val( ui.item.ID );
+			return false;
+		}
+	})
+	.data( "autocomplete" )._renderItem = function( ul, item ) {
+		return $( "<li></li>" )
+			.data( "item.autocomplete", item )
+			.append( "<a>" + item.NAMA + "</a>" )
+			.appendTo( ul );
+	};
+});
+
+
+$(function() {	
+	
+	$( "#tgl_req_dev" ).datepicker();
+	$( "#tgl_req_dev" ).datepicker( "option", "dateFormat", "yy-mm-dd" );
+	$("#request_list").load('<?=HOME?><?=APPID?>/req_list #list', function(data) {        	  
+	}); 	
+});
+
+</script>

@@ -1,0 +1,123 @@
+<style>
+.content{
+	width:95%;
+	margin-left:auto;
+	margin-right:auto;
+	margin-bottom: 10px;
+	margin-top:20px;
+}
+.main_side{
+	width:100%;
+	float:left;
+	text-align:left;
+}
+#tarif{
+		width:40%;
+    	height:25px;
+		font-size:14px;
+}
+#kegiatan{
+		width:140%;
+    	height:25px;
+		font-size:14px;
+}
+#alat{
+		width:50%;
+    	height:25px;
+		font-size:14px;
+}
+</style>
+
+<div class="content">
+<div class="main_side">
+
+<? if($status=="ubah") 
+   {?>
+
+<h2>UBAH SHIPPING LINE</h2>
+<br/>
+<form method="POST" action="<?=HOME?>maintenance.master.shipping_line/simpan_edit?id={$ubah.ID_SHIP}">
+<div class="form-fieldset" style="margin: 5px 5px 5px 5px">
+<table>
+		<tr>
+			<td>ID SHIPPING LINE</td>
+			<td>&nbsp;&nbsp;:&nbsp;&nbsp;</td>
+            <td><input type="text" name="id_ship" value={$ubah.ID_SHIP} readonly="readonly"/></td>
+		</tr>
+		<tr>
+			<td>NAMA</td>
+			<td>&nbsp;&nbsp;:&nbsp;&nbsp;</td>
+            <td><input type="text" name="nama" value={$ubah.NAMA}/></td>
+		</tr>
+		<tr>
+			<td>ALAMAT</td>			
+			<td>&nbsp;&nbsp;:&nbsp;&nbsp;</td>
+            <td><input type="text" name="alamat" value={$ubah.ALAMAT}/></td>
+		</tr>
+		<tr>
+			<td>NPWP</td>
+			<td>&nbsp;&nbsp;:&nbsp;&nbsp;</td>
+            <td><input type="text" name="npwp" value={$ubah.NPWP}/></td>
+		</tr>
+        <tr>
+			<td>COA</td>
+			<td>&nbsp;&nbsp;:&nbsp;&nbsp;</td>
+            <td><input type="text" name="coa" value={$ubah.COA}/></td>
+		</tr>
+</table>
+</div>
+<br/>
+<input type="submit" value="Simpan" name="Simpan" class="link-button"/>
+</form>
+<br/>
+
+<? }
+    else
+    {
+    ?>
+<h2>TAMBAH KEGIATAN</h2>
+<br/>
+<form method="POST" action="<?=HOME?><?=APPID?>./simpan">
+<div class="form-fieldset" style="margin: 5px 5px 5px 5px">
+<table>
+		<tr>
+			<td>KEGIATAN</td>
+			<td>&nbsp;&nbsp;:&nbsp;&nbsp;</td>
+            <td><input type="text" name="kegiatan" id="kegiatan" style="font-weight:bold; text-transform:uppercase;"/></td>
+		</tr>
+		<tr>
+			<td>STATUS</td>
+			<td>&nbsp;&nbsp;:&nbsp;&nbsp;</td>
+            <td width="135"><select name="status" id="status">
+                    <option value="WORKING">WORKING</option>
+                    <option value="IDLE">IDLE</option>
+                    <option value="NOT OPERATION">NOT OPERATION</option>
+                </select></td>
+		</tr>
+		<tr>
+			<td>TARIF</td>
+			<td>&nbsp;&nbsp;:&nbsp;&nbsp;</td>
+            <td width="135"><select name="tarif" id="tarif">
+                    <option value="Y">Y</option>
+                    <option value="T">T</option>
+                </select></td>
+		</tr>
+		<tr>
+			<td>ALAT</td>			
+			<td>&nbsp;&nbsp;:&nbsp;&nbsp;</td>
+            <td><select name="alat" id="alat">
+                    <option value="GLC">GLC</option>
+                    <option value="HMC">HMC</option>
+                </select></td></td>
+		</tr>
+</table>
+</div>
+<br/>
+<input type="submit" value="Simpan" name="Simpan" class="link-button"/>
+</form>
+<br/>
+
+<? } ?>
+
+</div>
+</div>

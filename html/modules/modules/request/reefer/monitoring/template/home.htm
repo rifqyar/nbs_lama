@@ -1,0 +1,157 @@
+<style>
+.content{
+	width:95%;
+	margin-left:auto;
+	margin-right:auto;
+	margin-bottom: 10px;
+	margin-top:20px;
+}
+.main_side{
+	width:100%;
+	float:left;
+	text-align:left;
+}
+</style>
+
+<script type="text/javascript">
+jQuery(function() {
+ jQuery("#tb_reefer").jqGrid({
+	url:'<?=HOME?>datanya/data?q=tb_reefer',
+	mtype : "post",
+	datatype: "json",
+	colNames:['','No Request','EMKL','Vessel','Voyage','Jml Container'], 
+	colModel:[
+		{name:'aksi', width:100, align:"center",sortable:false,search:false},
+		{name:'id_req',index:'id_req', width:100, align:"center"},
+		{name:'emkl',index:'emkl', width:200, align:"center"},
+		{name:'vessel',index:'vessel', width:200, align:"center"},
+		{name:'voyage',index:'voyage', width:120, align:"center"},
+		{name:'jum_cont',index:'jum_cont', width:95, align:"center"}
+	],
+	rowNum:6,
+	width: 865,
+	height: "100%",//250
+
+	rowList:[10,20,30,40,50,60],
+	loadonce:true,
+	rownumbers: true,
+	rownumWidth: 15,
+	gridview: true,
+	pager: '#pg_l_receiving',
+	viewrecords: true,
+	shrinkToFit: false,
+	caption:"Data Request Receiving"
+ });
+  jQuery("#l_receiving").jqGrid('navGrid','#pg_l_receiving',{del:false,add:false,edit:false,search:false}); 
+ jQuery("#l_receiving").jqGrid('filterToolbar',{stringResult: true,searchOnEnter : false});
+ 
+});
+</script>
+
+<div class="content">
+	<h2><span class="graybrown">
+	<img class="icon" border="0" src="images/electric.png" />
+	&nbsp;<font color="#0378C6">CONTAINER</font> - POWER SUPPLY & REEFER MONITORING
+    </span></h2>
+	<br/>
+	<hr width="870" color="#e1e0de"></hr><p><br/></p>
+	<form method="post" action="<?=HOME?><?=APPID?>/simpan" >
+	<table>
+	 <tr>
+		<td align="right" style="font-size:16px; font-weight:bold; font-family:Tahoma; color:#999">
+		<span class="style1">Container No</span>
+		</td>
+		<td class="form-field-caption" align="right">:</td>
+		<td><input id="CONT_NO" class="suggestuwriter ac_input" type="text" value="" maxlength="11" size="12" name="CONT_NO" style="font-size:26px; font-weight:bold; text-transform:uppercase; " autocomplete="off" />
+		</td>
+		<td></td>
+		<td class="form-field-caption" align="right">Tgl muat</td>
+		<td class="form-field-caption" align="right">:</td>
+		<td><input type="text" size="20" id="tgl_muat" name="tgl_muat" value={$tgl_muatx} />
+		</td>
+	</tr>
+	 <tr>
+		<td class="form-field-caption" align="right">Size</td>
+		<td class="form-field-caption" align="right">:</td>
+		<td><input type="text" size="25" name="peb" id="peb" size="5" style="background-color:#FFFFFF;"/>
+		</td>
+		<td>&nbsp;</td>
+		<td class="form-field-caption" align="right">Tgl bongkar</td>
+		<td class="form-field-caption" align="right">:</td>
+		<td><input type="text" size="20" name="tgl_bongkar" id="tgl_bongkar" />
+		</td>
+     </tr>
+	 <tr>
+		<td class="form-field-caption" align="right">Type</td>
+		<td class="form-field-caption" align="right">:</td>
+		<td><input type="text" size="25" name="npe" id="npe" size="8" style="background-color:#FFFFFF;"/>
+		</td>
+		<td>&nbsp;</td>
+		<td class="form-field-caption" align="right">Clossing time</td>
+		<td class="form-field-caption" align="right">:</td>
+		<td><input type="text" size="20" name="clossing_time" id="clossing_time" value={$clossing_timex} />
+		</td>
+     </tr>
+	 <tr>
+		<td class="form-field-caption" align="right">Status</td>
+		<td class="form-field-caption" align="right">:</td>
+		<td><input type="text" size="25" name="npe" id="npe" size="8" style="background-color:#FFFFFF;"/>
+		</td>
+		<td>&nbsp;</td>
+		<td class="form-field-caption" align="right">Pelabuhan Asal</td>
+		<td class="form-field-caption" align="right">:</td>
+		<td><input type="text" size="30" name="pelabuhan_asal" id="pelabuhan_asal" value={$pelabuhan_asal} />
+		</td>
+		
+     </tr>
+	 <tr>
+		<td class="form-field-caption" align="right">Gross</td>
+		<td class="form-field-caption" align="right">:</td>
+		<td><input type="text" size="25" name="npe" id="npe" size="8" style="background-color:#FFFFFF;"/>
+		</td>
+		<td>&nbsp;</td>
+		<td class="form-field-caption" align="right">Pelabuhan Tujuan</td>
+		<td class="form-field-caption" align="right">:</td>
+		<td><input type="text" size="30" name="pelabuhan_tujuan" id="pelabuhan_tujuan" value={$pelabuhan_tujuan} />
+		</td>
+		
+     </tr>
+	 <tr>
+		<td class="form-field-caption" align="right">EMKL</td>
+		<td class="form-field-caption" align="right">:</td>
+		<td><input type="text" size="25" name="emkl" id="emkl" value={$emklx} style="background-color:#FFFFCC;" /><a id="submitForm" href="maintenance.master.pbm/" class="link-button" ><img src='images/valid.png' border='0' />&nbsp;Master Emkl</a>
+		<input type="hidden" size="40" name="idemkl" id="idemkl" value={$idemklx} style="background-color:#FFFFCC;" />
+		</td>
+		<td></td>
+		<td class="form-field-caption" align="right">Calculator Shift Reefer</td>
+		<td class="form-field-caption" align="right">:</td>
+		<td><input type="text" size="20" id="start_shift" name="start_shift" value={$start_shiftx} style="background-color:#FFFFFF;"/> s/d <input type="text" size="20" id="end_shift" name="end_shift" value={$end_shiftx} style="background-color:#FFFFFF;"/><img src="<?=HOME?>images/calculator.png" width="16" height="16" onclick="calculator()" /></td>
+	</tr>
+	</tr>
+	 <tr>
+		<td class="form-field-caption" align="right">Vessel</td>
+		<td class="form-field-caption" align="right">:</td>
+		<td><input type="text" size="25" name="vessel" id="vessel" value={$vesx} style="background-color:#FFFFCC;" /><a id="submitForm" href="maintenance.master.vessel" class="link-button" ><img src='images/valid.png' border='0' />&nbsp;Master Vessel</a>
+		</td>
+		<td></td>
+		<td class="form-field-caption" align="right">Bayar Reefer</td>
+		<td class="form-field-caption" align="right">:</td>
+		<td><input type="text" size="10" name="jml_shift" id="jml_shift" value={$jml_shiftx} style="background-color:#FFFFCC;" readonly="readonly"/>*Shift
+		</td>
+     </tr>
+	 <tr>
+		<td class="form-field-caption" align="right">Voyage</td>
+		<td class="form-field-caption" align="right">:</td>
+		<td><input type="text" size="10" name="voy" id="voy" value={$voyx} style="background-color:#FFFFFF;"/>
+		</td>
+		<td>&nbsp;</td>
+		<td class="form-field-caption" align="right"></td>
+		<td class="form-field-caption" align="right"></td>
+		<td></td>
+     </tr>
+	 <tr>
+		<td colspan="7" align="right"><input type="submit" value="Simpan"/></td>
+     </tr>
+	</table>
+	</form>
+</div>

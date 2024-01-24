@@ -1,0 +1,204 @@
+
+	<span class="graybrown">
+            <img src='images/ironman.png' border='0' class="icon"/>
+            <font color="#2A5DC3"> Gate Out </font> Container ke TPK</span><br/><br/>
+<fieldset class="form-fieldset" style="margin: 5px 5px 5px 5px; ">
+            <input type="hidden" name="KD_TRUCK" id="KD_TRUCK"/>
+            <input type="hidden" name="KD_PMB_DTL" id="KD_PMB_DTL"/>
+            
+            <table class="form-input" cellspacing='1' cellpadding='1' border='0' width="100%" >
+                <tr>
+                    <td width="17%" height="40" align="right"  style="font-size:16px; font-weight:bold; font-family:Tahoma; color: #777">Container No</td>
+                    <td ><input style="font-size:20px; font-weight:bold; text-transform:uppercase" tabindex="1" id="CONT_NO" name="CONT_NO" size="15" class="suggestuwriter" type="text" maxlength="11" value="" /></td>
+                    <td align="right" style="font-size:16px; font-weight:bold; font-family:Tahoma; color: #777">No TRUCK</td>
+                    <td ><input id="NO_TRUCK" style="font-size:20px; font-weight:bold; text-transform:uppercase" tabindex="2" value="" size="10" maxlength="11" />
+                    </td>
+                </tr>
+                <tr>
+                    <td  align="right"  class="form-field-caption">No Request Delivery</td>
+                    <td ><input id="REQ_DEV" value="" size="15" readonly="readonly" style="color:#F00; font-size:12px; font-weight:bold" /></td>
+                   
+                     <td width="15%"  align="right" class="form-field-caption" >NO SEAL</td>
+                    <td width="37%"  valign="top" >
+					<input name="NO_SEAL" id="NO_SEAL" value="" size="10"/>
+					
+					<input type="hidden" name="CEKING" id="CEKING" value="" size="10"/>
+					</td>
+                </tr>
+                <tr>
+                    <td  align="right"  class="form-field-caption">Ukuran/ Type / Status </td>
+                    <td width="31%" ><input id="SIZE" value="" size="5" readonly="1" /> / <input id="TYPE" value="" size="5" readonly="1" /> / <input id="STATUS" value="" size="5" readonly="1" /></td>
+                     <td  align="right"  class="form-field-caption">Keterangan </td>
+                    <td ><input name="KETERANGAN" id="KETERANGAN" value="" size="40"/></td>
+                    <td  align="right" >&nbsp;</td><td  valign="top" >&nbsp;</td>
+                </tr>
+                 <tr>
+                     <td  align="right"  class="form-field-caption">Penerima /Consignee</td>
+                    <td colspan="3" ><input id="NM_PBM" value="" size="40" readonly="1" /></td>
+                </tr>
+                <tr>
+                    <td  align="right"  class="form-field-caption">No Nota</td>
+                    <td ><input id="NO_NOTA"  size="20" readonly="1" /></td>
+                             <td  align="right"  class="form-field-caption">Gross</td>
+                    <td ><input id="GROSS"  size="20" /></td>
+                </tr>
+                <tr>
+                     <td  align="right"  class="form-field-caption">Masa Berlaku </td>
+                    <td  valign="top"><input id="MASA_BERLAKU" value="" size="15" readonly="1" /></td>
+                     <td  align="right"  class="form-field-caption">HT OP</td>
+                    <td ><input id="HT_OP" value="" size="20" /></td>
+                </tr>
+        </table>
+            
+        <table width="100%">
+            <tr>
+                <td width="906"  class="form-footer">&nbsp;&nbsp; <a id="resetForm" onclick="set_gateout()" class="link-button" ><img src='images/disk.png' border='0' />&nbsp;Simpan</a></td>
+            </tr>
+        </table>
+
+</fieldset>
+
+
+<div id="load" title="Loading"><p align=center><img src={$HOME}images/loadingbox.gif /></div>
+
+<script>
+
+$(function() {	
+
+$( "#load" ).dialog({
+			autoOpen: false,
+			height: 50,
+			width:600,
+			show: "blind",
+			hide: "explode",
+			modal: true
+		});
+	$( "#CONT_NO" ).autocomplete({
+		minLength: 3,
+		source: "{$HOME}{$APPID}.auto/container",
+		focus: function( event, ui ) {
+			$( "#CONT_NO" ).val( ui.item.NO_CONTAINER );
+			return false;
+		},
+		select: function( event, ui ) {
+			$( "#CONT_NO" ).val( ui.item.NO_CONTAINER );
+			$( "#REQ_DEV" ).val( ui.item.NO_REQUEST);
+            $( "#NM_PBM" ).val( ui.item.NAMA );
+			$( "#SIZE" ).val( ui.item.SIZE_);
+            $( "#TYPE" ).val( ui.item.TYPE_ );
+			$( "#STATUS" ).val( ui.item.STATUS);
+            $( "#NO_NOTA" ).val( ui.item.NO_NOTA );
+			$( "#KD_PMB_DTL" ).val( ui.item.KD_PMB_DTL );
+			$( "#MASA_BERLAKU" ).val( ui.item.TGL_REQUEST_DELIVERY);
+			$( "#CEKING" ).val( ui.item.CEK);
+			return false;
+		}
+	})
+	.data( "autocomplete" )._renderItem = function( ul, item ) {
+		return $( "<li style='text-align:left'></li>" )
+			.data( "item.autocomplete", item )
+			.append( "<a>" + item.NO_CONTAINER + "<br/> "+item.SIZE_+" "+item.TYPE_+" "+item.STATUS +"</a>")
+			.appendTo( ul );
+	};
+        
+        $( "#NO_TRUCK" ).autocomplete({
+		minLength: 1,
+		source: "{$HOME}{$APPID}.auto/truck",
+		focus: function( event, ui ) {
+			$( "#NO_TRUCK" ).val( ui.item.NO_TRUCK );
+			return false;
+		},
+		select: function( event, ui ) {
+			$( "#NO_TRUCK" ).val( ui.item.NO_TRUCK );
+                        $( "#KD_TRUCK" ).val( ui.item.KETERANGAN );
+			return false;
+		}
+	})
+	.data( "autocomplete" )._renderItem = function( ul, item ) {
+		return $( "<li style='text-align:left'></li>" )
+			.data( "item.autocomplete", item )
+			.append( "<a>" + item.NO_TRUCK + "</a>" )
+			.appendTo( ul );
+	};
+});
+
+function set_gateout()
+{
+	var no_cont_        	= $("#CONT_NO").val();
+	var no_req_				= $("#REQ_DEV").val();
+    var no_truck_			= $("#NO_TRUCK").val();
+    var kd_truck_			= $("#KD_TRUCK").val();
+    var no_seal_        	= $("#NO_SEAL").val();
+    var no_nota_        	= $("#NO_NOTA").val();
+    var status_         	= $("#STATUS").val();
+    var masa_berlaku_   	= $("#MASA_BERLAKU").val();
+	var keterangan_			= $("#KETERANGAN").val();
+	var status_pmb_dtl_		= $("#STATUS_PMB_DTL").val();
+	var kd_pmb_dtl_			= $("#KD_PMB_DTL").val();
+	var gross_				= $("#GROSS").val();
+	var ht_op_				= $("#HT_OP").val();
+	var url					= "{$HOME}{$APPID}.ajax/add_gateout";
+	
+	if($( "#CEKING" ).val() == ''){
+		alert("Container Tidak Berasal dari Autocomplete");
+		return false;
+	}
+	else {
+			$( "#load" ).dialog( "open" );
+	
+		$.post(url,{NO_CONT: no_cont_, NO_REQ : no_req_, NO_TRUCK: no_truck_, NO_NOTA: no_nota_, NO_SEAL: no_seal_, STATUS: status_, MASA_BERLAKU:masa_berlaku_, KETERANGAN : keterangan_, STATUS_PMB_DTL : status_pmb_dtl_, KD_TRUCK:kd_truck_, GROSS:gross_, HT_OP:ht_op_, KD_PMB_DTL:kd_pmb_dtl_},function(data){
+		console.log(data);
+		$( "#load" ).dialog("close" );
+		if(data == "EXPIRED")
+		{
+			alert("MASA AKTIF HABIS");	
+		}
+        else if(data == "BLM LUNAS")
+		{
+			alert("Nota belum lunas");
+		}
+		else if(data == "EXPIRED_SESSION")
+		{
+			alert("SESSION EXPIRED");
+		}
+		 else if(data == "BLM LUNAS DAN EXPIRED")
+		{
+			alert("Nota belum lunas dan request harus dilakukan perpanjangan");
+		}
+		else if(data == "EXIST_GATO")
+		{
+			alert("Container Sudah Gate Out");
+		}
+		else if(data == "FAIL")
+		{
+			alert("GATE OUT GAGAL");
+		}
+		else if(data == "EXPIRED")
+		{
+			alert("MASA AKTIF HABIS");
+		}
+		else if(data == "BATAL_MUAT_BLM_LUNAS")
+		{
+			alert("batal Muat belum Lunas");
+		}
+		else if(data == "OK")
+		{
+			alert("Container Berhasil Gate Out");
+			$("#CONT_NO").val('') ;
+			$("#REQ_DEV").val('') ;
+			$("#NO_SEAL").val('') ;
+			$("#SIZE").val('') ;
+			$("#TYPE").val('') ;
+			$("#KETERANGAN").val('') ;
+			$("#NM_PBM" ).val('') ;
+			$("#NO_NOTA").val('') ;
+			$("#MASA_BERLAKU").val('') ;
+			$("#NO_TRUCK").val('') ;
+			$("#STATUS").val('') ;
+			$("#CONT_NO").focus();
+		}
+		});	
+	}
+}
+
+</script>

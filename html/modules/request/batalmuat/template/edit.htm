@@ -1,0 +1,377 @@
+<style>
+.content{
+	width:95%;
+	margin-left:auto;
+	margin-right:auto;
+	margin-bottom: 10px;
+	margin-top:20px;
+
+}
+</style>
+
+<script type="text/javascript">
+	function cek_text()
+	{
+		var teks2=document.getElementById("tipe_req").value;
+		var teks=document.getElementById("no_req").value;
+		var emkl=document.getElementById("emkl").value;
+		var alamat=document.getElementById("alm").value;
+		var vessel=document.getElementById("ves").value;
+		var voy=document.getElementById("voy").value;
+		var tgl_str=document.getElementById("tgl_st_stck").value;
+		var tgl_en=document.getElementById("tgl_en_stck").value;
+		var f;
+		if(teks=="")
+		{
+			alert("Nomor Request harus diisi");
+			return false;
+		}
+		else if(emkl=="")
+		{
+			alert("EMKL harus diisi");
+			return false;
+		}
+		else if(alamat=="")
+		{
+			alert("Alamat EMKL harus diisi");
+			return false;
+		}
+		else if(vessel=="")
+		{
+			alert("Vessel harus diisi");
+			return false;
+		}
+		else if(voy=="")
+		{
+			alert("Voyage harus diisi");
+			return false;
+		}
+		else if(tgl_str=="")
+		{
+			alert("Tanggal Mulai Penumpukan harus diisi");
+			return false;
+		}
+		else if(tgl_en=="")
+		{
+			alert("Tanggal Selesai Penumpukan harus diisi");
+			return false;
+		}
+		else if(teks2=="New")
+		{
+			f=teks.substr(0,3);
+			if(f!="REQ")
+			{
+				alert("Nomor Request harus menggunakan karakter REQ diikuti 9 Digit angka");
+				return false;
+			}
+			else 
+				return true;
+		}
+		else if(teks2=="Ext")
+		{
+			f=teks.substr(0,2);
+			if(f!="SP")
+			{
+				alert("Nomor Request harus menggunakan karakter SP diikuti 9 Digit angka");
+				return false;
+			}
+			else 
+				return true;
+		}
+	}
+	
+	function warn()
+	{
+		var teks=document.getElementById("id_bm").value;
+		var r=confirm("Requset "+teks+" akan disimpan, pastikan data yang sudah diinput benar");
+		if(r==true)
+		{
+			window.location = "{$HOME}request.batalmuat/";
+		}
+		else
+		{
+			return false;
+		}
+	
+	}
+
+</script>
+
+
+<script type='text/javascript'>
+$(document).ready(function() 
+{
+	$('#loadx').load("<?=HOME?>request.batalmuat/tambahan2?id={$detail.ID_BATALMUAT} #list_cont_rec");
+	
+	$("#tgl_berangkat").datepicker({
+			dateFormat: 'dd-mm-yy'
+            });
+	$("#tgl_keluar").datepicker({
+			dateFormat: 'dd-mm-yy'
+            });
+			
+	$( "#emkl" ).autocomplete({
+		minLength: 3,
+		source: "{$HOME}request.batalmuat.auto/pbm",
+		focus: function( event, ui ) {
+			$( "#emkl" ).val( ui.item.KODE_PBM);
+			return false;
+		},
+		select: function( event, ui ) {
+			$( "#emkl" ).val( ui.item.NAMA);
+			$( "#kode_pbm" ).val( ui.item.KODE_PBM);
+			return false;
+		}
+	})
+	.data( "autocomplete" )._renderItem = function( ul, item ) {
+		return $( "<li></li>" )
+			.data( "item.autocomplete", item )
+			.append( "<a>" + item.NAMA + "<br />" + item.ALAMAT + "</a>")
+			.appendTo( ul );
+	};
+
+	$( "#vessel" ).autocomplete({
+		minLength: 3,
+		source: "{$HOME}request.batalmuat.auto/vessel",
+		focus: function( event, ui ) {
+			$( "#vessel" ).val( ui.item.KODE_KAPAL);
+			return false;
+		},
+		select: function( event, ui ) {
+			$( "#vessel" ).val( ui.item.NAMA_VESSEL);
+			return false;
+		}
+	})
+	.data( "autocomplete" )._renderItem = function( ul, item ) {
+		return $( "<li></li>" )
+			.data( "item.autocomplete", item )
+			.append( "<a>" + item.KODE_KAPAL + " | " + item.NAMA_VESSEL + "</a>")
+			.appendTo( ul );
+	};  	
+	
+});   
+
+function add_cont()
+{
+	var no_cont_        	= $("#no_cont").val();
+    var hz_                 = $("#hz").val();
+	var no_req_				= $("#id_bm").val();
+	var status_				= $("#status").val();
+	var size_				= $("#ukuran").val();
+	var tipe_				= $("#tipe").val();
+	var url					= "{$HOME}request.batalmuat.ajax/add_cont_bm";
+	
+	$('#loadx').html('<p align=center><img src={$HOME}images/loadingbox.gif /></p>');
+
+	$.post(url,{no_cont : no_cont_,hz : hz_, no_req : no_req_, status : status_, size : size_, tipe : tipe_},function(data){
+		console.log(data);
+		if(data == "OK")
+		{
+			$('#loadx').load("<?=HOME?>request.batalmuat/tambahan2?id={$detail.ID_BATALMUAT} #list_cont_rec"); 
+		}
+		else if(data == "gagal")
+		{
+		    alert("Gagal Insert No Container...!!!");
+			return false;
+		}
+	});	
+	//prosedur add comment disini, method $.post, include user id dan content id
+}
+
+function del_cont($id_detail)
+{
+	var url			= "{$HOME}request.batalmuat.ajax/del_cont_bm";
+	
+	$('#loadx').html('<p align=center><img src={$HOME}images/loadingbox.gif /></p>');
+
+	$.post(url,{ID_DETAIL : $id_detail},function(data){
+		console.log(data);
+		if(data == "OK")
+		{
+			$('#loadx').load("<?=HOME?>request.batalmuat/tambahan2?id={$detail.ID_BATALMUAT} #list_cont_rec"); 
+		}
+	});	
+}
+</script>
+
+
+<div class="content">
+	<p>
+	<span class="graybrown">
+	<img class="icon" border="0" align="absmiddle" src="images/sp2_p.png">
+	<b><font color="#AB4904">  Form Batal Muat</font></b>
+	</span></p>
+	<p><br/>
+	  </p>	
+	<hr width="870" color="#e1e0de"></hr><p><br/></p>
+	<form method="post" action="<?=HOME?>request.batalmuat/edit_do" onSubmit="return cek_text()" >
+	<table>
+	 <tr>
+		<td class="form-field-caption" align="right">No Request</td>
+		<td class="form-field-caption" align="right">:</td>
+		<td><input type="text" size="20" name="id_bm" id="id_bm" value={$detail.ID_BATALMUAT} readonly="readonly" />
+		</td>
+		<td></td>
+		<td class="form-field-caption" align="right">Status Gate</td>
+		<td class="form-field-caption" align="right">:</td>
+		<td><?php
+				$d=$detail["STAT_GATE"];
+				$ket=array("BEFORE GATE IN","AFTER GATE IN");
+
+				echo "<select id='status_gate' style='width:160px;color:#000000;font:bold; color:#808080; background-color:#FFFF99' name='status_gate'>";
+				for($i=0;$i<2;$i++)
+				{
+				if($ket[$i]==$d)
+				$select= 'selected';
+				else
+				$select='';
+
+				echo "<option value=\"$ket[$i]\"$select>$ket[$i]</option>";
+				}
+				echo "</select>";
+				?></td>
+	</tr>
+	 <tr>
+		<td class="form-field-caption" align="right">Nama Pemilik</td>
+		<td class="form-field-caption" align="right">:</td>
+		<td><input type="text" size="25" name="emkl" id="emkl" value={$detail.NAMA} style="background-color:#FFFFCC;" /><a id="submitForm" href="maintenance.master.pbm/" class="link-button" ><img src='images/valid.png' border='0' />&nbsp;Master EMKL</a>
+		<input type="hidden" size="40" name="kode_pbm" id="kode_pbm" value={$detail.KODE_PBM} />
+		</td>
+		<td>&nbsp;</td>
+		<td class="form-field-caption" align="right">Jenis Batal Muat</td>
+		<td class="form-field-caption" align="right">:</td>
+		<td><?php
+				$d=$detail["JENIS"];
+				$ket=array("ALIH KAPAL","DELIVERY");
+
+				echo "<select id='jenis_batalmuat' style='width:160px;color:#000000;font:bold; color:#808080; background-color:#FFFF99' name='jenis_batalmuat'>";
+				for($i=0;$i<2;$i++)
+				{
+				if($ket[$i]==$d)
+				$select= 'selected';
+				else
+				$select='';
+
+				echo "<option value=\"$ket[$i]\"$select>$ket[$i]</option>";
+				}
+				echo "</select>";
+				?></td>
+     </tr>
+	 <tr>
+		<td class="form-field-caption" align="right">Vessel</td>
+		<td class="form-field-caption" align="right">:</td>
+		<td><input type="text" size="25" name="vessel" id="vessel" value={$detail.VESSEL} style="background-color:#FFFFCC;" /><a id="submitForm" href="maintenance.master.vessel" class="link-button" ><img src='images/valid.png' border='0' />&nbsp;Master Vessel</a>
+		</td>
+		<td>&nbsp;</td>
+		<td class="form-field-caption" align="right">Tgl Berangkat</td>
+		<td class="form-field-caption" align="right">:</td>
+		<td><input type="text" size="15" name="tgl_berangkat" id="tgl_berangkat" value={$detail.TGL_BERANGKAT} />
+		</td>
+     </tr>
+	 <tr>
+		<td class="form-field-caption" align="right">Voyage</td>
+		<td class="form-field-caption" align="right">:</td>
+		<td><input type="text" size="30" name="voyage" id="voyage" size="8" value={$detail.VOYAGE}/>
+		</td>
+		<td>&nbsp;</td>
+		<td class="form-field-caption" align="right">Tgl Keluar</td>
+		<td class="form-field-caption" align="right">:</td>
+		<td><input type="text" size="15" name="tgl_keluar" id="tgl_keluar" value={$detail.TGL_KELUAR} />
+		</td>		
+     </tr>
+	 <tr>
+		<td colspan="7" align="right">&nbsp;</td>
+     </tr>
+	 <tr>
+		<td colspan="7" align="right"><input type="submit" value="Update Request"/></td>
+     </tr>
+	</table>
+	</form>
+	<br>
+	<hr width="870" color="#e1e0de"></hr>	
+	<br/>
+	<table border ='0'>
+	<tr>
+	<td>
+	
+		<table>
+		<tr>
+			<td class="form-field-caption" align="right">&nbsp;NO. PETIKEMAS : </td>
+			<td class="tdblue12"><input type="text" maxlength="11" size="13" name="no_cont" id="no_cont" style="height:40px; width:150px; font-size:20px; background-color:#CCFFCC; text-transform:uppercase;" class="trflat" />&nbsp; <!--<input type="button" onmouseover="_hand(this)" onclick="addNewNonImo()" value="Non IMO Code" style="height:40px" />  --></td>
+			
+		</tr>
+		<tr>
+			<td class="form-field-caption" align="right">&nbsp;Size : </td>
+			<td class="tdblue12">
+				<select name="ukuran" id="ukuran" style="background-color:#CCFFCC" class="trflat" readonly="1">
+					<option value="20">20</option>
+					<option value="40">40</option>
+					<option value="45">45</option>
+				</select>
+			</td>
+		</tr>
+		<tr>
+			<td class="form-field-caption" align="right">&nbsp;Type : </td>
+			<td class="tdblue12">
+				<select name="tipe" id="tipe" style="background-color:#CCFFCC" class="trflat" readonly="1">
+				<option value="DRY">DRY</option>
+				<option value="FLT">FLT</option>
+				<option value="HQ">HQ</option>
+				<option value="OT">OT</option>
+				<option value="OVD">OVD</option>
+				<option value="RFR">RFR</option>
+				<option value="TNK">TNK</option>
+				</select>
+			</td>
+			
+		</tr>
+		<tr>
+			<td class="form-field-caption" align="right">&nbsp;Status : </td>
+			<td class="tdblue12">
+			<select name="status" id="status" style="background-color:#CCFFCC" class="trflat">
+				<option value="FCL">FCL</option>
+				<option value="LCL">LCL</option>
+				<option value="MTY">MTY</option>
+				<option value="UC">UC</option>
+				<option value="UC_NEGO">UC NEGO</option>
+			</select>
+			</td>
+			</tr>
+		<tr>
+			<td class="form-field-caption" align="right">&nbsp;HZ : </td>
+			<td class="tdblue12">
+			<select name="hz" id="hz" style="background-color:#CCFFCC" class="trflat">
+			<option value="T">T</option>
+			<option value="Y">Y</option>
+			</select>
+			</td>
+	</tr>
+	<tr>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+	</tr>
+		<tr>
+			<td class="tdblue12" align="right"><td colspan="7"><input type="button" value=" Tambah Container " onClick="add_cont()"/></td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+		</tr>
+		
+		</table>
+	</td>
+	<td width = '50'>
+	</td>
+	<td valign='top' align='center'>
+			<div id="loadx"></div>
+	</td>
+</tr>
+</table>
+<br>
+<hr width="870" color="#e1e0de"></hr>	
+<br/>
+<a class="link-button" style="height:25" onclick="return warn()">
+      <img border="0" src="images/save_peb.gif" />
+      Simpan</a>
+<p><br/></p>
+</div>
+

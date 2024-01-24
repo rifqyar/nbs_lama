@@ -1,0 +1,55 @@
+<pdf paper='a4' portrait>
+<reportbody>
+<div style="font-family:arial; font-size:7pt;">
+
+<table>		
+	<tr align="left">
+		<td colspan="2" width="250"><div style="font-size:8.5pt"><b><i>{$subsidiary}</i></b></div></td>
+	</tr>
+</table>
+
+<br />
+<br />
+  <div style="font-size:11pt" align="center"><b>STAGING PYMA BARANG CABANG</b> </div>
+<br />
+<table width="520" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+      <td width="72">Tanggal</td>
+	  <td  width="200" align="left">: <?php echo date('d-M-Y') ;?></td>
+  </tr>
+  
+  <tr>
+    <td width="72">&nbsp;</td>
+	<td  width="200" align="left">&nbsp;</td>
+  </tr>
+</table>
+
+<table border="1" cellspacing="0" cellpadding="0">
+  <tr align="center" bgcolor="#CCCCFF">
+      <td width="23"><strong>NO</strong></td>
+      <td width="100"><strong>NAMA NOTA</strong></td>
+      <td width="100"><strong>NO NOTA</strong></td>
+	  <td width="50"><strong>TANGGAL NOTA</strong></td>
+	  <td width="150"><strong>NAMA PELANGGAN</strong></td>
+	  <td width="50"><strong>STATUS</strong></td>
+      <td width="70" ><strong>AMOUNT</strong></td>
+  </tr>
+  <?php foreach($dtls as $dtl) : ?>
+   <tr align="center">
+	  <td width="23" height="20"><?php echo $dtl['_no'] ?></td>
+      <td width="100"><?php echo $dtl['NOTA_NAME'] ?></td>
+      <td width="100" align="left"><?php echo $dtl['TRX_NUMBER'] ?></td>
+	  <td width="50" align="left"><?php echo $dtl['TRX_DATE'] ?></td>
+	  <td width="150" align="left"><?php echo $dtl['CUSTOMER_NAME'] ?></td>
+	  <td width="50" align="center"><?php echo $dtl['CONFIRMATION_STATUS'] ?></td>
+      <td width="70" align="right"><?php echo $dtl['AMOUNT'] ?></td>
+  </tr>
+  <?php endforeach; ?>
+  <!--fill src='dtls' var='dtl' emptyflag='empty'>
+ 
+ </fill-->
+</table>
+	
+</div>
+</reportbody>
+</pdf>

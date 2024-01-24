@@ -1,0 +1,48 @@
+<div id="list">
+	<table width="100%">
+    	<thead>
+		<block visible='multipage'>
+			<tr>
+			  <td align="center" style="padding-bottom:4px;" colspan="6" >
+				  <block visible="prevvisible"> <a onclick="change_page(parseFloat($('#navsel_').val())-1)" style="cursor:pointer;">< Sebelumnya</a> &nbsp; </block>
+				  <select id="navsel_" name="p" list="navlist" selected="navpage" onchange="change_page($('#navsel_').val())"
+						style="font-size:10px; border: solid 1px #333333; background-color:#FFFDCA;">
+				  </select>
+				  <block visible="nextvisible">&nbsp; <a onclick="change_page(parseFloat($('#navsel_').val())+1)" style="cursor:pointer;">Selanjutnya ></a> </block>
+				</td>
+			</tr>
+		</block>
+        	<tr>
+            	<th class="grid-header"  style="font-size:8pt">No.</th>
+            	<th class="grid-header"  style="font-size:8pt">No Request</th>
+                <th class="grid-header"  style="font-size:8pt">Tanggal Request</th>
+                <th class="grid-header"  style="font-size:8pt">EMKL</th>
+                <th class="grid-header"  style="font-size:8pt">BOX</th>
+                <th class="grid-header"  style="font-size:8pt">&nbsp;</th>
+            </tr>
+        </thead>
+        <tbody>
+        	<fill src="row_list" var="rows">
+		   	<alt var='bg' list='#f9f9f3,#ffe'/>
+        	<tr bgcolor="{$bg}" style="cursor:pointer;">
+            	<td class="grid-cell" align="center" style="font-size:9pt">{$rows.__no}</td>
+            	<td class="grid-cell" align="center" style="font-size:9pt"><b>{$rows.NO_REQUEST}</b></td>
+            	<td class="grid-cell" align="center" style="font-size:9pt"><font color="#0066CC" style="font-size:10pt">{$rows.TGL_REQUEST}</font></td>
+            	<td class="grid-cell" align="center" style="font-size:9pt"><font color="#0066CC" style="font-size:10pt">{$rows.NAMA_CONSIGNEE}</font></td>
+            	<td class="grid-cell" align="center" style="font-size:9pt"><font color="#0066CC" style="font-size:10pt">{$rows.JML} BOX</font></td>
+            	<td class="grid-cell" align="center" style="font-size:9pt">
+                    <?php 
+                        if ($rows['LUNAS']== 'YES'){
+                         ?><a href="<?=HOME?><?=APPID?>.print/cetak?no_req={$rows.NO_REQUEST}", target="_blank"><img src="images/printer.png"> Cetak Kartu SPPS (103) </a> / <a href="{$HOME}{$APPID}.print/cetakan?no_req={$rows.NO_REQUEST}", target="_blank"><img src="images/printer.png"> Cetak Kartu SPPS (shrink) </a> <br/>
+						 <a onclick="print_by_container('{$rows.NO_REQUEST}')"> Cetak Per Container </a>
+							<a href="<?=HOME?><?=APPID?>.print/cetak_spk?no_req={$rows.NO_REQUEST}", target="_blank"><img src="images/printer.png"> Cetak SPK </a>
+						 <?
+                        } else {
+                         ?> Nota Blm Lunas <?
+                        } ?>
+                </td>
+            </tr>
+            </fill>
+        </tbody>
+    </table>
+</div>

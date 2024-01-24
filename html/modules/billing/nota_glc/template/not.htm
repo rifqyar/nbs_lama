@@ -1,0 +1,87 @@
+<? if($status_form=="req")
+   {	
+    ?>
+<div id="nottime_list">
+<br/>
+<table id="dataTable" border="1" bordercolor="#4D5A77" width=80% style="border-collapse:collapse">
+	  <tr>
+		<th style="background-color:#607095" width="30" height="30">NO</th>
+        <th style="background-color:#607095" width="80">ALAT</th>       
+		<th style="background-color:#607095" width="80">ESTIMASI SHIFT</th>
+        <th style="background-color:#607095" width="40">DELETE</th>
+     </tr>
+    <? $i=1; ?>
+	<fill src="hasil_detail" var="hasil_details">	 
+		<tr>  
+        	<td align="center" bgcolor="#FAFAFA" height="30">{$i}</td> 
+            <td align="center" bgcolor="#FAFAFA">{$hasil_details.ID_ALAT}</td>            
+            <td align="center" bgcolor="#FAFAFA">{$hasil_details.SHIFT}</td>
+			<td align="center" bgcolor="#FAFAFA"><input type="button" onclick="del_alat('{$hasil_details.ID_DETAILS}')" value="Hapus" name="Hapus"/></td>
+		</tr>
+     <? $i++; ?>
+	</fill>
+	</table>
+	<br/>
+</div>
+	
+	<? 
+	}
+	else if($status_form=="realisasi")
+    {
+    ?>
+    
+<div id="nottime_list">
+<br/>
+<table id="dataTable" border="1" bordercolor="#4D5A77" width=80% style="border-collapse:collapse">
+	  <tr>
+		<th style="background-color:#607095" width="30" height="30">NO</th>
+        <th style="background-color:#607095" width="80">ALAT</th>       
+		<th style="background-color:#607095" width="80">START WORK</th>
+		<th style="background-color:#607095" width="80">END WORK</th>
+        <th style="background-color:#607095" width="40">DELETE</th>
+     </tr>
+     <? $i=1; ?>
+	<fill src="hasil_detail" var="hasil_details">	 
+		<tr>  
+        	<td align="center" bgcolor="#FAFAFA" height="30">{$i}</td> 
+            <td align="center" bgcolor="#FAFAFA">{$hasil_details.ID_ALAT}</td>            
+            <td align="center" bgcolor="#FAFAFA">{$hasil_details.MULAI}</td>
+			<td align="center" bgcolor="#FAFAFA">{$hasil_details.SELESAI}</td>
+			<td align="center" bgcolor="#FAFAFA"><input type="button" onclick="del_alat('{$hasil_details.ID_DETAILS}')" value="Hapus" name="Hapus"/></td>
+		</tr>
+	<? $i++; ?>
+	</fill>
+	</table>
+	<br/>
+</div>
+<? }
+	else if($status_form=="view")
+    {
+	?>
+	
+<div id="nottime_list">
+<br/>
+<table id="dataTable" border="1" bordercolor="#4D5A77" width=80% style="border-collapse:collapse">
+	  <tr>
+		<th style="background-color:#607095" width="30" height="30">NO</th>
+        <th style="background-color:#607095" width="80">ALAT</th>       
+		<th style="background-color:#607095" width="80">START WORK</th>
+		<th style="background-color:#607095" width="80">END WORK</th>
+        <th style="background-color:#607095" width="40">SHIFT</th>
+     </tr>
+     <? $i=0; ?>
+	<fill src="glc" var="glcs">	 
+		<tr>  
+        	<td align="center" bgcolor="#FAFAFA" height="30"><?=$i+1;?></td> 
+            <td align="center" bgcolor="#FAFAFA">{$glcs.ID_ALAT}</td>            
+            <td align="center" bgcolor="#FAFAFA">{$strt.$i}</td>
+			<td align="center" bgcolor="#FAFAFA">{$end.$i}</td>
+			<td align="center" bgcolor="#FAFAFA">{$shift.$i}</td>
+		</tr>
+	<? $i++; ?>
+	</fill>
+	</table>
+	<br/>
+</div>
+	
+<? } ?>

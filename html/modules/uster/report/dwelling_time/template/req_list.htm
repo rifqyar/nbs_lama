@@ -1,0 +1,26 @@
+<div id="list">
+                        <table class="grid-table" border='0' cellpadding="1" cellspacing="1"  width="100%" >
+                              <tr style=" font-size:10pt">
+                                  <th width="2%" valign="top" class="grid-header"  style="font-size:8pt">No </th>
+                                  <th width="110" valign="top" class="grid-header"  style="font-size:8pt">NO. REQUEST </th>
+                                  <th width="200" valign="top" class="grid-header"  style="font-size:8pt">NAMA VESSEL/VOY</th>
+                                  <th width="200" valign="top" class="grid-header"  style="font-size:8pt">TGL. REQUEST</th> 
+                                  <th  width="200" valign="top" class="grid-header"  style="font-size:8pt">LAPANGAN</th>
+                                  <th width="100" valign="top" class="grid-header"  style="font-size:8pt">ACTION</th>  
+                              </tr>
+                              <fill src="row_list" var="rows">
+                              <tr bgcolor="#f9f9f3" onMouseOver=this.style.backgroundColor="#BAD5FC" onMouseOut=this.style.backgroundColor="">
+                                  <td width="4%" align="center" valign="middle" class="grid-cell" style="color:#000; font-family:Arial; font-size:9pt">{$__ctr} </td>
+                                  <td width="15%" align="center" valign="middle" class="grid-cell"   style="font-family:Arial; font-size:11pt; color:#555555"><b>{$rows.NO_REQUEST}</b></font></td>
+                                  <td width="20%" align="center" valign="middle" class="grid-cell"  style="font-size:9pt"><font color="#0066CC" style="font-size:10pt">{$rows.NAMA_VESSEL}/</font>{$rows.VOYAGE}</td>
+                                  <td width="20%" align="left" valign="middle" class="grid-cell"  style="font-size:9pt"><font color="#0066CC" style="font-size:10pt">TGL REQUEST : </font>{$rows.TGL_REQUEST} <br><font color="#0066CC" style="font-size:10pt"> TGL KELUAR : </font>{$rows.TGL_REQUEST_DELIVERY}</td>
+                                 
+                                  <td width="20%" align="center" valign="middle" class="grid-cell"  style="font-size:9pt;font-family:Arial;"><font color="#0066CC" style="font-size:10pt">Yard asal : {$rows.YARD_ASAL} <br> Yard Tujuan : {$rows.YARD_TUJUAN}</font></td>
+                                  <td class="grid-cell" align="center" style="font-size:9pt">
+                                       <a href="{$HOME}{$APPID}.print/cetak?no_req={$rows.NO_REQUEST}"><img src="images/printer.png"> Cetak Kartu SP2 </a>
+                                  </td>
+                              </tr>
+            </fill>
+        </tbody>
+    </table>
+</div>

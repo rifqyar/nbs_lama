@@ -1,0 +1,42 @@
+<div id="list">
+	<table class="grid-table" border='0' cellpadding="1" cellspacing="1"  width="100%">
+        <block visible='multipage'>
+                            <tr>
+                              <td align="center" style="padding-bottom:4px;" colspan="7" >
+                                  <block visible="prevvisible"> <a onclick="change_page(parseFloat($('#navsel_').val())-1)" style="cursor:pointer;">< Sebelumnya</a>   </block>
+                                  <select id="navsel_" name="p" list="navlist" selected="navpage" onchange="change_page($('#navsel_').val())"
+                                        style="font-size:10px; border: solid 1px #333333; background-color:#FFFDCA;">
+                                  </select>
+                                  <block visible="nextvisible">   <a onclick="change_page(parseFloat($('#navsel_').val())+1)" style="cursor:pointer;">Selanjutnya ></a> </block>
+                                </td>
+                            </tr>
+                        </block>
+        	<tr>
+            	<th class="grid-header" width="10px;">No.</th>
+                <th class="grid-header">NO REQUEST</th>
+                <th class="grid-header">TGL REQUEST</th>
+                <th class="grid-header">KEGIATAN</th>
+                <th class="grid-header">PEMILIK</th>
+                <th class="grid-header">KAPAL</th>
+                <th class="grid-header">JUMLAH CONT</th>
+                <th class="grid-header">&nbsp;</th>
+            </tr>
+        <tbody>
+        	<fill src="row_list" var="rows">
+		   	<alt var='bg' list='#f9f9f3,#ffe'/>
+        	<tr bgcolor="{$bg}" style="cursor:pointer;" onMouseOver=this.style.backgroundColor="#BAD5FC" onMouseOut=this.style.backgroundColor="">
+            	<td class="grid-cell" style="font-size:14px;">{$rows.__no}</td>
+            	<td class="grid-cell" align="center" valign="middle" style="font-family:Arial; font-size:11pt; color:#555555"><b>{$rows.NO_REQUEST}</b></td>
+            	<td class="grid-cell" align="center" valign="middle" style="font-family:Arial; font-size:11pt; color:#555555"><b>{$rows.TGL_REQUEST}</b></td>
+				<td class="grid-cell" align="center" valign="middle" style="font-family:Arial; font-size:11pt; color:#555555"><b>{$rows.JN_REPO}</b></td>          	
+                <td align="center" valign="middle" class="grid-cell"  style="font-size:9pt"><b>{$rows.NM_PBM}</b></td>
+                <td align="center" valign="middle" class="grid-cell"  style="font-size:9pt"><b>{$rows.VESSEL} / {$rows.VOYAGE}</b></td>
+            	<td align="center" valign="middle" class="grid-cell"  style="font-size:10pt;font-family:Arial; color:#0066CC; font-weight:800;">{$rows.JUM_CONT}</td>    	
+                <td align="center" valign="middle" class="grid-cell"  style="font-size:9pt">
+				<a href="{$HOME}{$APPID}/view?no_req={$rows.NO_REQUEST}&keg={$rows.KEGIATAN}"><img src='images/editp.png' border='0' />&nbsp; Ubah</a>				
+				</td>
+            </tr>
+            </fill>
+        </tbody>
+    </table>
+</div>

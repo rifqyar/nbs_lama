@@ -1,0 +1,85 @@
+<style>
+.content{
+	width:95%;
+	margin-left:auto;
+	margin-right:auto;
+	margin-bottom: 10px;
+	margin-top:20px;
+}
+</style>
+<div class="content">
+<div class="main_side">
+	<p>
+	 <img src="<?=HOME?>images/upload_excel.png" height="5%" width="5%" style="vertical-align:middle"> <font size=5px color='#7cb15e'>Upload </font> <font size=5px color='#606263'>Stok Opname</font></p>
+	
+	<p><br/>
+	  </p>
+	
+	<hr width="870" color="#e1e0de"></hr><p><br/></p>
+	<fieldset width='80%' style="border: 1px solid #e1e0de;-moz-border-radius:5px;">
+	<legend class="form-field-caption" align="left"><font color='#0482d5'> Upload File Excel</font> </legend>
+	<form method="post" enctype="multipart/form-data" action="<?=HOME?>maintenance.upload_opname.ajax/upload_excel">
+		<table>
+			<tr height='20'>
+				<td class="form-field-caption" align="right"> 
+			</td>
+				<td class="form-field-caption" align="right"></td>
+				<td></td>			
+			</tr>
+			<tr>
+				
+				<td class="form-field-caption" align="right">Upload File Excel</td>
+				<td class="form-field-caption" align="right"> : </td>
+				<td colspan='4'><input type="file" name="uploadfile" id="uploadfile" size="20" />
+                                    <input type="hidden" name="id_vs" value="{$vessel.ID_VS}" />
+									&nbsp &nbsp &nbsp <blink><font color="red"><font size="6"><b>
+								<? if ($_GET['jum'] <> ''){
+					echo $_GET['jum'].' uploaded';
+					} ?></b></blink></font></font></td>			
+			</tr>
+			<!--<tr>
+				<td class="form-field-caption" align="right">Status Data</td>
+				<td class="form-field-caption" align="right"> : </td>
+				<td class="form-field-caption" align="left"><select id="modus" name="modus"><option value='-'> -- Pilih --</option><option value='overwrite'>Overwrite</option><option value='append'>Append</option></select></td>
+			</tr>-->
+			<tr>
+				<td colspan="3" align="left"> <input type="submit" name="upload" value="upload" /> 
+				</td>
+			</tr>
+			<tr height='20'>
+				<td class="form-field-caption" align="right"></td>
+				<td class="form-field-caption" align="right"></td>
+				<td></td>			
+			</tr>
+		</table>
+	</form>
+	</fieldset>
+	<br>
+	<hr width="870" color="#e1e0de"></hr><p><br/></p>
+	<fieldset width='80%' style="border: 1px solid #e1e0de;-moz-border-radius:5px;">
+	<legend> Get data ICT 03</legend>
+	
+	<button value="" title=" Get data ICT " id="opname" onclick="opname()"> <image src="<?=HOME?>images/upload3.png"></button>
+	
+	</fieldset>
+	</div>
+</div>
+
+
+<script>
+function opname(){
+	var url 	       = "<?=HOME?><?=APPID?>.ajax/opname_ict";
+
+	$.blockUI({ message: '<h1><br>Please wait...</h1><br><img src={$HOME}images/loadingbox.gif /><br><br>' }); 
+	$("#opname").load(url,{}, function(data){
+		if(data){
+				alert(data);
+				$.unblockUI({ 
+				onUnblock: function(){ 
+					
+				} 
+				});
+		}
+	});
+}
+</script>

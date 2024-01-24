@@ -1,0 +1,311 @@
+<style>
+.content{
+	width:95%;
+	margin-left:auto;
+	margin-right:auto;
+	margin-bottom: 10px;
+	margin-top:20px;
+
+}
+</style>
+
+<script>
+$(document).ready(function(){	
+	$("#vessel").autocomplete({
+		minLength: 3,
+		source: "request.behandle.auto/vesvoy",
+		focus: function( event, ui ) 
+		{
+			$("#vessel").val( ui.item.NM_KAPAL);
+			return false;
+		},
+		select: function( event, ui ) 
+		{
+			$("#vessel").val(ui.item.NM_KAPAL);
+			$("#voy").val(ui.item.VOYAGE);
+			$("#ukk").val(ui.item.NO_UKK);
+			$("#ship_line").val(ui.item.NM_PEMILIK);
+			return false;
+		}
+	})
+	.data( "autocomplete" )._renderItem = function( ul, item ) 
+	{
+		return $( "<li></li>" )
+		.data("item.autocomplete", item )
+		.append("<a><b>" + item.NM_KAPAL + "</b> || " + item.VOYAGE + "<br>" + item.NO_UKK + "<br>" + item.NM_PEMILIK + "</a>")
+		.appendTo(ul);
+	};
+	
+	$("#emkl").autocomplete({
+		minLength: 3,
+		source: "request.batalmuat.alihkapal.auto/pelanggan",
+		focus: function( event, ui ) 
+		{
+			$("#emkl").val( ui.item.NM_KAPAL);
+			return false;
+		},
+		select: function( event, ui ) 
+		{
+			$("#emkl").val(ui.item.NAMA_PERUSAHAAN);
+			$("#alamat").val(ui.item.ALAMAT_PERUSAHAAN);
+			$("#npwp").val(ui.item.NO_NPWP);			
+			return false;
+		}
+	})
+	.data( "autocomplete" )._renderItem = function( ul, item ) 
+	{
+		return $( "<li></li>" )
+		.data("item.autocomplete", item )
+		.append("<a><b>" + item.NAMA_PERUSAHAAN + "</b><br>" + item.ALAMAT_PERUSAHAAN + "<br>" + item.NO_NPWP + "</a>")
+		.appendTo(ul);
+	};
+});
+
+function tambah_container()
+{
+
+	var size_           = document.getElementById("size").value;
+	var type_           = document.getElementById("type").value;
+	var status_         = document.getElementById("status").value;
+	var no_cont_         = document.getElementById("no_cont").value;
+	
+	var hz_             = document.getElementById("hz").value;
+	var no_req_			= document.getElementById("no_req").value;
+	var url				= "{$HOME}request.behandle/add_cont";
+	$.post(url,{SIZE : size_, TYPE : type_, STATUS : status_, NO_CONT : no_cont_, HZ: hz_, ID_REQ: no_req_});	
+	$('#loadx').load("<?=HOME?>request.behandle/tambahan2?id="+no_req_+" #list_cont_bh");
+}
+
+function cek()
+{
+	if($("#tipe_req").val() == "") {
+		alert("Jenis Request harap dipilih!!!");
+		return false;
+	}
+	else if($("#vessel").val() == "") {
+		alert("Vessel harap diisi!!!");
+		return false;
+	}
+	else if($("#emkl").val() == "") {
+		alert("Pelanggan harap diisi!!!");
+		return false;
+	}
+	else if($("#no_bc_i").val() == "") {
+		alert("No. Instruksi Pemeriksaan harap diisi!!!");
+		return false;
+	}
+	else {
+		question = confirm("data akan disimpan, cek apakah data sudah benar?")
+		if (question != "0")	return true;
+		else	return false;
+	}
+}
+</script>
+
+<?php
+	if($var=="save2")
+	{
+		
+		
+		?>
+		<script type='text/javascript'>
+		$(document).ready(function() 
+		{
+		$("#no_req").attr("readonly", true);
+		$("#tipe_req").attr("readonly", true);
+		$("#emkl").attr("readonly", true);
+		$("#alamat").attr("readonly", true);
+		$("#ship_line").attr("readonly", true);
+		$("#npwp").attr("readonly", true);
+		$("#vessel").attr("readonly", true);
+		$("#voy").attr("readonly", true);
+		$("#no_bc_i").attr("readonly", true);
+		$("#ket").attr("readonly", true);
+		var no_req_ = document.getElementById("no_req").value;
+		$('#loadx').load("<?=HOME?>request.behandle/tambahan2?id="+no_req_+" #list_cont_bh");
+		var ele = document.getElementById("submitForm");
+		ele.style.display="none";
+		var elex = document.getElementById("tambah");
+		elex.style.display="block";
+		
+		});  
+		</script>
+		<?
+	}
+	else
+	{
+		$no="AUTO";
+		$tipe="";
+		$emklx="";
+		$npwpx="";
+		$vesx="";
+		$ket_auto = "Autocomplete";
+		$voyx="";
+		$almx="";
+		$sl="";
+		$ketx="";
+		$bcn="";
+		
+	}
+?>
+
+<span class="graybrown">
+<img class="icon" border="0" src="images/dokumenbig.png">
+Request Behandle
+</span>
+<br>
+<br>
+<form method="post" action="<?=HOME?>request.behandle/save" onSubmit="return cek()" >
+
+<table class="form-input" width="100%" cellspacing="2" cellpadding="2" border="0">
+<tbody>
+	<tr>
+		<td class="form-field-caption" width="22%" valign="top">No. Permintaan</td>
+		<td class="form-field-input" width="78%" valign="top"> : <input type="text" size="20" value={$no_req} name="no_req" id="no_req" ReadOnly /> 
+		</td>
+		
+	</tr>
+	<!--<tr>
+		<td class="form-field-caption" colspan="2" valign="top"><i>contoh format nomor request (jika nomor request tidak tercreate pada ICT):</i><br/><b>BH_EX_[nomor urut] - untuk export & BH_IM_[nomor urut] - untuk import</b> 
+		</td>
+	</tr>-->
+	<tr>
+		<td class="form-field-caption" colspan="2" valign="top">&nbsp;</td>
+	</tr>
+	<tr>
+		<td class="form-field-caption" width="22%" valign="top">Jenis Request Behandle</td>
+		<td class="form-field-input" width="78%" valign="top">: <select name="tipe_req" id="tipe_req" selected="tipe_req">
+			<option value="">pilih</option>
+			<option value="Export"> Export </option>
+			<option value="Import"> Import </option>
+		</select></td>
+	</tr>
+	<tr>
+		<td class="form-field-caption" valign="top">Nama Ex-Kapal / Voy / UKK</td>
+		<td class="form-field-input" valign="top">:
+		<input id="vessel" type="text" size="30" value={$ves} name="vessel" placeholder={$ket_auto} />
+		&nbsp;&nbsp;/&nbsp;&nbsp;
+		<input name="voy" id="voy" value={$voy} type="text" size="8" ReadOnly />
+		&nbsp;&nbsp;/&nbsp;&nbsp;
+		<input name="ukk" id="ukk" value={$ukk} type="text" size="20" ReadOnly />
+		</td>
+	</tr>
+	<tr>
+		<td class="form-field-caption" valign="top">Shipping Line</td>
+		<td class="form-field-input" valign="top"> : 
+		<input name="ship_line" id="ship_line" type="text" size="45" value={$ship_line} name="ship_line" ReadOnly />
+		</td>
+	</tr>
+	<tr>
+		<td class="form-field-caption" valign="top">Nama Pelanggan </td>
+		<td class="tdblue12" valign="top">
+		:
+		<input id="emkl" name="emkl" type="text" maxlength="50" size="30" value={$emkl} placeholder={$ket_auto}  />
+		</td>
+	</tr>
+	<tr>
+		<td class="form-field-caption" valign="top">Alamat </td>
+		<td class="tdblue12" valign="top">
+		:
+		<input name="alamat" id="alamat" type="text" size="50" value={$alm} ReadOnly />
+		</td>
+	</tr>
+	<tr>
+		<td class="form-field-caption" valign="top">NPWP </td>
+		<td class="tdblue12" valign="top">
+		:
+		<input id="npwp" name="npwp" type="text" size="30" value={$npwp} ReadOnly />
+		</td>
+	</tr>
+	<tr>
+		<td class="form-field-caption" valign="top">No. Instruksi Pemeriksaan</td>
+		<td class="form-field-input" valign="top">
+		:
+		<input id="no_bc_i" type="text" maxlength="30" size="30" value={$no_bc} name="no_bc_i" />
+		</td>
+	</tr>
+	<tr>
+		<td class="form-field-caption" valign="top">Keterangan</td>
+		<td class="form-field-input" valign="top"> : 
+		<textarea id="ket" cols="25" rows="2" name="ket" />{$ket}</textarea>
+		</td>
+		</tr>
+	<tr>
+		<td class="form-field-caption" valign="top" align="center" colspan="2">
+		<div id="tableinput">
+		</td>
+	</tr>
+	<tr>
+		<td colspan="12">
+		<div id="contdiv"></div>
+		</td>
+	</tr>
+	<tr>
+		<td colspan="10"></td>
+	</tr>
+	<tr>
+		<td colspan="2" class="form-field-caption">
+		<input type="submit" id="submitForm" class="link-button" value="Create Request" />
+		</td>
+	</tr>
+	<tr>
+	<td>&nbsp;</td>
+	</tr>
+</tbody>
+</table>
+</form>
+<div class="content">
+<div id="tambah" style="display: none">
+	<table>
+	  <tr>
+		<td colspan="12">Nomor Container : <input type="text" size="20" name="no_cont" id="no_cont" maxlength="11" style="height:25px;width:150px;font-size:15px;text-transform:uppercase"/>
+		</td>
+	</tr>
+	<tr>
+		<td>Size</td>
+		<td>:</td>
+		<td><select name="size" id="size">
+			<option value="20">20</option>
+			<option value="40">40</option>
+			<option value="45">45</option>
+		</select></td>
+     	<td>&nbsp;Type</td>
+		<td>:</td>
+		<td><select name="type" id="type">
+			<option value="DRY">DRY</option>
+			<option value="RFR">RFR</option>
+			<option value="OVD">OVD</option>
+			<option value="OT">OT</option>
+			<option value="TNK">TNK</option>
+			<option value="HQ">HQ</option>
+			<option value="FLT">FLT</option>
+		</select></td>
+		<td>&nbsp;Status</td>
+		<td>:</td>
+		<td><select name="sts" id="status">
+			<option value="FCL">FCL</option>
+			<option value="MTY">MTY</option>
+		</select></td>
+		<td>&nbsp;Hz</td>
+		<td>:</td>
+		<td><select name="hz" id="hz">
+			<option value="T">T</option>
+			<option value="Y">Y</option>
+		</select></td>
+		<td>&nbsp;<input type="submit" value="tambah" onclick="tambah_container()" /></td>
+		</tr>
+	</table>
+	<br>
+	
+		<div id="loadx"></div>
+	
+		<table>
+		<tr>
+		<form method="post" action="<?=HOME?>request.behandle/hitung_req?id=<?=$no?>" onsubmit="return warn()">
+		<td><input type="submit" id="submitForm" class="link-button" value="Save Request" /></td>
+		</form>
+		<tr>
+		</table>
+	
+	</div>
+	</div>

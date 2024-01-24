@@ -1,0 +1,449 @@
+<span class="graybrown"><img src='images/sp2_p.png' border='0' class="icon"/><font color="#0378C6"> Request</font> Delivery - SP2 ke LUAR DEPO</span><br/><br/>
+<fieldset class="form-fieldset" style="margin: 5px 5px 5px 5px; ">
+<form id="form" action="<?=HOME?><?=APPID?>/edit_do" method="POST">
+	<center>
+       <table class="form-input" style="border:1px; margin: 30px 30px 30px 30px;" >
+	    <tr>
+            <td  class="form-field-caption">NO REQUEST</td>
+            <td> : </td>
+            <td colspan="5"><input type="text" name="NO_REQ" id="NO_REQ" value="{$row_request.NO_REQUEST}" readonly="readonly"/> </td>
+         </tr>
+       <tr>
+             <td  class="form-field-caption">Nama Consignee</td>
+            <td> : </td>
+            <td> <input type="text" name="EMKL" id="EMKL" value="{$row_request.NAMA_EMKL}" size="25"  style="background-color:#FFFFCC;" /> <input type="hidden" name="ID_EMKL" id="ID_EMKL" value="{$row_request.ID}" /> 
+			<input type="hidden" name="BP_ID" id="BP_ID" value="{$row_request.BP_ID}" /> </td>
+            <td width="50"> </td>
+			<td class="form-field-caption" width="150">Penumpukan Oleh</td>
+			<td> : </td>
+			<td width="300" class="form-field-input">
+			<input id="NM_AGEN" name="NM_AGEN" type="text" value="" size="45" value = "{$row_request.NM_AGEN}" style="background-color:#FFFFCC;"/>
+			<input id="KD_AGEN" name="KD_AGEN" type="hidden" value="" size="16" value = "{$row_request.KD_AGEN}"  />
+			</td>
+			
+			
+			
+            <!--<td width="150" class="form-field-caption"> Tanggal Request Delivery</td>
+            <td> : </td>
+            <td width="300"><input type="text" name="tgl_dev"  id="tgl_req_dev" placeholder="{$row_request.TGL_REQUEST_DELIVERY}"  style="background-color:#FFFFCC;" /> </td>-->
+        </tr>
+		
+         <tr>
+            <td  class="form-field-caption">Alamat</td>
+            <td> : </td>
+            <td><input type="text" name="alamat" id="ALAMAT" value="{$row_request.ALAMAT}" size="35" readonly="readonly"  style="background-color:#FFFFCC;" /> </td>
+            <td width="50"> </td>
+             <td  class="form-field-caption">Keterangan</td>
+            <td> : </td>
+            <td> <input type="text" name="keterangan" style="width:250px" value="{$row_request.KETERANGAN}"/></td>
+        </tr>
+         <tr>
+            <td  class="form-field-caption">NPWP</td>
+            <td> : </td>
+            <td><input type="text" name="npwp" id="NPWP" size="20" value="{$row_request.NPWP}" readonly="readonly"  style="background-color:#FFFFCC;" /> </td>
+            <td width="50"> </td>
+			<td class="form-field-caption" width="150">No RO</td>
+			<td> : </td>
+			<td width="300" class="form-field-input">
+			<input id="NO_RO" name="NO_RO" type="text" value="{$row_request.NO_RO}" size="16" />
+			</td>
+         </tr>
+        <tr>
+            <td colspan="8" align="center"> <a class="link-button" onClick="save()"><img src='images/cont_addnew.gif' border="0"> Simpan </a>&nbsp;</td>
+        </tr>
+    
+	</table>
+    </center>
+</form>
+</fieldset>
+
+<fieldset class="form-fieldset" style="margin: 5px 5px 5px 5px; ">
+	<center>
+    <table class="form-input" style="margin: 30px 30px 30px 30px;"  >
+    	<tr>
+            <td  class="form-field-caption"> Nomor Container </td>
+            <td> : </td>
+            <td> <input type="text" name="NO_CONT" ID="NO_CONT" placeholder="AUTO COMPLETE" style="background-color:#FFFFCC;" /> </td>
+            <td style="width:200px;">&nbsp;</td>
+            <td  class="form-field-caption"> Ukuran </td>
+            <td> : </td>
+            <td> <input type="text" name="SIZE" id="SIZE" readonly="readonly" size="5"  style="background-color:#FFFFCC;" /></td>
+        </tr>
+        <tr>
+        	<td  class="form-field-caption"> Status </td>
+            <td> : </td>
+            <td> <!-- <input name="STATUS" id="STATUS" readonly="readonly" size="5"  style="background-color:#FFFFCC;" /> -->
+			<select id="STATUS" name="STATUS" style="background-color:#FFFFCC;">
+				<option value='MTY'>MTY</option>
+				<option value='FCL'>FCL</option>
+			</select>
+			</td>
+        	<td style="width:200px;">&nbsp;</td>
+            <td  class="form-field-caption"> TIPE </td>
+            <td> : </td>
+            <td> <input type="text" name="TYPE" id="TYPE" readonly="readonly" size="5" style="background-color:#FFFFCC;"/></td>
+        </tr>
+         <tr>
+            <td  class="form-field-caption"> HZ </td>
+            <td> : </td>
+            <td> <select name="HZ" id="HZ"> <option value="N">N</option> <option value="Y">Y</option></select> <font color="red">*) Harus Diisi</font></td>
+            <td style="width:200px;">&nbsp;</td>
+            <td  class="form-field-caption"> Komoditi </td>
+            <td> : </td>
+            <td> <input type="text" name="komoditi" ID="komoditi" /> </td>
+             </tr>
+         <tr>
+            <td  class="form-field-caption"> VIA</td>
+            <td> : </td>
+            <td> <select name="via" id="via"> <option value="darat">DARAT</option> <option value="tongkang">TONGKANG</option> <option value="ship_side">SHIP-SIDE</option>  </select></td>
+            <td style="width:200px;">&nbsp;</td>
+            <td  class="form-field-caption"> Berat </td>
+            <td> : </td>
+            <td> <input type="text" name="berat" ID="berat" /> </td>
+         </tr>
+         <tr>
+            <td  class="form-field-caption"> No Seal</td>
+            <td> : </td>
+            <td> <input type="text" name="no_seal" ID="no_seal" /></td> 
+            <td style="width:200px;">&nbsp;</td>
+            <td  class="form-field-caption"> Keterangan</td>
+            <td> : </td>
+            <td> <input type="text" name="keterangan" ID="keterangan" /></td>
+         </tr>
+		 <tr>
+            <td  class="form-field-caption"> Start Pnkn</td>
+            <td> : </td>
+            <td> <input type="text" name="start_pnkn" ID="start_pnkn" style="background-color:#FFFFCC;"/>
+			<input type="hidden" name="asal_cont" ID="asal_cont" style="background-color:#FFFFCC;"/></td> 
+            <td style="width:200px;">&nbsp;</td>
+			<td  class="form-field-caption"> End Pnkn</td>
+            <td> : </td>
+            <td> <input type="text" name="end_pnkn" ID="end_pnkn" style="background-color:#FFFFCC;"/></td>
+         </tr>
+        <tr align="center">
+        	<td colspan="7">
+			<a class="link-button" onClick="add_cont()"><img src='images/cont_addnew.gif' border="0"> Tambahkan Container </a>&nbsp;
+			</td>
+        </tr>
+	</table>
+    
+    <div id="cont_list" style="margin: 10px 10px 10px 10px;">
+    
+    </div>
+    
+	</center>
+</fieldset>
+
+<script>
+
+function save(){
+	$("#form").submit();
+}
+   /*$('#form').submit(function(){
+
+
+	if ($('#NO_CONT').val() == '')
+	{
+		alert('No Container Harus Diisi');
+		return false;
+	}
+	else if ($('#STATUS').val() == '')
+	{
+		alert('Status Container Harus Diisi');
+		return false;
+	}
+
+        })*/
+        
+$(function() {	
+
+	$( "#EMKL" ).autocomplete({
+		minLength: 3,
+		source: "{$HOME}{$APPID}.auto/pbm",
+		focus: function( event, ui ) {
+			$( "#EMKL" ).val( ui.item.NM_PBM );
+			return false;
+		},
+		select: function( event, ui ) {
+			$( "#EMKL" ).val( ui.item.NM_PBM );
+			$( "#ID_EMKL" ).val( ui.item.KD_PBM );
+            $( "#ALAMAT" ).val( ui.item.ALMT_PBM );
+			$( "#NPWP" ).val( ui.item.NO_NPWP_PBM);
+			return false;
+		}
+	})
+	.data( "autocomplete" )._renderItem = function( ul, item ) {
+		return $( "<li></li>" )
+			.data( "item.autocomplete", item )
+			.append( "<a>" + item.NM_PBM + "<br/> "+item.ALMT_PBM+"<br/> "+item.NO_NPWP_PBM+ "</a>" )
+			.appendTo( ul );
+	};
+
+	$( "#NM_AGEN" ).autocomplete({
+		minLength: 3,
+		source: "{$HOME}{$APPID}.auto/pbm",
+		focus: function( event, ui ) {
+			$( "#NM_AGEN" ).val( ui.item.NM_PBM );
+			return false;
+		},
+		select: function( event, ui ) {
+			$( "#NM_AGEN" ).val( ui.item.NM_PBM );
+			$( "#KD_AGEN" ).val( ui.item.KD_PBM );
+			return false;
+		}
+	})
+	.data( "autocomplete" )._renderItem = function( ul, item ) {
+		return $( "<li></li>" )
+			.data( "item.autocomplete", item )
+			.append( "<a>" + item.NM_PBM + "<br/> "+item.ALMT_PBM+"<br/> "+item.NO_NPWP_PBM+ "</a>" )
+			.appendTo( ul );
+	};
+	
+	
+	
+	$( "#NO_CONT" ).autocomplete({
+		minLength: 3,
+		source: "{$HOME}{$APPID}.auto/cont_delivery",
+		focus: function( event, ui ) {
+			$( "#NO_CONT" ).val( ui.item.NO_CONTAINER );
+			return false;
+		},
+		select: function( event, ui ) {
+			$( "#NO_CONT" ).val( ui.item.NO_CONTAINER );
+			$( "#SIZE" ).val( ui.item.SIZE_);
+			$( "#TYPE" ).val( ui.item.TYPE_);
+			$( "#STATUS" ).val( ui.item.STATUS);
+			$( "#BP_ID" ).val( ui.item.BP_ID);
+			$( "#start_pnkn" ).val( ui.item.TGL_BONGKAR);
+			$( "#end_pnkn" ).val( ui.item.TGL_END);
+			$( "#asal_cont").val( ui.item.ASAL);
+			if($("#asal_cont").val() == 'UST'){
+					$.post("{$HOME}{$APPID}.auto/get_tgl_stack",{no_cont : ui.item.NO_CONTAINER}, function(data){
+						var datax = $.parseJSON(data);
+						$("#start_pnkn").val(datax.TGL_BONGKAR);
+						$("#end_pnkn").val(datax.EMPTY_SD);
+					});
+			}
+			/*
+			var urla			= "{$HOME}{$APPID}.auto/cek_start_pnk";
+			$.post(urla, {no_cont : $( "#NO_CONT" ).val()} , function(data){
+				//alert(data);
+				$("#start_pnkn").val(data);
+			});
+			*/
+			
+			return false;
+		}
+	})
+	.data( "autocomplete" )._renderItem = function( ul, item ) {
+		return $( "<li style='text-align:left'></li>" )
+			.data( "item.autocomplete", item )
+			.append( "<a>" + item.NO_CONTAINER + "<br/> "+item.SIZE_+" "+item.TYPE_+"</a>" )
+			.appendTo( ul );
+	};
+        
+     $( "#komoditi" ).autocomplete({
+		minLength: 3,
+		source: "{$HOME}{$APPID}.auto/commodity",
+		focus: function( event, ui ) {
+			$( "#komoditi" ).val( ui.item.NM_COMMODITY );
+			return false;
+		},
+		select: function( event, ui ) {
+			$( "#komoditi" ).val( ui.item.NM_COMMODITY );
+			return false;
+		}
+	})
+	.data( "autocomplete" )._renderItem = function( ul, item ) {
+		return $( "<li style='text-align:left'></li>" )
+			.data( "item.autocomplete", item )
+			.append( "<a>" + item.NM_COMMODITY + "</a>" )
+			.appendTo( ul );
+	};  
+        
+        
+	$("#cont_list").load('<?=HOME?><?=APPID?>/edit_cont_list?no_req={$row_request.NO_REQUEST} #list', function(data) {        	  
+		<?php $i=0; $no = count($row_list);?>
+			<?php	echo "$(function() {";
+				  foreach($row_list as $row_list){
+				  $i++;
+				  
+				  $ori_date = date('Y-m-d', strtotime($row_list["TGL_DELIVERY"]));
+				  /*
+				  $new_date = date('Y-m-d', strtotime($row_list["TGL_DELIVERY"]-5));
+				  $ori_date = date('Y-m-d', strtotime($row_list["TGL_DELIVERY"]));
+				  
+					echo '$( "#tgl_delivery_'.$i.'" ).datepicker();
+						$("#tgl_delivery_'.$i.'").datepicker( "option", "dateFormat", "yy-mm-dd" );
+						$( "#tgl_delivery_'.$i.'" ).datepicker( "option", "minDate", "'.$new_date.'" );
+						$( "#tgl_delivery_'.$i.'" ).val("'.$ori_date.'");
+						';
+				  */
+				  echo '$( "#tgl_delivery_'.$i.'" ).datepicker();
+						$("#tgl_delivery_'.$i.'").datepicker( "option", "dateFormat", "yy-mm-dd" );
+						$( "#tgl_delivery_'.$i.'" ).val("'.$ori_date.'");
+						';
+				  //datepicker( "option", "dateFormat", "yy-mm-dd" );
+				}
+				echo "});";
+		?>
+	}); 	
+});
+
+function add_cont()
+{
+	var no_cont_            = $("#NO_CONT").val();
+        var hz_                 = $("#HZ").val();
+	var no_req_		= "{$row_request.NO_REQUEST}";
+	var status_		= $("#STATUS").val();
+        var komoditi_		= $("#komoditi").val();
+        var keterangan_		= $("#keterangan").val();
+        var no_seal_		= $("#no_seal").val();
+        var berat_		= $("#berat").val();
+        var via_		= $("#via").val();
+        var SIZE		= $("#SIZE").val();
+        var TYPE		= $("#TYPE").val();
+        var start_pnkn		= $("#start_pnkn").val();
+        var end_pnkn		= $("#end_pnkn").val();
+		var bp_id		= $("#BP_ID").val();
+		var asal_cont		= $("#asal_cont").val();
+	var url			= "{$HOME}{$APPID}.ajax/add_cont_dev";
+	
+	//$('#cont_list').html('<p align=center><img src={$HOME}images/loadingbox.gif /></p>');
+	
+	$.post(url,{start_pnkn : start_pnkn, end_pnkn : end_pnkn, KETERANGAN : keterangan_, NO_SEAL : no_seal_, BERAT : berat_, VIA : via_, KOMODITI: komoditi_, NO_CONT: no_cont_, NO_REQ : no_req_, STATUS : status_, HZ : hz_, SIZE : SIZE, TYPE : TYPE, BP_ID : bp_id, ASAL_CONT : asal_cont},function(data){
+		console.log(data);
+		//alert(data);
+		if(data == "NOT_EXIST")
+		{
+			alert("Container Belum Terdaftar");	
+		}
+		else if(data == "TGL_TUMPUK")
+		{
+			alert("Tanggal mulai penumpukan masih kosong");	
+		}
+		else if(data == "GAGAL")
+		{
+			alert("Gagal insert no Container");	
+		}
+		else if(data == "con_yard")
+		{
+			alert("Container Belum Placement");	
+		}
+		else if(data == "OK")
+		{
+			alert("Berhasil Tambah Container");	
+			$("#cont_list").load('<?=HOME?><?=APPID?>/edit_cont_list?no_req={$row_request.NO_REQUEST} #list', function(data) {        	  
+			}); 	
+		}
+                else if(data == "BLM_PLACEMENT")
+                {
+                        alert("Container Belum Placement");	
+                } 
+                else if(data == "SDH_REQUEST")
+                {
+                        alert("Container Sudah Mengajukan Request Delivery");	
+                }
+				else{
+					alert(data);
+				}
+	});	
+	$("#NO_CONT").val('');
+    $("#HZ").val('');
+	$("#STATUS").val('');
+    $("#komoditi").val('');
+    $("#keterangan").val('');
+    $("#no_seal").val('');
+    $("#berat").val('');
+    $("#via").val('');
+	$("#start_pnkn").val('');
+    $("#end_pnkn").val('');
+	
+	$("#cont_list").load('<?=HOME?><?=APPID?>/edit_cont_list?no_req={$row_request.NO_REQUEST} #list', function(data) {        	  
+			}); 	
+	//prosedur add comment disini, method $.post, include user id dan content id
+}
+
+function del_cont($no_cont,$bp_id)
+{
+	var no_req_		= "{$row_request.NO_REQUEST}";
+	var url			= "{$HOME}{$APPID}.ajax/del_cont";
+	
+	$('#cont_list').html('<p align=center><img src={$HOME}images/loadingbox.gif /></p>');
+	
+	$.post(url,{NO_CONT: $no_cont, NO_REQ : no_req_, BP_ID : $bp_id},function(data){
+		console.log(data);
+		if(data == "OK")
+		{
+			$("#cont_list").load('<?=HOME?><?=APPID?>/edit_cont_list?no_req={$row_request.NO_REQUEST} #list', function(data) {        	  
+			}); 	
+		}
+		
+			$("#cont_list").load('<?=HOME?><?=APPID?>/edit_cont_list?no_req={$row_request.NO_REQUEST} #list', function(data) {        	  
+			}); 	
+	});
+}	
+
+
+function set_status() 
+{
+	if($("#STATUS").val() == "EMPTY")
+	{
+        $('#HZ').val("N");
+		$('#via').val("darat");
+		$('#no_seal').val(" -");
+		$('#komoditi').val(" -");
+		$('#berat').val(" -");
+		
+                
+	}
+	else
+	{
+		$('#via').val("darat");
+		$('#HZ').val("N");
+		
+		
+	}
+}	
+
+function save_tgl_delivery($total){
+	var url = '<?=HOME?><?=APPID?>/update_tgl_delivery';
+	var no_request = '{$row_request.NO_REQUEST}';
+	$('#button_save').html('<p align=center><img src={$HOME}images/animated_loading.gif /></p>');
+	
+	
+	for($i=1; $i<=$total; $i++){
+	 var no_cont 	  = $("#NO_CONT_"+$i).val();
+	 var tgl_delivery = $("#tgl_delivery_"+$i).val();
+
+	 $.post(url,{NO_REQ : no_request, TGL_DELIVERY : tgl_delivery, NO_CONT : no_cont, INDEX : $i, TOTAL : $total}, function(data){
+		if(data == "OK"){
+			$("#cont_list").load('<?=HOME?><?=APPID?>/edit_cont_list?no_req={$row_request.NO_REQUEST} #list', function(data) {   		
+			$(function() {
+			for($i=1;$i<=$total;$i++){
+				$( "#tgl_delivery_"+$i ).datepicker();
+				$("#tgl_delivery_"+$i).datepicker( "option", "dateFormat", "yy-mm-dd" );
+				$( "#tgl_delivery_"+$i ).datepicker( "option", "minDate", $("#tgl_delivery_"+$i).val());
+				$( "#tgl_delivery_"+$i ).val($("#tgl_delivery_"+$i).val());	
+			}
+			});
+			});
+			window.open('<?=HOME?><?=APPID?>', '_self');
+		}
+	 });
+	}
+	
+	//alert('Tanggal Delivery Berhasi Disimpan');
+}
+
+
+$(function() {	
+	
+	$( "#end_pnkn" ).datepicker();
+	$( "#end_pnkn" ).datepicker( "option", "dateFormat", "dd-mm-yy" );
+	
+	$( "#start_pnkn" ).datepicker();
+	$( "#start_pnkn" ).datepicker( "option", "dateFormat", "dd-mm-yy" );
+
+});
+</script>

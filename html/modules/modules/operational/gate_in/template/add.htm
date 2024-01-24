@@ -1,0 +1,267 @@
+<style>
+.content{
+	width:95%;
+	margin-left:auto;
+	margin-right:auto;
+	margin-bottom: 10px;
+	margin-top:20px;
+
+}
+</style>
+
+<script type="text/javascript">
+	function cek_text()
+	{
+		var f;
+		if($("#no_cont").val()=="")
+		{
+			alert("Nomor container harus diisi");
+			return false;
+		}
+		else if($("#no_cont").val().length < 11)
+		{
+			alert("Harap cek nomor container!!!");
+			return false;
+		}
+		else if(berat=="")
+		{
+			alert("Berat harus diisi");
+			return false;
+		}
+		else if(vessel=="")
+		{
+			alert("Vessel ~ Voyage harus diisi");
+			return false;
+		}
+		else
+		{
+			return warn();
+		}
+	}
+	
+	function warn()
+	{
+		var r=confirm("Data akan disimpan, pastikan data yang sudah diinput benar");
+		if(r==true)
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	
+	}
+	
+	/*function tambah_container()
+	{
+	
+		var size_           = document.getElementById("size").value;
+		var type_           = document.getElementById("type").value;
+		var status_         = document.getElementById("status").value;
+		var jumlah_         = document.getElementById("jml").value;
+		var hz_             = document.getElementById("hz").value;
+		var no_req_			= document.getElementById("no_req").value;
+		var url				= "{$HOME}request.delivery/add_cont";
+		$.post(url,{SIZE : size_, TYPE : type_, STATUS : status_, JUMLAH : jumlah_, HZ: hz_, ID_REQ: no_req_});	
+		$('#loadx').load("<?=HOME?>request.delivery/tambahan2?id="+no_req_+" #list_cont_dev");
+	}*/
+	
+	
+
+</script>
+
+<?php
+	/*if($var=="save2")
+	{
+		$no=$no_req;
+		$old=$old_req;
+		$tipe=$tipe_req;
+		$emklx=$emkl;
+		$npwpx=$npwp;
+		$vesx=$ves;
+		$voyx=$voy;
+		$almx=$alm;
+		$tgl_stx=$tgl_st;
+		$tgl_enx=$tgl_en;
+		$tgl_ex=$tgl_ext;
+		$tgl_sppbx=$tgl_sppb;
+		$tgl_sp2x=$tgl_sp2;
+		$rd="disabled";
+		?>
+		<script type='text/javascript'>
+		$(document).ready(function() 
+		{
+		$('#load').html('<img src="<?=HOME?>images/ajax-loader01.gif" />');
+		var ele = document.getElementById("tambah");
+		ele.style.display="block";
+	
+		});  
+		</script>
+		<?
+	}
+	else
+	{
+		$no="";
+		$old="";
+		$tipe="";
+		$emklx="";
+		$npwpx="";
+		$vesx="";
+		$voyx="";
+		$almx="";
+		$tgl_stx="";
+		$tgl_enx="";
+		$tgl_ex="";
+		$tgl_sppbx="";
+		$tgl_sp2x="";
+	}*/
+?>
+
+<script type='text/javascript'>
+function isNumberKey(evt)
+{
+	var charCode = (evt.which) ? evt.which : event.keyCode;
+
+	if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+		/*if((charCode=="46" || charCode=="110") && document.f_entry.valuta.value=="2")	return true;
+		else	*/							return false;
+	}
+		
+	return true;
+}
+function clk() {
+	var a=new Date();
+	$("#gate_in").val(a.getFullYear() + "-" + ((a.getMonth()+1) < 10 ? '0' : '') + (a.getMonth()+1) + "-" + a.getDate() + " " + (a.getHours() < 10 ? '0' : '') + a.getHours() + ":" + (a.getMinutes() < 10 ? '0' : '') + a.getMinutes() + ":" + (a.getSeconds() < 10 ? '0' : '') + a.getSeconds());
+}	
+
+$(document).ready(function() 
+{
+	clk();
+	setInterval(clk, 1000);
+	
+	//$('#loadx').load("<?=HOME?>request.delivery/tambahan2?id=<?=$no?> #list_cont_dev");
+	//$("#gate_in").datetimepicker();
+	/*$("#etd").datepicker({
+			dateFormat: 'yy-mm-dd'
+            });*/
+
+	$( "#vessel" ).autocomplete({
+		minLength: 3,
+		source: "operational.gate_in.auto/voyage",
+		focus: function( event, ui ) {
+			$( "#vessel" ).val( ui.item.NAMA_VESSEL);
+			return false;
+		},
+		select: function( event, ui ) {
+			$( "#vessel" ).val( ui.item.NAMA_VESSEL);
+			$( "#id_vessel" ).val( ui.item.ID_VES);
+			$( "#id_vs" ).val( ui.item.ID_VS);
+			$( "#voyage" ).val( ui.item.VOYAGE);
+			$( "#pel_asal" ).val( ui.item.PELABUHAN_ASAL);
+			$( "#id_pel_asal" ).val( ui.item.ID_PEL_ASAL);
+			$( "#pel_tujuan" ).val( ui.item.PELABUHAN_TUJUAN);
+			$( "#id_pel_tujuan" ).val( ui.item.ID_PEL_TUJ);
+			return false;
+		}
+	})
+	.data( "autocomplete" )._renderItem = function( ul, item ) {
+		return $( "<li></li>" )
+			.data( "item.autocomplete", item )
+			.append( "<a>" + item.NAMA_VESSEL + " | " + item.VOYAGE + "</a>")
+			.appendTo( ul );
+	};
+	
+});  
+
+</script>
+
+
+
+<div class="content">
+	<p>
+	<h2> <img src="<?=HOME?>images/cont_gate.png" height="5%" width="5%" style="vertical-align:middle"> Gate-In</h2></p>
+	
+	<p><br/>
+	  </p>
+	
+	<hr width="870" color="#e1e0de"></hr><p><br/></p>
+	<form method="post" action="<?=HOME?>operational.gate_in/save" onSubmit='return cek_text()'>
+	<table>
+	 <tr>
+		<td class="form-field-caption" align="right">No Container</td>
+		<td class="form-field-caption" align="right">:</td>
+		<td><input type="text" size="15" maxlength="11" name="no_cont" id="no_cont" style="background-color:#FFFFFF;"/>
+		</td>
+		<td></td>
+		<td class="form-field-caption" align="right">No Polisi</td>
+		<td class="form-field-caption" align="right">:</td>
+		<td><input type="text" size="10" id="no_pol" name="no_pol" />
+		</td>
+	</tr>
+	 <tr>
+		<td class="form-field-caption" align="right">Size / Type / Status / HZ</td>
+		<td class="form-field-caption" align="right">:</td>
+		<td><select name="size" id="size">
+				<option value="20">20'</option>
+				<option value="40">40'</option>
+				<option value="45">45'</option>
+			</select>&nbsp;
+			<select name="tipe" id="tipe">
+				<option value="DRY">DRY</option>
+				<option value="OVD">OVD</option>
+				<option value="HC">HC</option>
+				<option value="TNK">TNK</option>
+				<option value="RFR">RFR</option>
+				<option value="FT">FT</option>
+				<option value="OT">OT</option>
+			</select>&nbsp;
+			<select name="status" id="status">
+				<option value="FCL">FCL</option>
+				<option value="LCL">LCL</option>
+			</select>&nbsp;
+			<select name="hz" id="hz">
+				<option value="T">No</option>
+				<option value="Y">Yes</option>
+			</select>
+		</td>
+		<td>&nbsp;</td>
+		<td class="form-field-caption" align="right">Berat</td>
+		<td class="form-field-caption" align="right">:</td>
+		<td><input type="text" size="5" name="berat" id="berat" onkeypress="return isNumberKey(event)" /> Kg
+		</td>
+     </tr>
+	 <tr>
+		<td class="form-field-caption" align="right">Vessel / Voyage</td>
+		<td class="form-field-caption" align="right">:</td>
+		<td><input type="text" size="25" name="vessel" id="vessel" /> / <input type="text" size="5" name="voyage" id="voyage" readonly="readonly" />
+			<input type="hidden" name="id_vessel" id="id_vessel" />
+			<input type="hidden" name="id_vs" id="id_vs" />
+		</td>
+		<td>&nbsp;</td>
+		<td class="form-field-caption" align="right">Tgl Gate In </td>
+		<td class="form-field-caption" align="right">:</td>
+		<td><input type="text" readonly='readonly' size="20" name="gate_in" id="gate_in" />
+		</td>
+     </tr>
+	 <tr>
+		<td class="form-field-caption" align="right">Pelabuhan Asal ~ Tujuan</td>
+		<td class="form-field-caption" align="right">:</td>
+		<td><input type="text" size="15" name="pel_asal" id="pel_asal" readonly="readonly" />
+			<input type="hidden" name="id_pel_asal" id="id_pel_asal" /> ~
+			<input type="text" size="15" name="pel_tujuan" id="pel_tujuan" readonly="readonly" />
+			<input type="hidden" name="id_pel_tujuan" id="id_pel_tujuan" />
+		</td>
+		<td>&nbsp;</td>
+		<td align="right"><input type="submit" value="Simpan"/></td>
+     </tr>
+	</table>
+	</form>
+	<br>
+	<hr width="870" color="#e1e0de"></hr>
+	
+	<br/>
+	<br/>
+	
+</div>
+

@@ -1,0 +1,213 @@
+<div id="list" align="center">
+<? if ($kategori == 0 ){?>
+	<table id="zebra" border="1" bordercolor="#FFFFFF" width="100%" style="border-collapse:collapse" align="center">
+	  <tr style="cursor:pointer;" onclick="fill_all()">
+		<th height="20" width="5">NO</th>
+		<th height="20" width="40">NAMA BLOK</th>
+        <th height="20" width="5">TOTAL KAPASITAS</th> 
+		<th height="20" width="50">VESSEL</th>
+        <th height="20" width="5">VOYAGE</th> 		
+		<th height="20" width="20">JML TERALOKASI</th>        
+		<th height="20" width="20">TOTAL ALOKASI</th>
+		<th height="20" width="20">TOTAL BLM ALOKASI</th>
+		<th height="20" width="20">JML GATE IN</th>        
+		<th height="20" width="20">TOTAL GATE IN</th>
+		<th height="20" width="20">JML PLACEMENT</th>        
+		<th height="20" width="20">TOTAL PLACEMENT</th>
+     </tr>
+	  <?php $i=1;?>
+	<fill src="header" var="rows">
+	 <tr style="cursor:pointer;" onclick="fill('{$rows.ID_BLOK}','{$kategori}')">
+		<td class="grid-cell" align ="center" valign="top" style="font-size:10;color:#3300CC"><?=$i;?></td>
+		<td class="grid-cell" valign="top" style="font-size:10;color:#3300CC"><b>{$rows.NAMA_BLOK}</b></td>
+		<td class="grid-cell" align ="center" valign="top" style="font-size:10;color:#3300CC">{$rows.TOTAL_KAPASITAS} BOX</td>
+		<td colspan="10"></td>
+	</tr>
+	<?	
+		$db 	= getDB();
+		$id_blok_ = $rows['ID_BLOK'];
+		if ($id_blok == NULL) {
+		//echo "SELECT VESSEL, VOYAGE, JML_TERALOKASI, JML_CETAK_JOBSLIP, JML_PLACEMENT FROM REPORT_YARD WHERE 
+		//ID_BLOK ='$id_blok'";die;
+			$query = "SELECT VESSEL, VOYAGE, JML_TERALOKASI, JML_CETAK_JOBSLIP, JML_PLACEMENT FROM REPORT_YARD WHERE 
+			 TGL_UPDATE = (SELECT(MAX(TGL_UPDATE)) FROM REPORT_YARD)
+			  AND JML_TERALOKASI < 0";
+		} else {
+			if ($id_blok <> $id_blok_){
+			$query = "SELECT VESSEL, VOYAGE, JML_TERALOKASI, JML_CETAK_JOBSLIP, JML_PLACEMENT FROM REPORT_YARD WHERE 
+			TGL_UPDATE = (SELECT(MAX(TGL_UPDATE)) FROM REPORT_YARD)
+			 AND JML_TERALOKASI < 0";
+			 } else {
+			 $query = "SELECT VESSEL, VOYAGE, JML_TERALOKASI, JML_CETAK_JOBSLIP, JML_PLACEMENT FROM REPORT_YARD WHERE 
+			 ID_BLOK = '$id_blok'
+			AND TGL_UPDATE = (SELECT(MAX(TGL_UPDATE)) FROM REPORT_YARD)";
+			 }
+		}
+		$result = $db->query($query);
+	    $detail = $result->getAll();
+		
+		foreach ($detail as $row){
+	?>
+	<tr>
+		<td></td><td colspan='2'></td>
+		<td class="grid-cell" align ="left" valign="top" style="font-size:10;color:#3300CC"><?=$row['VESSEL']?></td>
+		<td class="grid-cell" align ="center" valign="top" style="font-size:10;color:#3300CC"><?=$row['VOYAGE']?></td>
+		<td class="grid-cell" align ="center" valign="top" style="font-size:10;color:#3300CC"><?=$row['JML_TERALOKASI']?> BOX</td>
+		<td></td>
+		<td></td>
+		<td class="grid-cell" align ="center" valign="top" style="font-size:10;color:#3300CC"><?=$row['JML_CETAK_JOBSLIP']?> BOX</td>
+		<td></td>
+		<td class="grid-cell" align ="center" valign="top" style="font-size:10;color:#3300CC"><?=$row['JML_PLACEMENT']?> BOX</td>
+		<td></td>
+	</tr>
+	<? } ?>
+	<tr>
+		<td></td><td colspan="5" class="grid-cell" align ="right" valign="top" style="font-size:12;color:red"><b> TOTAL PER BLOCK</b></td>
+		<td class="grid-cell" align ="center" valign="top" style="font-size:12;color:red"><b>{$rows.TOTAL_ALOKASI} BOX</b></td>
+		<td class="grid-cell" align ="center" valign="top" style="font-size:12;color:red"><b>{$rows.BLM_TERALOKASI} BOX</b></td>
+		<td></td>
+		<td class="grid-cell" align ="center" valign="top" style="font-size:12;color:red"><b>{$rows.TOTAL_CETAK_JOBSLIP} BOX</b></td>
+		<td></td>
+		<td class="grid-cell" align ="center" valign="top" style="font-size:12;color:red"><b>{$rows.TOTAL_PLACEMENT} BOX</b></td>
+	</tr>
+	<? $i++;?>	
+	</fill>
+	<fill src="grand" var="row_">
+	<tr>
+		<td  class="grid-cell" align ="center" valign="top" style="font-size:12;color:red" colspan='2'><b> GRAND TOTAL</b> </td>
+		<td class="grid-cell" align ="center" valign="top" style="font-size:12;color:red"><b>{$row_.GRAND_KAPASITAS} BOX</b></td>
+		<td colspan='3'></td>
+		<td class="grid-cell" align ="center" valign="top" style="font-size:12;color:red"><b>{$row_.GRAND_TOTAL_ALOKASI} BOX</b></td>
+		<td class="grid-cell" align ="center" valign="top" style="font-size:12;color:red"><b>{$row_.GRAND_BLM_TERALOKASI} BOX</b></td>
+		<td></td>
+		<td class="grid-cell" align ="center" valign="top" style="font-size:12;color:red"><b>{$row_.GRAND_TOTAL_CETAK_JOBSLIP} BOX</b></td>
+		<td></td>
+		<td class="grid-cell" align ="center" valign="top" style="font-size:12;color:red"><b>{$row_.GRAND_PLACEMENT} BOX</b></td>
+	</tr>
+	</fill>
+	</table>
+<? } else {
+?>	
+	<table id="zebra" border="1" bordercolor="#FFFFFF" width="100%" style="border-collapse:collapse" align="center">
+	  <tr>
+		<th rowspan="2" height="20" width="5">NO</td>
+		<th colspan="4" height="20" width="20">DATA BOOKING</th>
+        <th colspan="4" height="20" width="10">ALOKASI LAPANGAN</th>   
+		<th colspan="2" height="20" width="10">JML BOOKING</th> 
+		<th colspan="2" height="20" width="10">JML <br> ALOKASI</th> 
+		<th colspan="2" height="20" width="10">JML <br> GATE IN</th> 
+		<th colspan="2" height="20" width="10">JML <br> PLACEMENT</th> 
+     </tr>
+	 <tr>
+		<th height="20" width="20">SIZE</th>
+		<th height="20" width="20">TYPE</th>
+		<th height="20" width="20">STATUS</th>
+        <th height="20" width="10">KATEGORI BERAT</th>   
+		<th height="20" width="10">BLOK</th>       
+		<th height="20" width="10">JML SLOT</th> 
+		<th height="20" width="10">JML ROW</th>  
+		<th height="20" width="10">TIER</th>  
+		<th height="20" width="10">BOX</th>
+		<th height="20" width="10">TEUS</th>
+		<th height="20" width="10">BOX</th>
+		<th height="20" width="10">TEUS</th>
+		<th height="20" width="10">BOX</th>
+		<th height="20" width="10">TEUS</th>
+		<th height="20" width="10">BOX</th>
+		<th height="20" width="10">TEUS</th>
+	 </tr>	
+	  <?php $i=1;?>
+	<fill src="header" var="rows">
+	 <tr  style="cursor:pointer;" onclick="fill_book('{$rows.ID_BOOK}','{$kategori}','{$vessel}')">
+		<td class="grid-cell" align ="center" valign="top" style="font-size:10;color:#3300CC"><?=$i;?></td>
+		<td class="grid-cell"  align ="center" valign="center" style="font-size:10;color:#3300CC">{$rows.SIZE_}</td>
+		<td class="grid-cell" align ="center" valign="top" style="font-size:10;color:#3300CC">{$rows.TIPE}</td>
+		<td class="grid-cell" align ="center" valign="top" style="font-size:10;color:#3300CC">{$rows.STATUS}</td>
+		<td class="grid-cell" align ="center" valign="top" style="font-size:10;color:#3300CC">{$rows.KATEGORI}{$rows.ID_BOOK}</td>
+		<td colspan='12'></td>
+	</tr>
+	<?	
+		$db 	= getDB();
+		$id_book_ = $rows['ID_BOOK'];
+		if ($id_book == NULL) {
+		//biar datanya g muncul
+			$query = "select a.NAME, SUM(DISTINCT(b.JML_SLOT)) JML_SLOT,SUM(DISTINCT(b.JML_ROW)) JML_ROW, b.JML_TIER, SUM(b.JML_BOOKING) JML_BOOKING, SUM(b.JML_ALOKASI) JML_ALOKASI, SUM(b.JML_CETAK_JOBSLIP) JML_CETAK_JOBSLIP, SUM(b.JML_PLACEMENT) JML_PLACEMENT, SUM(b.JML_BOOKING_TEUS) JML_BOOKING_TEUS, SUM(b.JML_ALOKASI_TEUS) JML_ALOKASI_TEUS, SUM(b.JML_PLACEMENT_TEUS) JML_PLACEMENT_TEUS, SUM(b.JML_JOBSLIP_TEUS) JML_JOBSLIP_TEUS
+						 fROM report_yard_vessel b, yd_blocking_area a
+						 where b.ID_VS = '$vessel'
+						 AND a.ID = b.ID_BLOCKING_AREA
+						 AND b.ID_BOOK = '$id_book_'
+						 AND b.TGL_UPDATE > SYSDATE
+						 GROUP BY a.NAME, b.JML_SLOT,b.JML_ROW, b.JML_TIER, b.JML_BOOKING, b.JML_ALOKASI, b.JML_CETAK_JOBSLIP, b.JML_PLACEMENT, b.JML_BOOKING_TEUS, b.JML_ALOKASI_TEUS";
+		} else {
+			if ($id_book <> $id_book_){
+			$query = "select a.NAME, SUM(DISTINCT(b.JML_SLOT)) JML_SLOT,SUM(DISTINCT(b.JML_ROW)) JML_ROW, b.JML_TIER, SUM(b.JML_BOOKING) JML_BOOKING, SUM(b.JML_ALOKASI) JML_ALOKASI, SUM(b.JML_CETAK_JOBSLIP) JML_CETAK_JOBSLIP, SUM(b.JML_PLACEMENT) JML_PLACEMENT, SUM(b.JML_BOOKING_TEUS) JML_BOOKING_TEUS, SUM(b.JML_ALOKASI_TEUS) JML_ALOKASI_TEUS, SUM(b.JML_PLACEMENT_TEUS) JML_PLACEMENT_TEUS, SUM(b.JML_JOBSLIP_TEUS) JML_JOBSLIP_TEUS
+						 fROM report_yard_vessel b, yd_blocking_area a
+						 where b.ID_VS = '$vessel'
+						 AND a.ID = b.ID_BLOCKING_AREA
+						 AND b.ID_BOOK = '$id_book_'
+						 AND b.TGL_UPDATE > SYSDATE
+						 GROUP BY a.NAME, b.JML_SLOT,b.JML_ROW, b.JML_TIER, b.JML_BOOKING, b.JML_ALOKASI, b.JML_CETAK_JOBSLIP, b.JML_PLACEMENT, b.JML_BOOKING_TEUS, b.JML_ALOKASI_TEUS";
+			 } else {
+			 $query = "select a.NAME, SUM(DISTINCT(b.JML_SLOT)) JML_SLOT,SUM(DISTINCT(b.JML_ROW)) JML_ROW, b.JML_TIER, SUM(b.JML_BOOKING) JML_BOOKING, SUM(b.JML_ALOKASI) JML_ALOKASI, SUM(b.JML_CETAK_JOBSLIP) JML_CETAK_JOBSLIP, SUM(b.JML_PLACEMENT) JML_PLACEMENT, SUM(b.JML_BOOKING_TEUS) JML_BOOKING_TEUS, SUM(b.JML_ALOKASI_TEUS) JML_ALOKASI_TEUS, SUM(b.JML_PLACEMENT_TEUS) JML_PLACEMENT_TEUS, SUM(b.JML_JOBSLIP_TEUS) JML_JOBSLIP_TEUS
+						 fROM report_yard_vessel b, yd_blocking_area a
+						 where b.ID_VS = '$vessel'
+						 AND a.ID = b.ID_BLOCKING_AREA
+						 AND b.ID_BOOK = '$id_book_'
+						 AND b.TGL_UPDATE = (SELECT(MAX(TGL_UPDATE)) FROM REPORT_YARD)
+						 GROUP BY a.NAME, b.JML_SLOT,b.JML_ROW, b.JML_TIER, b.JML_BOOKING, b.JML_ALOKASI, b.JML_CETAK_JOBSLIP, b.JML_PLACEMENT, b.JML_BOOKING_TEUS, b.JML_ALOKASI_TEUS";
+			 }
+		}
+		$result = $db->query($query);
+	    $detail = $result->getAll();
+		
+		foreach ($detail as $row){
+	?>
+	<tr>
+		<td colspan='5'></td>
+		<td class="grid-cell"  align ="center" valign="top" style="font-size:10;color:#3300CC"><?=$row['NAME']?></td>
+		<td class="grid-cell" align ="center" valign="top" style="font-size:10;color:#3300CC"><?=$row['JML_SLOT']?></td>
+		<td class="grid-cell" align ="center" valign="top" style="font-size:10;color:#3300CC"><?=$row['JML_ROW']?></td>
+		<td class="grid-cell" align ="center" valign="top" style="font-size:10;color:#3300CC"><?=$row['JML_TIER']?></td>
+		<td class="grid-cell"  align ="center" valign="top" style="font-size:10;color:#3300CC" height="20" width="10"><?=$row['JML_BOOKING']?></td>
+		<td  class="grid-cell"  align ="center" valign="top" style="font-size:10;color:#3300CC"height="20" width="10"><?=$row['JML_BOOKING_TEUS']?></td>
+		<td  class="grid-cell"  align ="center" valign="top" style="font-size:10;color:#3300CC"height="20" width="10"><?=$row['JML_ALOKASI']?></td>
+		<td class="grid-cell"  align ="center" valign="top" style="font-size:10;color:#3300CC" height="20" width="10"><?=$row['JML_ALOKASI_TEUS']?></td>
+		<td class="grid-cell"  align ="center" valign="top" style="font-size:10;color:#3300CC" height="20" width="10"><?=$row['JML_CETAK_JOBSLIP']?></td>
+		<td class="grid-cell"  align ="center" valign="top" style="font-size:10;color:#3300CC" height="20" width="10"><?=$row['JML_JOBSLIP_TEUS']?></td>
+		<td class="grid-cell"  align ="center" valign="top" style="font-size:10;color:#3300CC" height="20" width="10"><?=$row['JML_PLACEMENT']?></td>
+		<td class="grid-cell"  align ="center" valign="top" style="font-size:10;color:#3300CC" height="20" width="10"><?=$row['JML_PLACEMENT_TEUS']?></td>
+	</tr>
+	<?}?>
+	<?	
+		$db 	= getDB();
+		$id_book_ = $rows['ID_BOOK'];
+			$query2 = "select SUM(JML_BOOKING) JML_BOOKING, SUM(JML_ALOKASI) JML_ALOKASI, SUM(JML_CETAK_JOBSLIP) JML_CETAK_JOBSLIP, SUM(JML_PLACEMENT) JML_PLACEMENT, SUM(JML_BOOKING_TEUS) JML_BOOKING_TEUS, SUM(JML_ALOKASI_TEUS) JML_ALOKASI_TEUS, SUM(JML_PLACEMENT_TEUS) JML_PLACEMENT_TEUS, SUM(JML_JOBSLIP_TEUS) JML_JOBSLIP_TEUS
+						 fROM report_yard_vessel
+						 where ID_VS = '$vessel'
+						 AND ID_BOOK = '$id_book_'
+						 AND TGL_UPDATE = (SELECT(MAX(TGL_UPDATE)) FROM REPORT_YARD)
+						 GROUP BY JML_BOOKING, JML_ALOKASI, JML_CETAK_JOBSLIP, JML_PLACEMENT, JML_BOOKING_TEUS, JML_ALOKASI_TEUS";
+	
+		$result2 = $db->query($query2);
+	    $detail2 = $result2->getAll();
+		
+		foreach ($detail2 as $row2){
+	?>
+	<tr>
+		<td class="grid-cell"  align ="right" valign="top" style="font-size:10;color:red" colspan='9'><b>TOTAL PER KATEGORI <b></td>
+		<td class="grid-cell"  align ="center" valign="top" style="font-size:10;color:#3300CC" height="20" width="10"><?=$row2['JML_BOOKING']?></td>
+		<td  class="grid-cell"  align ="center" valign="top" style="font-size:10;color:#3300CC"height="20" width="10"><?=$row2['JML_BOOKING_TEUS']?></td>
+		<td  class="grid-cell"  align ="center" valign="top" style="font-size:10;color:#3300CC"height="20" width="10"><?=$row2['JML_ALOKASI']?></td>
+		<td class="grid-cell"  align ="center" valign="top" style="font-size:10;color:#3300CC" height="20" width="10"><?=$row2['JML_ALOKASI_TEUS']?></td>
+		<td class="grid-cell"  align ="center" valign="top" style="font-size:10;color:#3300CC" height="20" width="10"><?=$row2['JML_CETAK_JOBSLIP']?></td>
+		<td class="grid-cell"  align ="center" valign="top" style="font-size:10;color:#3300CC" height="20" width="10"><?=$row2['JML_JOBSLIP_TEUS']?></td>
+		<td class="grid-cell"  align ="center" valign="top" style="font-size:10;color:#3300CC" height="20" width="10"><?=$row2['JML_PLACEMENT']?></td>
+		<td class="grid-cell"  align ="center" valign="top" style="font-size:10;color:#3300CC" height="20" width="10"><?=$row2['JML_PLACEMENT_TEUS']?></td>
+	</tr>
+	<?}?>
+	<? $i++;?>	
+	</fill>
+	</table>
+
+<?}?>
+</div>

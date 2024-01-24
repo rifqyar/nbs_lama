@@ -1,0 +1,1 @@
+<?php$db=getDb('keuku');$param_xpi= array(							"input_n"=>'terserah',						"cb"=>''						);$sql_xpi = "declare input_n varchar(10); begin XPI2.coba_sentot(:input_n,:cb); end;";$db->query($sql_xpi,$param_xpi);$out_status1 = $param_xpi['cb'];echo $out_status1;	//$db->query();?>

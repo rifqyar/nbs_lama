@@ -1,0 +1,47 @@
+<div id="list">
+                        <table class="grid-table" border='0' cellpadding="1" cellspacing="1"  width="100%" >
+						<block visible='multipage'>
+							<tr>
+							  <td align="center" style="padding-bottom:4px;" colspan="7" >
+								  <block visible="prevvisible"> <a onclick="change_page(parseFloat($('#navsel_').val())-1)" style="cursor:pointer;">< Sebelumnya</a>   </block>
+								  <select id="navsel_" name="p" list="navlist" selected="navpage" onchange="change_page($('#navsel_').val())"
+										style="font-size:10px; border: solid 1px #333333; background-color:#FFFDCA;">
+								  </select>
+								  <block visible="nextvisible">   <a onclick="change_page(parseFloat($('#navsel_').val())+1)" style="cursor:pointer;">Selanjutnya ></a> </block>
+								</td>
+							</tr>
+						</block>
+                              <tr style=" font-size:10pt">
+                                  <th width="2%" valign="top" class="grid-header"  style="font-size:8pt">No </th>
+                                  <th width="110" valign="top" class="grid-header"  style="font-size:8pt">NO. REQUEST </th>
+                                  <th width="180" valign="top" class="grid-header"  style="font-size:8pt">NAMA VESSEL/VOY</th>
+                                  <th width="100" valign="top" class="grid-header"  style="font-size:8pt">TGL. REQUEST</th> 
+                                  <th  width="160" valign="top" class="grid-header"  style="font-size:<8pt">EMKL</th>
+                                   <th  width="160" valign="top" class="grid-header"  style="font-size:<8pt">LAPANGAN</th>
+                                  <th width="150" valign="top" class="grid-header"  style="font-size:8pt">ACTION</th>  
+                              </tr>
+                              <fill src="row_list" var="rows">
+                              <tr bgcolor="#f9f9f3" onMouseOver=this.style.backgroundColor="#BAD5FC" onMouseOut=this.style.backgroundColor="">
+                                  <td  align="center" valign="middle" class="grid-cell" style="color:#000; font-family:Arial; font-size:9pt">{$rows.__no} </td>
+                                  <td  align="center" valign="middle" class="grid-cell"   style="font-family:Arial; font-size:11pt; color:#555555"><b>{$rows.NO_REQUEST}</b></font></td>
+                                  <td  align="center" valign="middle" class="grid-cell"  style="font-size:9pt"><font color="#0066CC" style="font-size:10pt">{$rows.NAMA_VESSEL} <br></font>VOY {$rows.VOYAGE}</td>
+                                  <td align="center" valign="middle" class="grid-cell"  style="font-size:9pt"><b>{$rows.TGL_REQUEST} </b></td>
+                                 
+                                  <td align="center" valign="middle" class="grid-cell"  style="font-size:9pt;font-family:Arial;"><font color="#0066CC" style="font-size:10pt">{$rows.NAMA_EMKL}</font></td>
+                                   <td align="center" valign="middle" class="grid-cell"  style="font-size:9pt;font-family:Arial;"><font color="#0066CC" style="font-size:10pt">{$rows.NAMA_YARD}</font></td>
+                                  <td align="center" valign="middle" class="grid-cell" style="font-size:9pt;">
+                                      <?php
+                                        if ($rows['LUNAS'] == 'YES'){ ?>
+                                            <img src='images/money2.png' border='0' />&nbsp; LUNAS <br>
+                                            <a href="{$HOME}{$APPID}/view?no_req={$rows.NO_REQUEST}&no_req2={$rows.NO_REQ_ICT}"><img src='images/ico_approval.gif' border='0' />&nbsp; preview data </a
+                                        <? } else if ($rows['LUNAS'] == 'PIUTANG'){ ?>
+                                            <img src='images/money2.png' border='0' />&nbsp; PIUTANG <br>
+                                            <a href="{$HOME}{$APPID}/view?no_req={$rows.NO_REQUEST&no_req2={$rows.NO_REQ_ICT}}"><img src='images/ico_approval.gif' border='0' />&nbsp; preview data </a
+                                        <? } else { ?>
+                                           <a href="{$HOME}{$APPID}/edit?no_req={$rows.NO_REQUEST}&no_req2={$rows.NO_REQ_ICT}"><img src='images/editp.png' border='0' />&nbsp; refisi data </a>
+                                      <?  }   ?>
+                                        </td>
+                              </tr>
+                              </fill>
+                          </table>
+</div>

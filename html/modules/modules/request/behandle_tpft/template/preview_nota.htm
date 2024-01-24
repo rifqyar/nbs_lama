@@ -1,0 +1,230 @@
+<style>
+.nota
+{
+    display: inline-block;
+    border-right-style: solid;
+    border-left-style: solid;
+    border-bottom-style: solid;
+    border-top-style: solid;
+    background-color: white;
+    border-right-color: #cccccc;
+    border-left-color: #cccccc;
+    border-bottom-color: #cccccc;
+    border-top-color: #cccccc;
+    font-size: 10px;
+    font-family: Verdana, Geneva, Arial, Helvetica, Sans-Serif, Calibri;
+}
+.nota table
+{
+    alignment-adjust: central;
+    background-color: white;
+    border-right-style: solid;
+    border-left-style: solid;
+    border-bottom-style: solid;
+    border-top-style: solid;
+    border-right-color: white;
+    border-left-color: white;
+    border-bottom-color: white;
+    border-top-color: white;
+    font-family: Courier;
+    font-size: 10px;
+    
+}
+.nota tr
+{
+    height: 5px;
+}
+  
+</style>
+ 
+<script>
+function cetak_pranota()
+{
+   var cust_no     = $('#cust_no').val();
+   var start_date  = $('#start_date').val();
+   var end_date    = $('#end_date').val();
+
+   var r = confirm("Pranota tagihan Behandle TPFT akan disimpan?");
+   if(r == true)
+	{
+		window.location = "<?=HOME?>request.behandle_tpft/simpan_pranota?cust_no="+cust_no+"&start_date="+start_date+"&end_date="+end_date;
+	}
+	else
+	{
+		return false;
+	}
+ 
+}
+</script>
+ 
+<div class="form-fieldset" style="margin: 5px 5px 5px 5px;vertical-align:middle">
+  <div class="nota">
+	<table border="0" width="900px" align="center" >
+    	<tr>
+        	<td align="center">
+            	<fieldset ><h1>PREVIEW NOTA TAGIHAN BEHANDLE TPFT</h1><br/><hr/>
+                <div style="background-color:#fff; border:thin #00F groove">
+				    <br>
+                    <table width="850" border="0">
+                        <tr>
+                            <td colspan="7"><b><font size="2">PT. (PERSERO) PELABUHAN INDONESIA II</font></b></td>
+                        </tr>
+						<tr>
+                            <td colspan="7"><b><font size="2">CABANG TANJUNG PRIOK</font></b></td>
+                        </tr>
+                        <tr>
+                            <td colspan="7"></td>
+                        </tr>
+						<tr>
+                            <td colspan="7"></td>
+                        </tr>
+						<tr>
+                            <td colspan="7"></td>
+                        </tr>
+						<tr>
+                            <td colspan="7"></td>
+                        </tr>
+						<tr>
+                            <td colspan="7"></td>
+                        </tr>
+                        <tr>
+							<td width="200">Pengguna Jasa</td>
+							<td>:</td>
+							<td colspan="5">{$row_cust.NAMA_PELANGGAN}
+							    <input type="hidden" size="10" name="cust_no" id="cust_no" value={$row_cust.ACCOUNT_KEU} />
+								<input type="hidden" size="10" name="cust_name" id="cust_name" value={$row_cust.NAMA_PELANGGAN} />
+								<input type="hidden" size="10" name="cust_tax_no" id="cust_tax_no" value={$row_cust.NPWP} />
+								<input type="hidden" size="10" name="cust_addr" id="cust_addr" value={$row_cust.ALAMAT} />
+								<input type="hidden" size="10" name="start_date" id="start_date" value={$start_date} />
+								<input type="hidden" size="10" name="end_date" id="end_date" value={$end_date} /></td>
+						</tr>
+						<tr>
+							<td>N.P.W.P</td>
+							<td>:</td>
+							<td>{$row_cust.NPWP}</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+						  </tr>
+						  <tr>
+							<td>Alamat</td>
+							<td>:</td>
+							<td>{$row_cust.ALAMAT}</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+						  </tr>
+						  <tr>
+							<td colspan="7">&nbsp</td>
+						  </tr>
+						  <tr>
+							<td colspan="7"><hr></td>
+						  </tr>
+						  <tr>
+							<td>Periode Kegiatan</td>
+							<td>:</td>
+							<td><b><font size="2">{$start_date} s.d. {$end_date}</font></b></td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+						  </tr>
+						  <tr>
+							<td colspan="2"><b><font size="2">Daftar Container Behandle</font></b></td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+						  </tr>
+						  <tr>
+							<td colspan="7">
+							    <table border="0">
+								    <tr align="center" bgcolor="#cccccc">
+									    <td width="30"><b>No</b></td>
+										<td width="100"><b>No Container</b></td>
+										<td width="50"><b>Size</b></td>
+										<td width="50"><b>Type</b></td>
+										<td width="50"><b>Status</b></td>
+										<td width="50"><b>HZ</b></td>
+										<td width="150"><b>Vessel</b></td>
+										<td width="60"><b>Voyage</b></td>
+										<td width="80"><b>Mulai Penumpukan</b></td>
+										<td width="80"><b>Selesai Penumpukan</b></td>
+										<td width="60"><b>Durasi</b></td>
+										<td width="100"><b>Tagihan</b></td>
+									</tr>
+									<fill src="row_detail" var="rows">
+									<tr>
+									    <td width="30" align="center">{$rows.NO}</td>
+										<td width="100" align="center">{$rows.NO_CONTAINER}</td>
+										<td width="50" align="center">{$rows.SIZE_CONTAINER}</td>
+										<td width="50" align="center">{$rows.TYPE_CONTAINER}</td>
+										<td width="50" align="center">{$rows.STS_CONTAINER}</td>
+										<td width="50" align="center">{$rows.HZ}</td>
+										<td width="150" align="center">{$rows.VESSEL}</td>
+										<td width="60" align="center">{$rows.VOYAGE}</td>
+										<td width="80" align="center">{$rows.START_DATE}</td>
+										<td width="80" align="center">{$rows.END_DATE}</td>
+										<td width="60" align="center">{$rows.DURASI} Hari</td>
+										<td width="100" align="right">{$rows.TAGIHAN}</td>
+									</tr>
+									</fill>
+								</table>
+							</td>
+						  </tr>
+						  <tr>
+							<td colspan="7"><hr></td>
+						  </tr>
+						  <tr>
+							<td width="131">&nbsp;</td>
+							<td width="15">&nbsp;</td>
+							<td width="431">&nbsp;</td>
+							<td width="34">&nbsp;</td>
+							<td width="141">Jumlah Sebelum PPN</td>
+							<td width="22">:</td>
+							<td width="180" align="right">{$row_sub.TAGIHAN}</td>
+						  </tr>
+						  <tr>
+							<td width="131">&nbsp;</td>
+							<td width="15">&nbsp;</td>
+							<td width="431">&nbsp;</td>
+							<td width="34">&nbsp;</td>
+							<td width="141">PPN 10%</td>
+							<td width="22">:</td>
+							<td width="180" align="right">{$row_sub.PPN}</td>
+						  </tr>
+						  <tr>
+							<td width="131">&nbsp;</td>
+							<td width="15">&nbsp;</td>
+							<td width="431">&nbsp;</td>
+							<td width="34">&nbsp;</td>
+							<td width="141">Jumlah Dibayarkan</td>
+							<td width="22">:</td>
+							<td width="180" align="right"><b><font size="2">{$row_sub.TOTAL_TAGIHAN}</font></b></td>
+						  </tr>
+						  <tr>
+							<td width="131">&nbsp;</td>
+							<td width="15">&nbsp;</td>
+							<td width="431">&nbsp;</td>
+							<td width="34">&nbsp;</td>
+							<td width="141">&nbsp;</td>
+							<td width="22">&nbsp;</td>
+							<td width="180">&nbsp;</td>
+						  </tr>
+						</table>	 
+                </div>                   
+                </fieldset> 
+            </td>
+        </tr>
+    </table>		
+  </div>
+</div>	
+<fieldset class="form-fieldset" style="margin: 5px 5px 5px 5px; vertical-align:middle" id="status_lunas">
+<div align="right">
+<button title="Simpan Pranota" onclick="cetak_pranota()"><img src="<?=HOME;?>images/simpan_pranota.png"/></button>
+</div>
+ </fieldset>
+ 

@@ -1,0 +1,235 @@
+<span class="graybrown"><img src='images/sp2_p.png' border='0' class="icon"/><font color="#0378C6"> Master</font> User</span><br/><br/>
+<fieldset class="form-fieldset" style="margin: 5px 5px 5px 5px; ">
+	
+    <table class="form-input" style="margin: 30px 30px 30px 30px;"  >
+    	<tr>
+            <td  class="form-field-caption"> Nama </td>
+            <td> : </td>
+            <td> <input type="text" name="nama" ID="nama" /> </td>
+        </tr>
+        <tr>
+            <td  class="form-field-caption"> NIPP </td>
+            <td> : </td>
+            <td> <input type="text" name="nipp" ID="nipp" /> </td>
+        </tr>       
+        <tr>
+        	<td colspan="7"><a class="link-button" onclick="search_request();" ><img src='images/cari.png' border='0' /> Cari User</a></td>
+        	<td colspan="7"><a class="link-button" onclick="add_user();"><img src='images/tambah.png' border="0"> Tambah User</a></td>
+        </tr>
+	</table>
+    
+    <div id="user_list" style="margin: 10px 10px 10px 10px;">
+    
+    </div>
+</fieldset>
+<div id="dialog-form"> </div>
+<div id="dialog-form-user"> </div>
+<div id="dialog-form-add"> 
+<table>
+	<tr>
+		<td>Nama :</td>
+		<td><input type="text" id="name_add" value=""/></td>		
+	</tr>
+	<tr>
+		<td>NIPP :</td>
+		<td><input type="text" id="nipp_add" value=""/></td>				
+	</tr>
+	<tr>
+		<td>Username :</td>
+		<td><input type="text" id="username_add" value=""/></td>				
+	</tr>
+	<tr>
+		<td>Kelas :</td>
+		<td><input type="text" id="kelas_add" value=""/></td>				
+	</tr>
+	<tr>
+		<td>Jabatan :</td>
+		<td><input type="text" id="jabatan_add" value=""/></td>				
+	</tr>
+	<tr>
+		<td>Rule :</td>
+		<td>
+			<?php echo $rule_option;?>
+		</td>			
+	</tr>
+	<tr>
+		<td>Password :</td>
+		<td><input type="password" id="password_add" value=""/></td>				
+	</tr>
+</table>
+</div>
+<script>
+
+$(function() {	
+	
+	$("#user_list").load('<?=HOME?><?=APPID?>/user_list #list', function(data) {        	  
+	}); 
+	
+	$( "#dialog-form" ).dialog({
+			autoOpen: false,
+			height: 200,
+			width: 300,
+			modal: true,
+			buttons: {
+					"Change": function() {					
+					change_pass_do();
+					$( this ).dialog( "close" );
+				},
+					"Close": function() {					
+					$( this ).dialog( "close" );
+					return false;
+				}
+			},
+			close: function() {
+
+			}
+		});
+		
+		$( "#dialog-form-user" ).dialog({
+			autoOpen: false,
+			height: 300,
+			width: 300,
+			modal: true,
+			buttons: {
+					"Change": function() {					
+					change_user_do(); 
+					$( this ).dialog( "close" );
+				},
+					"Close": function() {					
+					$( this ).dialog( "close" );
+					return false;
+				}
+			},
+			close: function() {
+
+			}
+		});
+		
+		$( "#dialog-form-add" ).dialog({
+			autoOpen: false,
+			height: 300,
+			width: 300,
+			modal: true,
+			buttons: {
+					"Insert": function() {					
+					add_user_do();					
+					$( this ).dialog( "close" );
+				},
+					"Close": function() {					
+					$( this ).dialog( "close" );
+					return false;
+				}
+			},
+			close: function() {
+
+			}
+		});
+});
+
+function add_user(){
+	$( "#dialog-form-add" ).dialog("open");
+}
+function search_request()
+{
+	var nama_      = $("#nama").val();
+	var nipp_      = $("#nipp").val();
+	var cari_      = "cari";
+	
+	$("#user_list").load('<?=HOME?><?=APPID?>/user_list #list',{ CARI : cari_, NAMA : nama_, NIPP : nipp_}, function(data) {        	  
+	}); 
+	
+	//prosedur add comment disini, method $.post, include user id dan content id
+}
+function change_password($id_user){
+	//var url = '<?=HOME?><?=APPID?>/change_password #change';
+	$( "#dialog-form" ).load('<?=HOME?><?=APPID?>/change_password?ID_USER='+$id_user+' #change',function(data){});
+	$( "#dialog-form" ).dialog("open");
+}
+
+function change_user($id_user, $id_role){
+	$( "#dialog-form-user" ).load('<?=HOME?><?=APPID?>/change_user?ID_USER='+$id_user+'&ID_ROLE='+$id_role+' #change',function(data){});
+	$( "#dialog-form-user" ).dialog("open");
+}
+
+function change_pass_do(){
+	//var cur_pass = $("#cur_pass").val();
+	var new_pass = $("#new_pass").val();
+	var conf_new_pass = $("#conf_new_pass").val();
+	var id = $("#id").val();
+	if(new_pass == null || conf_new_pass == null){
+		alert("Semua kolom harus diisi");
+	}
+	else if(new_pass != conf_new_pass){
+		alert("Kedua kolom harus sama");
+	}
+	else{
+		var url = '<?=HOME?><?=APPID?>/change_pass_do';
+		$.blockUI({ message: '<h1>Please wait...</h1><br/><p align=center><img src={$HOME}images/loadingbox.gif /></p>' });
+		$.post(url,{new_pass : new_pass, id : id},function(data){
+			if(data){
+				$.unblockUI({ 
+				onUnblock: function(){ alert('Password successfuly changed'); } 
+				});
+			}
+		});
+	}
+}
+function change_user_do(){
+	var name = $("#name").val();
+	var nipp = $("#nipp_").val();
+	var username = $("#username").val();
+	var kelas = $("#kelas").val();
+	var jabatan = $("#jabatan").val();
+	var rule = $("#role").val();
+	var id = $("#id").val();
+	var url = '<?=HOME?><?=APPID?>/change_user_do';
+	$.blockUI({ message: '<h1>Please wait...</h1><br/><p align=center><img src={$HOME}images/loadingbox.gif /></p>' });
+	$.post(url,{name : name, nipp: nipp, username : username, kelas : kelas, jabatan : jabatan, rule : rule, id : id}, function(data){
+		if(data == 'ok'){			
+			$.unblockUI({ 
+				onUnblock: function(){ 
+					alert('Edit detail user succeed'); 
+					$("#user_list").load('<?=HOME?><?=APPID?>/user_list #list', function(data) {});
+				} 
+				});		
+		}
+		else{
+			$.unblockUI({ 
+				onUnblock: function(){ 
+					alert(data); 
+					$("#user_list").load('<?=HOME?><?=APPID?>/user_list #list', function(data) {});
+				} 
+				});		
+		}
+	});
+}
+function add_user_do(){
+	var name = $("#name_add").val();
+	var nipp = $("#nipp_add").val();
+	var username = $("#username_add").val();
+	var kelas = $("#kelas_add").val();
+	var jabatan = $("#jabatan_add").val();
+	var rule = $("#role_add").val();
+	var password = $("#password_add").val();
+	var url = '<?=HOME?><?=APPID?>/add_user_do';
+	$.blockUI({ message: '<h1>Please wait...</h1><br/><p align=center><img src={$HOME}images/loadingbox.gif /></p>' });
+	$.post(url,{name : name, nipp: nipp, username : username, kelas : kelas, jabatan : jabatan, rule : rule, password : password}, function(data){
+		if(data == 'ok'){
+			$.unblockUI({ 
+				onUnblock: function(){ 
+					alert('Insert new user succeed'); 
+					$("#user_list").load('<?=HOME?><?=APPID?>/user_list #list', function(data) {});
+				} 
+				});
+		}
+		else{			
+			$.unblockUI({ 
+				onUnblock: function(){ 
+					alert(data);
+					$("#user_list").load('<?=HOME?><?=APPID?>/user_list #list', function(data) {});
+				} 
+				});
+		}
+	});
+}
+</script>

@@ -1,0 +1,165 @@
+
+<span class="graybrown"><img src='images/document-open.png' border='0' class="icon"/><font color="#0378C6"> Monitoring</font> Lapangan </span><br/><br/>
+
+
+<fieldset class="form-fieldset" style="margin: 5px 5px 5px 5px; ">
+    <center>
+    <table style="margin: 30px 30px 30px 30px;" border="0">
+    	<tr>
+            <td >Pilih kategori monitoring lapangan </td>
+            <td> : </td>
+            <td>  <select name="yard" id="yard">
+                   <option value="">-- Pilih --</option>
+                  <option value="yard">Preview All</option>
+                  <option value="blok">Preview Per Block</option>
+                </select></td>
+    	</tr>
+        <tr>
+            <td>Pilih Blok</td>
+            <td> : </td>
+            <td>    <select name="blok">
+                    <option value="">-- Pilih --</option>
+                    <fill src="blok_area" var="rows">
+                        <option value="{$rows.ID}">{$rows.NAME}</option>
+                    </fill>
+                </select></td>
+    	</tr>
+        <tr>
+            <td>Preview berdasarkan </td>
+            <td> : </td>
+            <td>    <select name="view" id="view">
+                         <option value="">-- Pilih --</option>
+                        <option value="slot">SLOT</option>
+                        <option value="row">ROW</option>
+                </select></td>
+    	</tr>
+        <tr>
+            <td>Filter berdasarkan</td>
+            <td> : </td>
+            <td>    <select name="filter" id="filter">
+                         <option value="">-- Pilih --</option>
+                        <option value="size">Ukuran Container</option>
+                        <option value="kapal">Kapal</option>
+                        <option value="consignee">Consignee</option>
+                </select></td>
+    	</tr>
+          <tr>
+            <td>Masukkan Parameter</td>
+            <td> : </td>
+            <td>  <input type="text" name="kategori" id="kategori" />
+            <input type="hidden" name="id_kategori" id="id_kategori" />
+            <input type="hidden" name="id_kategori2" id="id_kategori2" />
+            </td>
+    	</tr>    
+  <tr>
+      <td colspan="3"><input type="button" onclick="view_layout()" value=" Proses " /></td>
+           
+    	</tr>    
+
+	</table>
+    </center>
+</fieldset>
+
+<br/>
+<fieldset class="form-fieldset" style="margin: 5px 5px 5px 5px; ">
+    <center>
+      <span class="graybrown">
+<br>
+<br>
+<div align="center" style="background-color:#F6F4E4;">
+<table width="80%" cellspacing="10" border="1">
+<tbody>
+<tr>
+<tr>
+<tr>
+<tr>
+<tr>
+<tr>
+<tr>
+<tr>
+<tr>
+<tr>
+<td valign="bottom" colspan="4">
+<div style="font-weight:bold; font-size:10px; font-family:Tahoma">BLOCK M1 </div>
+<table bordercolor="#037ACA" border="1" cellspacing="1" cellpadding="1">
+<tbody>
+    <tr>
+         <? for($l=0;$l<=$width;$l++){?>
+         <td>
+                <div style="font-size:7px; font-family:Tahoma; color: #000000;">11</div>
+              <? for($i=0;$i<$height;$i++){ ?>
+            <fill src="bloking_cell" vars="row">
+                if ($row.INDEX_CELL == $i){
+                    <div style="font-size:7px; font-family:Tahoma; border:1px solid #000000;;background-color:#FFF">0</div>
+              <? }} ?>
+            </fill>
+         </td>
+         <? }?>
+    </tr>
+</tbody>
+</table>
+</td>
+</tr>
+<tr>
+<tr>
+<tr>
+<tr>
+</tbody>
+</table>
+</div>
+</tbody>
+
+    </center>
+</fieldset>
+ 
+<script type="text/javascript">
+        $(document).ready(function() 
+		{
+			$( "#kategori" ).autocomplete({
+				minLength: 3,
+				source: "maintenance.monitoring.auto/parameter",
+				focus: function( event, ui ) {
+					$( "#kategori" ).val( ui.item.KODE);
+					return false;
+				},
+				select: function( event, ui ) {
+					$( "#kategori" ).val( ui.item.NAMA);
+					$( "#id_kategori" ).val( ui.item.ID);
+					$( "#id_kategori2" ).val( ui.item.INFO);
+					return false;
+				}
+			})
+			.data( "autocomplete" )._renderItem = function( ul, item ) {
+				return $( "<li></li>" )
+					.data( "item.autocomplete", item )
+					.append( "<a>" + item.NAMA + "<br />" + item.INFO + "</a>")
+					.appendTo( ul );
+			};
+	});
+</script>
+
+<script>
+
+$("#layout").load(url, function(data){
+	
+	});
+function view_layout() 
+{
+        var yard_               = $("#yard").val();
+	var blok_               = $("#blok").val();	
+	var filter_             = $("#filter").val();	
+	var view_               = $("#no_req").val();
+        var kategori            = "cari"; 
+	var id_kategori 	= $("#no_req").val();
+        var id_kategori2 	= $("#no_req").val();
+	var url 	= "<?=HOME?><?=APPID?>/req_list #list";
+	 
+	$("#request_list").load(url,{NO_REQ : no_req_, FROM : from_, TO : to_, CARI : cari_}, function(data){
+	
+	});
+
+}	
+
+
+
+</script>

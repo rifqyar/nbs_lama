@@ -1,0 +1,37 @@
+<div id="list">
+	<table class="grid-table" border='0' cellpadding="1" cellspacing="1"  width="100%" >
+    	
+        	<tr style=" font-size:10pt">
+            	<th valign="top" class="grid-header"  style="font-size:8pt">No.</th>
+            	<th valign="top" class="grid-header"  style="font-size:8pt">No CONTAINER</th>
+                <th valign="top" class="grid-header"  style="font-size:8pt">STATUS</th>
+                <th valign="top" class="grid-header"  style="font-size:8pt">UKURAN</th>
+                <th valign="top" class="grid-header"  style="font-size:8pt">TIPE</th>
+				<th valign="top" class="grid-header"  style="font-size:8pt">BERBAHAYA</th>
+				<th valign="top" class="grid-header"  style="font-size:8pt">DEPO TUJUAN</th>
+				<th valign="top" class="grid-header"  style="font-size:8pt">OWNER</th>
+				<?php if($_GET["overview"] != 'yes'){ ?>
+                <th valign="top" class="grid-header"  style="font-size:8pt">ACTION</th>
+				<?php } ?>
+            </tr>
+        
+        <tbody>
+        	<fill src="row_list" var="rows">
+		   	<alt var='bg' list='#f9f9f3,#ffe'/>
+        	<tr bgcolor="#f9f9f3" onMouseOver=this.style.backgroundColor="#BAD5FC" onMouseOut=this.style.backgroundColor="">
+            	<td align="center" valign="middle" class="grid-cell" style="font-size:9pt">{$__ctr}</td>
+            	<td align="center" valign="middle" class="grid-cell" style="font-family:Arial; font-size:11pt; color:#555555"><b>{$rows.NO_CONTAINER}</b></font></td>
+            	<td align="center" valign="middle" class="grid-cell" style="font-size:9pt">{$rows.STATUS}</td>
+            	<td align="center" valign="middle" class="grid-cell" style="font-size:9pt">{$rows.SIZE_}</td>
+            	<td align="center" valign="middle" class="grid-cell" style="font-size:9pt">{$rows.TYPE_}</td>
+				<td align="center" valign="middle" class="grid-cell" style="font-size:9pt">{$rows.HZ}</td>
+				<td align="center" valign="middle" class="grid-cell" style="font-size:9pt">{$rows.NAMA_YARD}</td>
+				<td align="center" valign="middle" class="grid-cell" style="font-size:9pt">{$rows.KD_OWNER}</td>
+				<?php if($_GET["overview"] != 'yes'){ ?>
+            	<td style="padding: 5px 5px 5px 5px;"> <a onclick="del_cont('{$rows.NO_CONTAINER}')" > &nbsp;Hapus&nbsp;<img src='images/cont_red_delete.png' border='0' /></a></td>
+				<?php } ?>
+            </tr>
+            </fill>
+        </tbody>
+    </table>
+</div>

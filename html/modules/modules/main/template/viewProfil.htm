@@ -1,0 +1,31 @@
+<center>
+<span style="align:center;font-size:25px"> {$rowprofil.NAMA}</span>
+<br/>
+<table width="60%" style="font-size:15px" border=1>
+	<tr>
+		<td>Alamat</td>
+		<td> {$rowprofil.ALAMAT}</td>
+	</tr>
+	<tr>
+		<td>Tanggal Lahir</td>
+		<td> {$rowprofil.TANGGAL_LAHIR}</td>
+	</tr>
+	<tr>
+		<td>Gender</td>
+		<td> {$rowprofil.GENDER}</td>
+	</tr>	
+	<tr>
+		<td>HOBI</td>
+		<td>
+		<fill src='rowhobi' var='rowhobi'>
+		 {$rowhobi.NAMA} <br/>
+		</fill>
+		 </td>
+	</tr>
+		<tr>
+		<td>Kota</td>
+		<td> {$rowkota.NAMA} | {$rowkota.KODE_POS}</td>
+	</tr>	
+	
+</table>
+</center>

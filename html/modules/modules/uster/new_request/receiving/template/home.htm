@@ -1,0 +1,57 @@
+
+ 
+<span class="graybrown"><img src='images/document-open.png' border='0' class="icon"/><font color="#0378C6"> Request</font> Receiving </span><br/><br/>
+
+
+ <fieldset class="form-fieldset" style="margin: 5px 5px 5px 5px; ">
+          <form id="searchForm" name="searchForm" action="{HOME}delivery.permintaan/search/" method="get">
+              <div style="padding:10px;font-family:Arial; font-size:8pt; color:#555555; font-weight:bold">Pencarian No Request : <input type="text" name="NO_REQ" /> <br />
+              Tgl Request Delivery &nbsp;&nbsp;: <input type="text" name="FROM" id="from"/> S/D <input type="text" name="TO" id="to"/>  
+              &nbsp;&nbsp; <input type="button" value=" Cari " value="cari" id="cari" onclick="search_request()"/></div>
+          </form>
+      </fieldset>
+
+<div style="padding-top:7px; padding-left:15px"><font color="#0066CC"><a onclick="window.open('{$HOME}{$APPID}/add','_self')" class="link-button" style="height:25" ><img src='images/sp2p.png' border="0"> Tambah Request Receiving</a></font></div>
+          </div>
+<br/>
+<fieldset class="form-fieldset" style="margin: 5px 5px 5px 5px; ">
+	<center>
+    
+    <div id="request_list" style="border:thin inset; margin: 5px 5px 5px 5px">
+    
+    </div>
+    
+    </center>
+</fieldset>
+ 
+<script>
+
+$(function() 
+{	
+	
+	$( "#from" ).datepicker();
+	$( "#from" ).datepicker( "option", "dateFormat", "yy-mm-dd" );
+	$( "#to" ).datepicker();
+	$( "#to" ).datepicker( "option", "dateFormat", "yy-mm-dd" );
+	
+	$("#request_list").load('<?=HOME?><?=APPID?>/req_list #list', function(data) {        	  
+	}); 	
+});
+
+function search_request()
+{
+	var from_ 	= $("#from").val();
+	var to_ 	= $("#to").val();	
+	var cari_	= "cari"; 
+	var no_req_	= $("#no_req").val();
+	var url 	= "<?=HOME?><?=APPID?>/req_list #list";
+	 
+	$("#request_list").load(url,{NO_REQ : no_req_, FROM : from_, TO : to_, CARI : cari_}, function(data){
+	
+	});
+
+}
+
+
+
+</script>

@@ -1,0 +1,32 @@
+
+ <div id="list">
+
+     <table class="grid-table" border='0' cellpadding="1" cellspacing="1"  width="100%" >
+                              <tr style=" font-size:10pt">
+                                  <th valign="top" class="grid-header"  style="font-size:8pt">No </th>
+                                  <th valign="top" class="grid-header"  style="font-size:8pt">No.Container </th>
+								   <th valign="top" class="grid-header"  style="font-size:8pt">Size-Type-Status</th>
+								   <th  valign="top" class="grid-header"  style="font-size:8pt">Vessel/Voy</th>
+                                  <th  valign="top" class="grid-header"  style="font-size:8pt">Gate in</th> 
+                                  <th valign="top" class="grid-header"  style="font-size:8pt">Nopol<br>No Seal</th>
+								  <th  valign="top" class="grid-header"  style="font-size:8pt">Berat</th> 
+								  <th  valign="top" class="grid-header"  style="font-size:8pt">Alokasi yard</th> 
+                                  <th valign="top" class="grid-header"  style="font-size:8pt">User</th> 
+                              </tr>
+							 
+                          <fill src="row_list" var="rows">
+                            <tr bgcolor="#f9f9f3" onMouseOver=this.style.backgroundColor="#BAD5FC" onMouseOut=this.style.backgroundColor="">
+                                  <td width="4%" align="center" valign="middle" class="grid-cell" style="color:#000; font-family:Arial; font-size:9pt">{$__ctr} </td>
+                                  <td width="15%" align="center" valign="middle" class="grid-cell"   style="font-family:Arial; font-size:11pt; color:#555555"><b>{$rows.NO_CONTAINER}</b></td>
+                                  <td width="12%" align="center" valign="middle" class="grid-cell"  style="font-size:9pt">{$rows.SIZE_}-{$rows.TYPE_}-{$rows.STATUS}</td>
+                                  <td width="25%" align="center" valign="middle" class="grid-cell"  style="font-size:9pt;font-family:Arial;"><font color="#0066CC" style="font-size:10pt">{$rows.VESSEL} / {$rows.VOYAGE_IN} - {$rows.VOYAGE_OUT} </font></td>
+                                  <td width="15%" align="center" valign="middle" class="grid-cell"  style="font-size:9pt;font-family:Arial;"><font color="#0066CC" style="font-size:10pt">{$rows.TGL_GATI}</font></td>
+								  <td width="10%" align="center" valign="middle" class="grid-cell"  style="font-size:9pt;font-family:Arial;"><font color="#0066CC" style="font-size:10pt">{$rows.NO_POLISI} <br> {$rows.SEAL_ID}</font></td>
+								  <td width="15%" align="center" valign="middle" class="grid-cell"  style="font-size:9pt;font-family:Arial;"><font color="#0066CC" style="font-size:10pt">{$rows.BERAT}</font></td>
+                                  <td width="30%" align="center" valign="middle" class="grid-cell"  style="font-size:9pt;font-family:Arial;"><font color="#0066CC" style="font-size:10pt">{$rows.BLOCK} - {$rows.SLOT}</font></td>
+                                  <td width="15%" align="center" valign="middle" class="grid-cell"  style="font-size:9pt;font-family:Arial;"><font color="#0066CC" style="font-size:10pt">{$rows.USER_CONFIRM}</font></td>
+								  </tr>
+                              </fill>
+							
+        </table>
+ </div>

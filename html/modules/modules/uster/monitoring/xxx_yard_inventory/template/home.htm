@@ -1,0 +1,53 @@
+
+<span class="graybrown"><img src='images/sp2_p.png' border='0' class="icon"/><font color="#0378C6"> Monitoring Yard</font> Inventory</span><br/><br/>
+      <fieldset class="form-fieldset" style="margin: 5px 5px 5px 5px; ">
+		<div style="padding:10px;font-family:Arial; font-size:8pt; color:#555555; font-weight:bold">
+           <table width="100%">
+    	<thead>
+        	<tr>
+            	<th class="grid-header" width="10">No.</th>
+				<th class="grid-header"  width="20">NAMA BLOK</th>
+				<th class="grid-header"  width="20">YARD</th>
+            	<th class="grid-header"  width="20">SLOT</th>
+                <th class="grid-header"  width="10">ROW</th>
+                <th class="grid-header"  width="10">TIER</th>
+                <th class="grid-header"  width="10">GROUND SLOT</th>
+                <th class="grid-header"  width="10">CAPACITY</th>
+				<th class="grid-header"  width="10">USED</th>
+                <th class="grid-header"  width="10">AVAILABLE</th>
+				<th class="grid-header"  width="10">ACTION</th>
+            </tr>
+        </thead>
+        <tbody>
+        	<fill src="row_list" var="rows">
+		   	<alt var='bg' list='#f9f9f3,#ffe'/>
+        	<tr bgcolor="{$bg}" style="cursor:pointer;" onMouseOver="this.className='highlight'" onMouseOut="this.className='normal'" onclick="fill('{$rows.NO_CONTAINER}')">
+            	<td class="grid-cell" align="center"><font size="2px">{$__ctr}</font></td>
+				<td class="grid-cell" align="center"><font size="2px">{$rows.NAME}</font></td>
+            	<td class="grid-cell" align="center"><font size="2px">{$rows.YARD}</font></td>
+            	<td class="grid-cell" align="center"><font size="2px">{$rows.SLOT_}</font></td>
+            	<td class="grid-cell" align="center"><font size="2px">{$rows.ROW_}</font></td>
+				<td class="grid-cell" align="center"><font size="2px">{$rows.TIER_}</font></td>
+            	<td class="grid-cell" align="center"><font size="2px">{$rows.GROUND_SLOT}</font></td>
+				<td class="grid-cell" align="center"><font size="2px">{$rows.CAPACITY}</font></td>
+            	<td class="grid-cell" align="center"><font size="2px">{$rows.USED}</font></td>
+				<td class="grid-cell" align="center"><font size="2px">{$rows.AVA}</font></td>
+				<td class="grid-cell" align="center"><font size="2px"><input type="button" onclick="detail('{$rows.ID}')" value=" Detail " /></font></td>
+
+            </tr>
+            </fill>
+        </tbody>
+    </table>
+		</div>
+	
+	   </fieldset>
+<script>
+
+
+function detail(id){
+	var url 	    = "<?=HOME?><?=APPID?>.toexcel/toexcel?id="+id;
+	
+	window.open(url, "_blank");
+}
+</script>
+

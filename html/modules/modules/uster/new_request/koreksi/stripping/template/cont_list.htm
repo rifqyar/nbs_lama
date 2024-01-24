@@ -1,0 +1,39 @@
+<div id="list">
+	<table width="100%">
+    	<thead>
+        	<tr>
+            	<th class="grid-header" width="10px">No.</th>
+            	<th class="grid-header">No CONTAINER</th>
+                <th class="grid-header">UKURAN</th>
+                <th class="grid-header">TIPE</th>
+                <th class="grid-header">ASAL CONT</th>
+                <th class="grid-header">TGL BONGKAR</th>
+                <th class="grid-header">TGL APPROVE</th>
+                <th class="grid-header">APPROVE</th>
+                <th width="70px" class="grid-header">&nbsp;</th>
+            </tr>
+        </thead>
+        <tbody>
+        	<fill src="row_list" var="rows">
+		   	<alt var='bg' list='#f9f9f3,#ffe'/>
+        	<tr bgcolor="{$bg}" style="cursor:pointer;" onMouseOver=this.style.backgroundColor="#BAD5FC" onMouseOut=this.style.backgroundColor="">
+            	<td class="grid-cell" style="font-size:14px;">{$__ctr}</td>
+            	<td class="grid-cell" align="center" valign="middle" style="font-family:Arial; font-size:11pt; color:#555555"><b>{$rows.NO_CONTAINER}</b></td>
+            	<td align="center" valign="middle" class="grid-cell"  style="font-size:9pt">{$rows.KD_SIZE}</td>
+            	<td align="center" valign="middle" class="grid-cell"  style="font-size:9pt">{$rows.KD_TYPE}</td>
+            	<td align="center" valign="middle" class="grid-cell"  style="font-size:9pt">{$rows.ASAL_CONT}</td>
+            	<td align="center" valign="middle" class="grid-cell"  style="font-size:9pt">{$rows.TGL_BONGKAR}</td>
+				<td align="center" valign="middle" class="grid-cell"  style="font-size:9pt">
+				<? if (($_SESSION["ID_ROLE"] == 5) OR ($_SESSION["ID_ROLE"] == 1)) {?>
+				<input type="text" id="TGL_APPROVE_{$__ctr}" name="TGL_APPROVE_{$__ctr}" placeholder="{$rows.TGL_APPROVE}"/>
+				<? } else {?>
+				<input type="text" name="TGL_APPROVE_{$__ctr}" placeholder="{$rows.TGL_APPROVE}" readonly="readonly"/>
+				<? } ?></td>
+            	<td align="center" valign="middle" class="grid-cell"  style="font-size:9pt"><input id="demo8" value="Approve" type="button" onclick="update_tgl_approve('{$rows.NO_CONTAINER}',$('#TGL_APPROVE_{$__ctr}').val(),'{$rows.ASAL_CONT}');" />
+				<input value="Info" type="button" onclick="info_lapangan();" /> </td>
+				<td style="padding: 5px 5px 5px 5px;"> <button value=" Hapus " onclick="del_cont('{$rows.NO_CONTAINER}')" > &nbsp;Hapus&nbsp; </button></td>
+            </tr>
+            </fill>
+        </tbody>
+    </table>
+</div>
