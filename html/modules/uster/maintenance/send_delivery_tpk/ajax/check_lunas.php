@@ -15,66 +15,66 @@ $paymentCode = $payload_uster_save["PAYMENT_CODE"];
 $lunas = false;
 
 //query from nota_receiving
-if(empty($jenis)) {
-    $query   = "SELECT * FROM NOTA_RECEIVING WHERE NO_REQUEST ='$id_req'";
+if(!empty($jenis)) {
+    $query   = "SELECT TANGGAL_LUNAS,LUNAS FROM NOTA_RECEIVING WHERE NO_REQUEST ='$id_req'";
     $result = $db->query($query)->fetchRow();
   
-    if(!empty($result['TANGGAL_LUNAS'])) {
+    if(!empty($result['TANGGAL_LUNAS'])&&$result['LUNAS']=='YES') {
       $lunas = true;
     }
 }
   //query from nota_stuffing
-if(empty($jenis)) {
-      $query   = "SELECT * FROM NOTA_STUFFING WHERE NO_REQUEST ='$id_req'";
+if(!empty($jenis)) {
+      $query   = "SELECT TANGGAL_LUNAS,LUNAS FROM NOTA_STUFFING WHERE NO_REQUEST ='$id_req'";
       $result = $db->query($query)->fetchRow();
   
-    if(!empty($result['TANGGAL_LUNAS'])) {
+     if(!empty($result['TANGGAL_LUNAS'])&&$result['LUNAS']=='YES') {
       $lunas = true;
     }
 }
   // query from pnkn stuffing
-if(empty($jenis)) {
-    $query   = "SELECT * FROM NOTA_PNKN_STUF WHERE NO_REQUEST ='$id_req'";
+if(!empty($jenis)) {
+    $query   = "SELECT TANGGAL_LUNAS,LUNAS FROM NOTA_PNKN_STUF WHERE NO_REQUEST ='$id_req'";
     $result = $db->query($query)->fetchRow();
   
-    if(!empty($result['TANGGAL_LUNAS'])) {
+     if(!empty($result['TANGGAL_LUNAS'])&&$result['LUNAS']=='YES') {
       $lunas = true;
     }
 }
   //query from nota_stripping
-if(empty($jenis)) {
-    $query   = "SELECT * FROM NOTA_STRIPPING WHERE NO_REQUEST ='$id_req'";
+if(!empty($jenis)) {
+    $query   = "SELECT TANGGAL_LUNAS,LUNAS FROM NOTA_STRIPPING WHERE NO_REQUEST ='$id_req'";
     $result = $db->query($query)->fetchRow();
   
-    if(!empty($result['TANGGAL_LUNAS'])) {
+     if(!empty($result['TANGGAL_LUNAS'])&&$result['LUNAS']=='YES') {
       $lunas = true;
     }
 }
   
   //query from nota_delivery
 if(!empty($jenis)) {
-    $query   = "SELECT * FROM NOTA_DELIVERY WHERE NO_REQUEST ='$id_req'";
+    $query   = "SELECT TANGGAL_LUNAS,LUNAS FROM NOTA_DELIVERY WHERE NO_REQUEST ='$id_req'";
     $result = $db->query($query)->fetchRow();
   
-    if(!empty($result['TANGGAL_LUNAS'])) {
+     if(!empty($result['TANGGAL_LUNAS'])&&$result['LUNAS']=='YES') {
       $lunas = true;
     }
 }
   //query from nota_batal_muat
-if(empty($jenis)) {
-    $query   = "SELECT * FROM NOTA_BATAL_MUAT WHERE NO_REQUEST ='$id_req'";
+if(!empty($jenis)) {
+    $query   = "SELECT TGL_LUNAS,LUNAS FROM NOTA_BATAL_MUAT WHERE NO_REQUEST ='$id_req'";
     $result = $db->query($query)->fetchRow();
   
-    if(!empty($result['TANGGAL_LUNAS'])) {
+    if(!empty($result['TGL_LUNAS'])&&$result['LUNAS']=='YES') {
       $lunas = true;
     }
 }
   // query from relokasi_mty
-if(empty($jenis)) {
-    $query   = "SELECT * FROM NOTA_RELOKASI_MTY WHERE NO_REQUEST ='$id_req'";
+if(!empty($jenis)) {
+    $query   = "SELECT TANGGAL_LUNAS,LUNAS FROM NOTA_RELOKASI_MTY WHERE NO_REQUEST ='$id_req'";
     $result = $db->query($query)->fetchRow();
   
-    if(!empty($result['TANGGAL_LUNAS'])) {
+     if(!empty($result['TANGGAL_LUNAS'])&&$result['LUNAS']=='YES') {
       $lunas = true;
     }
 }

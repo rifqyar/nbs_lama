@@ -87,9 +87,28 @@ $id_group = $_SESSION["ID_GROUP"];
 	
 	while ($row = $res->fetchRow()) 
 	{
+			// $cek_nota = "SELECT COUNT(*) AS CEK  FROM (SELECT * FROM (
+			// 	SELECT  NO_REQUEST,  NO_FAKTUR_MTI,  TGL_NOTA_1 FROM nota_receiving WHERE STATUS <> 'BATAL'
+			// 	UNION
+			// 	SELECT  NO_REQUEST,  NO_FAKTUR_MTI,  TGL_NOTA_1  FROM nota_stuffing WHERE  STATUS <> 'BATAL'
+			// 	UNION 
+			// 	SELECT  NO_REQUEST,  NO_FAKTUR_MTI,   TGL_NOTA_1 FROM nota_stripping WHERE STATUS <> 'BATAL'
+			// 	UNION
+			// 	SELECT  NO_REQUEST,  NO_FAKTUR_MTI,  TGL_NOTA_1  FROM nota_delivery WHERE STATUS <> 'BATAL'
+			// 	UNION
+			// 	SELECT  NO_REQUEST,  NO_FAKTUR_MTI,   TGL_NOTA_1 FROM nota_relokasi WHERE STATUS <> 'BATAL'
+			// 	UNION
+			// 	SELECT  NO_REQUEST,  NO_FAKTUR_MTI,   TGL_NOTA TGL_NOTA_1 FROM nota_batal_muat WHERE STATUS <> 'BATAL'
+			// 	UNION
+			// 	SELECT  NO_REQUEST,  NO_FAKTUR_MTI,   TGL_NOTA_1 FROM nota_relokasi_mty WHERE STATUS <> 'BATAL'
+			// 	UNION
+			// 	SELECT  NO_REQUEST,  NO_FAKTUR_MTI,   TGL_NOTA_1 FROM nota_pnkn_del WHERE STATUS <> 'BATAL'
+			// 	UNION
+			// 	SELECT  NO_REQUEST,  NO_FAKTUR_MTI,  TGL_NOTA_1 FROM nota_pnkn_stuf WHERE STATUS <> 'BATAL')
+			// 	ORDER BY TGL_NOTA_1 DESC) WHERE NO_REQUEST = '".$row[NO_REQUEST]."' AND NO_FAKTUR_MTI IS NOT NULL";
 			$cek_nota = "select count(*) cek from itpk_nota_header where trx_number='".$row[NO_FAKTUR]."'";
 			$rnota 	  = $db->query($cek_nota)->fetchRow();
-			if($rnota['CEK'] == 0)
+			if($rnota['CEK']  == 0)
 			{
 				if($_SESSION["ID_GROUP"]=='L' || $_SESSION["ID_GROUP"]=='J' || $_SESSION["ID_GROUP"]=='P' || $_SESSION["ID_GROUP"]=='K')
 				{
