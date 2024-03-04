@@ -234,12 +234,12 @@ if ($result) {
     $pdf->SetY(37);
     $pdf->Cell(0, 7, 'Customer Name : ', 0, 0, 'L');
 
-    $emkl = $result['EMKL']; // Mengambil nilai EMKL dari $result
-    if (strlen($emkl) > 22) {
-        $emkl = substr($emkl, 0, 22).".."; // Memotong string menjadi maksimal 15 karakter
+    $emkl = $result['EMKL'];
+    if (strlen($emkl) > 27) {
+        $emkl = substr($emkl, 0, 27).".."; // Memotong string menjadi maksimal 15 karakter
     }
 
-    $pdf->SetFont('helvetica', '', 7);
+    $pdf->SetFont('helvetica', '', 6);
     $pdf->SetX(60);
     $pdf->SetY(37);
     $pdf->Cell(0, 7,  $emkl, 0, 1, 'R');
@@ -248,6 +248,7 @@ if ($result) {
     $pdf->SetX(40);
     $pdf->SetY(41);
     $pdf->Cell(0, 7, 'Date : ', 0, 0, 'L');
+    
 
     // Membuat objek DateTime dari string tanggal
     $date = DateTime::createFromFormat('d-M-y h.i.s.u A', $result['TGL_NOTA']);
