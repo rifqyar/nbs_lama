@@ -42,7 +42,6 @@ $server->register(
 function getPaymentCode()
 {
     $db = getDB('storage');
-    $sap = getDB('sap');
     $service = 'getPaymentCode';
     $query = $db->query("
             SELECT
@@ -158,7 +157,7 @@ function getPaymentCode()
     //Check Apakah Masih Ada PaymentCode Belum ada
     if ($result) {
         $noNota = $result['NO_NOTA'];
-        $query = $sap->query("select * from mti_customer_ss.sap_uper_cash_nbs_v WHERE NO_NOTA = '$noNota' ");
+        $query = $db->query("select * from mti_customer_ss.sap_uper_cash_nbs_v@SAP_SERVICE WHERE NO_NOTA = '$noNota' ");
         $resultSAP = $query->fetchRow();
 
         //Check Apakah Payment Code Sudah Ada Di SAP
@@ -225,7 +224,6 @@ function getPaymentCode()
 function GetStatusPayment()
 {
     $db = getDB('storage');
-    $sap = getDB('sap');
     $service = 'GetStatusPayment';
     $query = $db->query("
             SELECT
@@ -360,11 +358,11 @@ function GetStatusPayment()
     //Check Apakah Masih Ada PaymentCode Belum ada
     if ($result) {
         $noNota = $result['NO_NOTA'];
-        $query = $sap->query("
+        $query = $db->query("
         SELECT
             *
         FROM
-            mti_customer_ss.sap_uper_cash_nbs_v
+            mti_customer_ss.sap_uper_cash_nbs_v@SAP_SERVICE
         WHERE
             PAYMENT_CODE IS NOT NULL
             AND SAP_TGL_PELUNASAN IS NOT NULL
