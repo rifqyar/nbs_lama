@@ -149,7 +149,8 @@ function getPaymentCode()
         WHERE
             NO_NOTA IS NOT NULL
             AND PAYMENT_CODE IS NULL
-            AND TGL_NOTA_1 > TO_DATE('2024-01-03', 'YYYY-MM-DD')
+            --AND TGL_NOTA_1 > sysdate - 7
+            AND NO_NOTA = '02050124000151'
         ORDER BY
             DBMS_RANDOM.VALUE
         FETCH NEXT 1 ROWS ONLY");
@@ -157,12 +158,12 @@ function getPaymentCode()
     //Check Apakah Masih Ada PaymentCode Belum ada
     if ($result) {
         $noNota = $result['NO_NOTA'];
-        $query = $db->query("select * from mti_customer_ss.sap_uper_cash_nbs_v@SAP_SERVICE WHERE NO_NOTA = '$noNota' ");
+        $query = $db->query("select * from mti_customer_ss.SAP_NOTA_HEADER_NBS_V@SAP_SERVICE WHERE SOURCE_NOTA_REF = '$noNota' ");
         $resultSAP = $query->fetchRow();
 
         //Check Apakah Payment Code Sudah Ada Di SAP
         if ($resultSAP) {
-            $paymentCode = $resultSAP['PAYMENT_CODE'];
+            $paymentCode = $resultSAP['SAP_KD_BAYAR'];
             if ($result['KEGIATAN'] == 'RECEIVING') {
                 $tb_name = "NOTA_RECEIVING";
             } else if ($result['KEGIATAN'] == 'STUFFING' || $result['KEGIATAN'] == 'PERP' || $result['KEGIATAN'] == 'PERP_PNK') {
@@ -362,17 +363,17 @@ function GetStatusPayment()
         SELECT
             *
         FROM
-            mti_customer_ss.sap_uper_cash_nbs_v@SAP_SERVICE
+            mti_customer_ss.SAP_NOTA_HEADER_NBS_V@SAP_SERVICE
         WHERE
-            PAYMENT_CODE IS NOT NULL
+            SAP_KD_BAYAR IS NOT NULL
             AND SAP_TGL_PELUNASAN IS NOT NULL
             AND SAP_BANK IS NOT NULL
-            AND NO_NOTA = '$noNota'");
+            AND SOURCE_NOTA_REF = '$noNota'");
         $resultSAP = $query->fetchRow();
 
         //Check Apakah Payment Code Sudah Ada Di SAP
         if ($resultSAP) {
-            $paymentCode = $resultSAP['PAYMENT_CODE'];
+            $paymentCode = $resultSAP['SAP_KD_BAYAR'];
             if ($result['KEGIATAN'] == 'RECEIVING') {
                 $tb_name = "NOTA_RECEIVING";
             } else if ($result['KEGIATAN'] == 'STUFFING' || $result['KEGIATAN'] == 'PERP' || $result['KEGIATAN'] == 'PERP_PNK') {
@@ -393,7 +394,13 @@ function GetStatusPayment()
                 $tb_name = "NOTA_PNKN_STUF";
             }
 
-            $query = $db->query("update $tb_name set LUNAS='YES',TANGGAL_LUNAS=SYSDATE WHERE NO_NOTA = '$noNota' ");
+           
+            $bankName = $resultSAP['SAP_BANK'];
+            $PaymentDate = $resultSAP['SAP_TGL_PELUNASAN'];
+            $SapFaktur = $resultSAP['SAP_NO_FAKTUR'];
+
+            $query = $db->query("update $tb_name set NO_FAKTUR='$SapFaktur', LUNAS='YES', RECEIPT_METHOD='BANK', RECEIPT_ACCOUNT='$bankName' ,TANGGAL_LUNAS='$PaymentDate',BAYAR='BANK' WHERE NO_NOTA = '$noNota' ");
+
 
             $query = true;
             if ($query) {
