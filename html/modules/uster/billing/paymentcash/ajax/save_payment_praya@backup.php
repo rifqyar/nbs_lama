@@ -367,8 +367,7 @@ function save_payment_uster($id_request, $jenis_payment, $bank_id)
         rs.NO_REQUEST = '$id_req'";
         $fetchStripping = $db->query($queryStripping)->fetchRow();
         $queryContainerStripping =
-            // "SELECT cs.*, mc.*, TO_CHAR(cs.TGL_SELESAI, 'YYYY-MM-DD HH24:MI:SS') TGLSELESAI FROM CONTAINER_STRIPPING cs JOIN MASTER_CONTAINER mc ON cs.NO_CONTAINER = mc.NO_CONTAINER WHERE cs.NO_REQUEST = '$id_req'";
-            "SELECT cs.*, mc.*, TO_CHAR(cs.TGL_SELESAI, 'YYYY-MM-DD HH24:MI:SS') TGLSELESAI, TO_CHAR(cs.END_STACK_PNKN, 'YYYY-MM-DD HH24:MI:SS') TGLSELESAI_PERP FROM CONTAINER_STRIPPING cs JOIN MASTER_CONTAINER mc ON cs.NO_CONTAINER = mc.NO_CONTAINER WHERE cs.NO_REQUEST = '$id_req'";
+            "SELECT cs.*, mc.*, TO_CHAR(cs.TGL_SELESAI, 'YYYY-MM-DD HH24:MI:SS') TGLSELESAI FROM CONTAINER_STRIPPING cs JOIN MASTER_CONTAINER mc ON cs.NO_CONTAINER = mc.NO_CONTAINER WHERE cs.NO_REQUEST = '$id_req'";
         $fetchContainerStripping = $db->query($queryContainerStripping)->getAll();
         $queryNotaStripping =
             "SELECT ns.*, nsd.*, TO_CHAR(ns.TGL_NOTA,'YYYY-MM-DD HH24:MI:SS') TGLNOTA, (SELECT STATUS FROM ISO_CODE ic WHERE ic.ID_ISO = nsd.ID_ISO) STATUS, TO_CHAR(nsd.START_STACK,'YYYY-MM-DD HH24:MI:SS') AWAL_PENUMPUKAN, TO_CHAR(nsd.END_STACK,'YYYY-MM-DD HH24:MI:SS') AKHIR_PENUMPUKAN FROM NOTA_STRIPPING ns JOIN NOTA_STRIPPING_D nsd ON nsd.NO_NOTA = ns.NO_NOTA WHERE ns.NO_REQUEST = '$id_req' ";
@@ -491,17 +490,6 @@ function save_payment_uster($id_request, $jenis_payment, $bank_id)
             $array_iso_code = array_values($reslt);
             $new_iso = mapNewIsoCode($array_iso_code[0]["isoCode"]);
 
-            // penambahan paythru utk perp strip
-            $paythru = $v['TGLSELESAI'];
-            if(substr($idRequest, 0, 3) == "STP"){
-            $paythru = $v['TGLSELESAI_PERP'];
-
-            array_push($containerListLog, array(
-                "containerNo" => $v['NO_CONTAINER'],
-                "containerDeliveryDate" => $paythru
-            ));
-            }
-
             array_push($containerList, $v['NO_CONTAINER']);
             array_push(
                 $detailList,
@@ -539,7 +527,7 @@ function save_payment_uster($id_request, $jenis_payment, $bank_id)
                     "gateOutDate" => "",
                     "startDate" => $tgl_awal,
                     "endDate" => $tgl_akhir,
-                    "containerDeliveryDate" => $paythru,
+                    "containerDeliveryDate" => $v['TGLSELESAI'],
                     "containerLoadingDate" => "",
                     "containerDischargeDate" => $get_vessel['discharge_date'],
                     "disabled" => "Y"

@@ -50,35 +50,47 @@ if ($username == "uster" && $password == "uster") {
         // } else {
         //   $v_status = 'MTY';
         // };
-        if ($in_nocont != null) {
-          $db->query("INSERT INTO BORDER_GATE_IN (NO_REQUEST, NO_CONTAINER, ID_USER, TGL_IN, NOPOL, STATUS, NO_SEAL, ID_YARD, VIA) 
-          VALUES ('$requestId', '$in_nocont', '$v_user', TO_DATE('$gateDate', 'YYYY-MM-DD HH24:mi:ss'), '$in_notruck', '$latest_status_container', '$in_seal', '46', 'TRIG_OPUS')");
 
-          if ($serviceName == 'STRIPPING') {
-            $result_strip = $db->query("SELECT NO_REQUEST FROM REQUEST_STRIPPING WHERE NO_REQUEST_RECEIVING = '$requestId' ORDER BY TGL_REQUEST DESC");
-            $v_noreq_strip = $result_strip -> getAll();
-            $db->query("UPDATE CONTAINER_STRIPPING SET TGL_GATE = '$gateDate' WHERE NO_CONTAINER = '$in_nocont' AND NO_REQUEST = '$v_noreq_strip[0]'");
-            } else if ($serviceName == 'STUFFING') {
-              $result_stuf = $db->query("SELECT NO_REQUEST FROM REQUEST_STUFFING WHERE NO_REQUEST_RECEIVING = '$requestId' ORDER BY TGL_REQUEST DESC") ;
-              $v_noreq_stuf = $result_stuf -> getAll();
-            $db->query("UPDATE CONTAINER_STUFFING SET TGL_GATE = '$gateDate' WHERE NO_CONTAINER = '$in_nocont' AND NO_REQUEST = '$v_noreq_stuf[0]'");
+        // Check if data exists 
+        $queryCek = "SELECT COUNT(1) AS COUNT FROM BORDER_GATE_IN WHERE NO_CONTAINER = '$in_nocont' AND NO_REQUEST = '$requestId' AND TO_CHAR(TGL_IN, 'YYYY-MM-DD HH24:mi:ss') = TO_CHAR(TO_DATE('$gateDate', 'YYYY-MM-DD HH24:mi:ss'), 'YYYY-MM-DD HH24:mi:ss')";
+        $exec = $db->query($queryCek);
+        $count = $exec->fetchRow();
+        $count = $count['COUNT'];
+
+        if ($count > 0) {
+          echo ('Data Exists');
+          $out_msg = 'Failed';
+        } else {
+          if ($in_nocont != null) {
+            $db->query("INSERT INTO BORDER_GATE_IN (NO_REQUEST, NO_CONTAINER, ID_USER, TGL_IN, NOPOL, STATUS, NO_SEAL, ID_YARD, VIA) 
+            VALUES ('$requestId', '$in_nocont', '$v_user', TO_DATE('$gateDate', 'YYYY-MM-DD HH24:mi:ss'), '$in_notruck', '$latest_status_container', '$in_seal', '46', 'TRIG_OPUS')");
+
+            if ($serviceName == 'STRIPPING') {
+              $result_strip = $db->query("SELECT NO_REQUEST FROM REQUEST_STRIPPING WHERE NO_REQUEST_RECEIVING = '$requestId' ORDER BY TGL_REQUEST DESC");
+              $v_noreq_strip = $result_strip -> getAll();
+              $db->query("UPDATE CONTAINER_STRIPPING SET TGL_GATE = '$gateDate' WHERE NO_CONTAINER = '$in_nocont' AND NO_REQUEST = '$v_noreq_strip[0]'");
+              } else if ($serviceName == 'STUFFING') {
+                $result_stuf = $db->query("SELECT NO_REQUEST FROM REQUEST_STUFFING WHERE NO_REQUEST_RECEIVING = '$requestId' ORDER BY TGL_REQUEST DESC") ;
+                $v_noreq_stuf = $result_stuf -> getAll();
+              $db->query("UPDATE CONTAINER_STUFFING SET TGL_GATE = '$gateDate' WHERE NO_CONTAINER = '$in_nocont' AND NO_REQUEST = '$v_noreq_stuf[0]'");
+            }
+            ;
+            $db->query("UPDATE MASTER_CONTAINER SET LOCATION = 'GATI' WHERE NO_CONTAINER = '$in_nocont'");
+
+            $result = $db->query("SELECT NO_BOOKING, COUNTER FROM MASTER_CONTAINER WHERE NO_CONTAINER = '$in_nocont' ORDER BY COUNTER DESC");
+            $row			= $result->getAll();
+            $v_nobooking = $row[0]['NO_BOOKING'];
+            $v_counter = $row[0]['COUNTER'];
+
+            $db->query("INSERT INTO history_container(NO_CONTAINER, NO_REQUEST, KEGIATAN, TGL_UPDATE, ID_USER, ID_YARD, STATUS_CONT, NO_BOOKING, COUNTER) 
+            VALUES ('$in_nocont', '$requestId', 'BORDER GATE IN', SYSDATE, '$v_user', 46, '$latest_status_container', '$v_nobooking', '$v_counter')");
+            $out_msg = 'SUCCESS';
+          } else {
+            echo ('Container is not found ');
+            $out_msg = 'Failed';
           }
           ;
-          $db->query("UPDATE MASTER_CONTAINER SET LOCATION = 'GATI' WHERE NO_CONTAINER = '$in_nocont'");
-
-          $result = $db->query("SELECT NO_BOOKING, COUNTER FROM MASTER_CONTAINER WHERE NO_CONTAINER = '$in_nocont' ORDER BY COUNTER DESC");
-          $row			= $result->getAll();
-          $v_nobooking = $row[0]['NO_BOOKING'];
-          $v_counter = $row[0]['COUNTER'];
-
-          $db->query("INSERT INTO history_container(NO_CONTAINER, NO_REQUEST, KEGIATAN, TGL_UPDATE, ID_USER, ID_YARD, STATUS_CONT, NO_BOOKING, COUNTER) 
-          VALUES ('$in_nocont', '$requestId', 'BORDER GATE IN', SYSDATE, '$v_user', 46, '$latest_status_container', '$v_nobooking', '$v_counter')");
-          $out_msg = 'SUCCESS';
-        } else {
-          echo ('Container is not found ');
-          $out_msg = 'Failed';
         }
-        ;
       } else if ($in_tipe == 'IN') {
         echo ('gate out USTER ');
         // if ($in_status == 'FULL') {
@@ -87,52 +99,62 @@ if ($username == "uster" && $password == "uster") {
         //   $v_status = 'MTY';
         // };
 
-        if ($in_nocont != NULL) {
-
-          $res = $db->query("INSERT INTO BORDER_GATE_OUT (NO_REQUEST, NO_CONTAINER, ID_USER, TGL_IN, NOPOL, STATUS, NO_SEAL,TRUCKING,ID_YARD,VIA) 
-                        VALUES(  '$requestId', 
-                                  '$in_nocont', 
-                                  '$v_user', 
-                                  TO_DATE('$gateDate', 'YYYY-MM-DD HH24:mi:ss'), 
-                                  '$in_notruck', 
-                                  '$latest_status_container',
-                                  '$in_seal',
-                                  '$in_notruck',
-                                  46,
-                                  'TRIG_OPUS')
-            "); 
-          // echo var_dump($res); die;
-          $db->query(" DELETE FROM PLACEMENT WHERE NO_CONTAINER = '$in_nocont' ");
-          if ($serviceName == 'STRIPPING') {
-            $result_strip = $db->query("SELECT NO_REQUEST FROM REQUEST_STRIPPING WHERE NO_REQUEST_RECEIVING = '$requestId' ORDER BY TGL_REQUEST DESC");
-            $v_noreq_strip = $result_strip -> getAll();
-            $db->query("UPDATE CONTAINER_STRIPPING SET TGL_GATE = '$gateDate' WHERE NO_CONTAINER = '$in_nocont' AND NO_REQUEST = '$v_noreq_strip[0]'");
-          } else if ($serviceName == 'STUFFING') {
-            $result_stuf = $db->query("SELECT NO_REQUEST FROM REQUEST_STUFFING WHERE NO_REQUEST_RECEIVING = '$requestId' ORDER BY TGL_REQUEST DESC") ;
-            $v_noreq_stuf = $result_stuf -> getAll();
-          $db->query("UPDATE CONTAINER_STUFFING SET TGL_GATE = '$gateDate' WHERE NO_CONTAINER = '$in_nocont' AND NO_REQUEST = '$v_noreq_stuf[0]'");
-          }
-
-          $db->query("UPDATE MASTER_CONTAINER SET LOCATION = 'GATO' WHERE NO_CONTAINER = '$in_nocont'");
-          
-          $db->query("UPDATE CONTAINER_DELIVERY SET AKTIF = 'T' WHERE NO_CONTAINER = '$in_nocont' AND NO_REQUEST = '$requestId'");
-
-          $result = $db->query(" SELECT NO_BOOKING, COUNTER FROM MASTER_CONTAINER WHERE NO_CONTAINER = '$in_nocont' ORDER BY COUNTER DESC ");
-          $row			= $result->getAll();	
-          // echo ($row[0]['NO_BOOKING']);
-          // die;
-          // echo var_dump($result[0]['COUNTER']);
-          $v_nobooking = $row[0]['NO_BOOKING'];
-          $v_counter = $row[0]['COUNTER'];
-          // echo var_dump($v_counter);
-          $db->query("INSERT INTO history_container(NO_CONTAINER, NO_REQUEST, KEGIATAN, TGL_UPDATE, ID_USER, ID_YARD, STATUS_CONT, NO_BOOKING, COUNTER) 
-          VALUES ('$in_nocont', '$requestId', 'BORDER GATE OUT',SYSDATE, '$v_user', '46', '$latest_status_container', '$v_nobooking', '$v_counter')");
-          $out_msg = 'SUCCESS';
-        } else {
-          echo ('Container is not found');
+        // Check if data exists 
+        $queryCek = "SELECT COUNT(1) AS COUNT FROM BORDER_GATE_OUT WHERE NO_CONTAINER = '$in_nocont' AND NO_REQUEST = '$requestId' AND TO_CHAR(TGL_IN, 'YYYY-MM-DD HH24:mi:ss') = TO_CHAR(TO_DATE('$gateDate', 'YYYY-MM-DD HH24:mi:ss'), 'YYYY-MM-DD HH24:mi:ss')";
+        $exec = $db->query($queryCek);
+        $count = $exec->fetchRow();
+        $count = $count['COUNT'];
+        if ($count > 0) {
+          echo ('Data Exists');
           $out_msg = 'Failed';
+        } else {
+          if ($in_nocont != NULL) {
+
+            $res = $db->query("INSERT INTO BORDER_GATE_OUT (NO_REQUEST, NO_CONTAINER, ID_USER, TGL_IN, NOPOL, STATUS, NO_SEAL,TRUCKING,ID_YARD,VIA) 
+                          VALUES(  '$requestId', 
+                                    '$in_nocont', 
+                                    '$v_user', 
+                                    TO_DATE('$gateDate', 'YYYY-MM-DD HH24:mi:ss'), 
+                                    '$in_notruck', 
+                                    '$latest_status_container',
+                                    '$in_seal',
+                                    '$in_notruck',
+                                    46,
+                                    'TRIG_OPUS')
+              "); 
+            // echo var_dump($res); die;
+            $db->query(" DELETE FROM PLACEMENT WHERE NO_CONTAINER = '$in_nocont' ");
+            if ($serviceName == 'STRIPPING') {
+              $result_strip = $db->query("SELECT NO_REQUEST FROM REQUEST_STRIPPING WHERE NO_REQUEST_RECEIVING = '$requestId' ORDER BY TGL_REQUEST DESC");
+              $v_noreq_strip = $result_strip -> getAll();
+              $db->query("UPDATE CONTAINER_STRIPPING SET TGL_GATE = '$gateDate' WHERE NO_CONTAINER = '$in_nocont' AND NO_REQUEST = '$v_noreq_strip[0]'");
+            } else if ($serviceName == 'STUFFING') {
+              $result_stuf = $db->query("SELECT NO_REQUEST FROM REQUEST_STUFFING WHERE NO_REQUEST_RECEIVING = '$requestId' ORDER BY TGL_REQUEST DESC") ;
+              $v_noreq_stuf = $result_stuf -> getAll();
+            $db->query("UPDATE CONTAINER_STUFFING SET TGL_GATE = '$gateDate' WHERE NO_CONTAINER = '$in_nocont' AND NO_REQUEST = '$v_noreq_stuf[0]'");
+            }
+
+            $db->query("UPDATE MASTER_CONTAINER SET LOCATION = 'GATO' WHERE NO_CONTAINER = '$in_nocont'");
+            
+            $db->query("UPDATE CONTAINER_DELIVERY SET AKTIF = 'T' WHERE NO_CONTAINER = '$in_nocont' AND NO_REQUEST = '$requestId'");
+
+            $result = $db->query(" SELECT NO_BOOKING, COUNTER FROM MASTER_CONTAINER WHERE NO_CONTAINER = '$in_nocont' ORDER BY COUNTER DESC ");
+            $row			= $result->getAll();	
+            // echo ($row[0]['NO_BOOKING']);
+            // die;
+            // echo var_dump($result[0]['COUNTER']);
+            $v_nobooking = $row[0]['NO_BOOKING'];
+            $v_counter = $row[0]['COUNTER'];
+            // echo var_dump($v_counter);
+            $db->query("INSERT INTO history_container(NO_CONTAINER, NO_REQUEST, KEGIATAN, TGL_UPDATE, ID_USER, ID_YARD, STATUS_CONT, NO_BOOKING, COUNTER) 
+            VALUES ('$in_nocont', '$requestId', 'BORDER GATE OUT',SYSDATE, '$v_user', '46', '$latest_status_container', '$v_nobooking', '$v_counter')");
+            $out_msg = 'SUCCESS';
+          } else {
+            echo ('Container is not found');
+            $out_msg = 'Failed';
+          }
+          ;
         }
-        ;
       } else {
         echo ('Type Only IN/OUT');
         $out_msg = 'Failed';

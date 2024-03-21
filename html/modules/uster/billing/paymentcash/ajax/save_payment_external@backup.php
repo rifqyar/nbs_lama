@@ -25,9 +25,6 @@ $paymentCode = $payload_uster_save["PAYMENT_CODE"];
 $charge = empty($payloadBatalMuat) ? "Y" : "N"; //kalau payload batal muat ada berarti tdk bayar
 $db = getDb("storage");
 
-// Variable untuk logging container, hanya variable penting yg dimasukan karena container bisa jadi sngt bnyk (Sementara utk PERP_STRIP)
-$containerListLog = array();
-
 if (empty($payload_uster_save)) {
   $jenis = $_POST['JENIS'];
   $bankAccountNumber = $_POST["BANK_ACCOUNT_NUMBER"];
@@ -202,11 +199,8 @@ if ($jenis == 'STRIPPING' || $jenis == 'PERP_STRIP') { //DELIVERY KALO DARI SISI
   WHERE
         rs.NO_REQUEST = '$id_req'";
   $fetchStripping = $db->query($queryStripping)->fetchRow();
-  // CHOSSY.P (26/12/2023)
-  // penambahan paythru utk perp strip
   $queryContainerStripping =
-    "SELECT cs.*, mc.*, TO_CHAR(cs.TGL_SELESAI, 'YYYY-MM-DD HH24:MI:SS') TGLSELESAI, TO_CHAR(cs.END_STACK_PNKN, 'YYYY-MM-DD HH24:MI:SS') TGLSELESAI_PERP FROM CONTAINER_STRIPPING cs JOIN MASTER_CONTAINER mc ON cs.NO_CONTAINER = mc.NO_CONTAINER WHERE cs.NO_REQUEST = '$id_req'";
-  // END 
+    "SELECT cs.*, mc.*, TO_CHAR(cs.TGL_SELESAI, 'YYYY-MM-DD HH24:MI:SS') TGLSELESAI FROM CONTAINER_STRIPPING cs JOIN MASTER_CONTAINER mc ON cs.NO_CONTAINER = mc.NO_CONTAINER WHERE cs.NO_REQUEST = '$id_req'";
   $fetchContainerStripping = $db->query($queryContainerStripping)->getAll();
   $queryNotaStripping =
     "SELECT ns.*, nsd.*, TO_CHAR(ns.TGL_NOTA,'YYYY-MM-DD HH24:MI:SS') TGLNOTA, (SELECT STATUS FROM ISO_CODE ic WHERE ic.ID_ISO = nsd.ID_ISO) STATUS, TO_CHAR(nsd.START_STACK,'YYYY-MM-DD HH24:MI:SS') AWAL_PENUMPUKAN, TO_CHAR(nsd.END_STACK,'YYYY-MM-DD HH24:MI:SS') AKHIR_PENUMPUKAN FROM NOTA_STRIPPING ns JOIN NOTA_STRIPPING_D nsd ON nsd.NO_NOTA = ns.NO_NOTA WHERE ns.NO_REQUEST = '$id_req' ";
@@ -236,7 +230,7 @@ if ($jenis == 'STRIPPING' || $jenis == 'PERP_STRIP') { //DELIVERY KALO DARI SISI
     $notes = "Payment Cash - " . $jenis . " - GAGAL GET ISO CODE";
     $response_uster_save = array(
       'code' => "0",
-      'msg' => "Gagal mengambil Iso Code ke Praya, silahkan ulangi Kembali hit process ini."
+      'msg' => "Gagal mengambil Iso Code ke Praya"
     );
     insertPrayaServiceLog($url_uster_save, $payload_log, $response_uster_save, $notes);
 
@@ -340,19 +334,6 @@ if ($jenis == 'STRIPPING' || $jenis == 'PERP_STRIP') { //DELIVERY KALO DARI SISI
     }
     $array_iso_code = array_values($reslt);
     $new_iso = mapNewIsoCode($array_iso_code[0]["isoCode"]);
-
-    // CHOSSY.P (26/12/2023)
-    // penambahan paythru utk perp strip
-    $paythru = $v['TGLSELESAI'];
-    if(substr($idRequest, 0, 3) == "STP"){
-      $paythru = $v['TGLSELESAI_PERP'];
-
-      array_push($containerListLog, array(
-        "containerNo" => $v['NO_CONTAINER'],
-        "containerDeliveryDate" => $paythru
-      ));
-    }
-    // END
     
     array_push($containerList, $v['NO_CONTAINER']);
     array_push(
@@ -391,7 +372,7 @@ if ($jenis == 'STRIPPING' || $jenis == 'PERP_STRIP') { //DELIVERY KALO DARI SISI
         "gateOutDate" => "",
         "startDate" => $tgl_awal,
         "endDate" => $tgl_akhir,
-        "containerDeliveryDate" => $paythru,
+        "containerDeliveryDate" => $v['TGLSELESAI'],
         "containerLoadingDate" => "",
         "containerDischargeDate" => $get_vessel['discharge_date'],
         "disabled" => "Y"
@@ -563,7 +544,7 @@ if ($jenis == 'STRIPPING' || $jenis == 'PERP_STRIP') { //DELIVERY KALO DARI SISI
       $notes = "Payment Cash - " . $jenis . " - GAGAL GET ISO CODE";
       $response_uster_save = array(
         'code' => "0",
-        'msg' => "Gagal mengambil Iso Code ke Praya, silahkan ulangi Kembali hit process ini."
+        'msg' => "Gagal mengambil Iso Code ke Praya"
       );
       insertPrayaServiceLog($url_uster_save, $payload_log, $response_uster_save, $notes);
 
@@ -829,7 +810,7 @@ if ($jenis == 'STRIPPING' || $jenis == 'PERP_STRIP') { //DELIVERY KALO DARI SISI
       $notes = "Payment Cash - " . $jenis . " - GAGAL GET ISO CODE";
       $response_uster_save = array(
         'code' => "0",
-        'msg' => "Gagal mengambil Iso Code ke Praya, silahkan ulangi Kembali hit process ini."
+        'msg' => "Gagal mengambil Iso Code ke Praya"
       );
       insertPrayaServiceLog($url_uster_save, $payload_log, $response_uster_save, $notes);
 
@@ -1142,7 +1123,7 @@ if ($jenis == 'STRIPPING' || $jenis == 'PERP_STRIP') { //DELIVERY KALO DARI SISI
         $notes = "Payment Cash - " . $jenis . " - GAGAL GET ISO CODE";
         $response_uster_save = array(
           'code' => "0",
-          'msg' => "Gagal mengambil Iso Code ke Praya, silahkan ulangi Kembali hit process ini."
+          'msg' => "Gagal mengambil Iso Code ke Praya"
         );
         insertPrayaServiceLog($url_uster_save, $payload_log, $response_uster_save, $notes);
 
@@ -1374,7 +1355,7 @@ if ($jenis == 'STRIPPING' || $jenis == 'PERP_STRIP') { //DELIVERY KALO DARI SISI
         $notes = "Payment Cash - " . $jenis . " - GAGAL GET ISO CODE";
         $response_uster_save = array(
           'code' => "0",
-          'msg' => "Gagal mengambil Iso Code ke Praya, silahkan ulangi Kembali hit process ini."
+          'msg' => "Gagal mengambil Iso Code ke Praya"
         );
         insertPrayaServiceLog($url_uster_save, $payload_log, $response_uster_save, $notes);
 
@@ -1713,27 +1694,6 @@ $payload_body = array(
 
 $payload = array_merge($payload_header, $payload_body);
 
-// if(!empty($idRequest) && substr($idRequest, 0, 3) == "STP"){
-//   $payload_stp_logging = array(
-//     "PNK_REQUEST_ID" => $id_req,
-//     "PNK_NO_PROFORMA" => $_POST["NO_PROFORMA"],
-//     "PNK_CONTAINER_LIST" => $strContList,
-//     "PNK_JENIS_SERVICE" => $jenis,
-//     "PNK_JENIS_BATAL_MUAT" => $jenisBM,
-//     "PNK_PAYMENT_VIA" => $PNK_PAYMENT_VIA,
-//     "EBPP_CREATED_DATE" => $_POST["EBPP_CREATED_DATE"],
-//     "detailList" => $containerListLog
-//   );
-//   $notes_stp_logging = "STP - " . $idRequest . " - CONTAINER LOGGING";
-//   $response_uster_save_logging_test = array(
-//     "code" => '1',
-//     "msg" => 'Success'
-//   );
-
-//   // LOGGING FOR PAYTHRU PERP_STRIP
-//   insertPrayaServiceLog($url_uster_save, $payload_stp_logging, $response_uster_save_logging_test, $notes_stp_logging);
-// }
-
 // echo json_encode($payload);
 // die();
 
@@ -1770,23 +1730,6 @@ $response_uster_save_logging = $response_uster_save_decode["code"] == 0 ? array(
   "code" => $response_uster_save_decode['code'],
   "msg" => $response_uster_save_decode['msg']
 ) : $response_uster_save_decode;
-
-if(!empty($idRequest) && substr($idRequest, 0, 3) == "STP"){
-  $payload_stp_logging = array(
-    "PNK_REQUEST_ID" => $id_req,
-    "PNK_NO_PROFORMA" => $_POST["NO_PROFORMA"],
-    "PNK_CONTAINER_LIST" => $strContList,
-    "PNK_JENIS_SERVICE" => $jenis,
-    "PNK_JENIS_BATAL_MUAT" => $jenisBM,
-    "PNK_PAYMENT_VIA" => $PNK_PAYMENT_VIA,
-    "EBPP_CREATED_DATE" => $_POST["EBPP_CREATED_DATE"],
-    "detailList" => $containerListLog
-  );
-  $notes_stp_logging = "STP - " . $idRequest . " - CONTAINER LOGGING";
-
-  // LOGGING FOR PAYTHRU PERP_STRIP
-  insertPrayaServiceLog($url_uster_save, $payload_stp_logging, $response_uster_save_logging, $notes_stp_logging);
-}
 
 insertPrayaServiceLog($url_uster_save, $payload_header, $response_uster_save_logging, $notes);
 
@@ -1900,8 +1843,6 @@ function getIsoCode()
 
     $response = sendDataFromUrl($payload, PRAYA_API_TOS . "/api/isoCodeList", 'POST', getTokenPraya());
     $response = json_decode($response['response'], true);
-
-    // echo json_encode($response);die;
 
     if ($response['code'] == 1 && !empty($response["dataRec"])) {
       return $response['dataRec'];

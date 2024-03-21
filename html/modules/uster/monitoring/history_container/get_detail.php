@@ -395,7 +395,14 @@
                         ON HISTORY_PLACEMENT.ID_BLOCKING_AREA = BLOCKING_AREA.ID
                         LEFT JOIN YARD_AREA ON BLOCKING_AREA.ID_YARD_AREA = YARD_AREA.ID
                         LEFT JOIN BILLING.TB_USER MASTER_USER ON HISTORY_PLACEMENT.NIPP_USER = MASTER_USER.ID WHERE NO_CONTAINER = '$no_cont'
-                        AND HISTORY_PLACEMENT.INSERT_VIA = 'H') CEK                                                 
+                        AND HISTORY_PLACEMENT.INSERT_VIA = 'H'
+						UNION ALL
+                        SELECT HISTORY_PLACEMENT.*, MASTER_USER.NAME NAMA_LENGKAP, BLOCKING_AREA.NAME, YARD_AREA.NAMA_YARD FROM 
+                        HISTORY_PLACEMENT INNER JOIN BLOCKING_AREA
+                        ON HISTORY_PLACEMENT.ID_BLOCKING_AREA = BLOCKING_AREA.ID
+                        LEFT JOIN YARD_AREA ON BLOCKING_AREA.ID_YARD_AREA = YARD_AREA.ID
+                        LEFT JOIN BILLING.TB_USER MASTER_USER ON HISTORY_PLACEMENT.NIPP_USER = MASTER_USER.ID WHERE NO_CONTAINER = '$no_cont'
+                        AND HISTORY_PLACEMENT.INSERT_VIA = 'DB') CEK                                                 
                         ORDER BY CEK.TGL_UPDATE DESC";
 		$r_place = $db->query($q_placement);
 		$r_pl = $r_place->getAll();
