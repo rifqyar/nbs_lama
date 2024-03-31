@@ -165,8 +165,8 @@ $query = $db->query("
             WHERE
             NO_NOTA IS NOT NULL
             AND PAYMENT_CODE IS NOT NULL
-            AND TANGGAL_LUNAS IS NOT NULL
-            AND LUNAS = 'YES'
+            AND TANGGAL_LUNAS IS NULL
+            AND LUNAS = 'NO'
             AND NO_REQUEST = '$no_req'
             ORDER BY
             DBMS_RANDOM.VALUE
@@ -265,7 +265,7 @@ if ($result) {
     $pdf->SetFont('helvetica', 'B', 7);
     $pdf->SetX(40);
     $pdf->SetY(47);
-    $pdf->Cell(0, 7, 'PROFORMA', 0, 0, 'L');
+    $pdf->Cell(0, 7, 'NO NOTA', 0, 0, 'L');
 
     $pdf->SetFont('helvetica', 'B', 7);
     $pdf->SetX(60);

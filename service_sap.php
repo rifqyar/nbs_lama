@@ -78,7 +78,8 @@ function getPaymentCode()
                 STATUS <> 'BATAL'
                 AND NO_NOTA IS NOT NULL
                 AND PAYMENT_CODE IS NULL
-                AND TGL_NOTA > sysdate - 3
+                AND TGL_NOTA > sysdate - 30
+                AND TGL_NOTA >= TO_DATE('2024-04-01', 'YYYY-MM-DD')
         UNION
             SELECT
                 NO_NOTA,
@@ -94,7 +95,8 @@ function getPaymentCode()
                 STATUS <> 'BATAL'
                 AND NO_NOTA IS NOT NULL
                 AND PAYMENT_CODE IS NULL
-                AND TGL_NOTA > sysdate - 3
+                AND TGL_NOTA > sysdate - 30
+                AND TGL_NOTA >= TO_DATE('2024-04-01', 'YYYY-MM-DD')
         UNION
             SELECT
                 NO_NOTA,
@@ -110,7 +112,8 @@ function getPaymentCode()
                 STATUS <> 'BATAL'
                 AND NO_NOTA IS NOT NULL
                 AND PAYMENT_CODE IS NULL
-                AND TGL_NOTA > sysdate - 3
+                AND TGL_NOTA > sysdate - 30
+                AND TGL_NOTA >= TO_DATE('2024-04-01', 'YYYY-MM-DD')
         UNION
             SELECT
                 NO_NOTA,
@@ -126,7 +129,8 @@ function getPaymentCode()
                 STATUS <> 'BATAL'
                 AND NO_NOTA IS NOT NULL
                 AND PAYMENT_CODE IS NULL
-                AND TGL_NOTA > sysdate - 3
+                AND TGL_NOTA > sysdate - 30
+                AND TGL_NOTA >= TO_DATE('2024-04-01', 'YYYY-MM-DD')
         UNION
             SELECT
                 NO_NOTA,
@@ -139,7 +143,8 @@ function getPaymentCode()
                 STATUS <> 'BATAL'
                 AND NO_NOTA IS NOT NULL
                 AND PAYMENT_CODE IS NULL
-                AND TGL_NOTA > sysdate - 3
+                AND TGL_NOTA > sysdate - 30
+                AND TGL_NOTA >= TO_DATE('2024-04-01', 'YYYY-MM-DD')
         UNION
             SELECT
                 NO_NOTA,
@@ -152,7 +157,8 @@ function getPaymentCode()
                 STATUS <> 'BATAL'
                 AND NO_NOTA IS NOT NULL
                 AND PAYMENT_CODE IS NULL
-                AND TGL_NOTA > sysdate - 3
+                AND TGL_NOTA > sysdate - 30
+                AND TGL_NOTA >= TO_DATE('2024-04-01', 'YYYY-MM-DD')
         UNION
             SELECT
                 NO_NOTA,
@@ -165,7 +171,8 @@ function getPaymentCode()
                 STATUS <> 'BATAL'
                 AND NO_NOTA IS NOT NULL
                 AND PAYMENT_CODE IS NULL
-                AND TGL_NOTA > sysdate - 3
+                AND TGL_NOTA > sysdate - 30
+                AND TGL_NOTA >= TO_DATE('2024-04-01', 'YYYY-MM-DD')
         UNION
             SELECT
                 NO_NOTA,
@@ -178,7 +185,8 @@ function getPaymentCode()
                 STATUS <> 'BATAL'
                 AND NO_NOTA IS NOT NULL
                 AND PAYMENT_CODE IS NULL
-                AND TGL_NOTA > sysdate - 3
+                AND TGL_NOTA > sysdate - 30
+                AND TGL_NOTA >= TO_DATE('2024-04-01', 'YYYY-MM-DD')
         UNION
             SELECT
                 NO_NOTA,
@@ -191,10 +199,11 @@ function getPaymentCode()
                 STATUS <> 'BATAL'
                 AND NO_NOTA IS NOT NULL
                 AND PAYMENT_CODE IS NULL
-                AND TGL_NOTA > sysdate - 3)
+                AND TGL_NOTA > sysdate - 30
+                AND TGL_NOTA >= TO_DATE('2024-04-01', 'YYYY-MM-DD'))
         ORDER BY
             DBMS_RANDOM.VALUE
-                FETCH NEXT 1 ROWS ONLY");
+                        FETCH NEXT 1 ROWS ONLY");
     $result = $query->fetchRow();
     //Check Apakah Masih Ada PaymentCode Belum ada
     if ($result) {
@@ -305,7 +314,7 @@ function GetStatusPayment()
                 AND PAYMENT_CODE IS NOT NULL
                 AND TANGGAL_LUNAS IS NULL
                 AND LUNAS = 'NO'
-                AND TGL_NOTA > sysdate - 3
+                AND TGL_NOTA > sysdate - 30
         UNION
             SELECT
                 NO_NOTA,
@@ -326,7 +335,7 @@ function GetStatusPayment()
                 AND PAYMENT_CODE IS NOT NULL
                 AND TANGGAL_LUNAS IS NULL
                 AND LUNAS = 'NO'
-                AND TGL_NOTA > sysdate - 3
+                AND TGL_NOTA > sysdate - 30
         UNION
             SELECT
                 NO_NOTA,
@@ -347,7 +356,7 @@ function GetStatusPayment()
                 AND PAYMENT_CODE IS NOT NULL
                 AND TANGGAL_LUNAS IS NULL
                 AND LUNAS = 'NO'
-                AND TGL_NOTA > sysdate - 3
+                AND TGL_NOTA > sysdate - 30
         UNION
             SELECT
                 NO_NOTA,
@@ -368,7 +377,7 @@ function GetStatusPayment()
                 AND PAYMENT_CODE IS NOT NULL
                 AND TANGGAL_LUNAS IS NULL
                 AND LUNAS = 'NO'
-                AND TGL_NOTA > sysdate - 3
+                AND TGL_NOTA > sysdate - 30
         UNION
             SELECT
                 NO_NOTA,
@@ -386,7 +395,7 @@ function GetStatusPayment()
                 AND PAYMENT_CODE IS NOT NULL
                 AND TANGGAL_LUNAS IS NULL
                 AND LUNAS = 'NO'
-                AND TGL_NOTA > sysdate - 3
+                AND TGL_NOTA > sysdate - 30
         UNION
             SELECT
                 NO_NOTA,
@@ -404,7 +413,7 @@ function GetStatusPayment()
                 AND PAYMENT_CODE IS NOT NULL
                 AND TGL_LUNAS IS NULL
                 AND LUNAS = 'NO'
-                AND TGL_NOTA > sysdate - 3
+                AND TGL_NOTA > sysdate - 30
         UNION
             SELECT
                 NO_NOTA,
@@ -422,7 +431,7 @@ function GetStatusPayment()
                 AND PAYMENT_CODE IS NOT NULL
                 AND TANGGAL_LUNAS IS NULL
                 AND LUNAS = 'NO'
-                AND TGL_NOTA > sysdate - 3
+                AND TGL_NOTA > sysdate - 30
         UNION
             SELECT
                 NO_NOTA,
@@ -440,7 +449,7 @@ function GetStatusPayment()
                 AND PAYMENT_CODE IS NOT NULL
                 AND TANGGAL_LUNAS IS NULL
                 AND LUNAS = 'NO'
-                AND TGL_NOTA > sysdate - 3
+                AND TGL_NOTA > sysdate - 30
         UNION
             SELECT
                 NO_NOTA,
@@ -458,7 +467,7 @@ function GetStatusPayment()
                 AND PAYMENT_CODE IS NOT NULL
                 AND TANGGAL_LUNAS IS NULL
                 AND LUNAS = 'NO'
-                AND TGL_NOTA > sysdate - 3)
+                AND TGL_NOTA > sysdate - 30)
         ORDER BY
             DBMS_RANDOM.VALUE
                             FETCH NEXT 1 ROWS ONLY");
@@ -530,7 +539,7 @@ function GetStatusPayment()
             if ($data == 'Berhasil') {
 
                 # Save payment with Praya service
-                $uster = save_payment_uster_external($Nota, $result['KEGIATAN']);
+                $uster = save_payment_uster_external($Nota, $result['KEGIATAN'],$idBank);
 
                 if ($uster['code'] == '1') {
                     $msg = array(
@@ -594,8 +603,14 @@ function GetStatusPayment()
  */
 function SapPaymentPaid($faktur, $trx_number, $user_id, $bank_id, $paid_date, $paid_channel, $date)
 {
+    
+	$host = $_conf['db']['storage']['host'];
+	$catalog = $_conf['db']['storage']['catalog'];
+	$user = $_conf['db']['storage']['user'];
+	$password = $_conf['db']['storage']['password'];
+
     // Connection to USTER
-    $conn = oci_connect('uster', 'uster', '10.15.42.42/datamti');
+    $conn = oci_connect($user, $password, "$host/$catalog");
 
     // check connection if fails return error
     if (!$conn) {
@@ -852,7 +867,13 @@ function SapPaymentPaid($faktur, $trx_number, $user_id, $bank_id, $paid_date, $p
         // check flag opus is true, disabled for development
         if ($flag_opus == true) {
             // connect to opus_repo, flagging payment to opus
-            $conn_opus = oci_connect('opus_repo', 'opus_repo', '10.15.42.42/datamti');
+            $host = $_conf['db']['storage']['host'];
+            $catalog = $_conf['db']['storage']['catalog'];
+            $user = $_conf['db']['storage']['user'];
+            $password = $_conf['db']['storage']['password'];
+
+            // Connection to USTER
+            $conn_opus = oci_connect($user, $password, "$host/$catalog");
             $out_status = '';
             $outmsg = '';
             //
@@ -1074,13 +1095,14 @@ function SapPaymentPaid($faktur, $trx_number, $user_id, $bank_id, $paid_date, $p
 
 
 /**
- * Fungsi untuk menyimpan pembayaran uster sudah lunas.
+ * Fungsi ini digunakan untuk menyimpan pembayaran eksternal Uster.
  *
- * @param array $nota Data nota pembayaran.
- * @param string $kegiatan Jenis kegiatan.
- * @return array Hasil dari permintaan penyimpanan pembayaran.
+ * @param array $nota - Data nota yang berisi NO_REQUEST.
+ * @param string $kegiatan - Jenis kegiatan.
+ * @param string $bank_id - Nomor rekening bank.
+ * @return array - Hasil dari permintaan penyimpanan pembayaran.
  */
-function save_payment_uster_external($nota, $kegiatan)
+function save_payment_uster_external($nota, $kegiatan,$bank_id)
 {
     // return array(
     //     "code" => "1",
@@ -1104,7 +1126,7 @@ function save_payment_uster_external($nota, $kegiatan)
         $payload_request = array(
             "ID_REQUEST" => $NO_REQUEST,
             "JENIS" => $kegiatan,
-            "BANK_ACCOUNT_NUMBER" => '',
+            "BANK_ACCOUNT_NUMBER" => $bank_id,
             "PAYMENT_CODE" => ''
         );
         // echo json_encode($payload_request) . '<<payload_req';
