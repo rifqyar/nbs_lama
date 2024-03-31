@@ -1,13 +1,11 @@
-
 <?php
-
 include "framework/conf.php";
 include "framework/_debug.php";
 include "framework/_viewstate.php";
 include "framework/init.php";
 
 
-//echo R_PATH;die();
+
 ini_set("display_errors", "0");
 
 include('lib/xml2array.php');
@@ -203,7 +201,7 @@ function getPaymentCode()
                 AND TGL_NOTA >= TO_DATE('2024-04-01', 'YYYY-MM-DD'))
         ORDER BY
             DBMS_RANDOM.VALUE
-                        FETCH NEXT 1 ROWS ONLY");
+                FETCH NEXT 1 ROWS ONLY");
     $result = $query->fetchRow();
     //Check Apakah Masih Ada PaymentCode Belum ada
     if ($result) {
@@ -603,13 +601,12 @@ function GetStatusPayment()
  */
 function SapPaymentPaid($faktur, $trx_number, $user_id, $bank_id, $paid_date, $paid_channel, $date)
 {
-    
+    // Connection to USTER
 	$host = $_conf['db']['storage']['host'];
 	$catalog = $_conf['db']['storage']['catalog'];
 	$user = $_conf['db']['storage']['user'];
 	$password = $_conf['db']['storage']['password'];
-
-    // Connection to USTER
+    
     $conn = oci_connect($user, $password, "$host/$catalog");
 
     // check connection if fails return error
@@ -871,9 +868,8 @@ function SapPaymentPaid($faktur, $trx_number, $user_id, $bank_id, $paid_date, $p
             $catalog = $_conf['db']['storage']['catalog'];
             $user = $_conf['db']['storage']['user'];
             $password = $_conf['db']['storage']['password'];
-
-            // Connection to USTER
             $conn_opus = oci_connect($user, $password, "$host/$catalog");
+
             $out_status = '';
             $outmsg = '';
             //
