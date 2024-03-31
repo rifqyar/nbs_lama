@@ -1,3 +1,4 @@
+
 <?php
 
 include "framework/conf.php";
@@ -39,126 +40,166 @@ $server->register(
 );
 
 
+/******************************************************************************
+         NAME     : `Heimdall` Service -  Payment SAP 
+         PURPOSE  : 
+         VER      : 1.0 STABLE
+         AUTHOR   : Prima - EDII
+         REVISION :
+ ******************************************************************************/
+
+
+/**
+ * Fungsi ini digunakan untuk mendapatkan Payment Code dari tabel-tabel nota yang berbeda.
+ * Payment Code akan diambil secara acak dari salah satu nota yang belum memiliki Payment Code.
+ * Jika Payment Code sudah ada di SAP, maka Payment Code tersebut akan diupdate ke tabel nota yang sesuai.
+ * Jika Payment Code tidak ditemukan di SAP, maka akan dikembalikan pesan bahwa Payment Code tidak ditemukan.
+ * Jika semua Payment Code sudah ada, maka akan dikembalikan pesan bahwa semua Payment Code sudah tersedia.
+ *
+ * @return string Pesan hasil operasi yang dilakukan.
+ */
 function getPaymentCode()
 {
     $db = getDB('storage');
     $service = 'getPaymentCode';
     $query = $db->query("
             SELECT
-                *
+            *
         FROM
-                (
+            (
             SELECT
-                    NO_NOTA,
-                    TGL_NOTA_1,
-                    PAYMENT_CODE,
-                    'RECEIVING' KEGIATAN
+                NO_NOTA,
+                TGL_NOTA,
+                PAYMENT_CODE,
+                'RECEIVING' KEGIATAN
             FROM
-                    nota_receiving
+                nota_receiving
             WHERE
-                    STATUS <> 'BATAL'
+                STATUS <> 'BATAL'
+                AND NO_NOTA IS NOT NULL
+                AND PAYMENT_CODE IS NULL
+                AND TGL_NOTA > sysdate - 3
         UNION
             SELECT
-                    NO_NOTA,
-                    TGL_NOTA_1,
-                    PAYMENT_CODE,
-                    CASE
-                        WHEN STATUS = 'PERP' THEN 'PERP_PNK'
-                        ELSE 'STUFFING'
-			        END KEGIATAN
+                NO_NOTA,
+                TGL_NOTA,
+                PAYMENT_CODE,
+                CASE
+                    WHEN STATUS = 'PERP' THEN 'PERP_PNK'
+                    ELSE 'STUFFING'
+                END KEGIATAN
             FROM
-                    nota_stuffing
+                nota_stuffing
             WHERE
-                    STATUS <> 'BATAL'
+                STATUS <> 'BATAL'
+                AND NO_NOTA IS NOT NULL
+                AND PAYMENT_CODE IS NULL
+                AND TGL_NOTA > sysdate - 3
         UNION
             SELECT
-                    NO_NOTA,
-                    TGL_NOTA_1,
-                    PAYMENT_CODE,
-                    CASE
-                        WHEN SUBSTR(NO_NOTA, 0, 2) = '03' THEN 'STRIPPING'
-                        ELSE 'PERP_STRIP'
-			        END KEGIATAN
+                NO_NOTA,
+                TGL_NOTA,
+                PAYMENT_CODE,
+                CASE
+                    WHEN SUBSTR(NO_NOTA, 0, 2) = '03' THEN 'STRIPPING'
+                    ELSE 'PERP_STRIP'
+                END KEGIATAN
             FROM
-                    nota_stripping
+                nota_stripping
             WHERE
-                    STATUS <> 'BATAL'
+                STATUS <> 'BATAL'
+                AND NO_NOTA IS NOT NULL
+                AND PAYMENT_CODE IS NULL
+                AND TGL_NOTA > sysdate - 3
         UNION
             SELECT
-                    NO_NOTA,
-                    TGL_NOTA_1,
-                    PAYMENT_CODE,
-                    CASE
-                        WHEN STATUS = 'PERP' THEN 'PERP_DEV'
-                        ELSE 'DELIVERY'
-			        END KEGIATAN
+                NO_NOTA,
+                TGL_NOTA,
+                PAYMENT_CODE,
+                CASE
+                    WHEN STATUS = 'PERP' THEN 'PERP_DEV'
+                    ELSE 'DELIVERY'
+                END KEGIATAN
             FROM
-                    nota_delivery
+                nota_delivery
             WHERE
-                    STATUS <> 'BATAL'
+                STATUS <> 'BATAL'
+                AND NO_NOTA IS NOT NULL
+                AND PAYMENT_CODE IS NULL
+                AND TGL_NOTA > sysdate - 3
         UNION
             SELECT
-                    NO_NOTA,
-                    TGL_NOTA_1,
-                    PAYMENT_CODE,
-                    'RELOKASI' KEGIATAN
+                NO_NOTA,
+                TGL_NOTA,
+                PAYMENT_CODE,
+                'RELOKASI' KEGIATAN
             FROM
-                    nota_relokasi
+                nota_relokasi
             WHERE
-                    STATUS <> 'BATAL'
+                STATUS <> 'BATAL'
+                AND NO_NOTA IS NOT NULL
+                AND PAYMENT_CODE IS NULL
+                AND TGL_NOTA > sysdate - 3
         UNION
             SELECT
-                    NO_NOTA,
-                    TGL_NOTA,
-                    PAYMENT_CODE,
-                    'BATAL_MUAT' KEGIATAN
+                NO_NOTA,
+                TGL_NOTA,
+                PAYMENT_CODE,
+                'BATAL_MUAT' KEGIATAN
             FROM
-                    nota_batal_muat
+                nota_batal_muat
             WHERE
-                    STATUS <> 'BATAL'
+                STATUS <> 'BATAL'
+                AND NO_NOTA IS NOT NULL
+                AND PAYMENT_CODE IS NULL
+                AND TGL_NOTA > sysdate - 3
         UNION
             SELECT
-                    NO_NOTA,
-                    TGL_NOTA_1,
-                    PAYMENT_CODE,
-                    'RELOK_MTY' KEGIATAN
+                NO_NOTA,
+                TGL_NOTA,
+                PAYMENT_CODE,
+                'RELOK_MTY' KEGIATAN
             FROM
-                    nota_relokasi_mty
+                nota_relokasi_mty
             WHERE
-                    STATUS <> 'BATAL'
+                STATUS <> 'BATAL'
+                AND NO_NOTA IS NOT NULL
+                AND PAYMENT_CODE IS NULL
+                AND TGL_NOTA > sysdate - 3
         UNION
             SELECT
-                    NO_NOTA,
-                    TGL_NOTA_1,
-                    PAYMENT_CODE,
-                    'DEL_PNK' KEGIATAN
+                NO_NOTA,
+                TGL_NOTA,
+                PAYMENT_CODE,
+                'DEL_PNK' KEGIATAN
             FROM
-                    nota_pnkn_del
+                nota_pnkn_del
             WHERE
-                    STATUS <> 'BATAL'
+                STATUS <> 'BATAL'
+                AND NO_NOTA IS NOT NULL
+                AND PAYMENT_CODE IS NULL
+                AND TGL_NOTA > sysdate - 3
         UNION
             SELECT
-                    NO_NOTA,
-                    TGL_NOTA_1,
-                    PAYMENT_CODE,
-                    'STUF_PNK' KEGIATAN
+                NO_NOTA,
+                TGL_NOTA,
+                PAYMENT_CODE,
+                'STUF_PNK' KEGIATAN
             FROM
-                    nota_pnkn_stuf
+                nota_pnkn_stuf
             WHERE
-                    STATUS <> 'BATAL')
-        WHERE
-            NO_NOTA IS NOT NULL
-            AND PAYMENT_CODE IS NULL
-            --AND TGL_NOTA_1 > sysdate - 7
-            AND NO_NOTA = '02050124000151'
+                STATUS <> 'BATAL'
+                AND NO_NOTA IS NOT NULL
+                AND PAYMENT_CODE IS NULL
+                AND TGL_NOTA > sysdate - 3)
         ORDER BY
             DBMS_RANDOM.VALUE
-        FETCH NEXT 1 ROWS ONLY");
+                FETCH NEXT 1 ROWS ONLY");
     $result = $query->fetchRow();
     //Check Apakah Masih Ada PaymentCode Belum ada
     if ($result) {
         $noNota = $result['NO_NOTA'];
-        $query = $db->query("select * from mti_customer_ss.SAP_NOTA_HEADER_NBS_V@SAP_SERVICE WHERE SOURCE_NOTA_REF = '$noNota' ");
+        $query = $db->query("select * from MTI_CUSTOMER_SS.SAP_NOTA_HEADER_NBS_V@CSS_PROD WHERE SOURCE_NOTA_REF = '$noNota' ");
         $resultSAP = $query->fetchRow();
 
         //Check Apakah Payment Code Sudah Ada Di SAP
@@ -222,7 +263,336 @@ function getPaymentCode()
     }
 }
 
-function ePaymentPaid($faktur, $trx_number, $user_id, $bank_id, $paid_date, $paid_channel)
+
+
+
+
+/**
+ * Fungsi GetStatusPayment digunakan untuk mendapatkan status pembayaran dari beberapa tabel nota berdasarkan kriteria tertentu.
+ * Fungsi ini mengambil data dari tabel nota_receiving, nota_stuffing, nota_stripping, nota_delivery, nota_relokasi, nota_batal_muat, nota_relokasi_mty, nota_pnkn_del, dan nota_pnkn_stuf.
+ * Data yang diambil adalah data yang memiliki STATUS bukan 'BATAL', NO_NOTA dan PAYMENT_CODE tidak null, TANGGAL_LUNAS null, dan LUNAS 'NO'.
+ * Data yang diambil diurutkan secara acak dan hanya diambil 1 baris.
+ * Jika ditemukan data, fungsi ini akan melakukan pengecekan apakah Payment Code sudah ada di SAP.
+ * Jika Payment Code sudah ada di SAP, fungsi ini akan melakukan beberapa operasi seperti menyimpan pembayaran dengan service Praya dan memanggil service NBS.
+ * Jika operasi berhasil, fungsi ini akan mengembalikan pesan "Status Payment Changed to Paid [NO_NOTA]".
+ * Jika operasi gagal, fungsi ini akan mengembalikan pesan error.
+ * Jika tidak ditemukan data, fungsi ini akan mengembalikan pesan "No New Payments Yet".
+ *
+ * @return string Pesan status pembayaran atau error.
+ */
+function GetStatusPayment()
+{
+    $db = getDB('storage');
+    $service = 'GetStatusPayment';
+    $query = $db->query("
+            SELECT
+            *
+        FROM
+            (
+            SELECT
+                NO_NOTA,
+                TGL_NOTA,
+                PAYMENT_CODE,
+                'RECEIVING' KEGIATAN,
+                TANGGAL_LUNAS,
+                LUNAS,
+                NO_NOTA_MTI
+            FROM
+                nota_receiving
+            WHERE
+                STATUS <> 'BATAL'
+                AND NO_NOTA IS NOT NULL
+                AND PAYMENT_CODE IS NOT NULL
+                AND TANGGAL_LUNAS IS NULL
+                AND LUNAS = 'NO'
+                AND TGL_NOTA > sysdate - 3
+        UNION
+            SELECT
+                NO_NOTA,
+                TGL_NOTA,
+                PAYMENT_CODE,
+                CASE
+                    WHEN STATUS = 'PERP' THEN 'PERP_PNK'
+                    ELSE 'STUFFING'
+                END KEGIATAN,
+                TANGGAL_LUNAS,
+                LUNAS,
+                NO_NOTA_MTI
+            FROM
+                nota_stuffing
+            WHERE
+                STATUS <> 'BATAL'
+                AND NO_NOTA IS NOT NULL
+                AND PAYMENT_CODE IS NOT NULL
+                AND TANGGAL_LUNAS IS NULL
+                AND LUNAS = 'NO'
+                AND TGL_NOTA > sysdate - 3
+        UNION
+            SELECT
+                NO_NOTA,
+                TGL_NOTA,
+                PAYMENT_CODE,
+                CASE
+                    WHEN SUBSTR(NO_NOTA, 0, 2) = '03' THEN 'STRIPPING'
+                    ELSE 'PERP_STRIP'
+                END KEGIATAN,
+                TANGGAL_LUNAS,
+                LUNAS,
+                NO_NOTA_MTI
+            FROM
+                nota_stripping
+            WHERE
+                STATUS <> 'BATAL'
+                AND NO_NOTA IS NOT NULL
+                AND PAYMENT_CODE IS NOT NULL
+                AND TANGGAL_LUNAS IS NULL
+                AND LUNAS = 'NO'
+                AND TGL_NOTA > sysdate - 3
+        UNION
+            SELECT
+                NO_NOTA,
+                TGL_NOTA,
+                PAYMENT_CODE,
+                CASE
+                    WHEN STATUS = 'PERP' THEN 'PERP_DEV'
+                    ELSE 'DELIVERY'
+                END KEGIATAN,
+                TANGGAL_LUNAS,
+                LUNAS,
+                NO_NOTA_MTI
+            FROM
+                nota_delivery
+            WHERE
+                STATUS <> 'BATAL'
+                AND NO_NOTA IS NOT NULL
+                AND PAYMENT_CODE IS NOT NULL
+                AND TANGGAL_LUNAS IS NULL
+                AND LUNAS = 'NO'
+                AND TGL_NOTA > sysdate - 3
+        UNION
+            SELECT
+                NO_NOTA,
+                TGL_NOTA,
+                PAYMENT_CODE,
+                'RELOKASI' KEGIATAN,
+                TANGGAL_LUNAS,
+                LUNAS,
+                NO_NOTA_MTI
+            FROM
+                nota_relokasi
+            WHERE
+                STATUS <> 'BATAL'
+                AND NO_NOTA IS NOT NULL
+                AND PAYMENT_CODE IS NOT NULL
+                AND TANGGAL_LUNAS IS NULL
+                AND LUNAS = 'NO'
+                AND TGL_NOTA > sysdate - 3
+        UNION
+            SELECT
+                NO_NOTA,
+                TGL_NOTA,
+                PAYMENT_CODE,
+                'BATAL_MUAT' KEGIATAN,
+                TGL_LUNAS,
+                LUNAS,
+                NO_NOTA_MTI
+            FROM
+                nota_batal_muat
+            WHERE
+                STATUS <> 'BATAL'
+                AND NO_NOTA IS NOT NULL
+                AND PAYMENT_CODE IS NOT NULL
+                AND TGL_LUNAS IS NULL
+                AND LUNAS = 'NO'
+                AND TGL_NOTA > sysdate - 3
+        UNION
+            SELECT
+                NO_NOTA,
+                TGL_NOTA,
+                PAYMENT_CODE,
+                'RELOK_MTY' KEGIATAN,
+                TANGGAL_LUNAS,
+                LUNAS,
+                NO_NOTA_MTI
+            FROM
+                nota_relokasi_mty
+            WHERE
+                STATUS <> 'BATAL'
+                AND NO_NOTA IS NOT NULL
+                AND PAYMENT_CODE IS NOT NULL
+                AND TANGGAL_LUNAS IS NULL
+                AND LUNAS = 'NO'
+                AND TGL_NOTA > sysdate - 3
+        UNION
+            SELECT
+                NO_NOTA,
+                TGL_NOTA,
+                PAYMENT_CODE,
+                'DEL_PNK' KEGIATAN,
+                TANGGAL_LUNAS,
+                LUNAS,
+                NO_NOTA_MTI
+            FROM
+                nota_pnkn_del
+            WHERE
+                STATUS <> 'BATAL'
+                AND NO_NOTA IS NOT NULL
+                AND PAYMENT_CODE IS NOT NULL
+                AND TANGGAL_LUNAS IS NULL
+                AND LUNAS = 'NO'
+                AND TGL_NOTA > sysdate - 3
+        UNION
+            SELECT
+                NO_NOTA,
+                TGL_NOTA,
+                PAYMENT_CODE,
+                'STUF_PNK' KEGIATAN,
+                TANGGAL_LUNAS,
+                LUNAS,
+                NO_NOTA_MTI
+            FROM
+                nota_pnkn_stuf
+            WHERE
+                STATUS <> 'BATAL'
+                AND NO_NOTA IS NOT NULL
+                AND PAYMENT_CODE IS NOT NULL
+                AND TANGGAL_LUNAS IS NULL
+                AND LUNAS = 'NO'
+                AND TGL_NOTA > sysdate - 3)
+        ORDER BY
+            DBMS_RANDOM.VALUE
+                            FETCH NEXT 1 ROWS ONLY");
+    $result = $query->fetchRow();
+
+    //Check Apakah Masih Ada PaymentCode Belum ada
+    if ($result) {
+        $noNota = $result['NO_NOTA'];
+        $query = $db->query("
+        SELECT
+            TO_CHAR(SAP_TGL_PELUNASAN, 'YYYY-MM-DD HH24:MI:SS') AS TANGGAL_PELUNASAN,
+            SAP_BANK,
+            SAP_NO_FAKTUR
+        FROM
+            MTI_CUSTOMER_SS.SAP_NOTA_HEADER_NBS_V@CSS_PROD
+        WHERE
+            SAP_KD_BAYAR IS NOT NULL
+            AND SAP_TGL_PELUNASAN IS NOT NULL
+            AND SAP_BANK IS NOT NULL
+            AND SOURCE_NOTA_REF = '$noNota'");
+        $resultSAP = $query->fetchRow();
+
+        //Check Apakah Payment Code Sudah Ada Di SAP
+        if ($resultSAP) {
+
+            if ($result['KEGIATAN'] == 'RECEIVING') {
+                $tb_name = "NOTA_RECEIVING";
+            } else if ($result['KEGIATAN'] == 'STUFFING' || $result['KEGIATAN'] == 'PERP' || $result['KEGIATAN'] == 'PERP_PNK') {
+                $tb_name = "NOTA_STUFFING";
+            } else if ($result['KEGIATAN'] == 'STRIPPING' || $result['KEGIATAN'] == 'PERP_STRIP') {
+                $tb_name = "NOTA_STRIPPING";
+            } else if ($result['KEGIATAN'] == 'DELIVERY' || $result['KEGIATAN'] == 'PERP_DEV' || $result['KEGIATAN'] == 'PERP') {
+                $tb_name = "NOTA_DELIVERY";
+            } else if ($result['KEGIATAN'] == 'RELOKASI') {
+                $tb_name = "NOTA_RELOKASI";
+            } else if ($result['KEGIATAN'] == 'BATAL_MUAT') {
+                $tb_name = "NOTA_BATAL_MUAT";
+            } else if ($result['KEGIATAN'] == 'RELOK_MTY') {
+                $tb_name = "NOTA_RELOKASI_MTY";
+            } else if ($result['KEGIATAN'] == 'DEL_PNK') {
+                $tb_name = "NOTA_PNKN_DEL";
+            } else if ($result['KEGIATAN'] == 'STUF_PNK') {
+                $tb_name = "NOTA_PNKN_STUF";
+            }
+
+            // $paymentCode = $resultSAP['SAP_KD_BAYAR'];
+            // $bankName = $resultSAP['SAP_BANK'];
+            $PaymentDate = $resultSAP['TANGGAL_PELUNASAN'];
+            $SapFaktur = $resultSAP['SAP_NO_FAKTUR'];
+            $noNotaMti = $result['NO_NOTA_MTI'];
+            $sapBank = $resultSAP['SAP_BANK'];
+
+            $query = $db->query("select * from $tb_name where NO_NOTA = '$noNota' ");
+            $Nota = $query->fetchRow();
+
+
+            $query = $db->query("
+            SELECT BANK_ID
+            FROM billing.mst_bank_simkeu
+            WHERE BANK_ACCOUNT_NAME = '$sapBank'");
+            $bank = $query->fetchRow();
+            $idBank = $bank['BANK_ID'];
+
+           
+            # Call NBS service
+            $data = SapPaymentPaid($SapFaktur, $noNotaMti, false, $idBank, false, false, $PaymentDate);
+            $uster = null;
+
+            if ($data == 'Berhasil') {
+
+                # Save payment with Praya service
+                $uster = save_payment_uster_external($Nota, $result['KEGIATAN']);
+
+                if ($uster['code'] == '1') {
+                    $msg = array(
+                        'code' => true,
+                        'msg' => "Status Payment Changed to Paid $noNota"
+                    );
+                    $log_notes = "Status Payment Changed to Paid $noNota";
+                } else {
+                    $log_notes = "Failed Praya Status Payment Changed to Paid $noNota";
+                    $msg = array(
+                        'code' => false,
+                        'message' => $uster
+                    );
+                }
+            } else {
+                $msg = array(
+                    'code' => false,
+                    'message' =>  $data
+                );
+                $log_notes = "Failed NBS Status Payment Changed to Paid $noNota";
+            }
+
+            $msg_json = json_encode($msg);
+            $uster = json_encode($uster);
+            $query = $db->query("INSERT INTO USTER.SAP_SERVICE_LOG
+            (URL, PAYLOAD, RESPONSE, NOTES,PRAYA_RESPONSE)
+            VALUES('$service',$noNota, '$msg_json', '$log_notes','$uster')");
+
+            return $log_notes;
+        } else {
+            return "No Nota Unpaid $noNota";
+        }
+    } else {
+        return "No New Payments Yet";
+    }
+}
+
+
+#Helper Function
+#----------------------------------------------------------------------------#
+
+/**
+ * Fungsi SapPaymentPaid digunakan untuk melakukan pembayaran pada sistem SAP.
+ * Fungsi ini akan melakukan koneksi ke database USTER dan melakukan query untuk mendapatkan jenis transaksi berdasarkan nomor transaksi.
+ * Jika jenis transaksi ditemukan, fungsi akan melakukan validasi terhadap status dan pembayaran transaksi.
+ * Jika pembayaran sudah dilakukan atau status transaksi dibatalkan, fungsi akan mengembalikan pesan error.
+ * Jika pembayaran belum dilakukan, fungsi akan melakukan query untuk mendapatkan informasi rekening bank.
+ * Jika informasi rekening bank ditemukan, fungsi akan melakukan validasi terhadap jenis transaksi untuk menentukan apakah pembayaran perlu dilakukan di TPK atau tidak.
+ * Jika pembayaran perlu dilakukan di TPK, fungsi akan melakukan koneksi ke database OPUS_REPO dan melakukan proses flagging pembayaran.
+ * Jika proses flagging pembayaran berhasil, fungsi akan mengembalikan pesan sukses.
+ * Jika terjadi kesalahan dalam proses koneksi atau query, fungsi akan mengembalikan pesan error.
+ *
+ * @param string $faktur Nomor faktur
+ * @param string $trx_number Nomor transaksi
+ * @param string $user_id ID pengguna
+ * @param string $bank_id ID bank
+ * @param string $paid_date Tanggal pembayaran
+ * @param string $paid_channel Channel pembayaran
+ * @param string $date Tanggal
+ * @return string Pesan sukses atau pesan error
+ */
+function SapPaymentPaid($faktur, $trx_number, $user_id, $bank_id, $paid_date, $paid_channel, $date)
 {
     // Connection to USTER
     $conn = oci_connect('uster', 'uster', '10.15.42.42/datamti');
@@ -451,15 +821,15 @@ function ePaymentPaid($faktur, $trx_number, $user_id, $bank_id, $paid_date, $pai
             $execute_cont = oci_execute($parse_cont);
             $row_cont = oci_fetch_assoc($parse_cont);
 
-            if ($row_count['ASAL_CONT'] == 'TPK') {
-                //query for get asal cont from request_stuffing
-                $query_opus = "select o_reqnbs from request_stuffing where no_request = '{$row['NO_REQUEST']}'";
-                $parse_opus = oci_parse($conn, $query_opus);
-                $execute_opus = oci_execute($parse_opus);
-                $row_opus = oci_fetch_assoc($parse_opus);
-                $flag_opus = true;
-                $reqopus = $row_opus['O_REQNBS'];
-            }
+            // if ($row_count['ASAL_CONT'] == 'TPK') {
+            //     //query for get asal cont from request_stuffing
+            //     $query_opus = "select o_reqnbs from request_stuffing where no_request = '{$row['NO_REQUEST']}'";
+            //     $parse_opus = oci_parse($conn, $query_opus);
+            //     $execute_opus = oci_execute($parse_opus);
+            //     $row_opus = oci_fetch_assoc($parse_opus);
+            //     $flag_opus = true;
+            //     $reqopus = $row_opus['O_REQNBS'];
+            // }
         } else if ($jenis == 'STRIPPING' || $jenis == 'PERP_STRIP') {
             //query for get asal cont from container_stripping
             $query_opus = "select o_reqnbs from request_stripping WHERE no_request = '{$row['NO_REQUEST']}'";
@@ -513,28 +883,30 @@ function ePaymentPaid($faktur, $trx_number, $user_id, $bank_id, $paid_date, $pai
 
         // call procedure for flagging payment
         $query_insert_inota = "BEGIN
-      USTER.SAP_INSERT_STAGING.INSERT_NOTA_ITPK(
-          :ID_FAKTUR,
-      	  :ID_REQ,
-      	  :IN_MODUL,
-      	  :IN_PROFORMA,
-      	  :IN_NOTA,
-      	  :IN_KOREKSI,
-      	  :IN_USERID,
-      	  :IN_BANKID,
-      	  :IN_VIA,
-      	  :IN_EMKL,
-      	  :IN_JUM,
-      	  :IN_MTI,
-          :IN_MATERAI,
-      	  :OUT_TRX_NUMBER);
-      END;";
+        USTER.SAP_INSERT_STAGING.INSERT_NOTA_ITPK(
+            :ID_LUNAS,
+            :ID_FAKTUR,
+            :ID_REQ,
+            :IN_MODUL,
+            :IN_PROFORMA,
+            :IN_NOTA,
+            :IN_KOREKSI,
+            :IN_USERID,
+            :IN_BANKID,
+            :IN_VIA,
+            :IN_EMKL,
+            :IN_JUM,
+            :IN_MTI,
+            :IN_MATERAI,
+            :OUT_TRX_NUMBER);
+        END;";
 
         $materai = null;
 
         $parse_insert_inota = oci_parse($conn, $query_insert_inota) or die('oci parse failed');
 
-        oci_bind_by_name($parse_insert_inota, "ID_FAKTUR", $faktur, 30) or die('Can not bind variable id_req');
+        oci_bind_by_name($parse_insert_inota, "ID_LUNAS", $date, 30) or die('Can not bind variable tgl_lunas');
+        oci_bind_by_name($parse_insert_inota, "ID_FAKTUR", $faktur, 30) or die('Can not bind variable id_faktur');
         oci_bind_by_name($parse_insert_inota, "ID_REQ", $row['NO_REQUEST'], 30) or die('Can not bind variable id_req');
         oci_bind_by_name($parse_insert_inota, "IN_MODUL", $jenis, 50) or die('Can not bind variable in_modul');
         oci_bind_by_name($parse_insert_inota, "IN_PROFORMA", $row['NO_NOTA'], 100) or die('Can not bind variable');
@@ -554,7 +926,8 @@ function ePaymentPaid($faktur, $trx_number, $user_id, $bank_id, $paid_date, $pai
         // if fails execute query return error
         if (!$execute_nota_itpk) {
             $error = oci_error($parse_insert_inota);
-            echo "Error: " . $error['message'];
+            return "Error: " . $error['message'];
+            die();
         }
 
         // get all data from itpk nota header
@@ -686,29 +1059,6 @@ function ePaymentPaid($faktur, $trx_number, $user_id, $bank_id, $paid_date, $pai
             $row  = oci_fetch_assoc($parse);
         }
 
-        $outstatus = '00';
-        $outmsg = 'SUCCESS';
-        $notanumber = $row['NO_NOTA'];
-        $userid = $row['NIPP_USER'];
-        $no_faktur = $row['NO_FAKTUR_MTI'];
-        $id_req = $row['NO_REQUEST'];
-        $inv_char     = array("&", "\"", "'", "<", ">", "^");
-        $fix_char    = array(" ", " ", " ", " ", " ", " ");
-        $emkl = $row['EMKL'];
-        $status = 'S';
-        $alamat = $row['ALAMAT'];
-        $vessel = '';
-        $voyage_in = '';
-        $voyage_out = '';
-        $tgl_simpan = $row_itpk['TGL_SIMPAN'];
-        $tgl_payment = $row_itpk['TGL_PELUNASAN'];
-        $payment_via = $row_itpk['RECEIPT_ACCOUNT'];
-        $total = $row['TOTAL_TAGIHAN'];
-        $coa = '';
-        $kd_modul = $row_itpk['JENIS_NOTA'];
-        $ket = $row['KET_KOREKSI'];
-        $ket_jenis = '';
-        $apptocess_date = '';
 
         // close connection
         oci_close($conn);
@@ -722,232 +1072,216 @@ function ePaymentPaid($faktur, $trx_number, $user_id, $bank_id, $paid_date, $pai
     }
 }
 
-function GetStatusPayment()
+
+/**
+ * Fungsi untuk menyimpan pembayaran uster sudah lunas.
+ *
+ * @param array $nota Data nota pembayaran.
+ * @param string $kegiatan Jenis kegiatan.
+ * @return array Hasil dari permintaan penyimpanan pembayaran.
+ */
+function save_payment_uster_external($nota, $kegiatan)
 {
-    $db = getDB('storage');
-    $service = 'GetStatusPayment';
-    $query = $db->query("
-            SELECT
-            *
-        FROM
-            (
-            SELECT
-                NO_NOTA,
-                TGL_NOTA_1,
-                PAYMENT_CODE,
-                'RECEIVING' KEGIATAN,
-                TANGGAL_LUNAS,
-                LUNAS,
-                NO_NOTA_MTI
-            FROM
-                nota_receiving
-            WHERE
-                STATUS <> 'BATAL'
-        UNION
-            SELECT
-                NO_NOTA,
-                TGL_NOTA_1,
-                PAYMENT_CODE,
-                CASE
-                    WHEN STATUS = 'PERP' THEN 'PERP_PNK'
-                    ELSE 'STUFFING'
-                END KEGIATAN,
-                TANGGAL_LUNAS,
-                LUNAS,
-                NO_NOTA_MTI
-            FROM
-                nota_stuffing
-            WHERE
-                STATUS <> 'BATAL'
-        UNION
-            SELECT
-                NO_NOTA,
-                TGL_NOTA_1,
-                PAYMENT_CODE,
-                CASE
-                    WHEN SUBSTR(NO_NOTA, 0, 2) = '03' THEN 'STRIPPING'
-                    ELSE 'PERP_STRIP'
-                END KEGIATAN,
-                TANGGAL_LUNAS,
-                LUNAS,
-                NO_NOTA_MTI
-            FROM
-                nota_stripping
-            WHERE
-                STATUS <> 'BATAL'
-        UNION
-            SELECT
-                NO_NOTA,
-                TGL_NOTA_1,
-                PAYMENT_CODE,
-                CASE
-                    WHEN STATUS = 'PERP' THEN 'PERP_DEV'
-                    ELSE 'DELIVERY'
-                END KEGIATAN,
-                TANGGAL_LUNAS,
-                LUNAS,
-                NO_NOTA_MTI
-            FROM
-                nota_delivery
-            WHERE
-                STATUS <> 'BATAL'
-        UNION
-            SELECT
-                NO_NOTA,
-                TGL_NOTA_1,
-                PAYMENT_CODE,
-                'RELOKASI' KEGIATAN,
-                TANGGAL_LUNAS,
-                LUNAS,
-                NO_NOTA_MTI
-            FROM
-                nota_relokasi
-            WHERE
-                STATUS <> 'BATAL'
-        UNION
-            SELECT
-                NO_NOTA,
-                TGL_NOTA,
-                PAYMENT_CODE,
-                'BATAL_MUAT' KEGIATAN,
-                TGL_LUNAS,
-                LUNAS,
-                NO_NOTA_MTI
-            FROM
-                nota_batal_muat
-            WHERE
-                STATUS <> 'BATAL'
-        UNION
-            SELECT
-                NO_NOTA,
-                TGL_NOTA_1,
-                PAYMENT_CODE,
-                'RELOK_MTY' KEGIATAN,
-                TANGGAL_LUNAS,
-                LUNAS,
-                NO_NOTA_MTI
-            FROM
-                nota_relokasi_mty
-            WHERE
-                STATUS <> 'BATAL'
-        UNION
-            SELECT
-                NO_NOTA,
-                TGL_NOTA_1,
-                PAYMENT_CODE,
-                'DEL_PNK' KEGIATAN,
-                TANGGAL_LUNAS,
-                LUNAS,
-                NO_NOTA_MTI
-            FROM
-                nota_pnkn_del
-            WHERE
-                STATUS <> 'BATAL'
-        UNION
-            SELECT
-                NO_NOTA,
-                TGL_NOTA_1,
-                PAYMENT_CODE,
-                'STUF_PNK' KEGIATAN,
-                TANGGAL_LUNAS,
-                LUNAS,
-                NO_NOTA_MTI
-            FROM
-                nota_pnkn_stuf
-            WHERE
-                STATUS <> 'BATAL')
-        WHERE
-            NO_NOTA IS NOT NULL
-            AND PAYMENT_CODE IS NOT NULL
-            AND TANGGAL_LUNAS IS NULL
-            AND LUNAS = 'NO'
-        ORDER BY
-            DBMS_RANDOM.VALUE
-                FETCH NEXT 1 ROWS ONLY");
-    $result = $query->fetchRow();
-    //Check Apakah Masih Ada PaymentCode Belum ada
-    if ($result) {
-        $noNota = $result['NO_NOTA'];
-        $query = $db->query("
-        SELECT
-            *
-        FROM
-            mti_customer_ss.SAP_NOTA_HEADER_NBS_V@SAP_SERVICE
-        WHERE
-            SAP_KD_BAYAR IS NOT NULL
-            AND SAP_TGL_PELUNASAN IS NOT NULL
-            AND SAP_BANK IS NOT NULL
-            AND SOURCE_NOTA_REF = '$noNota'");
-        $resultSAP = $query->fetchRow();
+    // return array(
+    //     "code" => "1",
+    //     "msg" => "Success",
+    //     "dataRec" => array(
+    //         "idRequest" => $nota['NO_REQUEST'],
+    //         "trxNumber" => $nota['NO_NOTA']
+    //     )
+    // );
 
-        //Check Apakah Payment Code Sudah Ada Di SAP
-        if ($resultSAP) {
-            $paymentCode = $resultSAP['SAP_KD_BAYAR'];
-            if ($result['KEGIATAN'] == 'RECEIVING') {
-                $tb_name = "NOTA_RECEIVING";
-            } else if ($result['KEGIATAN'] == 'STUFFING' || $result['KEGIATAN'] == 'PERP' || $result['KEGIATAN'] == 'PERP_PNK') {
-                $tb_name = "NOTA_STUFFING";
-            } else if ($result['KEGIATAN'] == 'STRIPPING' || $result['KEGIATAN'] == 'PERP_STRIP') {
-                $tb_name = "NOTA_STRIPPING";
-            } else if ($result['KEGIATAN'] == 'DELIVERY' || $result['KEGIATAN'] == 'PERP_DEV' || $result['KEGIATAN'] == 'PERP') {
-                $tb_name = "NOTA_DELIVERY";
-            } else if ($result['KEGIATAN'] == 'RELOKASI') {
-                $tb_name = "NOTA_RELOKASI";
-            } else if ($result['KEGIATAN'] == 'BATAL_MUAT') {
-                $tb_name = "NOTA_BATAL_MUAT";
-            } else if ($result['KEGIATAN'] == 'RELOK_MTY') {
-                $tb_name = "NOTA_RELOKASI_MTY";
-            } else if ($result['KEGIATAN'] == 'DEL_PNK') {
-                $tb_name = "NOTA_PNKN_DEL";
-            } else if ($result['KEGIATAN'] == 'STUF_PNK') {
-                $tb_name = "NOTA_PNKN_STUF";
-            }
+    $NO_REQUEST = $nota['NO_REQUEST'];
 
 
-            $bankName = $resultSAP['SAP_BANK'];
-            $PaymentDate = $resultSAP['SAP_TGL_PELUNASAN'];
-            $SapFaktur = $resultSAP['SAP_NO_FAKTUR'];
-            $noNotaMti = $result['NO_NOTA_MTI'];
+    set_time_limit(3600);
 
-            
-            $data = ePaymentPaid($SapFaktur, $noNotaMti, false, 14008, false, false);
+    try {
 
-            if ($data == 'Berhasil') {
-                $msg = array(
-                    'code' => "1",
-                    'msg' => "Status Payment Changed to Paid $noNota"
-                );
-                $msg_json = json_encode($msg);
-                $query = $db->query("INSERT INTO USTER.SAP_SERVICE_LOG
-                (URL, PAYLOAD, RESPONSE, NOTES)
-                VALUES('$service',NULL, '$msg_json', 'Status Payment Changed to Paid $noNota')");
-                return "Status Payment Changed to Paid $noNota";
-            } else {
-                $msg = array(
-                    'code' => "0",
-                    'message' => "$data"
-                );
-                $msg_json = json_encode($msg);
-                $query = $db->query("INSERT INTO USTER.SAP_SERVICE_LOG
-                (URL, PAYLOAD, RESPONSE, NOTES)
-                VALUES('$service',NULL, '$msg_json', 'Failed Status Payment Changed to Paid $noNota')");
-                return "Failed Status Payment Changed to Paid $noNota";
-            }
-        } else {
-            $msg = array(
-                'code' => "0",
-                'msg' => "No Nota Unpaid $noNota"
-            );
-            $msg_json = json_encode($msg);
-            $query = $db->query("INSERT INTO USTER.SAP_SERVICE_LOG
-            (URL, PAYLOAD, RESPONSE, NOTES)
-            VALUES('$service',NULL, '$msg_json', 'No Nota Unpaid $noNota')");
-            return "No Nota Unpaid $noNota";
+        $curl = curl_init();
+        /* set configure curl */
+        // $authorization = "Authorization: Bearer $token";
+        $payload_request = array(
+            "ID_REQUEST" => $NO_REQUEST,
+            "JENIS" => $kegiatan,
+            "BANK_ACCOUNT_NUMBER" => '',
+            "PAYMENT_CODE" => ''
+        );
+        // echo json_encode($payload_request) . '<<payload_req';
+        $url = SEND_PRAYA_LINK;
+
+        curl_setopt_array(
+            $curl,
+            array(
+                CURLOPT_URL             => $url,
+                CURLOPT_RETURNTRANSFER  => true,
+                CURLOPT_ENCODING        => "",
+                CURLOPT_MAXREDIRS       => 10,
+                CURLOPT_CUSTOMREQUEST   => "POST",
+                CURLOPT_POSTFIELDS      => json_encode($payload_request),
+                CURLOPT_HTTPHEADER      => array(
+                    "Content-Type: application/json"
+                ),
+            )
+        );
+
+
+
+        $response = curl_exec($curl);
+
+        if ($response === false) {
+            throw new Exception(curl_error($curl));
         }
-    } else {
-        return "No New Payments Yet";
+
+        // Get HTTP status code
+        $httpCode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+
+        //Success
+        if ($httpCode >= 200 && $httpCode < 300) {
+            $response_curl = array(
+                'status'   => 'success',
+                'httpCode' => $httpCode,
+                'response' => $response
+            );
+        } else if ($httpCode >= 400 && $httpCode < 500) {
+            //Client Error
+            $response_curl = array(
+                'status'   => 'error',
+                'httpCode' => $httpCode,
+                'response' => $response
+            );
+        } else {
+            //Server Error
+            throw new Exception('HTTP Server Error: ' . $httpCode);
+        }
+
+        /* execute curl */
+        curl_close($curl);
+
+        return $response_curl;
+    } catch (Exception $e) {
+        $httpCode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+        $response_curl = array(
+            'status'   => 'error',
+            'url' => $url,
+            'httpCode' => $httpCode,
+            'response' => "cURL Error # " . $e->getMessage()
+        );
+
+        return $response_curl;
     }
 }
+
+/**
+ * Fungsi untuk menyimpan pembayaran uster ketika nbs belum lunas .
+ *
+ * @param array $nota Data nota pembayaran.
+ * @param string $kegiatan Jenis kegiatan.
+ * @return array Hasil dari permintaan penyimpanan pembayaran.
+ */
+function save_payment_uster($nota, $kegiatan)
+{
+    return array(
+        "code" => "1",
+        "msg" => "Success",
+        "dataRec" => array(
+            "idRequest" => $nota['NO_REQUEST'],
+            "trxNumber" => $nota['NO_NOTA']
+        )
+    );
+
+    // $NO_NOTA = $nota['NO_NOTA'];
+    // $NO_REQUEST = $nota['NO_REQUEST'];
+    // $RECEIPT_ACCOUNT = $nota['RECEIPT_ACCOUNT'];
+    // $RECEIPT_METHOD = $nota['RECEIPT_METHOD'];
+    // $KD_EMKL = $nota['KD_EMKL'];
+    // $STATUS = $nota['STATUS'];
+    // $TOTAL_TAGIHAN = $nota['TOTAL_TAGIHAN'];
+
+    // set_time_limit(3600);
+
+    // try {
+
+    //     $curl = curl_init();
+    //     /* set configure curl */
+    //     // $authorization = "Authorization: Bearer $token";
+    //     $payload_request = array(
+    //         "IDN" => $NO_NOTA,
+    //         "IDR" => $NO_REQUEST,
+    //         "JENIS" => $kegiatan,
+    //         "BANK_ID" => $RECEIPT_ACCOUNT,
+    //         "VIA" => $RECEIPT_METHOD,
+    //         "EMKL" => $KD_EMKL,
+    //         "KOREKSI" => $STATUS,
+    //         "JUM" =>  $TOTAL_TAGIHAN,
+    //         "MTI" => '',
+    //         "NO_PERATURAN" => ''
+    //     );
+    //     // echo json_encode($payload_request) . '<<payload_req';
+    //     $url = HOME . APPID . "/save_payment_praya";
+
+    //     curl_setopt_array(
+    //         $curl,
+    //         array(
+    //             CURLOPT_URL             => $url,
+    //             CURLOPT_RETURNTRANSFER  => true,
+    //             CURLOPT_ENCODING        => "",
+    //             CURLOPT_MAXREDIRS       => 10,
+    //             CURLOPT_CUSTOMREQUEST   => "POST",
+    //             CURLOPT_POSTFIELDS      => json_encode($payload_request),
+    //             CURLOPT_HTTPHEADER      => array(
+    //                 "Content-Type: application/json"
+    //             ),
+    //         )
+    //     );
+
+
+
+    //     $response = curl_exec($curl);
+
+    //     if ($response === false) {
+    //         throw new Exception(curl_error($curl));
+    //     }
+
+    //     // Get HTTP status code
+    //     $httpCode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+
+    //     //Success
+    //     if ($httpCode >= 200 && $httpCode < 300) {
+    //         $response_curl = array(
+    //             'status'   => 'success',
+    //             'httpCode' => $httpCode,
+    //             'response' => $response
+    //         );
+    //     } else if ($httpCode >= 400 && $httpCode < 500) {
+    //         //Client Error
+    //         $response_curl = array(
+    //             'status'   => 'error',
+    //             'httpCode' => $httpCode,
+    //             'response' => $response
+    //         );
+    //     } else {
+    //         //Server Error
+    //         throw new Exception('HTTP Server Error: ' . $httpCode);
+    //     }
+
+    //     /* execute curl */
+    //     curl_close($curl);
+
+    //     return $response_curl;
+    // } catch (Exception $e) {
+    //     echo $e . "<< error-aftercurl";
+    //     $httpCode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+    //     $response_curl = array(
+    //         'status'   => 'error',
+    //         'httpCode' => $httpCode,
+    //         'response' => "cURL Error # " . $e->getMessage()
+    //     );
+
+    //     return $response_curl;
+    // }
+}
+
 
 $HTTP_RAW_POST_DATA = isset($HTTP_RAW_POST_DATA) ? $HTTP_RAW_POST_DATA : '';
 $server->service($HTTP_RAW_POST_DATA);

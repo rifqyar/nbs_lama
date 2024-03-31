@@ -77,6 +77,7 @@
 	define('SYS_DB','default');
 		
 	//-- site..
+	define('SEND_PRAYA_LINK','http://localhost/uster.billing.paymentcash.ajax/save_payment_external');
 	$_conf['site']['vhost'] 		= '/billing_pnk/';
 	$_conf['site']['home'] 			= 'http://'.$_SERVER['SERVER_NAME'].$_conf['site']['vhost'];
 	$_conf['site']['webmaster'] 	= 'taufik@gunadarma.ac.id';
@@ -118,5 +119,8 @@
 	define('ESB_URL', "http://10.88.56.40:5556/restv2/accountReceivable/");
 	define('ESB_USERNAME', "billing");
 	define('ESB_PASSWORD', "b1Llin9");
+
+
+	define('SAP_URL', "http://inco.pelindo.co.id/");
 	
 ?>

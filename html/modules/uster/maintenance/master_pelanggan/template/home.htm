@@ -1,0 +1,174 @@
+<link href="https://unpkg.com/gridjs/dist/theme/mermaid.min.css" rel="stylesheet" />
+<div id="showdiv"></div>
+<span class="graybrown"><img src='images/dokumenbig.png' border='0' class="icon" /> Send Delivery TPK</span><br /><br />
+<form id="form-add">
+	<fieldset class="form-fieldset" style="margin: 5px 5px 5px 5px; ">
+
+		<legend></legend>
+
+
+
+
+		<table class="form-input" cellspacing='2' cellpadding='2' border='0' width="100%" style="margin-top:10px;">
+			<block visible="error">
+				<tr>
+					<td colspan="2">Invalid Form Entry</td>
+				</tr>
+			</block>
+			<tr>
+				<td class="form-field-caption" valign="middle" align="right" width="200">NAMA PELANGGAN</td>
+				<td valign="top" class="form-field-input">:
+					<input style="width: 50%;font-size:26px; font-weight:bold; text-transform:uppercase" id="search"
+						name="search" class="suggestuwriter" type="text" />
+				</td>
+			</tr>
+
+
+			<tr>
+				<td colspan="2" align="center">
+					<button type="submit" id="submitBtn" class="btn btn-primary">
+						Submit
+					</button>
+					<br /><br />
+				</td>
+			</tr>
+
+			<tr>
+				<td colspan="3" align="right">
+					<button type="submit" id="submitBtn" class="btn btn-primary">
+						Submit
+					</button>
+					
+				</td>
+			</tr>
+
+		</table>
+
+
+	</fieldset>
+</form>
+<div id="reportContent" class="overflow-auto my-3"></div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
+	integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
+	crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://unpkg.com/gridjs/dist/gridjs.umd.js"></script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script>
+	(function ($) {
+		const $formFilter = $('#form-add')
+
+		const $startDateInput = $('#startDateInput')
+		const $endDateInput = $('#endDateInput')
+		const $submitBtn = $('#submitBtn')
+
+		const $pdfBtn = $('#pdfBtn')
+		const $excelBtn = $('#excelBtn')
+
+		const grid = new gridjs.Grid({
+			columns: [
+				{
+					name : "KD_PBM"
+				},
+				{
+					name : "NM_PBM"
+				},
+				{
+					name : "ALMT_PBM"
+				},
+				{
+					name : "NO_TELP"
+				},
+				{
+					name : "NPWP"
+				},
+				{
+					name : "STATUS"
+				},
+				{
+					name : "Action",
+					width: "150px"
+				},
+			],
+			data: []
+		}).render(document.getElementById("reportContent"))
+
+
+
+		function fetchData() {
+			Swal.fire({
+				title: 'Mendapatkan Data...',
+				allowOutsideClick: false,
+				didOpen: function () {
+					Swal.showLoading();
+				}
+			});
+			const queryString = $formFilter.serialize()
+
+			grid.plugin.remove('pagination')
+
+			grid.updateConfig({
+				pagination: {
+					page: 0,
+					limit: 25,
+					server: {
+						url: (prev, page, limit) =>
+							`${prev}?page=${page}&limit=${limit}&start=${page * limit}&${queryString}`
+					}
+				},
+				server: {
+					url: "http://localhost/uster.maintenance.master_pelanggan.ajax/datatable",
+					method: 'GET',
+					then: res => {
+						Swal.close();
+						return res.data.map((data) => [
+							data.KD_PBM,
+							data.NM_PBM,
+							data.ALMT_PBM,
+							data.NO_TELP,
+							data.NO_NPWP_PBM,
+							data.PELANGGAN_AKTIF === 1 ? "Aktif" : "Tidak Aktif",
+							gridjs.html(`<button style="margin-right:20px" onclick="performAction('${data.NO_ACCOUNT_PBM}')">Hapus</button><button onclick="performAction('${data.NO_ACCOUNT_PBM}')">Edit</button>`)
+						]);
+
+					},
+					errors: (err) => {
+						Swal.close();
+						Swal.fire({
+							icon: 'error',
+							title: 'Error',
+							text: 'An error occurred while fetching data.',
+						});
+					},
+					handle: (res) => {
+						Swal.close();
+						if (res.status === 422) {
+							return Swal.fire({
+								icon: 'error',
+								title: 'Error',
+								text: 'An error occurred while fetching data.',
+							});
+						};
+						if (res.ok) return res.json();
+
+
+					},
+					total: res => res.total
+				},
+			}).forceRender()
+		}
+
+		(function () {
+
+			fetchData()
+			$formFilter.submit(function (e) {
+				e.preventDefault();
+				fetchData()
+			})
+
+			
+		})()
+	})($)
+</script>

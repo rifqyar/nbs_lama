@@ -121,7 +121,10 @@ $id_group = $_SESSION["ID_GROUP"];
 			}
 			else
 			{
+				$no_nota = $row[NO_NOTA];
+				$url = SAP_URL."PrintNota/CetakNotaCek?ze=#$no_nota#&ck=6200";
 				$act="<a href='#' onclick='return print(\"".$row[NO_REQUEST]."\",\"".$row[KEGIATAN]."\",\"".$row[TGL_NOTA_1]."\")' title='cetak nota'><img src='images/document-excel.png'></A>";
+				$act.="<a href='$url' title='cetak nota SAP'><img style='width:20px' src='images/invoice.png'></A>";
 				// $act.="<button title='Sync Payment' onclick='sync_payment(\"".$row[NO_REQUEST]."\",\"".$row[NO_NOTA]."\",\"".$row[KEGIATAN]."\")'><img width=\"15\" height=\"15\" src='images/sync.png'></button>";
 				//ESB Implementasi Add Button
 				// $act.="<button title='Resend ESB' onclick='esb_resend(\"".$row[NO_FAKTUR]."\",\"".$row[NO_NOTA]."\",\"".$row[KEGIATAN]."\")'><img width=\"15\" height=\"15\" src='images/sync_ict.png'></button>";
