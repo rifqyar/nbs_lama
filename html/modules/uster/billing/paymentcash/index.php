@@ -58,7 +58,7 @@ jQuery(function() {
 	colNames:['','No. NOTA','No. Proforma','SAP No. Faktur','No. Request','EMKL','Modul','Tanggal Kegiatan','Amount'], 
 	colModel:[
 		{name:'act', width:70, align:"center", search:false},
-		{name:'nt', width:120, align:"center"},
+		{name:'nn', width:120, align:"center"},
 		{name:'nt', width:120, align:"center"},
 		{name:'nf', width:120, align:"center"},
 		{name:'nr',index:'nr', width:100, align:"center"},

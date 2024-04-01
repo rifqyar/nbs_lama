@@ -76,7 +76,7 @@ $query = "SELECT * FROM (SELECT * FROM (
 			SELECT PAYMENT_CODE , NO_NOTA, NO_FAKTUR, NO_REQUEST, NO_NOTA_MTI, NO_FAKTUR_MTI, EMKL, 'STUF_PNK' KEGIATAN, TGL_NOTA_1,TOTAL_TAGIHAN,STATUS,KD_EMKL FROM nota_pnkn_stuf WHERE STATUS <> 'BATAL')
 			ORDER BY TGL_NOTA_1 DESC) WHERE ROWNUM < 100 ";
 
-if (isset($_GET['idreq'])) {
+if (isset($_GET['idreq'])&& $_GET['idreq'] != '') {
 	$idreq = $_GET['idreq'];
 	$query .= " AND NO_REQUEST = '$idreq'";
 }
