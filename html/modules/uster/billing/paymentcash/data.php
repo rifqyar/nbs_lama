@@ -138,7 +138,7 @@ while ($row = $res->fetchRow()) {
 
 	$responce->rows[$i]['id'] = $row[NO_NOTA];
 	//Menampilkan NO_FAKTUR_MTI 
-	$responce->rows[$i]['cell'] = array($act,  $row[NO_NOTA], $row[NO_NOTA_MTI], $row[NO_FAKTUR_MTI], $row[NO_REQUEST], $row[EMKL], $row[KEGIATAN], $row[TGL_NOTA_1], number_format($row[TOTAL_TAGIHAN]));
+	$responce->rows[$i]['cell'] = array($act,  $row[NO_NOTA], $row[NO_NOTA_MTI], $row[NO_FAKTUR], $row[NO_REQUEST], $row[EMKL], $row[KEGIATAN], $row[TGL_NOTA_1], number_format($row[TOTAL_TAGIHAN]));
 
 
 	$i++;

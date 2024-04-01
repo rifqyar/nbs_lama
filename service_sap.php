@@ -532,7 +532,7 @@ function GetStatusPayment()
                 # Save payment with Praya service
                 $uster = save_payment_uster_external($Nota, $result['KEGIATAN'],$idBank);
 
-                if ($uster['code'] == '1') {
+                if ($uster->response->code == '1') {
                     $msg = array(
                         'code' => true,
                         'msg' => "Status Payment Changed to Paid $noNota"
