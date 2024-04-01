@@ -4,6 +4,7 @@ require_once('tcpdf/config/lang/eng.php');
 require_once('tcpdf/tcpdf.php');
 
 $no_req = $_GET['no_req'];
+$kegiatan = $_GET['kegiatan'];
 $db = getDB('storage');
 $query = $db->query("
             SELECT
@@ -168,6 +169,7 @@ $query = $db->query("
             AND TANGGAL_LUNAS IS NULL
             AND LUNAS = 'NO'
             AND NO_REQUEST = '$no_req'
+            AND KEGIATAN = '$kegiatan'
             ORDER BY
             DBMS_RANDOM.VALUE
                     FETCH NEXT 1 ROWS ONLY");

@@ -117,8 +117,8 @@ while ($row = $res->fetchRow()) {
 		// }
 		if ($row['PAYMENT_CODE'] != null) {
 			$req = $row['NO_REQUEST'];
-			// $act = "<a href='javascript:void(0)' onclick=\"window.open('/uster.billing.paymentcash.print/print_kode_bayar?no_req=$req'); return false;\" title='Cetak Kode Bayar SAP'><img style='width:20px' src='images/printbig1.png'></a>";
-			$act = "<a href='javascript:void(0)' onclick=\"window.open('/maintance'); return false;\" title='Cetak Kode Bayar SAP'><img style='width:20px' src='images/printbig1.png'></a>";
+			$kegiatan = $row['KEGIATAN'];
+			$act = "<a href='javascript:void(0)' onclick=\"window.open('/uster.billing.paymentcash.print/print_kode_bayar?no_req=$req&kegiatan=$kegiatan'); return false;\" title='Cetak Kode Bayar SAP'><img style='width:20px' src='images/printbig1.png'></a>";
 		} else {
 			$act = "<font color='red'><i>not yet paid</i></font>";
 		}
