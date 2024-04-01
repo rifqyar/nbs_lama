@@ -183,6 +183,7 @@ function getPaymentCode()
                 AND PAYMENT_CODE IS NULL) subquery
         JOIN MTI_CUSTOMER_SS.SAP_NOTA_HEADER_NBS_V@CSS_PROD ON
             subquery.NO_NOTA = SAP_NOTA_HEADER_NBS_V.SOURCE_NOTA_REF
+        WHERE SAP_NOTA_HEADER_NBS_V.SAP_KD_BAYAR IS NOT NULL
         ORDER BY
             DBMS_RANDOM.VALUE
                         FETCH NEXT 1 ROWS ONLY");
@@ -456,6 +457,8 @@ function GetStatusPayment()
             SAP_NOTA_HEADER_NBS_V.SAP_KD_BAYAR IS NOT NULL
             AND SAP_NOTA_HEADER_NBS_V.SAP_TGL_PELUNASAN IS NOT NULL
             AND SAP_NOTA_HEADER_NBS_V.SAP_BANK IS NOT NULL
+            AND subquery.TANGGAL_LUNAS IS NULL 
+	        AND subquery.LUNAS = 'NO'
         ORDER BY
             DBMS_RANDOM.VALUE
                 FETCH NEXT 1 ROWS ONLY");
@@ -554,7 +557,7 @@ function GetStatusPayment()
             $uster = json_encode($uster);
             $query = $db->query("INSERT INTO USTER.SAP_SERVICE_LOG
             (URL, PAYLOAD, RESPONSE, NOTES,PRAYA_RESPONSE)
-            VALUES('$service',$noNota, '$msg_json', '$log_notes','$uster')");
+            VALUES('$service','$noNota', '$msg_json', '$log_notes','$uster')");
 
             return $log_notes;
         } else {
@@ -592,10 +595,7 @@ function GetStatusPayment()
 function SapPaymentPaid($faktur, $trx_number, $user_id, $bank_id, $paid_date, $paid_channel, $date)
 {
 
-
     $conn =oci_connect('uster', 'uster', '10.15.42.43/datamti');
-
-
     // check connection if fails return error
     if (!$conn) {
         // close connection
@@ -851,8 +851,12 @@ function SapPaymentPaid($faktur, $trx_number, $user_id, $bank_id, $paid_date, $p
         // check flag opus is true, disabled for development
         if ($flag_opus == true) {
             // connect to opus_repo, flagging payment to opus
-            $conn_opus = oci_connect('uster', 'uster', '10.15.42.42/datamti');
-
+            $conn_opus = oci_connect('opus_repo', 'opus_repo', '10.15.42.43/datamti');
+            
+            if(!$conn_opus) {
+                return "^87^ORA - Database problem, cant connect to database. OPUS BILL";
+                die();
+             }
 
             $out_status = '';
             $outmsg = '';
@@ -869,10 +873,15 @@ function SapPaymentPaid($faktur, $trx_number, $user_id, $bank_id, $paid_date, $p
             $execute_opus = oci_execute($parse_payment);
 
             if (!$execute_opus) {
-                // close connection
+                 // Get OCI error
+                $error = oci_error($parse_payment);
+                
+                // Close connections
+                oci_close($parse_payment);
                 oci_close($conn_opus);
                 oci_close($conn);
-                return '^01^General Failure - OPUS PAYMENT NOT GENERATED';
+                return '^01^General Failure - OPUS PAYMENT NOT GENERATED. OCI Error: ';
+                die();
             }
         }
 
@@ -1142,6 +1151,8 @@ function save_payment_uster_external($nota, $kegiatan,$bank_id)
         if ($httpCode >= 200 && $httpCode < 300) {
             $response_curl = array(
                 'no_request' => $NO_REQUEST,
+                "jenis" => $kegiatan,
+                "bank_account_number" => $bank_id,
                 'status'   => 'success',
                 'httpCode' => $httpCode,
                 'response' => $response
@@ -1150,6 +1161,8 @@ function save_payment_uster_external($nota, $kegiatan,$bank_id)
             //Client Error
             $response_curl = array(
                 'no_request' => $NO_REQUEST,
+                "jenis" => $kegiatan,
+                "bank_account_number" => $bank_id,
                 'status'   => 'error',
                 'httpCode' => $httpCode,
                 'response' => $response
@@ -1167,6 +1180,8 @@ function save_payment_uster_external($nota, $kegiatan,$bank_id)
         $httpCode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
         $response_curl = array(
             'no_request' => $NO_REQUEST,
+            "jenis" => $kegiatan,
+            "bank_account_number" => $bank_id,
             'status'   => 'error',
             'url' => $url,
             'httpCode' => $httpCode,
