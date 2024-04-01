@@ -1141,6 +1141,7 @@ function save_payment_uster_external($nota, $kegiatan,$bank_id)
         //Success
         if ($httpCode >= 200 && $httpCode < 300) {
             $response_curl = array(
+                'no_request' => $NO_REQUEST,
                 'status'   => 'success',
                 'httpCode' => $httpCode,
                 'response' => $response
@@ -1148,6 +1149,7 @@ function save_payment_uster_external($nota, $kegiatan,$bank_id)
         } else if ($httpCode >= 400 && $httpCode < 500) {
             //Client Error
             $response_curl = array(
+                'no_request' => $NO_REQUEST,
                 'status'   => 'error',
                 'httpCode' => $httpCode,
                 'response' => $response
@@ -1164,6 +1166,7 @@ function save_payment_uster_external($nota, $kegiatan,$bank_id)
     } catch (Exception $e) {
         $httpCode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
         $response_curl = array(
+            'no_request' => $NO_REQUEST,
             'status'   => 'error',
             'url' => $url,
             'httpCode' => $httpCode,
