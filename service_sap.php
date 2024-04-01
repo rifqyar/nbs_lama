@@ -182,7 +182,7 @@ function getPaymentCode()
                 AND NO_NOTA IS NOT NULL
                 AND PAYMENT_CODE IS NULL) subquery
         JOIN MTI_CUSTOMER_SS.SAP_NOTA_HEADER_NBS_V@CSS_PROD ON
-            subquery.PAYMENT_CODE = SAP_NOTA_HEADER_NBS_V.SAP_KD_BAYAR
+            subquery.NO_NOTA = SAP_NOTA_HEADER_NBS_V.SOURCE_NOTA_REF
         ORDER BY
             DBMS_RANDOM.VALUE
                         FETCH NEXT 1 ROWS ONLY");
@@ -451,7 +451,7 @@ function GetStatusPayment()
                 AND LUNAS = 'NO'
                 AND TGL_NOTA > sysdate - 30) subquery
         JOIN MTI_CUSTOMER_SS.SAP_NOTA_HEADER_NBS_V@CSS_PROD ON
-            subquery.PAYMENT_CODE = SAP_NOTA_HEADER_NBS_V.SAP_KD_BAYAR
+            subquery.NO_NOTA = SAP_NOTA_HEADER_NBS_V.SOURCE_NOTA_REF
         WHERE
             SAP_NOTA_HEADER_NBS_V.SAP_KD_BAYAR IS NOT NULL
             AND SAP_NOTA_HEADER_NBS_V.SAP_TGL_PELUNASAN IS NOT NULL
