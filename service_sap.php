@@ -210,7 +210,7 @@ function getPaymentCode()
         $resultSAP = $query->fetchRow();
 
         //Check Apakah Payment Code Sudah Ada Di SAP
-        if ($resultSAP) {
+        if ($resultSAP['SAP_KD_BAYAR'] != null) {
             $paymentCode = $resultSAP['SAP_KD_BAYAR'];
             if ($result['KEGIATAN'] == 'RECEIVING') {
                 $tb_name = "NOTA_RECEIVING";
