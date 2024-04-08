@@ -297,7 +297,6 @@ function GetStatusPayment()
                 AND PAYMENT_CODE IS NOT NULL
                 AND TANGGAL_LUNAS IS NULL
                 AND LUNAS = 'NO'
-                AND TGL_NOTA > sysdate - 30
         UNION
             SELECT
                 NO_NOTA,
@@ -318,7 +317,6 @@ function GetStatusPayment()
                 AND PAYMENT_CODE IS NOT NULL
                 AND TANGGAL_LUNAS IS NULL
                 AND LUNAS = 'NO'
-                AND TGL_NOTA > sysdate - 30
         UNION
             SELECT
                 NO_NOTA,
@@ -339,7 +337,6 @@ function GetStatusPayment()
                 AND PAYMENT_CODE IS NOT NULL
                 AND TANGGAL_LUNAS IS NULL
                 AND LUNAS = 'NO'
-                AND TGL_NOTA > sysdate - 30
         UNION
             SELECT
                 NO_NOTA,
@@ -360,7 +357,6 @@ function GetStatusPayment()
                 AND PAYMENT_CODE IS NOT NULL
                 AND TANGGAL_LUNAS IS NULL
                 AND LUNAS = 'NO'
-                AND TGL_NOTA > sysdate - 30
         UNION
             SELECT
                 NO_NOTA,
@@ -378,7 +374,6 @@ function GetStatusPayment()
                 AND PAYMENT_CODE IS NOT NULL
                 AND TANGGAL_LUNAS IS NULL
                 AND LUNAS = 'NO'
-                AND TGL_NOTA > sysdate - 30
         UNION
             SELECT
                 NO_NOTA,
@@ -396,7 +391,6 @@ function GetStatusPayment()
                 AND PAYMENT_CODE IS NOT NULL
                 AND TGL_LUNAS IS NULL
                 AND LUNAS = 'NO'
-                AND TGL_NOTA > sysdate - 30
         UNION
             SELECT
                 NO_NOTA,
@@ -414,7 +408,6 @@ function GetStatusPayment()
                 AND PAYMENT_CODE IS NOT NULL
                 AND TANGGAL_LUNAS IS NULL
                 AND LUNAS = 'NO'
-                AND TGL_NOTA > sysdate - 30
         UNION
             SELECT
                 NO_NOTA,
@@ -432,7 +425,6 @@ function GetStatusPayment()
                 AND PAYMENT_CODE IS NOT NULL
                 AND TANGGAL_LUNAS IS NULL
                 AND LUNAS = 'NO'
-                AND TGL_NOTA > sysdate - 30
         UNION
             SELECT
                 NO_NOTA,
@@ -449,16 +441,13 @@ function GetStatusPayment()
                 AND NO_NOTA IS NOT NULL
                 AND PAYMENT_CODE IS NOT NULL
                 AND TANGGAL_LUNAS IS NULL
-                AND LUNAS = 'NO'
-                AND TGL_NOTA > sysdate - 30) subquery
+                AND LUNAS = 'NO') subquery
         JOIN MTI_CUSTOMER_SS.SAP_NOTA_HEADER_NBS_V@CSS_PROD ON
             subquery.NO_NOTA = SAP_NOTA_HEADER_NBS_V.SOURCE_NOTA_REF
         WHERE
             SAP_NOTA_HEADER_NBS_V.SAP_KD_BAYAR IS NOT NULL
             AND SAP_NOTA_HEADER_NBS_V.SAP_TGL_PELUNASAN IS NOT NULL
             AND SAP_NOTA_HEADER_NBS_V.SAP_BANK IS NOT NULL
-            AND subquery.TANGGAL_LUNAS IS NULL 
-	        AND subquery.LUNAS = 'NO'
         ORDER BY
             DBMS_RANDOM.VALUE
                 FETCH NEXT 1 ROWS ONLY");
@@ -531,8 +520,10 @@ function GetStatusPayment()
 
                 # Save payment with Praya service
                 $uster = save_payment_uster_external($Nota, $result['KEGIATAN'],$idBank);
+                $response =  json_decode($uster['response']);
 
-                if ($uster->response->code == '1') {
+
+                if ($response->code == '1') {
                     $msg = array(
                         'code' => true,
                         'msg' => "Status Payment Changed to Paid $noNota"
