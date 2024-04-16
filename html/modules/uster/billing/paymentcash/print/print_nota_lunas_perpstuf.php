@@ -296,7 +296,7 @@ $pdf->SetFont('Courier', 15,9.8);
                     <td colspan="5" align="left"></td>
                 </tr>    
                 <tr>
-                    <td width="150" align="left"><b>No. Faktur </b></td>
+                    <td width="150" align="left"><b>No. Faktur SAP</b></td>
                     <td>:</td>
                     <td colspan="4"><b>$no_faktur</b></td>
                     <td colspan="8"></td>
@@ -406,45 +406,45 @@ EOD;
                     </tr>
 
 */		 
-        $tbl4 .=<<<EOD
-                <p></p>
-                <table>  
-					<tr>
-                        <td colspan="2"><b></b></td>
-                    </tr>		
-					<tr height="20">
-                        <td colspan="2"></td>
-                    </tr>							
-                    <tr>
-                        <td width="200"></td>
-                        <td width="700" align="center">MENGETAHUI :</td>
-                    </tr>
-                    <tr>
-                         <td width="200"></td>
-                        <td width="700" align="center"><b>$jabatan</b></td>
-                    </tr>
-                    <tr>
-                        <td colspan="2"></td>
-                    </tr>
-					 <tr>
-                        <td colspan="2"></td>
-                    </tr>
-					 <tr>
-                        <td colspan="2"></td>
-                    </tr>
-                    <tr>
-                        <td width="200"></td>
-                        <td width="700" align="center"><b><u>$nama</u></b></td>
-                    </tr>
-                    <tr>
-                        <td width="200"></td>
-                        <td width="700" align="center"><b>NIPP.$nipp</b></td>
-                    </tr>
-					 <tr height="200">
-                        <td colspan="2"></td>
-                    </tr>
-                    </table>
-EOD;
+//         $tbl4 .=<<<EOD
+//                 <p></p>
+//                 <table>  
+// 					<tr>
+//                         <td colspan="2"><b></b></td>
+//                     </tr>		
+// 					<tr height="20">
+//                         <td colspan="2"></td>
+//                     </tr>							
+//                     <tr>
+//                         <td width="200"></td>
+//                         <td width="700" align="center">MENGETAHUI :</td>
+//                     </tr>
+//                     <tr>
+//                          <td width="200"></td>
+//                         <td width="700" align="center"><b>$jabatan</b></td>
+//                     </tr>
+//                     <tr>
+//                         <td colspan="2"></td>
+//                     </tr>
+// 					 <tr>
+//                         <td colspan="2"></td>
+//                     </tr>
+// 					 <tr>
+//                         <td colspan="2"></td>
+//                     </tr>
+//                     <tr>
+//                         <td width="200"></td>
+//                         <td width="700" align="center"><b><u>$nama</u></b></td>
+//                     </tr>
+//                     <tr>
+//                         <td width="200"></td>
+//                         <td width="700" align="center"><b>NIPP.$nipp</b></td>
+//                     </tr>
+// 					 <tr height="200">
+//                         <td colspan="2"></td>
+//                     </tr>
+//                     </table>
+// EOD;
      
         ob_end_clean();
 

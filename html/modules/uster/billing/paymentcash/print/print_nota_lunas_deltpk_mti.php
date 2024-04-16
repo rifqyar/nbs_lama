@@ -63,7 +63,7 @@
 		$result		= $db->query($query_get);
 		$row_nota	   = $result->fetchRow();
 		 $no_nota_mti        = $row_nota['NO_NOTA_MTI'];
-        $no_faktur_mti       = $row_nota['NO_FAKTUR_MTI'];
+        $no_faktur_mti       = $row_nota['NO_FAKTUR'];
         $no_mat 		= $row_nota['NO_PERATURAN'];
         $no_nota        = $row_nota['NO_FAKTUR_'];
         $no_nota_        = $row_nota['NO_NOTA'];
@@ -113,9 +113,9 @@
 			$_SESSION["KET_NOTA"] = "Nota Berlaku Sebagai Pajak Berdasarkan Peraturan Dirjen Pajak PER-13/PJ/2019";
 			
 		if($row_nota['JN_REPO'] == "EKS_STUFFING"){
-			$_SESSION["nm_nota"] = "NOTA RELOKASI KE TPK EKS STUFFING";
+			$_SESSION["nm_nota"] = "LAMPIRAN NOTA RELOKASI KE TPK EKS STUFFING";
 		} else {
-			$_SESSION["nm_nota"] = "NOTA RELOKASI KE TPK";
+			$_SESSION["nm_nota"] = "LAMPIRAN NOTA RELOKASI KE TPK";
 		}
 
 
@@ -175,7 +175,7 @@ class MYPDF extends TCPDF {
 		$this->SetFont('', 'L', 8);
 		$this->SetY(16);
 		$this->SetX(155);
-		$this->Cell(0, 16, 'No. Faktur ', 0, false, 'L', 0, '', 0, false, 'T', 'M');
+		$this->Cell(0, 16, 'No. Faktur SAP', 0, false, 'L', 0, '', 0, false, 'T', 'M');
 		$this->SetFont('', 'L', 8);
 		$this->SetY(20);
 		$this->SetX(155);
@@ -531,21 +531,21 @@ $tbl1 .=<<<EOD
 </tr>
 EOD;
          
-//add materai
-			 if ($data_mtr['BIAYA'] > 0 ){  
-				$tbl_materai .= '<tr><td colspan="8"></td>
-					<td width="225" colspan="4" align="right">Bea Materai :</td>
-                    <td width="100" colspan="2" align="right">'.$bea_materai.'</td><td></td></tr>
-				';
-				$row.='<tr><td colspan="8"></td>
-					<td width="225" colspan="4" align="right"></td>
-                    <td width="100" colspan="2"></td><td></td></tr>';
-				$kotak .=  '<tr><td colspan="6" align="left">Bea Materai Lunas Dengan Sistem Nomor Ijin :'.$no_mat.'</td>
-					<td width="300" colspan="4"></td>
-                    <td width="130" colspan="2" align="center" border="1">Termasuk Bea Materai Rp.'.$bea_materai.'</td><td></td></tr>
-				';
-			}
-//end		 
+// //add materai
+// 			 if ($data_mtr['BIAYA'] > 0 ){  
+// 				$tbl_materai .= '<tr><td colspan="8"></td>
+// 					<td width="225" colspan="4" align="right">Bea Materai :</td>
+//                     <td width="100" colspan="2" align="right">'.$bea_materai.'</td><td></td></tr>
+// 				';
+// 				$row.='<tr><td colspan="8"></td>
+// 					<td width="225" colspan="4" align="right"></td>
+//                     <td width="100" colspan="2"></td><td></td></tr>';
+// 				$kotak .=  '<tr><td colspan="6" align="left">Bea Materai Lunas Dengan Sistem Nomor Ijin :'.$no_mat.'</td>
+// 					<td width="300" colspan="4"></td>
+//                     <td width="130" colspan="2" align="center" border="1">Termasuk Bea Materai Rp.'.$bea_materai.'</td><td></td></tr>
+// 				';
+// 			}
+// //end		 
 		 
 		 $tbl3 .=<<<EOD
                                    
@@ -586,71 +586,71 @@ EOD;
                     </tr>
 
 */		 
-        $tbl5 .= <<<EOD
+//         $tbl5 .= <<<EOD
                 
-                <table border='1'>
-				<tr height="20">
-                    <td width="500" align="left"><b></b></td>
-                </tr>    
-                <tr>
-                    <td width="500" align="left">Nota sebagai faktur pajak berdasarkan Peraturan Dirjen Pajak</td>
-                </tr>    
-                <tr>
-                    <td width="500" align="left">Per - 13/PJ/2019 Tanggal 2 Juli 2019</td>
-                </tr>    
-                <tr>
-                    <td width="500" align="left"># $terbilang </td>
-                </tr>  
-				<tr>
-                    <td width="500" align="left">Ketentuan : </td>
-                </tr>
-				<tr>
-                    <td width="500" align="left">1. Pengajuan keberatan hanya dapat dilakukan dalam waktu 14 hari setelah tanggal nota </td>
-                </tr>
-				<tr>
-                    <td width="500" align="left">2. Terhadap nota yang diajukan keberatan harus dilunasi terlebih dahulu</td>
-                </tr>
-                </table>
-EOD;
+//                 <table border='1'>
+// 				<tr height="20">
+//                     <td width="500" align="left"><b></b></td>
+//                 </tr>    
+//                 <tr>
+//                     <td width="500" align="left">Nota sebagai faktur pajak berdasarkan Peraturan Dirjen Pajak</td>
+//                 </tr>    
+//                 <tr>
+//                     <td width="500" align="left">Per - 13/PJ/2019 Tanggal 2 Juli 2019</td>
+//                 </tr>    
+//                 <tr>
+//                     <td width="500" align="left"># $terbilang </td>
+//                 </tr>  
+// 				<tr>
+//                     <td width="500" align="left">Ketentuan : </td>
+//                 </tr>
+// 				<tr>
+//                     <td width="500" align="left">1. Pengajuan keberatan hanya dapat dilakukan dalam waktu 14 hari setelah tanggal nota </td>
+//                 </tr>
+// 				<tr>
+//                     <td width="500" align="left">2. Terhadap nota yang diajukan keberatan harus dilunasi terlebih dahulu</td>
+//                 </tr>
+//                 </table>
+// EOD;
 
 
-$date=date('d-m-Y',strtotime($dt));
+// $date=date('d-m-Y',strtotime($dt));
 
-        $tbl4 .=<<<EOD
-                <p></p>
-                <table>		
+//         $tbl4 .=<<<EOD
+//                 <p></p>
+//                 <table>		
 							
-                    <tr>
-                        <td width="200"></td>
-                        <td width="700" align="center">Pontianak, $date</td>
-                    </tr>					
-                    <tr>
-                        <td width="200"></td>
-                        <td width="700" align="center">MENGETAHUI :</td>
-                    </tr>
-                    <tr>
-                         <td width="200"></td>
-                        <td width="700" align="center"><b>$jabatan</b></td>
-                    </tr>
-                    <tr>
-                        <td colspan="2"></td>
-                    </tr>
-					 <tr>
-                        <td colspan="2"></td>
-                    </tr>
-                    <tr>
-                        <td width="200"></td>
-                        <td width="700" align="center"><b><u>$nama</u></b></td>
-                    </tr>
-                    <tr>
-                        <td width="200"></td>
-                        <td width="700" align="center"><b>NIPP.$nipp</b></td>
-                    </tr>
-					 <tr height="200">
-                        <td colspan="2"></td>
-                    </tr>
-                    </table>
-EOD;
+//                     <tr>
+//                         <td width="200"></td>
+//                         <td width="700" align="center">Pontianak, $date</td>
+//                     </tr>					
+//                     <tr>
+//                         <td width="200"></td>
+//                         <td width="700" align="center">MENGETAHUI :</td>
+//                     </tr>
+//                     <tr>
+//                          <td width="200"></td>
+//                         <td width="700" align="center"><b>$jabatan</b></td>
+//                     </tr>
+//                     <tr>
+//                         <td colspan="2"></td>
+//                     </tr>
+// 					 <tr>
+//                         <td colspan="2"></td>
+//                     </tr>
+//                     <tr>
+//                         <td width="200"></td>
+//                         <td width="700" align="center"><b><u>$nama</u></b></td>
+//                     </tr>
+//                     <tr>
+//                         <td width="200"></td>
+//                         <td width="700" align="center"><b>NIPP.$nipp</b></td>
+//                     </tr>
+// 					 <tr height="200">
+//                         <td colspan="2"></td>
+//                     </tr>
+//                     </table>
+// EOD;
      
         ob_end_clean();
 

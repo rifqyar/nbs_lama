@@ -60,7 +60,7 @@
 		$result		= $db->query($query_get);
 		$row_nota	   = $result->fetchRow();
 		$no_nota_mti        = $row_nota['NO_NOTA_MTI'];
-        $no_faktur_mti        = $row_nota['NO_FAKTUR_MTI'];
+        $no_faktur_mti        = $row_nota['NO_FAKTUR'];
          $no_mat 		= $row_nota['NO_PERATURAN'];
         $no_nota_        = $row_nota['NO_NOTA'];
         $no_nota        = $row_nota['NO_FAKTUR_'];
@@ -84,7 +84,7 @@
         $no_do  = $row_nota['NO_DO'];
         $no_bl  = $row_nota['NO_BL'];
         $nota_mti  		= $row_nota['NO_NOTA_MTI'];
-        $faktur_mti  	= $row_nota['NO_FAKTUR_MTI'];
+        $faktur_mti  	= $row_nota['NO_FAKTUR'];
 		$no_req_baru  = $row_nota['NO_REQ_BARU'];
 		
 		$pegawai    = "SELECT * FROM MASTER_PEGAWAI WHERE STATUS = 'AKTIF'";
@@ -107,7 +107,7 @@
 		$_SESSION["nota_lama"] = 'EX '. $nota_lama;
 		}
 		$_SESSION["NOTA_MTI"] = $row_nota['NO_NOTA_MTI'];
-		$_SESSION["FAKTUR_MTI"] = $row_nota['NO_FAKTUR_MTI'];
+		$_SESSION["FAKTUR_MTI"] = $row_nota['NO_FAKTUR'];
 		$_SESSION["jabatan"] = $jabatan;
 		$_SESSION["nama_pegawai"] = $nama;
 		$_SESSION["nipp"] = $nipp;
@@ -178,7 +178,7 @@ class MYPDF extends TCPDF {
 		$this->SetFont('', 'L', 8);
 		$this->SetY(16);
 		$this->SetX(155);
-		$this->Cell(0, 16, 'No. Faktur ', 0, false, 'L', 0, '', 0, false, 'T', 'M');
+		$this->Cell(0, 16, 'No. Faktur SAP', 0, false, 'L', 0, '', 0, false, 'T', 'M');
 		$this->SetFont('', 'L', 8);
 		$this->SetY(20);
 		$this->SetX(155);
@@ -235,7 +235,7 @@ class MYPDF extends TCPDF {
 		// $this->MultiCell(110,45,$_SESSION["KET_NOTA"], 0, 'R', false, 1, '', '', true, 0, false, true, 0, 'T', false );
 		$this->SetFont('', 'B', 12);
 		$this->SetY(36);
-		$this->Cell(0, 15, 'NOTA BATAL MUAT', 0, false, 'C', 0, '', 0, false, 'M', 'M');
+		$this->Cell(0, 15, 'LAMPIRAN NOTA BATAL MUAT', 0, false, 'C', 0, '', 0, false, 'M', 'M');
 		$this->SetFont('', '', 12);
 		$this->SetY(42);
 		$this->SetX(5);
@@ -546,70 +546,70 @@ EOD;
                     </tr>
 
 */		 
-        $tbl5 .= <<<EOD
+//         $tbl5 .= <<<EOD
                 
-                <table border='1'>
-				<tr height="20">
-                    <td width="500" align="left"><b></b></td>
-                </tr>    
-                <tr>
-                    <td width="500" align="left">Nota sebagai faktur pajak berdasarkan Peraturan Dirjen Pajak</td>
-                </tr>    
-                <tr>
-                    <td width="500" align="left">Per - 13/PJ/2019 Tanggal 2 Juli 2019</td>
-                </tr>    
-                <tr>
-                    <td width="500" align="left"># $bilang </td>
-                </tr>  
-				<tr>
-                    <td width="500" align="left">Ketentuan : </td>
-                </tr>
-				<tr>
-                    <td width="500" align="left">1. Pengajuan keberatan hanya dapat dilakukan dalam waktu 14 hari setelah tanggal nota </td>
-                </tr>
-				<tr>
-                    <td width="500" align="left">2. Terhadap nota yang diajukan keberatan harus dilunasi terlebih dahulu</td>
-                </tr>
-                </table>
-EOD;
-$date=date('d-m-Y',strtotime($dt));
+//                 <table border='1'>
+// 				<tr height="20">
+//                     <td width="500" align="left"><b></b></td>
+//                 </tr>    
+//                 <tr>
+//                     <td width="500" align="left">Nota sebagai faktur pajak berdasarkan Peraturan Dirjen Pajak</td>
+//                 </tr>    
+//                 <tr>
+//                     <td width="500" align="left">Per - 13/PJ/2019 Tanggal 2 Juli 2019</td>
+//                 </tr>    
+//                 <tr>
+//                     <td width="500" align="left"># $bilang </td>
+//                 </tr>  
+// 				<tr>
+//                     <td width="500" align="left">Ketentuan : </td>
+//                 </tr>
+// 				<tr>
+//                     <td width="500" align="left">1. Pengajuan keberatan hanya dapat dilakukan dalam waktu 14 hari setelah tanggal nota </td>
+//                 </tr>
+// 				<tr>
+//                     <td width="500" align="left">2. Terhadap nota yang diajukan keberatan harus dilunasi terlebih dahulu</td>
+//                 </tr>
+//                 </table>
+// EOD;
+// $date=date('d-m-Y',strtotime($dt));
 
 
 
-        $tbl4 .=<<<EOD
-                <p></p>
-                <table>		
-					<tr>
-                        <td width="200"></td>
-                        <td width="700" align="center">Pontianak, $date</td>
-                    </tr>							
-                    <tr>
-                        <td width="200"></td>
-                        <td width="700" align="center">MENGETAHUI :</td>
-                    </tr>
-                    <tr>
-                         <td width="200"></td>
-                        <td width="700" align="center"><b>$jabatan</b></td>
-                    </tr>
-                    <tr>
-                        <td colspan="2"></td>
-                    </tr>
-					 <tr>
-                        <td colspan="2"></td>
-                    </tr>
-                    <tr>
-                        <td width="200"></td>
-                        <td width="700" align="center"><b><u>$nama</u></b></td>
-                    </tr>
-                    <tr>
-                        <td width="200"></td>
-                        <td width="700" align="center"><b>NIPP.$nipp</b></td>
-                    </tr>
-					 <tr height="200">
-                        <td colspan="2"></td>
-                    </tr>
-                    </table>
-EOD;
+//         $tbl4 .=<<<EOD
+//                 <p></p>
+//                 <table>		
+// 					<tr>
+//                         <td width="200"></td>
+//                         <td width="700" align="center">Pontianak, $date</td>
+//                     </tr>							
+//                     <tr>
+//                         <td width="200"></td>
+//                         <td width="700" align="center">MENGETAHUI :</td>
+//                     </tr>
+//                     <tr>
+//                          <td width="200"></td>
+//                         <td width="700" align="center"><b>$jabatan</b></td>
+//                     </tr>
+//                     <tr>
+//                         <td colspan="2"></td>
+//                     </tr>
+// 					 <tr>
+//                         <td colspan="2"></td>
+//                     </tr>
+//                     <tr>
+//                         <td width="200"></td>
+//                         <td width="700" align="center"><b><u>$nama</u></b></td>
+//                     </tr>
+//                     <tr>
+//                         <td width="200"></td>
+//                         <td width="700" align="center"><b>NIPP.$nipp</b></td>
+//                     </tr>
+// 					 <tr height="200">
+//                         <td colspan="2"></td>
+//                     </tr>
+//                     </table>
+// EOD;
      
         ob_end_clean();
 
