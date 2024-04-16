@@ -495,10 +495,10 @@ EOD;
 				$row.='<tr><td colspan="8"></td>
 					<td width="225" colspan="4" align="right"></td>
                     <td width="100" colspan="2"></td><td></td></tr>';
-				$kotak .=  '<tr><td colspan="6" align="left">Bea Materai Lunas Dengan Sistem Nomor Ijin :'.$no_mat.'</td>
-					<td width="300" colspan="4"></td>
-                    <td width="130" colspan="2" align="center" border="1">Termasuk Bea Materai Rp.'.$bea_materai.'</td><td></td></tr>
-				';
+				// $kotak .=  '<tr><td colspan="6" align="left">Bea Materai Lunas Dengan Sistem Nomor Ijin :'.$no_mat.'</td>
+				// 	<td width="300" colspan="4"></td>
+                //     <td width="130" colspan="2" align="center" border="1">Termasuk Bea Materai Rp.'.$bea_materai.'</td><td></td></tr>
+				// ';
 			}
 //end		 
 		 
