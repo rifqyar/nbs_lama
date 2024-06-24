@@ -975,7 +975,8 @@ if ($jenis == 'STRIPPING' || $jenis == 'PERP_STRIP') { //DELIVERY KALO DARI SISI
           "startDate" => $v["AWAL_PENUMPUKAN"],
           "endDate" => $v['AKHIR_PENUMPUKAN'],
           // END UPDATE
-          "containerDeliveryDate" => "",
+          // "containerDeliveryDate" => "",
+          "containerDeliveryDate" => $v['AKHIR_PENUMPUKAN'], //update rifqy 17/4/2024
           "containerLoadingDate" => "",
           "containerDischargeDate" => "",
         )
