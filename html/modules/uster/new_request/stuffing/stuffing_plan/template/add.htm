@@ -263,7 +263,7 @@
 			dataType: 'json',
 			success: function (response) {
 				if (response.message && response.status == '1' && response.activity == 'update') {
-					$("#NPWP_CONSIGNEE").val(response.NPWP16);
+					$("#NPWP_PENUMPUKAN").val(response.NPWP16);
 					Swal.fire({
 						title: 'Success!',
 						text: response.message,
