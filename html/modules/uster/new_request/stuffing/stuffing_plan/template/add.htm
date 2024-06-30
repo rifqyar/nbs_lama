@@ -1,170 +1,205 @@
-
- 
-<span class="graybrown"><img src='images/dokumenbig.png' border='0' class="icon"/><font color="#0378C6"> Perencanaan</font> Kegiatan Stuffing</span>
+<span class="graybrown"><img src='images/dokumenbig.png' border='0' class="icon" />
+	<font color="#0378C6"> Perencanaan</font> Kegiatan Stuffing
+</span>
 
 <fieldset class="form-fieldset" style="margin: 5px 5px 5px 5px; ">
-<form id="form" action="<?=HOME?><?=APPID?>/add_do" method="POST">
+	<form id="form" action="<?=HOME?><?=APPID?>/add_do" method="POST">
 
-	<fieldset class="form-fieldset" style="margin: 5px 5px 5px 5px; border-radius: 10px 10px 10px 10px;-moz-border-radius: 10px 10px 10px 10px; 
+		<fieldset class="form-fieldset" style="margin: 5px 5px 5px 5px; border-radius: 10px 10px 10px 10px;-moz-border-radius: 10px 10px 10px 10px; 
 -webkit-border-radius: 10px 10px 10px 10px; ">
-	<legend>&nbsp &nbsp  <font color="red"><b>Entry Nama Pengguna Jasa</b></font></legend>
-    <table style="margin: 10px 10px 10px 10px;" >
-		<tr>
-        	<td class="form-field-caption" valign="middle" align="right">No Request</td>
-            <td  class="form-field-caption"> : </td>
-            <td> <input type="text" name="no_req" id="no_req" placeholder="Auto Fill" size="40" maxlength="100" readonly="readonly" style="background-color:#FFFFCC;"/>  </td>
-            
-    	</tr>
-    	<tr>
-        	<td class="form-field-caption" valign="middle" align="right">Nama EMKL</td>
-            <td  class="form-field-caption"> : </td>
-            <td> <input type="text" name="EMKL" id="EMKL" placeholder="Autocomplete" size="40" maxlength="100" style="background-color:#FFFFCC;"/> 
-                <input type="hidden" name="ID_EMKL" id="ID_EMKL" />
-                <input type="hidden" name="ACC_EMKL" id="ACC_EMKL" />
-            </td>
-            
-    	</tr>
-		<tr>
-        	<td class="form-field-caption" valign="middle" align="right">Penumpukan Oleh</td>
-            <td  class="form-field-caption"> : </td>
-            <td> <input type="text" name="PNKN_BY" id="PNKN_BY" placeholder="Autocomplete" size="40" maxlength="100" style="background-color:#FFFFCC;"/> 
-                <input type="hidden" name="ID_PNKN_BY" id="ID_PNKN_BY" /> 
-                <input type="hidden" name="ACC_PNKN" id="ACC_PNKN" />             
-            </td>
-            
-    	</tr>
-        <tr>
-        	<td class="form-field-caption" valign="middle" align="right">International/Domestik</td>
-            <td  class="form-field-caption"> : </td>
-            <td> <select id="DI" name="DI">
-                    <option value='D'>Domestik</option>
-                    <option value='I'>International</option>
-                </select></td>
-            
-    	</tr>
-    	<tr>
-        	<td class="form-field-caption" valign="middle" align="right">Yard Stack</td>
-            <td  class="form-field-caption"> : </td>
-            <td> <select id="YARD_STACK" name="YARD_STACK">
-                    <option value='MTI'>MTI</option>
-                    <option value='TPK'>TPK</option>
-                </select></td>
-            
-    	</tr>
-	</table>
-	</fieldset>
-	<fieldset class="form-fieldset" style="margin: 5px 5px 5px 5px; border-radius: 10px 10px 10px 10px;-moz-border-radius: 10px 10px 10px 10px; 
+			<legend>&nbsp &nbsp <font color="red"><b>Entry Nama Pengguna Jasa</b></font>
+			</legend>
+			<table style="margin: 10px 10px 10px 10px;">
+				<tr>
+					<td class="form-field-caption" valign="middle" align="right">No Request</td>
+					<td class="form-field-caption"> : </td>
+					<td> <input type="text" name="no_req" id="no_req" placeholder="Auto Fill" size="40" maxlength="100"
+							readonly="readonly" style="background-color:#FFFFCC;" /> </td>
+
+				</tr>
+				<tr>
+					<td class="form-field-caption" valign="middle" align="right">Nama EMKL</td>
+					<td class="form-field-caption"> : </td>
+					<td> <input type="text" name="EMKL" id="EMKL" placeholder="Autocomplete" size="40" maxlength="100"
+							style="background-color:#FFFFCC;" />
+						<input type="hidden" name="ID_EMKL" id="ID_EMKL" />
+						<input type="hidden" name="ACC_EMKL" id="ACC_EMKL" />
+					</td>
+
+				</tr>
+				<tr>
+					<td class="form-field-caption" valign="middle" align="right">Penumpukan Oleh</td>
+					<td class="form-field-caption"> : </td>
+					<td> <input type="text" name="PNKN_BY" id="PNKN_BY" placeholder="Autocomplete" size="40"
+							maxlength="100" style="background-color:#FFFFCC;" />
+						<input type="hidden" name="ID_PNKN_BY" id="ID_PNKN_BY" />
+						<input type="hidden" name="ACC_PNKN" id="ACC_PNKN" />
+					</td>
+
+				</tr>
+				<tr>
+					<td class="form-field-caption" valign="middle" align="right">International/Domestik</td>
+					<td class="form-field-caption"> : </td>
+					<td> <select id="DI" name="DI">
+							<option value='D'>Domestik</option>
+							<option value='I'>International</option>
+						</select></td>
+
+				</tr>
+				<tr>
+					<td class="form-field-caption" valign="middle" align="right">Yard Stack</td>
+					<td class="form-field-caption"> : </td>
+					<td> <select id="YARD_STACK" name="YARD_STACK">
+							<option value='MTI'>MTI</option>
+							<option value='TPK'>TPK</option>
+						</select></td>
+
+				</tr>
+			</table>
+		</fieldset>
+		<fieldset class="form-fieldset" style="margin: 5px 5px 5px 5px; border-radius: 10px 10px 10px 10px;-moz-border-radius: 10px 10px 10px 10px; 
 -webkit-border-radius: 10px 10px 10px 10px; ">
-	<legend> &nbsp &nbsp  <font color="red"><b>Entry Nama Kapal</b></font></legend>
-    <table style="margin: 10px 10px 10px 10px;" >
-		 <tr>
-					<td class="form-field-caption" valign="top" align="right">Nama Kapal </td><td colspan="5" class="form-field-caption" > :
-					<input id="KD_KAPAL" name="KD_KAPAL" type="hidden" value="{$row.KD_KAPAL}" />                 
-					<input id="NM_KAPAL" name="NM_KAPAL" type="text" value="{$row.NM_KAPAL}" size="50" style="background-color:#FFFFCC;" placeholder="Autocomplete"/>
-                    <input id="TGL_BERANGKAT" name="TGL_BERANGKAT" type="hidden" value="{$row.TGL_BERANGKAT}" /> 
-                    <input id="TGL_STACKING" name="TGL_STACKING" type="hidden" value="{$row.TGL_STACKING}" />  
-                    <input id="TGL_MUAT" name="TGL_MUAT" type="hidden" value="{$row.TGL_MUAT}"  />    
-                    <input id="CALL_SIGN" name="CALL_SIGN" type="hidden" value="{$row.CALL_SIGN}" />  
-                    <input id="POD" name="POD" type="hidden" value="{$row.POD}" />  
-                    <input id="POL" name="POL" type="hidden" value="{$row.POL}" />
-                    <block visible="error.NO_UKK"><span class="form-field-error">{$error.NM_KAPAL}</span></block>
-					<img src='images/ico_help1.gif' border='0' onclick='view_open_stuff()' />&nbsp;Voyage
-                    <input id="VOYAGE_IN" name="VOYAGE_IN" type="text" value="{$row.VOYAGE_IN}" size="5" readonly /> -
-                    <input id="VOYAGE_OUT" name="VOYAGE_OUT" type="text" value="{$row.VOYAGE_OUT}" size="5" readonly /> 
-                    <input id="ETD" name="ETD" type="hidden" value="{$row.ETD}" size="40" />
-                    <input id="ETA" name="ETA" type="hidden" value="{$row.ETA}" size="40" />
-                     <input id="VOYAGE" name="VOYAGE" type="hidden" value="{$row.VOYAGE}" />
-             </td>
-					
-		</tr>
-		<tr>
-					 <td class="form-field-caption" valign="top" align="right">Nama Agen</td>
-					 <td width="300" class="form-field-caption" > :
-					<input id="KD_AGEN" name="KD_AGEN" type="hidden" value="{$row.KD_AGEN}" size="3" readonly />	
-                    <input id="NM_AGEN" name="NM_AGEN" type="text" value="{$row.NM_AGEN}" size="40"  readonly /><block visible="error.NO_UKK"><span class="form-field-error">{$error.NM_AGEN}</span></block>
-                    </td><td width="100"></td>
-					 <td class="form-field-caption" valign="top" align="right" width="250">Port Of Destination</td>
-					<td valign="middle"  class="form-field-caption">:</td><td> 
-					<input id="KD_PELABUHAN_ASAL" name="KD_PELABUHAN_ASAL" type="hidden" value="{$row.KD_PELABUHAN_ASAL}" size="3"   class="pod" readonly />
-					<input id="NM_PELABUHAN_ASAL" name="NM_PELABUHAN_ASAL" type="text" value="{$row.NM_PELABUHAN_ASAL}" size="40" maxlength="100" style="background-color:#FFFFCC;" title="Autocomplete" class="pod" placeholder="Autocomplete"/> </td>
-					 
-           
-		</tr>	
-		<tr>
-		  <td class="form-field-caption" valign="top" align="right" >No PKK</td><td class="form-field-caption" >:
-					<input id="NO_UKK" name="NO_UKK" type="text" value="{$row.NO_UKK}" readonly size="20" maxlength="16" title="Autocomplete" class="pkkkapal" />
-                    </td><td width="100"></td>
-					 <td class="form-field-caption" valign="top" align="right" width="250">Final Discharge</td>
-					<td valign="top" class="form-field-caption">: </td><td>
-					<input id="KD_PELABUHAN_TUJUAN" name="KD_PELABUHAN_TUJUAN" type="hidden" value="{$row.KD_PELABUHAN_TUJUAN}" size="3"   class="pod2" readonly />
-					<input id="NM_PELABUHAN_TUJUAN" name="NM_PELABUHAN_TUJUAN" type="text" value="{$row.NM_PELABUHAN_TUJUAN}" size="40" maxlength="100" style="background-color:#FFFFCC;"  class="pod2" title="Autocomplete" placeholder="Autocomplete"/></td>
-		</tr>
-		<tr>
-			 <td class="form-field-caption" valign="middle" align="right" width="177">No Booking</td>
-					<td colspan="5" class="form-field-caption" >:
-					<input id="NO_BOOKING" name="NO_BOOKING" type="text" value="{$row.NO_BOOKING}" size="25" maxlength="16" readonly="readonly" />
-             </td>
-				
-				<div id="view_detail"></div>
-			
-		</tr>
-	</table>
-	</fieldset>
-	
-	<fieldset class="form-fieldset" style="margin: 5px 5px 5px 5px; border-radius: 10px 10px 10px 10px;-moz-border-radius: 10px 10px 10px 10px; 
+			<legend> &nbsp &nbsp <font color="red"><b>Entry Nama Kapal</b></font>
+			</legend>
+			<table style="margin: 10px 10px 10px 10px;">
+				<tr>
+					<td class="form-field-caption" valign="top" align="right">Nama Kapal </td>
+					<td colspan="5" class="form-field-caption"> :
+						<input id="KD_KAPAL" name="KD_KAPAL" type="hidden" value="{$row.KD_KAPAL}" />
+						<input id="NM_KAPAL" name="NM_KAPAL" type="text" value="{$row.NM_KAPAL}" size="50"
+							style="background-color:#FFFFCC;" placeholder="Autocomplete" />
+						<input id="TGL_BERANGKAT" name="TGL_BERANGKAT" type="hidden" value="{$row.TGL_BERANGKAT}" />
+						<input id="TGL_STACKING" name="TGL_STACKING" type="hidden" value="{$row.TGL_STACKING}" />
+						<input id="TGL_MUAT" name="TGL_MUAT" type="hidden" value="{$row.TGL_MUAT}" />
+						<input id="CALL_SIGN" name="CALL_SIGN" type="hidden" value="{$row.CALL_SIGN}" />
+						<input id="POD" name="POD" type="hidden" value="{$row.POD}" />
+						<input id="POL" name="POL" type="hidden" value="{$row.POL}" />
+						<block visible="error.NO_UKK"><span class="form-field-error">{$error.NM_KAPAL}</span></block>
+						<img src='images/ico_help1.gif' border='0' onclick='view_open_stuff()' />&nbsp;Voyage
+						<input id="VOYAGE_IN" name="VOYAGE_IN" type="text" value="{$row.VOYAGE_IN}" size="5" readonly />
+						-
+						<input id="VOYAGE_OUT" name="VOYAGE_OUT" type="text" value="{$row.VOYAGE_OUT}" size="5"
+							readonly />
+						<input id="ETD" name="ETD" type="hidden" value="{$row.ETD}" size="40" />
+						<input id="ETA" name="ETA" type="hidden" value="{$row.ETA}" size="40" />
+						<input id="VOYAGE" name="VOYAGE" type="hidden" value="{$row.VOYAGE}" />
+					</td>
+
+				</tr>
+				<tr>
+					<td class="form-field-caption" valign="top" align="right">Nama Agen</td>
+					<td width="300" class="form-field-caption"> :
+						<input id="KD_AGEN" name="KD_AGEN" type="hidden" value="{$row.KD_AGEN}" size="3" readonly />
+						<input id="NM_AGEN" name="NM_AGEN" type="text" value="{$row.NM_AGEN}" size="40" readonly />
+						<block visible="error.NO_UKK"><span class="form-field-error">{$error.NM_AGEN}</span></block>
+					</td>
+					<td width="100"></td>
+					<td class="form-field-caption" valign="top" align="right" width="250">Port Of Destination</td>
+					<td valign="middle" class="form-field-caption">:</td>
+					<td>
+						<input id="KD_PELABUHAN_ASAL" name="KD_PELABUHAN_ASAL" type="hidden"
+							value="{$row.KD_PELABUHAN_ASAL}" size="3" class="pod" readonly />
+						<input id="NM_PELABUHAN_ASAL" name="NM_PELABUHAN_ASAL" type="text"
+							value="{$row.NM_PELABUHAN_ASAL}" size="40" maxlength="100" style="background-color:#FFFFCC;"
+							title="Autocomplete" class="pod" placeholder="Autocomplete" />
+					</td>
+
+
+				</tr>
+				<tr>
+					<td class="form-field-caption" valign="top" align="right">No PKK</td>
+					<td class="form-field-caption">:
+						<input id="NO_UKK" name="NO_UKK" type="text" value="{$row.NO_UKK}" readonly size="20"
+							maxlength="16" title="Autocomplete" class="pkkkapal" />
+					</td>
+					<td width="100"></td>
+					<td class="form-field-caption" valign="top" align="right" width="250">Final Discharge</td>
+					<td valign="top" class="form-field-caption">: </td>
+					<td>
+						<input id="KD_PELABUHAN_TUJUAN" name="KD_PELABUHAN_TUJUAN" type="hidden"
+							value="{$row.KD_PELABUHAN_TUJUAN}" size="3" class="pod2" readonly />
+						<input id="NM_PELABUHAN_TUJUAN" name="NM_PELABUHAN_TUJUAN" type="text"
+							value="{$row.NM_PELABUHAN_TUJUAN}" size="40" maxlength="100"
+							style="background-color:#FFFFCC;" class="pod2" title="Autocomplete"
+							placeholder="Autocomplete" />
+					</td>
+				</tr>
+				<tr>
+					<td class="form-field-caption" valign="middle" align="right" width="177">No Booking</td>
+					<td colspan="5" class="form-field-caption">:
+						<input id="NO_BOOKING" name="NO_BOOKING" type="text" value="{$row.NO_BOOKING}" size="25"
+							maxlength="16" readonly="readonly" />
+					</td>
+
+					<div id="view_detail"></div>
+
+				</tr>
+			</table>
+		</fieldset>
+
+		<fieldset class="form-fieldset" style="margin: 5px 5px 5px 5px; border-radius: 10px 10px 10px 10px;-moz-border-radius: 10px 10px 10px 10px; 
 -webkit-border-radius: 10px 10px 10px 10px; ">
-	<legend>&nbsp &nbsp  <font color="red"><b>Entry Dokumen Pendukung</b></font></legend>
-    <table style="margin: 10px 10px 10px 10px;" border="0" >
-		<tr>
-        	<td class="form-field-caption" valign="top" align="right">No P.E.B </td>
-			<input type="hidden" id="PENUMPUKAN" size="40" name="PENUMPUKAN" class="kdemkl " placeholder=" AUTOCOMPLETE" style="background-color:#FFFFCC;" /> 
-                <input size="40" name="ID_PENUMPUKAN" id="ID_PENUMPUKAN" type="hidden" />
-                <input size="40" name="ALMT_PENUMPUKAN" id="ALMT_PENUMPUKAN" type="hidden" />
-                <input size="40" name="NPWP_PENUMPUKAN" id="NPWP_PENUMPUKAN" type="hidden" />
-				</td><td valign="top" class="form-field-caption">: 
-					<input id="id_NO_PEB" name="NO_PEB" type="text" value="{$row.NO_PEB}" size="50" size="15"/></td><td width="100"></td>
+			<legend>&nbsp &nbsp <font color="red"><b>Entry Dokumen Pendukung</b></font>
+			</legend>
+			<table style="margin: 10px 10px 10px 10px;" border="0">
+				<tr>
+					<td class="form-field-caption" valign="top" align="right">No P.E.B </td>
+					<input type="hidden" id="PENUMPUKAN" size="40" name="PENUMPUKAN" class="kdemkl "
+						placeholder=" AUTOCOMPLETE" style="background-color:#FFFFCC;" />
+					<input size="40" name="ID_PENUMPUKAN" id="ID_PENUMPUKAN" type="hidden" />
+					<input size="40" name="ALMT_PENUMPUKAN" id="ALMT_PENUMPUKAN" type="hidden" />
+					<input size="40" name="NPWP_PENUMPUKAN" id="NPWP_PENUMPUKAN" type="hidden" />
+					</td>
+					<td valign="top" class="form-field-caption">:
+						<input id="id_NO_PEB" name="NO_PEB" type="text" value="{$row.NO_PEB}" size="50" size="15" />
+					</td>
+					<td width="100"></td>
 					<td class="form-field-caption" valign="middle" align="right">Nomor Dokumen</td>
-            <td class="form-field-caption">: <input type="text" name="NO_DOC" id="NO_DOC"/> </td>
-			</td>
-    	</tr>
-    	<tr>
-        	 <td class="form-field-caption" valign="top" align="right">No. N.P.E</td><td class="form-field-caption"> :
-					<input id="id_NO_NPE" name="NO_NPE" type="text" value="{$row.NO_NPE}" size="50" size="15"/></td>
+					<td class="form-field-caption">: <input type="text" name="NO_DOC" id="NO_DOC" /> </td>
+					</td>
+				</tr>
+				<tr>
+					<td class="form-field-caption" valign="top" align="right">No. N.P.E</td>
+					<td class="form-field-caption"> :
+						<input id="id_NO_NPE" name="NO_NPE" type="text" value="{$row.NO_NPE}" size="50" size="15" />
+					</td>
 					<td width="100">
 					<td class="form-field-caption" valign="middle" align="right">Nomor JPB</td>
-              <td class="form-field-caption"> : <input type="text" name="NO_JPB" id="NO_JPB"/> </td>
-    	</tr>
-		<tr>
-			<td class="form-field-caption" valign="top" align="right">Nomor D.O</td>
-			<td valign="top" class="form-field-caption"> :
-			<input type="text" name="NO_DO" id="NO_DO"/>
-			</td>
-			<td width="100">
-			<td class="form-field-caption" valign="middle" align="right"> BPRP</td>
-            <td class="form-field-caption"> : <input type="text" name="BPRP" id="BPRP"/> </td>
-		</tr>
-		<tR>
-			<td class="form-field-caption" valign="middle" align="right">Nomor B.L</td>
-            <td class="form-field-caption">: <input type="text" name="NO_BL" id="NO_BL"/> </td>
-		</tr>
-		<tr>
-        	<td class="form-field-caption" valign="top" align="left">Nomor SPPB</td>
-            <td class="form-field-caption"> : <input type="text" id="NO_SPPB"  name="NO_SPPB" />  </td>
-			<td width="100">
-			<td class="form-field-caption" valign="middle" align="right">Tanggal SPPB</td>
-            <td class="form-field-caption"> : <input type="text" id="TGL_SPPB"  name="TGL_SPPB"/></td>
-    	</tr>
-		  <tr>
-        	<td class="form-field-caption" valign="middle" align="right">Keterangan</td>
-            <td class="form-field-caption"> : <input type="text" name="keterangan" id="KETERANGAN" style="width:250px"/></td>
-           
-        </tr>
-	</table>
-	</fieldset>
-	<br />
-	 <align="right"><a id="submitForm" onclick="save()" class="link-button" ><img src='images/valid.png' border='0' />&nbsp;Simpan</a></align>
-<br /><br />
-		<!--
+					<td class="form-field-caption"> : <input type="text" name="NO_JPB" id="NO_JPB" /> </td>
+				</tr>
+				<tr>
+					<td class="form-field-caption" valign="top" align="right">Nomor D.O</td>
+					<td valign="top" class="form-field-caption"> :
+						<input type="text" name="NO_DO" id="NO_DO" />
+					</td>
+					<td width="100">
+					<td class="form-field-caption" valign="middle" align="right"> BPRP</td>
+					<td class="form-field-caption"> : <input type="text" name="BPRP" id="BPRP" /> </td>
+				</tr>
+				<tR>
+					<td class="form-field-caption" valign="middle" align="right">Nomor B.L</td>
+					<td class="form-field-caption">: <input type="text" name="NO_BL" id="NO_BL" /> </td>
+				</tr>
+				<tr>
+					<td class="form-field-caption" valign="top" align="left">Nomor SPPB</td>
+					<td class="form-field-caption"> : <input type="text" id="NO_SPPB" name="NO_SPPB" /> </td>
+					<td width="100">
+					<td class="form-field-caption" valign="middle" align="right">Tanggal SPPB</td>
+					<td class="form-field-caption"> : <input type="text" id="TGL_SPPB" name="TGL_SPPB" /></td>
+				</tr>
+				<tr>
+					<td class="form-field-caption" valign="middle" align="right">Keterangan</td>
+					<td class="form-field-caption"> : <input type="text" name="keterangan" id="KETERANGAN"
+							style="width:250px" /></td>
+
+				</tr>
+			</table>
+		</fieldset>
+		<br />
+		<align="right"><a id="submitForm" onclick="save()" class="link-button"><img src='images/valid.png'
+					border='0' />&nbsp;Simpan</a></align>
+			<br /><br />
+			<!--
       
         <tr>
         	<td colspan="3"></td>
@@ -193,201 +228,251 @@
         	
         </tr>
 	</table>-->
-    </center></form>
+			</center>
+	</form>
 </fieldset>
 
 
- 
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
 
-function view_open_stuff()
-	{
+	function view_open_stuff() {
 		//$.blockUI({ message: '<h1><br>Mohon Tunggu</h1><br><img src={$HOME}images/loadingbox.gif /><br><br>' });
 		//alert("yre");
-		$('#view_detail').load("<?=HOME?><?=APPID?>.info/view_detail").dialog({modal:true, height:300,width:500, title:"View Detail"});
+		$('#view_detail').load("<?=HOME?><?=APPID?>.info/view_detail").dialog({ modal: true, height: 300, width: 500, title: "View Detail" });
 		//$('#view_detail').load("<?=HOME?>manifest.popup/view_detail?no_manifest="+a).dialog({modal:true, height:550,width:900, title:"View Detail"});
 	}
 
 
-function save(){
-	if(	($("#ID_PENUMPUKAN").val() == "") || ($("#ID_EMKL").val() == "") || ($("#ID_PNKN_BY").val() == ""))
-	{
-		alert("Pemilik dan Penumpukan Oleh Harus Terisi");
-		return false;		
-	} else {
-	
-	 //alert("submit"); 	
-	 $('#form').submit();
+	function save() {
+
+		var EMKL = $('#EMKL').val();
+		Swal.fire({
+			title: 'Mengecheck Pengkinian NPWP',
+			allowOutsideClick: false,
+			didOpen: function () {
+				Swal.showLoading();
+			}
+		});
+		$.ajax({
+			url: 'http://localhost/uster.maintenance.api_history.ajax/UpdateNPWPByEMKL',
+			type: 'POST',
+			data: {
+				EMKL: EMKL
+			},
+			dataType: 'json',
+			success: function (response) {
+				if (response.message && response.status == '1' && response.activity == 'update') {
+					$("#NPWP_CONSIGNEE").val(response.NPWP16);
+					Swal.fire({
+						title: 'Success!',
+						text: response.message,
+						icon: 'success',
+						confirmButtonText: 'OK'
+					});
+					return false;
+				} else if (response.message && response.status == '1' && response.activity == 'pass') {
+
+					Swal.close();
+					if (($("#ID_PENUMPUKAN").val() == "") || ($("#ID_EMKL").val() == "") || ($("#ID_PNKN_BY").val() == "")) {
+						alert("Pemilik dan Penumpukan Oleh Harus Terisi");
+						return false;
+					} else {
+
+						//alert("submit"); 	
+						$('#form').submit();
+					}
+
+				} else {
+					Swal.fire({
+						title: 'Error!',
+						text: response.message,
+						icon: 'error',
+						confirmButtonText: 'OK'
+					});
+					return false;
+				}
+			},
+			error: function (xhr, status, error) {
+				Swal.fire({
+					title: 'Error!',
+					text: 'Error: ' + error,
+					icon: 'error',
+					confirmButtonText: 'OK'
+				});
+				return false;
+			}
+		});
+
+
+	}
+	$(function () {
+
+
+		$("#EMKL").autocomplete({
+			minLength: 3,
+			source: "{$HOME}{$APPID}.auto/pbm",
+			focus: function (event, ui) {
+				$("#EMKL").val(ui.item.NM_PBM);
+				return false;
+			},
+			select: function (event, ui) {
+				$("#EMKL").val(ui.item.NM_PBM);
+				$("#ID_EMKL").val(ui.item.KD_PBM);
+				$("#PENUMPUKAN").val(ui.item.NM_PBM);
+				$("#ID_PENUMPUKAN").val(ui.item.KD_PBM);
+				$("#ALMT_PENUMPUKAN").val(ui.item.ALMT_PBM);
+				$("#NPWP_PENUMPUKAN").val(ui.item.NO_NPWP_PBM);
+				$("#ACC_EMKL").val(ui.item.NO_ACCOUNT_PBM);
+				return false;
+			}
+		})
+			.data("autocomplete")._renderItem = function (ul, item) {
+				return $("<li></li>")
+					.data("item.autocomplete", item)
+					.append("<a>" + item.NM_PBM + "</a>")
+					.appendTo(ul);
+			};
+
+		$("#PNKN_BY").autocomplete({
+			minLength: 3,
+			source: "{$HOME}{$APPID}.auto/pbm",
+			focus: function (event, ui) {
+				$("#PNKN_BY").val(ui.item.NM_PBM);
+				return false;
+			},
+			select: function (event, ui) {
+				$("#PNKN_BY").val(ui.item.NM_PBM);
+				$("#ID_PNKN_BY").val(ui.item.KD_PBM);
+				$("#ACC_PNKN").val(ui.item.NO_ACCOUNT_PBM);
+				return false;
+			}
+		})
+			.data("autocomplete")._renderItem = function (ul, item) {
+				return $("<li></li>")
+					.data("item.autocomplete", item)
+					.append("<a>" + item.NM_PBM + "</a>")
+					.appendTo(ul);
+			};
+
+		$("#NM_KAPAL").autocomplete({
+			minLength: 3,
+			source: "{$HOME}{$APPID}.auto/master_vessel_palapa",
+			focus: function (event, ui) {
+				$("#NM_KAPAL").val(ui.item.VESSEL);
+				return false;
+			},
+			select: function (event, ui) {
+				$("#KD_KAPAL").val(ui.item.VESSEL_CODE);
+				$("#VOYAGE_IN").val(ui.item.VOYAGE_IN);
+				$("#VOYAGE_OUT").val(ui.item.VOYAGE_OUT);
+				$("#NM_AGEN").val(ui.item.OPERATOR_NAME);
+				$("#KD_AGEN").val(ui.item.OPERATOR_ID);
+				$("#NO_UKK").val(ui.item.ID_VSB_VOYAGE);
+				if (ui.item.VESSEL_CODE && ui.item.ID_VSB_VOYAGE) {
+					$("#NO_BOOKING").val(`BP${ui.item.VESSEL_CODE}${ui.item.ID_VSB_VOYAGE}`);
+				}
+				$("#TGL_BERANGKAT").val(ui.item.ATD)
+				$("#TGL_STACKING").val(ui.item.OPEN_STACK)
+				$("#TGL_MUAT").val(ui.item.CLOSING_TIME_DOC)
+				$("#POL").val(ui.item.ID_POL);
+				$("#POD").val(ui.item.ID_POD);
+				$("#KD_PELABUHAN_ASAL").val(ui.item.ID_POL)
+				$("#KD_PELABUHAN_TUJUAN").val(ui.item.ID_POD);
+				$("#NM_PELABUHAN_ASAL").val(ui.item.POL)
+				$("#NM_PELABUHAN_TUJUAN").val(ui.item.POD);
+				$("#CALL_SIGN").val(ui.item.CALL_SIGN);
+				$("#ETD").val(ui.item.ETD)
+				$("#ETA").val(ui.item.ETA)
+				$("#OPEN_STACK").val(ui.item.OPEN_STACK)
+				$("#CONT_LIMIT").val(ui.item.CONTAINER_LIMIT)
+				$("#VOYAGE").val(ui.item.VOYAGE);
+				return false;
+			}
+		})
+			.data("autocomplete")._renderItem = function (ul, item) {
+				return $("<li></li>")
+					.data("item.autocomplete", item)
+					.append("<a>" + item.VESSEL + " | " + item.VOYAGE_IN + "/" + item.VOYAGE_OUT + "</a>")
+					.appendTo(ul);
+			};
+
+
+		$("#NM_PELABUHAN_ASAL").autocomplete({
+			minLength: 3,
+			source: "{$HOME}{$APPID}.auto/master_pelabuhan_palapa",
+			focus: function (event, ui) {
+				$("#NM_PELABUHAN_ASAL").val(ui.item.CDG_PORT_NAME);
+				return false;
+			},
+			select: function (event, ui) {
+				$("#KD_PELABUHAN_ASAL").val(ui.item.CDG_PORT_CODE);
+				$("#NM_PELABUHAN_ASAL").val(ui.item.CDG_PORT_NAME);
+				return false;
+			}
+		})
+			.data("autocomplete")._renderItem = function (ul, item) {
+				return $("<li></li>")
+					.data("item.autocomplete", item)
+					.append("<a>" + item.CDG_PORT_CODE + " | " + item.CDG_PORT_NAME + "</a>")
+					.appendTo(ul);
+			};
+
+		$("#NM_PELABUHAN_TUJUAN").autocomplete({
+			minLength: 3,
+			source: "{$HOME}{$APPID}.auto/master_pelabuhan_palapa",
+			focus: function (event, ui) {
+				$("#NM_PELABUHAN_TUJUAN").val(ui.item.CDG_PORT_NAME);
+				return false;
+			},
+			select: function (event, ui) {
+				$("#KD_PELABUHAN_TUJUAN").val(ui.item.CDG_PORT_CODE);
+				$("#NM_PELABUHAN_TUJUAN").val(ui.item.CDG_PORT_NAME);
+				return false;
+			}
+		})
+			.data("autocomplete")._renderItem = function (ul, item) {
+				return $("<li></li>")
+					.data("item.autocomplete", item)
+					.append("<a>" + item.CDG_PORT_CODE + " | " + item.CDG_PORT_NAME + "</a>")
+					.appendTo(ul);
+			};
+	});
+
+
+	$(function () {
+
+		$("#tgl_req_dev").datepicker();
+		$("#tgl_req_dev").datepicker("option", "dateFormat", "yy-mm-dd");
+
+		$("#ID_TGL_MULAI").datepicker();
+		$("#ID_TGL_MULAI").datepicker("option", "dateFormat", "yy-mm-dd");
+
+		$("#ID_TGL_NANTI").datepicker();
+		$("#ID_TGL_NANTI").datepicker("option", "dateFormat", "yy-mm-dd");
+
+		$("#TGL_REQ").datepicker();
+		$("#TGL_REQ").datepicker("option", "dateFormat", "yy-mm-dd");
+
+		$("#TGL_SPPB").datepicker();
+		$("#TGL_SPPB").datepicker("option", "dateFormat", "yy-mm-dd");
+
+	});
+
+	function calculator() {
+		//	$.blockUI({ message: '<div id=\"divmsg\"><img src=\"images/cont_loading.gif\" /> <h2>Please wait..</h2></div>' ,css: {'color':'blue', 'height': '90px', 'margin-top': '100px', 'padding-top': '0px' }});
+		$mulai = $('#ID_TGL_MULAI').val();
+		$nanti = $('#ID_TGL_NANTI').val();
+		$.post("{$HOME}<?=APPID?>/refcal/", { 'mulai': $mulai, 'nanti': $nanti }, function (data) {
+			//$.blockUI({ message: '<div id=\"divmsg\">'+data+'</div>' ,css: {'color':'blue', 'height': '90px', 'margin-top': '100px', 'padding-top': '0px' }});
+			$('#id_SHIFT_RFR').val(data);
+		});
 	}
 
-}
-$(function() {	
-	
-	
-	$( "#EMKL" ).autocomplete({
-		minLength: 3,
-		source: "{$HOME}{$APPID}.auto/pbm",
-		focus: function( event, ui ) {
-			$( "#EMKL" ).val( ui.item.NM_PBM );
-			return false;
-		},
-		select: function( event, ui ) {
-			$( "#EMKL" ).val( ui.item.NM_PBM );
-			$( "#ID_EMKL" ).val( ui.item.KD_PBM );
-			$( "#PENUMPUKAN" ).val( ui.item.NM_PBM );
-			$( "#ID_PENUMPUKAN" ).val( ui.item.KD_PBM );
-			$( "#ALMT_PENUMPUKAN" ).val( ui.item.ALMT_PBM );
-			$( "#NPWP_PENUMPUKAN" ).val( ui.item.NO_NPWP_PBM );
-			$( "#ACC_EMKL" ).val( ui.item.NO_ACCOUNT_PBM );
-			return false;
-		}
-	})
-	.data( "autocomplete" )._renderItem = function( ul, item ) {
-		return $( "<li></li>" )
-			.data( "item.autocomplete", item )
-			.append( "<a>" + item.NM_PBM + "</a>" )
-			.appendTo( ul );
-	};
-	
-	$( "#PNKN_BY" ).autocomplete({
-		minLength: 3,
-		source: "{$HOME}{$APPID}.auto/pbm",
-		focus: function( event, ui ) {
-			$( "#PNKN_BY" ).val( ui.item.NM_PBM );
-			return false;
-		},
-		select: function( event, ui ) {
-			$( "#PNKN_BY" ).val( ui.item.NM_PBM );
-			$( "#ID_PNKN_BY" ).val( ui.item.KD_PBM );
-			$( "#ACC_PNKN" ).val( ui.item.NO_ACCOUNT_PBM );
-			return false;
-		}
-	})
-	.data( "autocomplete" )._renderItem = function( ul, item ) {
-		return $( "<li></li>" )
-			.data( "item.autocomplete", item )
-			.append( "<a>" + item.NM_PBM + "</a>" )
-			.appendTo( ul );
-	};
-	
-	$( "#NM_KAPAL" ).autocomplete({
-		minLength: 3,
-		source: "{$HOME}{$APPID}.auto/master_vessel_palapa",
-		focus: function(event, ui) {
-			$( "#NM_KAPAL" ).val( ui.item.VESSEL);
-			return false;
-		},
-		select: function(event, ui) {
-			$( "#KD_KAPAL").val( ui.item.VESSEL_CODE);
-			$( "#VOYAGE_IN").val( ui.item.VOYAGE_IN);
-			$( "#VOYAGE_OUT").val( ui.item.VOYAGE_OUT);
-			$( "#NM_AGEN").val( ui.item.OPERATOR_NAME);
-			$( "#KD_AGEN").val( ui.item.OPERATOR_ID);
-			$( "#NO_UKK").val( ui.item.ID_VSB_VOYAGE);
-			if (ui.item.VESSEL_CODE && ui.item.ID_VSB_VOYAGE) {
-                $("#NO_BOOKING").val(`BP${ui.item.VESSEL_CODE}${ui.item.ID_VSB_VOYAGE}`);
-            }
-			$( "#TGL_BERANGKAT").val(ui.item.ATD)
-			$( "#TGL_STACKING").val(ui.item.OPEN_STACK)
-			$( "#TGL_MUAT").val(ui.item.CLOSING_TIME_DOC)
-			$( "#POL").val(ui.item.ID_POL);
-			$( "#POD").val(ui.item.ID_POD);
-			$( "#KD_PELABUHAN_ASAL").val(ui.item.ID_POL)
-			$( "#KD_PELABUHAN_TUJUAN").val(ui.item.ID_POD);
-			$( "#NM_PELABUHAN_ASAL").val(ui.item.POL)
-			$( "#NM_PELABUHAN_TUJUAN").val(ui.item.POD);
-			$("#CALL_SIGN").val(ui.item.CALL_SIGN);
-			$( "#ETD").val(ui.item.ETD)
-			$( "#ETA").val(ui.item.ETA)
-			$("#OPEN_STACK").val(ui.item.OPEN_STACK)
-			$("#CONT_LIMIT").val(ui.item.CONTAINER_LIMIT)
-			$("#VOYAGE").val(ui.item.VOYAGE);
-			return false;
-		}
-	})
-	.data( "autocomplete" )._renderItem = function( ul, item ) {
-		return $( "<li></li>" )
-			.data( "item.autocomplete", item )
-			.append( "<a>" + item.VESSEL+ " | " + item.VOYAGE_IN+ "/" + item.VOYAGE_OUT + "</a>" )
-			.appendTo( ul );
-	};         
-	
-	
-	$( "#NM_PELABUHAN_ASAL" ).autocomplete({
-		minLength: 3,
-		source: "{$HOME}{$APPID}.auto/master_pelabuhan_palapa",
-		focus: function(event, ui) {
-			$( "#NM_PELABUHAN_ASAL" ).val( ui.item.CDG_PORT_NAME);
-			return false;
-		},
-		select: function(event, ui) {
-			$( "#KD_PELABUHAN_ASAL" ).val( ui.item.CDG_PORT_CODE );
-			$( "#NM_PELABUHAN_ASAL" ).val( ui.item.CDG_PORT_NAME );
-			return false;
-		}
-	})
-	.data( "autocomplete" )._renderItem = function( ul, item ) {
-		return $( "<li></li>" )
-			.data( "item.autocomplete", item )
-			.append( "<a>" + item.CDG_PORT_CODE+ " | " + item.CDG_PORT_NAME+ "</a>" )
-			.appendTo( ul );
-	};    
-
-	$( "#NM_PELABUHAN_TUJUAN" ).autocomplete({
-		minLength: 3,
-		source: "{$HOME}{$APPID}.auto/master_pelabuhan_palapa",
-		focus: function(event, ui) {
-			$( "#NM_PELABUHAN_TUJUAN" ).val( ui.item.CDG_PORT_NAME);
-			return false;
-		},
-		select: function(event, ui) {
-			$( "#KD_PELABUHAN_TUJUAN" ).val( ui.item.CDG_PORT_CODE );
-			$( "#NM_PELABUHAN_TUJUAN" ).val( ui.item.CDG_PORT_NAME );
-			return false;
-		}
-	})
-	.data( "autocomplete" )._renderItem = function( ul, item ) {
-		return $( "<li></li>" )
-			.data( "item.autocomplete", item )
-			.append( "<a>" + item.CDG_PORT_CODE+ " | " + item.CDG_PORT_NAME+ "</a>" )
-			.appendTo( ul );
-	};    
-});
-	
-	
-	$(function() {	
-	
-	$( "#tgl_req_dev" ).datepicker();
-	$( "#tgl_req_dev" ).datepicker( "option", "dateFormat", "yy-mm-dd" );
-
-	$( "#ID_TGL_MULAI" ).datepicker();
-	$( "#ID_TGL_MULAI" ).datepicker( "option", "dateFormat", "yy-mm-dd" );
-
-	$( "#ID_TGL_NANTI" ).datepicker();
-	$( "#ID_TGL_NANTI" ).datepicker( "option", "dateFormat", "yy-mm-dd" );
-
-	$( "#TGL_REQ" ).datepicker();
-	$( "#TGL_REQ" ).datepicker( "option", "dateFormat", "yy-mm-dd" );
-	
-	$( "#TGL_SPPB" ).datepicker();
-	$( "#TGL_SPPB" ).datepicker( "option", "dateFormat", "yy-mm-dd" );
-
-});
-
-function calculator(){
-//	$.blockUI({ message: '<div id=\"divmsg\"><img src=\"images/cont_loading.gif\" /> <h2>Please wait..</h2></div>' ,css: {'color':'blue', 'height': '90px', 'margin-top': '100px', 'padding-top': '0px' }});
-	$mulai = $('#ID_TGL_MULAI').val();
-	$nanti = $('#ID_TGL_NANTI').val();
-	$.post("{$HOME}<?=APPID?>/refcal/",{'mulai': $mulai, 'nanti':$nanti},function(data){
-		//$.blockUI({ message: '<div id=\"divmsg\">'+data+'</div>' ,css: {'color':'blue', 'height': '90px', 'margin-top': '100px', 'padding-top': '0px' }});
-		$('#id_SHIFT_RFR').val(data);
-	});
-}
-
-function change_page($page){
-	var selected_p = $page;
-	$("#view_detail").load('<?=HOME?><?=APPID?>.info/view_detail?pp='+selected_p+' #list', function(data) {});
-}
+	function change_page($page) {
+		var selected_p = $page;
+		$("#view_detail").load('<?=HOME?><?=APPID?>.info/view_detail?pp=' + selected_p + ' #list', function (data) { });
+	}
 
 
 </script>

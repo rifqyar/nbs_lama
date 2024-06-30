@@ -236,6 +236,8 @@
 <div id="demo8"> </div>
 <?php $jml_tmp = count($row_list);?>
 <input type="hidden" value="{$jml_tmp}" id="jml_tmp"/>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
 function save_request($total){
 var answer = confirm("Yakin untuk menyimpan request ini?");
@@ -992,23 +994,76 @@ function info_lapangan(){
 }
 
 function save(){
-	var no_req = $("#NO_REQ").val();
-	var id_consignee = $("#ID_CONSIGNEE").val();
-	var consig_person = $("#CONSIGNEE_PERSONAL").val();
-	var no_do = $("#NO_DO").val();
-	var no_bl = $("#NO_BL").val();
-	var no_sppb = $("#NO_SPPB").val();
-	var tgl_sppb = $("#TGL_SPPB").val();
-	var type_s = $("#TYPE_S").val();
-	var keterangan = $("#keterangan").val();
-	var url = '<?=HOME?><?=APPID?>/save_edit/';
-	$.blockUI({ message: '<h1>Please wait...</h1>' });		
-	$.post(url,{ no_req : no_req, id_consignee : id_consignee, consig_person : consig_person, no_do : no_do, no_bl : no_bl, no_sppb : no_sppb, tgl_sppb : tgl_sppb, type_s : type_s, keterangan : keterangan}, function(data){
-		if(data){
-				$.unblockUI({ 
-				onUnblock: function(){ alert('Saved'); } 
+
+	var CONSIGNEE = $('#CONSIGNEE').val();
+		var NPWP_CONSIGNEE = $("#NPWP_CONSIGNEE").val();
+		Swal.fire({
+			title: 'Mengecheck Pengkinian NPWP',
+			allowOutsideClick: false,
+			didOpen: function () {
+				Swal.showLoading();
+			}
+		});
+		$.ajax({
+			url: 'http://localhost/uster.maintenance.api_history.ajax/UpdateNPWP',
+			type: 'POST',
+			data: {
+				CONSIGNEE: CONSIGNEE,
+				NPWP_CONSIGNEE: NPWP_CONSIGNEE
+			},
+			dataType: 'json',
+			success: function (response) {
+				if (response.message && response.status == '1' && response.activity == 'update') {
+					$("#NPWP_CONSIGNEE").val(response.NPWP16);
+					Swal.fire({
+						title: 'Success!',
+						text: response.message,
+						icon: 'success',
+						confirmButtonText: 'OK'
+					});
+					return false;
+				} else if (response.message && response.status == '1' && response.activity == 'pass') {
+					Swal.close();
+					var no_req = $("#NO_REQ").val();
+					var id_consignee = $("#ID_CONSIGNEE").val();
+					var consig_person = $("#CONSIGNEE_PERSONAL").val();
+					var no_do = $("#NO_DO").val();
+					var no_bl = $("#NO_BL").val();
+					var no_sppb = $("#NO_SPPB").val();
+					var tgl_sppb = $("#TGL_SPPB").val();
+					var type_s = $("#TYPE_S").val();
+					var keterangan = $("#keterangan").val();
+					var url = '<?=HOME?><?=APPID?>/save_edit/';
+					$.blockUI({ message: '<h1>Please wait...</h1>' });		
+					$.post(url,{ no_req : no_req, id_consignee : id_consignee, consig_person : consig_person, no_do : no_do, no_bl : no_bl, no_sppb : no_sppb, tgl_sppb : tgl_sppb, type_s : type_s, keterangan : keterangan}, function(data){
+						if(data){
+								$.unblockUI({ 
+								onUnblock: function(){ alert('Saved'); } 
+								});
+						}
+					});
+				
+					
+				} else {
+					Swal.fire({
+						title: 'Error!',
+						text: response.message,
+						icon: 'error',
+						confirmButtonText: 'OK'
+					});
+					return false;
+				}
+			},
+			error: function (xhr, status, error) {
+				Swal.fire({
+					title: 'Error!',
+					text: 'Error: ' + error,
+					icon: 'error',
+					confirmButtonText: 'OK'
 				});
-		}
-	});
+				return false;
+			}
+		});
+	
 }
 </script>
