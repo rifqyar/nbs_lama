@@ -70,7 +70,7 @@ try {
             UPDATE
                 MST_PELANGGAN
             SET
-                NO_NPWP_PBM =  '$NPWP16'
+                NO_NPWP_PMB16 =  '$NPWP16'
             WHERE
                 NO_NPWP_PBM = '$NPWP_DEFAULT' ";
 
