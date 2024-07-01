@@ -8,6 +8,7 @@ $EMKL = isset($_POST['EMKL']) ? $_POST['EMKL'] : '';
 $query = $db->query("
     SELECT
         NM_PBM AS CONSIGNEE,
+        NO_NPWP_PMB16 AS NPWP_CONSIGNEE16,
         NO_NPWP_PBM AS NPWP_CONSIGNEE
     FROM
         MST_PELANGGAN
@@ -15,23 +16,19 @@ $query = $db->query("
 
 $result = $query->fetchRow();
 $CONSIGNEE = $result["CONSIGNEE"];
-$NPWP_CONSIGNEE = $result["NPWP_CONSIGNEE"];
+$NPWP_CONSIGNEE = $result["NPWP_CONSIGNEE16"];
 
-$NPWP_DEFAULT = $NPWP_CONSIGNEE;
+$NPWP_DEFAULT = $result["NPWP_CONSIGNEE"];
 
-// Remove non-numeric characters
-$NPWP_CONSIGNEE = preg_replace("/[^0-9]/", "", $NPWP_CONSIGNEE);
 
-// Initialize response array
-$response = array();
 
 try {
-    if (strlen($NPWP_CONSIGNEE) == 15) {
+    if ($NPWP_CONSIGNEE == null) {
 
         $curl = curl_init();
 
         curl_setopt_array($curl, array(
-            CURLOPT_URL => 'https://ibs-unicorn.pelindo.co.id/api/ApiBupot/ValidasiNpwpV3?NPWP=' . $NPWP_CONSIGNEE,
+            CURLOPT_URL => 'https://ibs-unicorn.pelindo.co.id/api/ApiBupot/ValidasiNpwpV3?NPWP=' . $NPWP_DEFAULT,
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_ENCODING => '',
             CURLOPT_MAXREDIRS => 10,
@@ -100,7 +97,7 @@ try {
                 "message" => $response['message']
             );
         }
-    } else if (strlen($NPWP_CONSIGNEE) == 16) {
+    } else if ($NPWP_CONSIGNEE != null) {
         // Create response array
         $response = array(
             "status" => "1",

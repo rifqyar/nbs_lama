@@ -13,8 +13,17 @@ $NPWP_CONSIGNEE = preg_replace("/[^0-9]/", "", $NPWP_CONSIGNEE);
 // Initialize response array
 $response = array();
 
+$query = "SELECT NO_NPWP_PMB16 FROM MST_PELANGGAN  
+WHERE NO_NPWP_PBM = '$NPWP_CONSIGNEE'";
+
+$result = $db->query($query);
+$result = $result->fetchRow();
+$NPWP16 = $result["NO_NPWP_PMB16"];
+
+
+
 try {
-    if (strlen($NPWP_CONSIGNEE) == 15) {
+    if ($NPWP16 == null) {
 
         $curl = curl_init();
 
@@ -88,7 +97,7 @@ try {
                 "message" => $response['message']
             );
         }
-    } else if (strlen($NPWP_CONSIGNEE) == 16) {
+    } else if (strlen($NPWP16) == 16) {
         // Create response array
         $response = array(
             "status" => "1",
