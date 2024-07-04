@@ -1,0 +1,348 @@
+<span class="graybrown"><img src='images/dokumenbig.png' border='0' class="icon" />
+	<font color="#0378C6"> Pengkinian </font> NPWP
+</span>
+
+<fieldset class="form-fieldset" style="margin: 5px 5px 5px 5px; ">
+	<form id="form" action="<?=HOME?><?=APPID?>/add_do" method="POST">
+
+		<fieldset class="form-fieldset" style="margin: 5px 5px 5px 5px; border-radius: 10px 10px 10px 10px;-moz-border-radius: 10px 10px 10px 10px; 
+-webkit-border-radius: 10px 10px 10px 10px; ">
+			<legend>&nbsp &nbsp <font color="red"><b>Detail Pengguna Jasa Existing</b></font>
+			</legend>
+			<table style="margin: 10px 10px 10px 10px;">
+				<tr>
+					<td class="form-field-caption" valign="middle" align="right">Search NPWP</td>
+					<td class="form-field-caption"> : </td>
+					<td> <input type="text" value="" maxlength="23" class="suggestuwriter" size="12" id="NPWP_SEARCH"
+							style="font-size:26px; font-weight:bold; color:#F00" tabindex="1" />
+						*min 4 karakter </td>
+
+				</tr>
+				<tr>
+					<td class="form-field-caption" valign="middle" align="right">NM PBM</td>
+					<td class="form-field-caption"> : </td>
+					<td> <input type="text" value="" maxlength="100" size="40" id="NM_PBM" name="NM_PBM"
+							readonly="readonly" />
+					</td>
+				</tr>
+				<tr>
+					<td class="form-field-caption" valign="middle" align="right">ALMT PBM</td>
+					<td class="form-field-caption"> : </td>
+					<td> <input type="text" value="" maxlength="200" size="60" id="ALMT_PBM" name="ALMT_PBM"
+							readonly="readonly" />
+					</td>
+				</tr>
+				<tr>
+					<td class="form-field-caption" valign="middle" align="right">NO TELP</td>
+					<td class="form-field-caption"> : </td>
+					<td> <input type="text" value="" maxlength="15" size="20" id="NO_TELP" name="NO_TELP"
+							readonly="readonly" />
+					</td>
+				</tr>
+				<tr>
+					<td class="form-field-caption" valign="middle" align="right">NO NPWP PBM</td>
+					<td class="form-field-caption"> : </td>
+					<td> <input type="text" value="" maxlength="15" size="20" id="NO_NPWP_PBM" name="NO_NPWP_PBM"
+							readonly="readonly" />
+					</td>
+				</tr>
+				<tr>
+					<td class="form-field-caption" valign="middle" align="right">PELANGGAN AKTIF</td>
+					<td class="form-field-caption"> : </td>
+					<td> <input type="text" id="PELANGGAN_AKTIF" name="PELANGGAN_AKTIF" readonly="readonly" />
+					</td>
+				</tr>
+				<tr>
+					<td class="form-field-caption" valign="middle" align="right">NO NPWP PBM 16</td>
+					<td class="form-field-caption"> : </td>
+					<td> <input type="text" value="" maxlength="16" size="20" id="NO_NPWP_PBM16" name="NO_NPWP_PBM16"
+							readonly="readonly" />
+					</td>
+				</tr>
+			</table>
+		</fieldset>
+		<fieldset id="form-update-container" class="form-fieldset" style="margin: 5px 5px 5px 5px; border-radius: 10px 10px 10px 10px;-moz-border-radius: 10px 10px 10px 10px; 
+-webkit-border-radius: 10px 10px 10px 10px; display: none;">
+			<legend id="title-form"> &nbsp &nbsp <font color="red"><b></b></font>
+			</legend>
+			<table style="margin: 10px 10px 10px 10px;">
+				<tr>
+					<td class="form-field-caption" valign="middle" align="right">NM PBM</td>
+					<td class="form-field-caption"> : </td>
+					<td> <input type="text" value="" maxlength="100" size="40" id="NM_PBM_EDIT" name="NM_PBM_EDIT"
+							readonly="readonly" />
+					</td>
+				</tr>
+				<tr class="">
+					<td class="form-field-caption" valign="middle" align="right">ALMT PBM</td>
+					<td class="form-field-caption"> : </td>
+					<td> <input type="text" value="" maxlength="200" size="60" id="ALMT_PBM_EDIT" name="ALMT_PBM_EDIT"
+							readonly="readonly" />
+					</td>
+				</tr>
+				<tr>
+					<td class="form-field-caption" valign="middle" align="right">NO TELP</td>
+					<td class="form-field-caption"> : </td>
+					<td> <input type="text" value="" maxlength="15" size="20" id="NO_TELP_EDIT" name="NO_TELP_EDIT"
+							readonly="readonly" />
+					</td>
+				</tr>
+				<tr>
+					<td class="form-field-caption" valign="middle" align="right">NO NPWP PBM</td>
+					<td class="form-field-caption"> : </td>
+					<td> <input type="text" value="" maxlength="15" size="20" id="NO_NPWP_PBM_EDIT"
+							name="NO_NPWP_PBM_EDIT" readonly="readonly" />
+					</td>
+				</tr>
+				<tr>
+					<td class="form-field-caption" valign="middle" align="right">PELANGGAN AKTIF</td>
+					<td class="form-field-caption"> : </td>
+					<td> <input type="text" id="PELANGGAN_AKTIF_EDIT" name="PELANGGAN_AKTIF_EDIT" readonly="readonly" />
+					</td>
+				</tr>
+				<tr>
+					<td class="form-field-caption" valign="middle" align="right">NO NPWP PBM 16</td>
+					<td class="form-field-caption"> : </td>
+					<td> <input type="text" value="" maxlength="16" size="20" id="NO_NPWP_PBM16_EDIT"
+							name="NO_NPWP_PBM16_EDIT" readonly="readonly" />
+					</td>
+				</tr>
+			</table>
+		</fieldset>
+
+		<br />
+		<align="right">
+			<!-- <a onclick="save()" class="link-button"><img src='images/valid.png' border='0' />&nbsp;Simpan</a> -->
+			</align>
+			</center>
+	</form>
+</fieldset>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+	$(document).ready(function () {
+		function setValueAndRemoveReadonly(field, value) {
+			if (!value) {
+				$(field).val('').prop('readonly', false);
+			} else {
+				$(field).val(value);
+			}
+		}
+		function getNPWP(npwp) {
+			$.ajax({
+				url: 'http://10.15.42.158/uster.maintenance.api_history.ajax/UpdateNPWPView',
+				type: 'POST',
+				data: {
+					NPWP_CONSIGNEE: npwp
+				},
+				dataType: 'json',
+				success: function (response) {
+					if (response.message && response.status == '1' && response.activity == 'pass') {
+						if (response.response.npwp16) {
+							$("#NO_NPWP_PBM16").val(response.response.npwp16);
+							$("#NO_NPWP_PBM16_EDIT").val(response.response.npwp16);
+						} else {
+							$("#NO_NPWP_PBM16_EDIT").val('').prop('readonly', false);
+						}
+
+						if (response.response.namaWp) {
+							$("#NM_PBM_EDIT").val(response.response.namaWp);
+						} else {
+							$("#NM_PBM_EDIT").val('').prop('readonly', false);
+						}
+
+						if (response.response.alamat) {
+							$("#ALMT_PBM_EDIT").val(response.response.alamat);
+						} else {
+							$("#ALMT_PBM_EDIT").val('').prop('readonly', false);
+						}
+
+						if (response.response.npwp15) {
+							$("#NO_NPWP_PBM_EDIT").val(response.response.npwp15);
+						} else {
+							$("#NO_NPWP_PBM_EDIT").val('').prop('readonly', false);
+						}
+
+						if (response.response.npwp16) {
+							$("#NO_NPWP_PBM16_EDIT").val(response.response.npwp16);
+						} else {
+							$("#NO_NPWP_PBM16_EDIT").val('').prop('readonly', false);
+						}
+
+						$("#PELANGGAN_AKTIF_EDIT").val($("#PELANGGAN_AKTIF").val());
+
+						setValueAndRemoveReadonly("#NO_TELP_EDIT", $("#NO_TELP").val());
+
+						Swal.fire({
+							title: 'Success!',
+							text: response.message,
+							icon: 'success',
+							confirmButtonText: 'OK'
+						});
+						return true;
+					} else if (response.message && response.status == 'failed' && response.activity == 'new') {
+						if (response.response.npwp16) {
+
+							$("#NO_NPWP_PBM16_EDIT").val(response.response.npwp16);
+						} else {
+							$("#NO_NPWP_PBM16_EDIT").val('').prop('readonly', false);
+						}
+
+						if (response.response.namaWp) {
+							$("#NM_PBM_EDIT").val(response.response.namaWp);
+						} else {
+							$("#NM_PBM_EDIT").val('').prop('readonly', false);
+						}
+
+						if (response.response.alamat) {
+							$("#ALMT_PBM_EDIT").val(response.response.alamat);
+						} else {
+							$("#ALMT_PBM_EDIT").val('').prop('readonly', false);
+						}
+
+						if (response.response.npwp15) {
+							$("#NO_NPWP_PBM_EDIT").val(response.response.npwp15);
+						} else {
+							$("#NO_NPWP_PBM_EDIT").val('').prop('readonly', false);
+						}
+
+						if (response.response.npwp16) {
+							$("#NO_NPWP_PBM16_EDIT").val(response.response.npwp16);
+						} else {
+							$("#NO_NPWP_PBM16_EDIT").val('').prop('readonly', false);
+						}
+
+						$("#PELANGGAN_AKTIF_EDIT").val(1);
+
+						setValueAndRemoveReadonly("#NO_TELP_EDIT", $("#NO_TELP").val());
+
+						Swal.fire({
+							title: 'Success!',
+							text: response.message,
+							icon: 'success',
+							confirmButtonText: 'OK'
+						});
+						return true;
+					} else if (response.message && response.status == 'failed' && response.activity == 'update') {
+						setValueAndRemoveReadonly("#NM_PBM_EDIT", $("#NM_PBM").val());
+						setValueAndRemoveReadonly("#ALMT_PBM_EDIT", $("#ALMT_PBM").val());
+						setValueAndRemoveReadonly("#NO_TELP_EDIT", $("#NO_TELP").val());
+						setValueAndRemoveReadonly("#NO_NPWP_PBM_EDIT", $("#NO_NPWP_PBM").val());
+						setValueAndRemoveReadonly("#PELANGGAN_AKTIF_EDIT", $("#PELANGGAN_AKTIF").val());
+						setValueAndRemoveReadonly("#NO_NPWP_PBM16_EDIT", $("#NO_NPWP_PBM16").val());
+
+						Swal.fire({
+							title: 'Success!',
+							text: response.message,
+							icon: 'success',
+							confirmButtonText: 'OK'
+						});
+						return false;
+					}
+				},
+				error: function (xhr, status, error) {
+					Swal.fire({
+						title: 'Error!',
+						text: 'Error: ' + error,
+						icon: 'error',
+						confirmButtonText: 'OK'
+					});
+				}
+			});
+
+		}
+		$("#NPWP_SEARCH").on("keypress", function (e) {
+
+			$("#form-update-container").css("display", "none");
+			if (e.which == 13) {
+				e.preventDefault();
+				var npwp = $(this).val();
+				Swal.fire({
+					title: 'Mengecheck Pengkinian NPWP',
+					allowOutsideClick: false,
+					didOpen: function () {
+						Swal.showLoading();
+					}
+				});
+				$.ajax({
+					url: "{$HOME}{$APPID}.auto/pelanggan",
+					type: "GET",
+					data: { term: npwp },
+					success: function (data) {
+						data = JSON.parse(data);
+
+						if (data.length > 0) {
+							var item = data[0];
+							$("#NM_PBM").val(item.NM_PBM);
+							$("#ALMT_PBM").val(item.ALMT_PBM);
+							$("#NO_TELP").val(item.NO_TELP);
+							$("#NO_NPWP_PBM").val(item.NO_NPWP_PBM);
+							$("#PELANGGAN_AKTIF").val(item.PELANGGAN_AKTIF);
+
+							if (item['NO_NPWP_PBM16'] == null) {
+								$("#title-form b").text('Update Pelanggan Sesuai Dengan Data Pelindo');
+								$("#form-update-container").css("display", "block");
+								result = getNPWP(npwp);
+							} else {
+								$("#NO_NPWP_PBM16").val(item.NO_NPWP_PBM16);
+								Swal.fire({
+									title: 'Success!',
+									text: "Data NPWP Sudah Terupdate Sebelumnya",
+									icon: 'success',
+									confirmButtonText: 'OK'
+								});
+							}
+
+						} else {
+							$("#title-form b").text('Tambahkan Pelanggan Baru Sesuai Dengan Data Pelindo');
+							$("#form-update-container").css("display", "block");
+							result = getNPWP(npwp);
+
+						}
+					},
+					error: function () {
+						alert("Error occurred while fetching data.");
+					}
+				});
+			}
+		});
+	});
+
+	function save() {
+		if ($("#NO_CONTAINER_OLD").val() == '' || $("#NO_CONTAINER_NEW").val() == '') {
+			$.blockUI({ message: '<h1>No.Container Lama / Baru Harus Diisi</h1>' });
+			setTimeout($.unblockUI, 1000);
+			return false;
+		}
+		else {
+			var no_cont_old = $("#NO_CONTAINER_OLD").val();
+			var no_cont_new = $("#NO_CONTAINER_NEW").val();
+			var size_new = $("#SIZE_NEW").val();
+			var type_new = $("#TYPE_NEW").val();
+
+			var answer = confirm("Yakin untuk menyimpan ini? Pastikan Inputan Anda Sudah Benar");
+			if (answer) {
+				var url = "{$HOME}{$APPID}/save_rename";
+				$.blockUI({ message: '<h1>Please Wait !!!</h1>' });
+				$.post(url, { NO_CONT_OLD: no_cont_old, NO_CONT_NEW: no_cont_new, SIZE_NEW: size_new, TYPE_NEW: type_new }, function (data) {
+					if (data == "Y") {
+						$.blockUI({ message: '<h1>Rename Success</h1>' });
+						setTimeout($.unblockUI, 1000);
+					}
+					else if (data == "LOGIN") {
+						$.blockUI({ message: '<h1>Silahkan Login Ulang</h1>' });
+						setTimeout($.unblockUI, 1000);
+					}
+					else if (data == "Z") {
+						$.blockUI({ message: '<h1>Maaf, No. Container Baru Sudah Ada</h1>' });
+						setTimeout($.unblockUI, 1000);
+					}
+					else {
+						alert(data);
+						$.blockUI({ message: '<h1>Failed</h1>' });
+						setTimeout($.unblockUI, 1000);
+					}
+				});
+			}
+		}
+	}
+</script>

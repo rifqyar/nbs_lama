@@ -77,7 +77,7 @@ try {
                     "status" => "1",
                     "message" => "DATA Sudah Melakukan Pengkinian WPWP, Silakan Klik Tombol Simpan Kembali",
                     "NPWP16" => $NPWP16,
-                    "activity" => "update"
+                    "activity" => "pass"
                 );
             } else {
                 $response = array(
