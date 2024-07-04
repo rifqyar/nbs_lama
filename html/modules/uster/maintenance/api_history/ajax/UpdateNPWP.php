@@ -13,17 +13,16 @@ $NPWP_CONSIGNEE = preg_replace("/[^0-9]/", "", $NPWP_CONSIGNEE);
 // Initialize response array
 $response = array();
 
-$query = "SELECT NO_NPWP_PMB16 FROM MST_PELANGGAN  
-WHERE NO_NPWP_PBM = '$NPWP_CONSIGNEE'";
+$query = "SELECT NO_NPWP_PBM16 FROM MST_PELANGGAN  
+WHERE NO_NPWP_PBM = '$NPWP_DEFAULT' OR NO_NPWP_PBM16 = '$NPWP_DEFAULT'";
 
 $result = $db->query($query);
 $result = $result->fetchRow();
-$NPWP16 = $result["NO_NPWP_PMB16"];
-
+$NPWP16 = $result["NO_NPWP_PBM16"];
 
 
 try {
-    if ($NPWP16 == null) {
+    if ($NPWP16 == null){
 
         $curl = curl_init();
 
@@ -67,7 +66,7 @@ try {
             UPDATE
                 MST_PELANGGAN
             SET
-                NO_NPWP_PMB16 =  '$NPWP16'
+                NO_NPWP_PBM16 =  '$NPWP16'
             WHERE
                 NO_NPWP_PBM = '$NPWP_DEFAULT' ";
 
@@ -102,7 +101,7 @@ try {
         $response = array(
             "status" => "1",
             "message" => "DATA IDENTITAS BERHASIL MELAKUKAN PENGKINIAN NPWP",
-            "NPWP16" => $NPWP_CONSIGNEE,
+            "NPWP16" => $NPWP16,
             "activity" => "pass"
         );
     } else {

@@ -8,7 +8,7 @@ $EMKL = isset($_POST['EMKL']) ? $_POST['EMKL'] : '';
 $query = $db->query("
     SELECT
         NM_PBM AS CONSIGNEE,
-        NO_NPWP_PMB16 AS NPWP_CONSIGNEE16,
+        NO_NPWP_PBM16 AS NPWP_CONSIGNEE16,
         NO_NPWP_PBM AS NPWP_CONSIGNEE
     FROM
         MST_PELANGGAN
@@ -67,7 +67,7 @@ try {
             UPDATE
                 MST_PELANGGAN
             SET
-                NO_NPWP_PMB16 =  '$NPWP16'
+                NO_NPWP_PBM16 =  '$NPWP16'
             WHERE
                 NO_NPWP_PBM = '$NPWP_DEFAULT' ";
 
