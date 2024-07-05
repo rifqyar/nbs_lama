@@ -105,6 +105,8 @@
 					<td class="form-field-caption"> : </td>
 					<td> <input type="text" value="" maxlength="16" size="20" id="NO_NPWP_PBM16_EDIT"
 							name="NO_NPWP_PBM16_EDIT" readonly="readonly" />
+						<input type="hidden" value="" maxlength="16" size="20" id="ACTIVITY" name="ACTIVITY"
+							readonly="readonly" />
 					</td>
 				</tr>
 			</table>
@@ -112,7 +114,7 @@
 
 		<br />
 		<align="right">
-			<!-- <a onclick="save()" class="link-button"><img src='images/valid.png' border='0' />&nbsp;Simpan</a> -->
+			<a onclick="save()" class="link-button"><img src='images/valid.png' border='0' />&nbsp;Simpan</a>
 			</align>
 			</center>
 	</form>
@@ -129,7 +131,7 @@
 		}
 		function getNPWP(npwp) {
 			$.ajax({
-				url: 'http://10.15.42.158/uster.maintenance.api_history.ajax/UpdateNPWPView',
+				url: '{$HOME}uster.maintenance.api_history.ajax/UpdateNPWPView',
 				type: 'POST',
 				data: {
 					NPWP_CONSIGNEE: npwp
@@ -178,8 +180,10 @@
 							icon: 'success',
 							confirmButtonText: 'OK'
 						});
+						$("#ACTIVITY").val('UPDATE');
 						return true;
 					} else if (response.message && response.status == 'failed' && response.activity == 'new') {
+						$("#ACTIVITY").val('NEW');
 						if (response.response.npwp16) {
 
 							$("#NO_NPWP_PBM16_EDIT").val(response.response.npwp16);
@@ -223,6 +227,7 @@
 						});
 						return true;
 					} else if (response.message && response.status == 'failed' && response.activity == 'update') {
+						$("#ACTIVITY").val('UPDATE');
 						setValueAndRemoveReadonly("#NM_PBM_EDIT", $("#NM_PBM").val());
 						setValueAndRemoveReadonly("#ALMT_PBM_EDIT", $("#ALMT_PBM").val());
 						setValueAndRemoveReadonly("#NO_TELP_EDIT", $("#NO_TELP").val());
@@ -231,12 +236,25 @@
 						setValueAndRemoveReadonly("#NO_NPWP_PBM16_EDIT", $("#NO_NPWP_PBM16").val());
 
 						Swal.fire({
-							title: 'Success!',
+							title: 'Error!',
 							text: response.message,
-							icon: 'success',
+							icon: 'error',
 							confirmButtonText: 'OK'
 						});
 						return false;
+					} else {
+						setValueAndRemoveReadonly("#NM_PBM_EDIT", $("#NM_PBM").val());
+						setValueAndRemoveReadonly("#ALMT_PBM_EDIT", $("#ALMT_PBM").val());
+						setValueAndRemoveReadonly("#NO_TELP_EDIT", $("#NO_TELP").val());
+						setValueAndRemoveReadonly("#NO_NPWP_PBM_EDIT", $("#NO_NPWP_PBM").val());
+						setValueAndRemoveReadonly("#PELANGGAN_AKTIF_EDIT", $("#PELANGGAN_AKTIF").val());
+						setValueAndRemoveReadonly("#NO_NPWP_PBM16_EDIT", $("#NO_NPWP_PBM16").val());
+						Swal.fire({
+							title: 'Error!',
+							text: response.message,
+							icon: 'error',
+							confirmButtonText: 'OK'
+						});
 					}
 				},
 				error: function (xhr, status, error) {
@@ -308,41 +326,62 @@
 	});
 
 	function save() {
-		if ($("#NO_CONTAINER_OLD").val() == '' || $("#NO_CONTAINER_NEW").val() == '') {
-			$.blockUI({ message: '<h1>No.Container Lama / Baru Harus Diisi</h1>' });
-			setTimeout($.unblockUI, 1000);
-			return false;
-		}
-		else {
-			var no_cont_old = $("#NO_CONTAINER_OLD").val();
-			var no_cont_new = $("#NO_CONTAINER_NEW").val();
-			var size_new = $("#SIZE_NEW").val();
-			var type_new = $("#TYPE_NEW").val();
+		event.preventDefault(); // Prevent the default form submission
 
-			var answer = confirm("Yakin untuk menyimpan ini? Pastikan Inputan Anda Sudah Benar");
-			if (answer) {
-				var url = "{$HOME}{$APPID}/save_rename";
-				$.blockUI({ message: '<h1>Please Wait !!!</h1>' });
-				$.post(url, { NO_CONT_OLD: no_cont_old, NO_CONT_NEW: no_cont_new, SIZE_NEW: size_new, TYPE_NEW: type_new }, function (data) {
-					if (data == "Y") {
-						$.blockUI({ message: '<h1>Rename Success</h1>' });
-						setTimeout($.unblockUI, 1000);
-					}
-					else if (data == "LOGIN") {
-						$.blockUI({ message: '<h1>Silahkan Login Ulang</h1>' });
-						setTimeout($.unblockUI, 1000);
-					}
-					else if (data == "Z") {
-						$.blockUI({ message: '<h1>Maaf, No. Container Baru Sudah Ada</h1>' });
-						setTimeout($.unblockUI, 1000);
-					}
-					else {
-						alert(data);
-						$.blockUI({ message: '<h1>Failed</h1>' });
-						setTimeout($.unblockUI, 1000);
+		event.preventDefault(); // Prevent the default form submission
+
+		// Collect form data
+		var formData = {
+			NM_PBM: $("#NM_PBM_EDIT").val(),
+			ALMT_PBM: $("#ALMT_PBM_EDIT").val(),
+			NO_TELP: $("#NO_TELP_EDIT").val(),
+			NO_NPWP_PBM: $("#NO_NPWP_PBM_EDIT").val(),
+			PELANGGAN_AKTIF: $("#PELANGGAN_AKTIF_EDIT").val(),
+			NO_NPWP_PBM16: $("#NO_NPWP_PBM16_EDIT").val(),
+			ACTIVITY: $("#ACTIVITY").val(), // Assume you have a radio button or some other input for ACTIVITY
+		};
+
+		// Confirmation dialog
+		Swal.fire({
+			title: 'Are you sure?',
+			text: "Do you want to save the changes?",
+			icon: 'warning',
+			showCancelButton: true,
+			confirmButtonColor: '#3085d6',
+			cancelButtonColor: '#d33',
+			confirmButtonText: 'Yes, save it!'
+		}).then((result) => {
+			if (result.isConfirmed) {
+				// Send AJAX request
+				$.ajax({
+					url: '{$HOME}uster.maintenance.api_history.ajax/doUpdateNPWP',
+					type: 'POST',
+					data: formData,
+					dataType: 'json',
+					success: function (response) {
+						if (response.status === 'success') {
+							Swal.fire(
+								'Success!',
+								response.message,
+								'success'
+							);
+						} else {
+							Swal.fire(
+								'Error!',
+								response.message,
+								'error'
+							);
+						}
+					},
+					error: function (xhr, status, error) {
+						Swal.fire(
+							'Error!',
+							'An error occurred: ' + error,
+							'error'
+						);
 					}
 				});
 			}
-		}
+		});
 	}
 </script>
