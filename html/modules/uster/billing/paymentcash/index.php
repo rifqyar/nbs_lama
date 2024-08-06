@@ -206,7 +206,7 @@ function search_payment(){
 	<p><br/>
 	
 	</p>
-	<label>Cari No. Request : </label> <input type="text" id="id_req" name="id_req"/> <input type="button" onclick="search_payment()" value="Cari" />
+	<label>Cari No. Request | No. Nota: </label> <input type="text" id="id_req" name="id_req"/> <input type="button" onclick="search_payment()" value="Cari" />
 	<table id='l_pay' width="100%"></table> <div id='pg_l_pay'></div>
 	
 	<form id="mainform">

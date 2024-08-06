@@ -5,7 +5,7 @@
 	$no_booking = $_GET["NO_BOOK"];
 	$db = getDB("storage");
 	$tl = xliteTemplate("get_detail.htm");
-				 
+
 	if($act == "handling"){
 		if($no_booking == "VESSEL_NOTHING"){
 			$q_detail = "SELECT MC.NO_CONTAINER, HC.STATUS_CONT, HC.ID_YARD ,YAR.NAMA_YARD, HC.KEGIATAN, 
@@ -183,7 +183,7 @@
 	else if($act == "receiving"){
 		if($no_booking == "VESSEL_NOTHING"){
 		$q_get_req_rec = "SELECT HC.NO_REQUEST FROM HISTORY_CONTAINER HC
-				WHERE HC.NO_CONTAINER = '$no_cont' AND HC.NO_BOOKING = '$no_booking' AND HC.COUNTER = '$counter' AND HC.KEGIATAN = 'REQUEST RECEIVING'";
+				WHERE HC.NO_CONTAINER = '$no_cont' AND HC.NO_BOOKING = '$no_booking' AND HC.COUNTER = '$counter' AND HC.KEGIATAN = 'REQUEST RECEIVING' ORDER BY TGL_UPDATE DESC";
 		} else {
 			$q_get_req_rec = "SELECT HC.NO_REQUEST FROM HISTORY_CONTAINER HC
 				WHERE HC.NO_CONTAINER = '$no_cont' AND HC.NO_BOOKING = '$no_booking' AND  HC.KEGIATAN = 'REQUEST RECEIVING' AND HC.COUNTER = '$counter'";

@@ -78,7 +78,7 @@ $query = "SELECT * FROM (SELECT * FROM (
 
 if (isset($_GET['idreq'])&& $_GET['idreq'] != '') {
 	$idreq = $_GET['idreq'];
-	$query .= " AND NO_REQUEST = '$idreq'";
+	$query .= " AND NO_REQUEST = '$idreq' OR NO_NOTA = '$idreq'";
 }
 $res = $db->query($query);
 
