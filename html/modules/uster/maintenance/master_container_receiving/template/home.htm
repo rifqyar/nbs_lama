@@ -1,0 +1,170 @@
+<span class="graybrown"><img src='images/sp2_p.png' border='0' class="icon" />
+	<font color="#0378C6"> Master</font> Container
+</span><br /><br />
+<fieldset class="form-fieldset" style="margin: 5px 5px 5px 5px; ">
+	<center>
+		<table class="form-input" style="margin: 30px 30px 30px 30px;">
+			<tr>
+				<td class="form-field-caption"> Nomor Container </td>
+				<td> : </td>
+				<td> <input type="text" name="NO_CONTAINER" ID="NO_CONTAINER" /> </td>
+				<td colspan="7"><input type="button" value=" Search Container " onClick="search()" /></td>
+			</tr>
+		</table>
+
+		<div id="cont_list" style="margin: 10px 10px 10px 10px;">
+
+		</div>
+
+	</center>
+</fieldset>
+<div id="dialog-edit">
+</div>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+
+	$(function () {
+		$('#cont_list').html('<p align=center><img src={$HOME}images/loadingbox.gif /></p>');
+		$("#cont_list").load('<?=HOME?><?=APPID?>/cont_list #list', function (data) {
+		});
+
+		$("#dialog-edit").dialog({
+			autoOpen: false,
+			height: 300,
+			width: 600,
+			modal: true,
+			buttons: {
+				"Change": function () {
+					edit_cont_do();
+					$(this).dialog("close");
+				},
+				"Close": function () {
+					$(this).dialog("close");
+					return false;
+				}
+			},
+			close: function () {
+
+			}
+		});
+	});
+
+	function add_cont() {
+		var no_cont_ = $("#no_cont").val();
+		var size_ = $("#size").val();
+		var type_ = $("#type").val();
+		var url = "{$HOME}{$APPID}.ajax/add_cont";
+
+
+		$.post(url, { no_cont: no_cont_, size: size_, type: type_ }, function (data) {
+			console.log(data);
+			if (data == "CONT_SDH_ADA") {
+				alert("Container sudah terdaftar");
+			}
+			else if (data == "OK") {
+				$("#cont_list").load('<?=HOME?><?=APPID?>/cont_list #list', function (data) {
+				});
+			}
+		});
+		//prosedur add comment disini, method $.post, include user id dan content id
+	}
+
+	function del_cont($no_cont) {
+		//var no_req_		= "{$row_request.NO_REQUEST}";
+		var url = "{$HOME}{$APPID}.ajax/del_cont";
+
+		$.post(url, { NO_CONT: $no_cont }, function (data) {
+			console.log(data);
+			if (data == "OK") {
+				$("#cont_list").load('<?=HOME?><?=APPID?>/cont_list #list', function (data) {
+				});
+			}
+		});
+	}
+	function change_page($page) {
+		var selected_p = $page;
+
+		$('#cont_list').html('<p align=center><img src={$HOME}images/loadingbox.gif /></p>');
+		$("#cont_list").load('<?=HOME?><?=APPID?>/cont_list?pp=' + selected_p + ' #list', function (data) { });
+	}
+
+	function edit_container(no_cont, size, type, location) {
+		var url = "{$HOME}{$APPID}/edit_cont #cont";
+
+		$("#dialog-edit").load(url, { NO_CONT: no_cont }, function (data) {
+			$("#SIZE").val(size);
+			$("#TYPE").val(type);
+			$("#LOCATION").val(location);
+		});
+		$("#dialog-edit").dialog("open");
+	}
+
+	function changeAktifStatus(noCont, noRequest) {
+		var selectElement = $("#aktif-" + noCont + "-" + noRequest);
+		var newAktif = selectElement.val();
+		var url = "<?= $HOME ?><?= $APPID ?>/edit_cont_do"; // Pastikan URL ini benar
+
+		// Menampilkan konfirmasi menggunakan SweetAlert2
+		Swal.fire({
+			title: 'Are you sure?',
+			text: "You are about to change the status to " + newAktif,
+			icon: 'warning',
+			showCancelButton: true,
+			confirmButtonColor: '#3085d6',
+			cancelButtonColor: '#d33',
+			confirmButtonText: 'Yes, change it!'
+		}).then((result) => {
+			if (result.isConfirmed) {
+				// Jika dikonfirmasi, kirim permintaan POST
+				$.post(url, { NO_CONT: noCont, NO_REQUEST: noRequest, AKTIF: newAktif }, function (data) {
+					if (data === "OK") {
+						Swal.fire(
+							'Updated!',
+							'The AKTIF status has been updated.',
+							'success'
+						);
+						// Update label Active Existing
+						selectElement.next("span").text("(Active Existing: " + newAktif + ")");
+					} else {
+						Swal.fire(
+							'Error!',
+							'Failed to update AKTIF status: ' + data,
+							'error'
+						);
+					}
+				}).fail(function () {
+					Swal.fire(
+						'Error!',
+						'An error occurred while updating the AKTIF status.',
+						'error'
+					);
+				});
+			}
+		});
+	}
+
+
+
+
+
+	function edit_cont_do() {
+		var nocont = $("#NO_CONT").val();
+		var size = $("#SIZE").val();
+		var tipe = $("#TYPE").val();
+		var location = $("#LOCATION").val();
+		var url = "{$HOME}{$APPID}/edit_cont_do";
+
+		$.post(url, { NO_CONT: nocont, SIZE: size, TIPE: tipe, LOCATION: location }, function (data) {
+			if (data == "OK") {
+				alert("SAVED");
+				$('#cont_list').html('<p align=center><img src={$HOME}images/loadingbox.gif /></p>');
+				$("#cont_list").load('<?=HOME?><?=APPID?>/cont_list?pp=' + selected_p + ' #list', function (data) { });
+			}
+		});
+	}
+	function search() {
+		var nocontainer = $("#NO_CONTAINER").val();
+		$('#cont_list').html('<p align=center><img src={$HOME}images/loadingbox.gif /></p>');
+		$("#cont_list").load('<?=HOME?><?=APPID?>/cont_list?nocont=' + nocontainer + ' #list', function (data) { });
+	}
+</script>
