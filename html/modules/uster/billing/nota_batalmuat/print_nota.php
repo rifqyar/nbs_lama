@@ -24,7 +24,7 @@
 						  c.NO_ACCOUNT_PBM,
 						  b.STATUS_GATE,
 						  TO_CHAR(b.TGL_REQUEST,'DD-MM-RRRR') TGL_REQUEST,
-							F_CORPORATE_DUMMY(b.TGL_REQUEST) CORPORATE
+							F_CORPORATE(b.TGL_REQUEST) CORPORATE
                    FROM REQUEST_BATAL_MUAT b INNER JOIN
                             v_mst_pbm c ON b.KD_EMKL = c.KD_PBM AND c.KD_CABANG = '05'
                    WHERE b.NO_REQUEST = '$no_req'";
