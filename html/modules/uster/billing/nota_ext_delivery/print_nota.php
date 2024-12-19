@@ -22,7 +22,7 @@
                           c.ALMT_PBM AS ALAMAT,
                           c.NO_ACCOUNT_PBM,
                           TO_CHAR(b.TGL_REQUEST,'DD-MM-RRRR') TGL_REQUEST,
-													F_CORPORATE(b.TGL_REQUEST) CORPORATE
+													F_CORPORATE_DUMMY(b.TGL_REQUEST) CORPORATE
                    FROM request_delivery b INNER JOIN
                             V_MST_PBM c ON b.KD_EMKL = c.KD_PBM and c.KD_CABANG = '05'
                    WHERE b.NO_REQUEST = '$no_req'";

@@ -23,7 +23,7 @@
                           b.NOTA_PNKN,
                           c.NO_ACCOUNT_PBM,
                           TO_CHAR(b.TGL_REQUEST,'DD-MM-RRRR') TGL_REQUEST,
-													F_CORPORATE(b.TGL_REQUEST) CORPORATE
+													F_CORPORATE_DUMMY(b.TGL_REQUEST) CORPORATE
                    FROM REQUEST_STRIPPING b INNER JOIN
                             V_MST_PBM c ON b.KD_CONSIGNEE = c.KD_PBM
                    WHERE b.NO_REQUEST = '$no_req'
