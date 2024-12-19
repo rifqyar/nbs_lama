@@ -877,7 +877,9 @@ if ($jenis == 'STRIPPING' || $jenis == 'PERP_STRIP') { //DELIVERY KALO DARI SISI
     $deliveryDate = '';
     $doNumber = $fetchDelivery['NO_BOOKING'];  //
     // $doDate = '';
-    $tradeType = $fetchDelivery['DI'] == 'D' ? 'I' : 'O';
+    #DEFAULT 06,08,24
+    // $tradeType = $fetchDelivery['DI'] == 'D' ? 'I' : 'O';
+    $tradeType = "I";
     $customsDocType = "";
     $customsDocNo = "";
     $customsDocDate = "";

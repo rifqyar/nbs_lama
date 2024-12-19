@@ -182,7 +182,7 @@
 						});
 						$("#ACTIVITY").val('UPDATE');
 						return true;
-					} else if (response.message && response.status == 'failed' && response.activity == 'new') {
+					} else if (response.message && response.status == 'failed' && response.activity == 'new' && response.response != null) {
 						$("#ACTIVITY").val('NEW');
 						if (response.response.npwp16) {
 
@@ -192,7 +192,7 @@
 						}
 
 						if (response.response.namaWp) {
-							$("#NM_PBM_EDIT").val(response.response.namaWp);
+							$("#NM_PBM_EDIT").val(response.response.namaWp).prop('readonly', false);
 						} else {
 							$("#NM_PBM_EDIT").val('').prop('readonly', false);
 						}
@@ -243,12 +243,12 @@
 						});
 						return false;
 					} else {
-						setValueAndRemoveReadonly("#NM_PBM_EDIT", $("#NM_PBM").val());
-						setValueAndRemoveReadonly("#ALMT_PBM_EDIT", $("#ALMT_PBM").val());
-						setValueAndRemoveReadonly("#NO_TELP_EDIT", $("#NO_TELP").val());
-						setValueAndRemoveReadonly("#NO_NPWP_PBM_EDIT", $("#NO_NPWP_PBM").val());
-						setValueAndRemoveReadonly("#PELANGGAN_AKTIF_EDIT", $("#PELANGGAN_AKTIF").val());
-						setValueAndRemoveReadonly("#NO_NPWP_PBM16_EDIT", $("#NO_NPWP_PBM16").val());
+						// setValueAndRemoveReadonly("#NM_PBM_EDIT", $("#NM_PBM").val());
+						// setValueAndRemoveReadonly("#ALMT_PBM_EDIT", $("#ALMT_PBM").val());
+						// setValueAndRemoveReadonly("#NO_TELP_EDIT", $("#NO_TELP").val());
+						// setValueAndRemoveReadonly("#NO_NPWP_PBM_EDIT", $("#NO_NPWP_PBM").val());
+						// setValueAndRemoveReadonly("#PELANGGAN_AKTIF_EDIT", $("#PELANGGAN_AKTIF").val());
+						// setValueAndRemoveReadonly("#NO_NPWP_PBM16_EDIT", $("#NO_NPWP_PBM16").val());
 						Swal.fire({
 							title: 'Error!',
 							text: response.message,

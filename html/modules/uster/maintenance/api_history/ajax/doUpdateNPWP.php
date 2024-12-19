@@ -25,6 +25,31 @@ try {
     $no_npwp_pbm16 = $_POST['NO_NPWP_PBM16'];
     $activity = $_POST['ACTIVITY'];
 
+    // Validate NM_PBM
+    if (empty($nm_pbm)) {
+        throw new Exception('NM_PBM is required.');
+    }
+
+    // Validate ALMT_PBM
+    if (empty($almt_pbm)) {
+        throw new Exception('ALMT_PBM is required.');
+    }
+
+    
+
+    // Validate NO_NPWP_PBM (example: format validation, etc.)
+    if (empty($no_npwp_pbm)) {
+        throw new Exception('NO_NPWP_PBM is required.');
+    }
+
+   
+    // Validate NO_NPWP_PBM16 (example: format or length validation)
+    if (empty($no_npwp_pbm16)) {
+        throw new Exception('NO_NPWP_PBM16 is required.');
+    }
+
+   
+
     if ($activity == 'UPDATE') {
         $sql = "UPDATE MST_PELANGGAN SET 
                 ALMT_PBM='$almt_pbm', 
@@ -46,16 +71,24 @@ try {
         $result = $db->query("SELECT MAX(NO_ACCOUNT_PBM) as max_no_account FROM MST_PELANGGAN");
         if ($result) {
             $row = $result->fetchRow();
-            $max_no_account = $row['max_no_account'] + 1;
+            $max_no_account = $row['MAX_NO_ACCOUNT'] + 1;
+            $result = $db->query("SELECT KD_PPN_PBM FROM MST_PELANGGAN WHERE NO_NPWP_PBM = '$no_npwp_pbm'");
+            $row = $result->fetchRow(); 
+            
 
-            $sql = "INSERT INTO MST_PELANGGAN (KD_PBM, NM_PBM, ALMT_PBM, NO_TELP, NO_ACCOUNT_PBM, KD_PPN_PBM, NO_NPWP_PBM, KD_GUDANG1, KD_GUDANG2, KD_CABANG, PELANGGAN_AKTIF, UPDATE_DATE, NO_NPWP_PBM16) 
-                   VALUES ('$kd_pbm', '$nm_pbm', '$almt_pbm', '$no_telp', '$max_no_account', '', '$no_npwp_pbm', '', '', '', '$pelanggan_aktif', SYSDATE, '$no_npwp_pbm16')";
+            if($row==false){
+                
+                $sql = "INSERT INTO MST_PELANGGAN (KD_PBM, NM_PBM, ALMT_PBM, NO_TELP, NO_ACCOUNT_PBM, KD_PPN_PBM, NO_NPWP_PBM, KD_GUDANG1, KD_GUDANG2, KD_CABANG, PELANGGAN_AKTIF, UPDATE_DATE, NO_NPWP_PBM16) 
+                    VALUES ('$kd_pbm', '$nm_pbm', '$almt_pbm', '$no_telp', '$max_no_account', '', '$no_npwp_pbm', '', '', '05', '$pelanggan_aktif', SYSDATE, '$no_npwp_pbm16')";
 
-            if ($db->query($sql)) {
-                $response['status'] = 'success';
-                $response['message'] = 'Data inserted successfully';
-            } else {
-                throw new Exception('Error inserting record: ' . $db->error);
+                if ($db->query($sql)) {
+                    $response['status'] = 'success';
+                    $response['message'] = 'Data inserted successfully';
+                } else {
+                    throw new Exception('Error inserting record: ' . $db->error);
+                }
+            }else{
+                throw new Exception('Data Sudah masuk ke Dalam Sistem');
             }
         } else {
             throw new Exception('Error fetching max account number: ' . $db->error);

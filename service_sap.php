@@ -186,76 +186,90 @@ function getPaymentCode()
         WHERE SAP_NOTA_HEADER_NBS_V.SAP_KD_BAYAR IS NOT NULL
         ORDER BY
             DBMS_RANDOM.VALUE
-                        FETCH NEXT 1 ROWS ONLY");
-    $result = $query->fetchRow();
-    //Check Apakah Masih Ada PaymentCode Belum ada
-    if ($result) {
-        $noNota = $result['NO_NOTA'];
-        $query = $db->query("select * from MTI_CUSTOMER_SS.SAP_NOTA_HEADER_NBS_V@CSS_PROD WHERE SOURCE_NOTA_REF = '$noNota' ");
-        $resultSAP = $query->fetchRow();
+                        FETCH NEXT 10 ROWS ONLY");
 
-        //Check Apakah Payment Code Sudah Ada Di SAP
-        if ($resultSAP['SAP_KD_BAYAR'] != null) {
-            $paymentCode = $resultSAP['SAP_KD_BAYAR'];
-            if ($result['KEGIATAN'] == 'RECEIVING') {
-                $tb_name = "NOTA_RECEIVING";
-            } else if ($result['KEGIATAN'] == 'STUFFING' || $result['KEGIATAN'] == 'PERP' || $result['KEGIATAN'] == 'PERP_PNK') {
-                $tb_name = "NOTA_STUFFING";
-            } else if ($result['KEGIATAN'] == 'STRIPPING' || $result['KEGIATAN'] == 'PERP_STRIP') {
-                $tb_name = "NOTA_STRIPPING";
-            } else if ($result['KEGIATAN'] == 'DELIVERY' || $result['KEGIATAN'] == 'PERP_DEV' || $result['KEGIATAN'] == 'PERP') {
-                $tb_name = "NOTA_DELIVERY";
-            } else if ($result['KEGIATAN'] == 'RELOKASI') {
-                $tb_name = "NOTA_RELOKASI";
-            } else if ($result['KEGIATAN'] == 'BATAL_MUAT') {
-                $tb_name = "NOTA_BATAL_MUAT";
-            } else if ($result['KEGIATAN'] == 'RELOK_MTY') {
-                $tb_name = "NOTA_RELOKASI_MTY";
-            } else if ($result['KEGIATAN'] == 'DEL_PNK') {
-                $tb_name = "NOTA_PNKN_DEL";
-            } else if ($result['KEGIATAN'] == 'STUF_PNK') {
-                $tb_name = "NOTA_PNKN_STUF";
-            }
-            $query = $db->query("update $tb_name set PAYMENT_CODE='$paymentCode' WHERE NO_NOTA = '$noNota' ");
-            if ($query) {
-                $msg = array(
-                    'code' => "1",
-                    'msg' => "Inserted Payment Code $noNota"
-                );
-                $msg_json = json_encode($msg);
-                $query = $db->query("INSERT INTO USTER.SAP_SERVICE_LOG
-                (URL, PAYLOAD, RESPONSE, NOTES)
-                VALUES('$service',NULL, '$msg_json', 'Inserted Payment Code $noNota')");
+    // Check Apakah Masih Ada PaymentCode Belum ada
+    if ($query->RecordCount() > 0) {
 
-                return "Inserted Payment Code $noNota";
+        $data = $query->getAll();
+        $a = 0;
+        $messages = []; // Array untuk menampung semua pesan hasil
+
+        foreach ($data as $result) {
+            $a++;
+            $noNota = $result['NO_NOTA'];
+            $query = $db->query("select * from MTI_CUSTOMER_SS.SAP_NOTA_HEADER_NBS_V@CSS_PROD WHERE SOURCE_NOTA_REF = '$noNota' ");
+            $resultSAP = $query->fetchRow();
+
+            // Check Apakah Payment Code Sudah Ada Di SAP
+            if ($resultSAP['SAP_KD_BAYAR'] != null) {
+                $paymentCode = $resultSAP['SAP_KD_BAYAR'];
+                if ($result['KEGIATAN'] == 'RECEIVING') {
+                    $tb_name = "NOTA_RECEIVING";
+                } else if ($result['KEGIATAN'] == 'STUFFING' || $result['KEGIATAN'] == 'PERP' || $result['KEGIATAN'] == 'PERP_PNK') {
+                    $tb_name = "NOTA_STUFFING";
+                } else if ($result['KEGIATAN'] == 'STRIPPING' || $result['KEGIATAN'] == 'PERP_STRIP') {
+                    $tb_name = "NOTA_STRIPPING";
+                } else if ($result['KEGIATAN'] == 'DELIVERY' || $result['KEGIATAN'] == 'PERP_DEV' || $result['KEGIATAN'] == 'PERP') {
+                    $tb_name = "NOTA_DELIVERY";
+                } else if ($result['KEGIATAN'] == 'RELOKASI') {
+                    $tb_name = "NOTA_RELOKASI";
+                } else if ($result['KEGIATAN'] == 'BATAL_MUAT') {
+                    $tb_name = "NOTA_BATAL_MUAT";
+                } else if ($result['KEGIATAN'] == 'RELOK_MTY') {
+                    $tb_name = "NOTA_RELOKASI_MTY";
+                } else if ($result['KEGIATAN'] == 'DEL_PNK') {
+                    $tb_name = "NOTA_PNKN_DEL";
+                } else if ($result['KEGIATAN'] == 'STUF_PNK') {
+                    $tb_name = "NOTA_PNKN_STUF";
+                }
+                $query = $db->query("update $tb_name set PAYMENT_CODE='$paymentCode' WHERE NO_NOTA = '$noNota' ");
+                if ($query) {
+                    $msg = array(
+                        'code' => "1",
+                        'msg' => "Inserted Payment Code $noNota"
+                    );
+                    $msg_json = json_encode($msg);
+                    $query = $db->query("INSERT INTO USTER.SAP_SERVICE_LOG
+                    (URL, PAYLOAD, RESPONSE, NOTES)
+                    VALUES('$service',NULL, '$msg_json', 'Inserted Payment Code $noNota')");
+
+                    // Tambahkan pesan sukses ke array
+                    $messages[] = "Inserted Payment Code $noNota <br>";
+                } else {
+                    $msg = array(
+                        'code' => "0",
+                        'msg' => "Failed Inserted Payment Code $noNota"
+                    );
+                    $msg_json = json_encode($msg);
+                    $query = $db->query("INSERT INTO USTER.SAP_SERVICE_LOG
+                    (URL, PAYLOAD, RESPONSE, NOTES)
+                    VALUES('$service',NULL, '$msg_json', 'Failed Inserted Payment Code $noNota')");
+
+                    // Tambahkan pesan gagal ke array
+                    $messages[] = "Failed Inserted Payment Code $noNota <br>";
+                }
             } else {
                 $msg = array(
                     'code' => "0",
-                    'msg' => "Failed Inserted Payment Code $noNota"
+                    'msg' => "Payment Code Not Found $noNota"
                 );
                 $msg_json = json_encode($msg);
                 $query = $db->query("INSERT INTO USTER.SAP_SERVICE_LOG
                 (URL, PAYLOAD, RESPONSE, NOTES)
-                VALUES('$service',NULL, '$msg_json', 'Failed Inserted Payment Code $noNota')");
-                return "Failed Inserted Payment Code $noNota";
+                VALUES('$service',NULL, '$msg_json', 'Payment Code Not Found $noNota')");
+
+                // Tambahkan pesan jika Payment Code tidak ditemukan
+                $messages[] = "Payment Code Not Found $noNota <br>";
             }
-        } else {
-            $msg = array(
-                'code' => "0",
-                'msg' => "Payment Code Not Found $noNota"
-            );
-            $msg_json = json_encode($msg);
-            $query = $db->query("INSERT INTO USTER.SAP_SERVICE_LOG
-            (URL, PAYLOAD, RESPONSE, NOTES)
-            VALUES('$service',NULL, '$msg_json', 'Payment Code Not Found $noNota')");
-            return "Payment Code Not Found $noNota";
         }
+
+        // Gabungkan semua pesan dalam array dan kembalikan sebagai string
+        return implode("\n", $messages);
     } else {
-        return "All Payment Codes Are Available";
+        return "All Payment Codes Are Available <br>";
     }
 }
-
-
 
 
 
@@ -450,112 +464,122 @@ function GetStatusPayment()
             AND SAP_NOTA_HEADER_NBS_V.SAP_BANK IS NOT NULL
         ORDER BY
             DBMS_RANDOM.VALUE
-                FETCH NEXT 1 ROWS ONLY");
-    $result = $query->fetchRow();
+                FETCH NEXT 3 ROWS ONLY");
+
 
     //Check Apakah Masih Ada PaymentCode Belum ada
-    if ($result) {
-        $noNota = $result['NO_NOTA'];
-        $query = $db->query("
-        SELECT
-            TO_CHAR(SAP_TGL_PELUNASAN, 'YYYY-MM-DD HH24:MI:SS') AS TANGGAL_PELUNASAN,
-            SAP_BANK,
-            SAP_NO_FAKTUR
-        FROM
-            MTI_CUSTOMER_SS.SAP_NOTA_HEADER_NBS_V@CSS_PROD
-        WHERE
-            SAP_KD_BAYAR IS NOT NULL
-            AND SAP_TGL_PELUNASAN IS NOT NULL
-            AND SAP_BANK IS NOT NULL
-            AND SOURCE_NOTA_REF = '$noNota'");
-        $resultSAP = $query->fetchRow();
-
-        //Check Apakah Payment Code Sudah Ada Di SAP
-        if ($resultSAP) {
-
-            if ($result['KEGIATAN'] == 'RECEIVING') {
-                $tb_name = "NOTA_RECEIVING";
-            } else if ($result['KEGIATAN'] == 'STUFFING' || $result['KEGIATAN'] == 'PERP' || $result['KEGIATAN'] == 'PERP_PNK') {
-                $tb_name = "NOTA_STUFFING";
-            } else if ($result['KEGIATAN'] == 'STRIPPING' || $result['KEGIATAN'] == 'PERP_STRIP') {
-                $tb_name = "NOTA_STRIPPING";
-            } else if ($result['KEGIATAN'] == 'DELIVERY' || $result['KEGIATAN'] == 'PERP_DEV' || $result['KEGIATAN'] == 'PERP') {
-                $tb_name = "NOTA_DELIVERY";
-            } else if ($result['KEGIATAN'] == 'RELOKASI') {
-                $tb_name = "NOTA_RELOKASI";
-            } else if ($result['KEGIATAN'] == 'BATAL_MUAT') {
-                $tb_name = "NOTA_BATAL_MUAT";
-            } else if ($result['KEGIATAN'] == 'RELOK_MTY') {
-                $tb_name = "NOTA_RELOKASI_MTY";
-            } else if ($result['KEGIATAN'] == 'DEL_PNK') {
-                $tb_name = "NOTA_PNKN_DEL";
-            } else if ($result['KEGIATAN'] == 'STUF_PNK') {
-                $tb_name = "NOTA_PNKN_STUF";
-            }
-
-            // $paymentCode = $resultSAP['SAP_KD_BAYAR'];
-            // $bankName = $resultSAP['SAP_BANK'];
-            $PaymentDate = $resultSAP['TANGGAL_PELUNASAN'];
-            $SapFaktur = $resultSAP['SAP_NO_FAKTUR'];
-            $noNotaMti = $result['NO_NOTA_MTI'];
-            $sapBank = $resultSAP['SAP_BANK'];
-
-            $query = $db->query("select * from $tb_name where NO_NOTA = '$noNota' ");
-            $Nota = $query->fetchRow();
+    if ($query->RecordCount() > 0) {
+        $data = $query->getAll();
 
 
+        $a = 0;
+        $messages = []; // Array untuk menampung semua pesan hasil
+
+        foreach ($data as $result) {
+            $noNota = $result['NO_NOTA'];
             $query = $db->query("
-            SELECT BANK_ID
-            FROM billing.mst_bank_simkeu
-            WHERE BANK_ACCOUNT_NAME = '$sapBank'");
-            $bank = $query->fetchRow();
-            $idBank = $bank['BANK_ID'];
+            SELECT
+                TO_CHAR(SAP_TGL_PELUNASAN, 'YYYY-MM-DD HH24:MI:SS') AS TANGGAL_PELUNASAN,
+                SAP_BANK,
+                SAP_NO_FAKTUR
+            FROM
+                MTI_CUSTOMER_SS.SAP_NOTA_HEADER_NBS_V@CSS_PROD
+            WHERE
+                SAP_KD_BAYAR IS NOT NULL
+                AND SAP_TGL_PELUNASAN IS NOT NULL
+                AND SAP_BANK IS NOT NULL
+                AND SOURCE_NOTA_REF = '$noNota'");
+            $resultSAP = $query->fetchRow();
 
-           
-            # Call NBS service
-            $data = SapPaymentPaid($SapFaktur, $noNotaMti, false, $idBank, false, false, $PaymentDate);
-            $uster = null;
+            //Check Apakah Payment Code Sudah Ada Di SAP
+            if ($resultSAP) {
 
-            if ($data == 'Berhasil') {
+                if ($result['KEGIATAN'] == 'RECEIVING') {
+                    $tb_name = "NOTA_RECEIVING";
+                } else if ($result['KEGIATAN'] == 'STUFFING' || $result['KEGIATAN'] == 'PERP' || $result['KEGIATAN'] == 'PERP_PNK') {
+                    $tb_name = "NOTA_STUFFING";
+                } else if ($result['KEGIATAN'] == 'STRIPPING' || $result['KEGIATAN'] == 'PERP_STRIP') {
+                    $tb_name = "NOTA_STRIPPING";
+                } else if ($result['KEGIATAN'] == 'DELIVERY' || $result['KEGIATAN'] == 'PERP_DEV' || $result['KEGIATAN'] == 'PERP') {
+                    $tb_name = "NOTA_DELIVERY";
+                } else if ($result['KEGIATAN'] == 'RELOKASI') {
+                    $tb_name = "NOTA_RELOKASI";
+                } else if ($result['KEGIATAN'] == 'BATAL_MUAT') {
+                    $tb_name = "NOTA_BATAL_MUAT";
+                } else if ($result['KEGIATAN'] == 'RELOK_MTY') {
+                    $tb_name = "NOTA_RELOKASI_MTY";
+                } else if ($result['KEGIATAN'] == 'DEL_PNK') {
+                    $tb_name = "NOTA_PNKN_DEL";
+                } else if ($result['KEGIATAN'] == 'STUF_PNK') {
+                    $tb_name = "NOTA_PNKN_STUF";
+                }
 
-                # Save payment with Praya service
-                $uster = save_payment_uster_external($Nota, $result['KEGIATAN'],$idBank);
-                $response =  json_decode($uster['response']);
+                // $paymentCode = $resultSAP['SAP_KD_BAYAR'];
+                // $bankName = $resultSAP['SAP_BANK'];
+                $PaymentDate = $resultSAP['TANGGAL_PELUNASAN'];
+                $SapFaktur = $resultSAP['SAP_NO_FAKTUR'];
+                $noNotaMti = $result['NO_NOTA_MTI'];
+                $sapBank = $resultSAP['SAP_BANK'];
+
+                $query = $db->query("select * from $tb_name where NO_NOTA = '$noNota' ");
+                $Nota = $query->fetchRow();
 
 
-                if ($response->code == '1') {
-                    $msg = array(
-                        'code' => true,
-                        'msg' => "Status Payment Changed to Paid $noNota"
-                    );
-                    $log_notes = "Status Payment Changed to Paid $noNota";
+                $query = $db->query("
+                    SELECT BANK_ID
+                    FROM billing.mst_bank_simkeu
+                    WHERE BANK_ACCOUNT_NAME = '$sapBank'");
+                $bank = $query->fetchRow();
+                $idBank = $bank['BANK_ID'];
+
+
+                # Call NBS service
+                $data = SapPaymentPaid($SapFaktur, $noNotaMti, false, $idBank, false, false, $PaymentDate);
+                $uster = null;
+
+                if ($data == 'Berhasil') {
+
+                    # Save payment with Praya service
+                    $uster = save_payment_uster_external($Nota, $result['KEGIATAN'], $idBank);
+                    $response =  json_decode($uster['response']);
+
+
+                    if ($response->code == '1') {
+                        $msg = array(
+                            'code' => true,
+                            'msg' => "Status Payment Changed to Paid $noNota"
+                        );
+                        $log_notes = "Status Payment Changed to Paid $noNota";
+                    } else {
+                        $log_notes = "Failed Praya Status Payment Changed to Paid $noNota";
+                        $msg = array(
+                            'code' => false,
+                            'message' => $uster
+                        );
+                    }
                 } else {
-                    $log_notes = "Failed Praya Status Payment Changed to Paid $noNota";
                     $msg = array(
                         'code' => false,
-                        'message' => $uster
+                        'message' =>  $data
                     );
+                    $log_notes = "Failed NBS Status Payment Changed to Paid $noNota";
                 }
-            } else {
-                $msg = array(
-                    'code' => false,
-                    'message' =>  $data
-                );
-                $log_notes = "Failed NBS Status Payment Changed to Paid $noNota";
-            }
 
-            $msg_json = json_encode($msg);
-            $uster = json_encode($uster);
-            $query = $db->query("INSERT INTO USTER.SAP_SERVICE_LOG
+                $msg_json = json_encode($msg);
+                $uster = json_encode($uster);
+                $query = $db->query("INSERT INTO USTER.SAP_SERVICE_LOG
             (URL, PAYLOAD, RESPONSE, NOTES,PRAYA_RESPONSE)
             VALUES('$service','$noNota', '$msg_json', '$log_notes','$uster')");
 
-            return $log_notes;
-        } else {
-            return "No Nota Unpaid $noNota";
+                $messages[] =  $log_notes . "<br>";
+            } else {
+                $messages[] =  "No Nota Unpaid $noNota <br>";
+            }
         }
+
+        return implode("\n", $messages);
     } else {
-        return "No New Payments Yet";
+        return "No New Payments Yet <br>";
     }
 }
 
@@ -586,7 +610,7 @@ function GetStatusPayment()
 function SapPaymentPaid($faktur, $trx_number, $user_id, $bank_id, $paid_date, $paid_channel, $date)
 {
 
-    $conn =oci_connect('uster', 'uster', '10.15.42.43/datamti');
+    $conn = oci_connect('uster', 'uster', '10.15.42.43/datamti');
     // check connection if fails return error
     if (!$conn) {
         // close connection
@@ -843,11 +867,11 @@ function SapPaymentPaid($faktur, $trx_number, $user_id, $bank_id, $paid_date, $p
         if ($flag_opus == true) {
             // connect to opus_repo, flagging payment to opus
             $conn_opus = oci_connect('OPUS_REPO', 'OPUS_REPO', '10.15.42.43/datamti');
-            
-            if(!$conn_opus) {
+
+            if (!$conn_opus) {
                 return "^87^ORA - Database problem, cant connect to database. OPUS BILL";
                 die();
-             }
+            }
 
             $out_status = '';
             $outmsg = '';
@@ -864,9 +888,9 @@ function SapPaymentPaid($faktur, $trx_number, $user_id, $bank_id, $paid_date, $p
             $execute_opus = oci_execute($parse_payment);
 
             if (!$execute_opus) {
-                 // Get OCI error
+                // Get OCI error
                 $error = oci_error($parse_payment);
-                
+
                 // Close connections
                 oci_close($parse_payment);
                 oci_close($conn_opus);
@@ -1082,7 +1106,7 @@ function SapPaymentPaid($faktur, $trx_number, $user_id, $bank_id, $paid_date, $p
  * @param string $bank_id - Nomor rekening bank.
  * @return array - Hasil dari permintaan penyimpanan pembayaran.
  */
-function save_payment_uster_external($nota, $kegiatan,$bank_id)
+function save_payment_uster_external($nota, $kegiatan, $bank_id)
 {
     // return array(
     //     "code" => "1",
