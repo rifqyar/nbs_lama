@@ -27,7 +27,7 @@ try {
         $curl = curl_init();
 
         curl_setopt_array($curl, array(
-            CURLOPT_URL => 'https://ibs-unicorn.pelindo.co.id/api/ApiBupot/ValidasiNpwpV3?NPWP=' . $NPWP_CONSIGNEE,
+            CURLOPT_URL => 'https://ibs-unicorn.pelindo.co.id/api/ApiBupot/ValidasiNpwpV4?NPWP=' . $NPWP_CONSIGNEE,
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_ENCODING => '',
             CURLOPT_MAXREDIRS => 10,

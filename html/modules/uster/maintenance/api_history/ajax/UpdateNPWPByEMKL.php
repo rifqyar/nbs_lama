@@ -12,7 +12,7 @@ $query = $db->query("
         NO_NPWP_PBM AS NPWP_CONSIGNEE
     FROM
         MST_PELANGGAN
-    WHERE NM_PBM = '$EMKL'");
+    WHERE REPLACE(NM_PBM, CHR(160), ' ') = '$EMKL'");
 
 $result = $query->fetchRow();
 $CONSIGNEE = $result["CONSIGNEE"];
@@ -28,7 +28,7 @@ try {
         $curl = curl_init();
 
         curl_setopt_array($curl, array(
-            CURLOPT_URL => 'https://ibs-unicorn.pelindo.co.id/api/ApiBupot/ValidasiNpwpV3?NPWP=' . $NPWP_DEFAULT,
+            CURLOPT_URL => 'https://ibs-unicorn.pelindo.co.id/api/ApiBupot/ValidasiNpwpV4?NPWP=' . $NPWP_DEFAULT,
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_ENCODING => '',
             CURLOPT_MAXREDIRS => 10,
