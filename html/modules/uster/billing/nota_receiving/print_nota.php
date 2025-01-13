@@ -24,7 +24,7 @@
                           c.NO_ACCOUNT_PBM,
                           c.KD_PBM,
                           TO_CHAR(b.TGL_REQUEST,'DD-MM-RRRR') TGL_REQUEST,
-													F_CORPORATE_DUMMY(b.TGL_REQUEST) CORPORATE
+													F_CORPORATE(b.TGL_REQUEST) CORPORATE
                    FROM REQUEST_RECEIVING b INNER JOIN
                             V_MST_PBM c ON b.KD_CONSIGNEE = c.KD_PBM
                             AND c.KD_CABANG = '05'
