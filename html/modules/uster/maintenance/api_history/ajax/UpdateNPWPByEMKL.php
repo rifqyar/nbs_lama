@@ -61,19 +61,23 @@ try {
         $response = json_decode($response_data, true);
         if ($response['status'] == 1) {
 
-            $NPWP16 =  $response['data']['npwp16'];
+            $NPWP16 =  $response['data']['npwp'];
 
-            $query = "
-            UPDATE
-                MST_PELANGGAN
-            SET
-                NO_NPWP_PBM16 =  '$NPWP16'
-            WHERE
-                NO_NPWP_PBM = '$NPWP_DEFAULT' ";
+            // $query = "
+            // UPDATE
+            //     MST_PELANGGAN
+            // SET
+            //     NO_NPWP_PBM16 =  '$NPWP16'
+            // WHERE
+            //     NO_NPWP_PBM = '$NPWP_DEFAULT' ";
 
-            $updateNPWP = $db->query($query);
+            // $updateNPWP = $db->query($query);
 
-            if ($updateNPWP) {
+            $statusWp = $response_decoded['data']['statusWp'];
+            $statusSpt = $response_decoded['data']['statusSpt'];
+
+            // Check if both statusWp and statusSpt meet the conditions
+            if ($statusWp === "AKTIF" && $statusSpt === "VALID") {
                 $response = array(
                     "status" => "1",
                     "message" => "DATA Sudah Melakukan Pengkinian WPWP, Silakan Klik Tombol Simpan Kembali",

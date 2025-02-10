@@ -9,7 +9,9 @@ $status = $_POST["status"];
 
 	
 		//echo "UPDATE MASTER_TARIF SET TARIF = '$tarif' WHERE ID_GROUP_TARIF = '$id_group_tarif' AND ID_ISO = '$id_iso'";die;
-		$query_list = "UPDATE MASTER_MATERAI SET NO_PERATURAN = '$no_peraturan', TGL_PERATURAN=TO_DATE('$tgl_peraturan', 'YYYY-MM-DD HH24:MI:SS'), NOMINAL='$deposit',SALDO='$deposit' WHERE ID = '$id' AND SALDO=NOMINAL";
+		$query_list = "UPDATE MASTER_MATERAI
+		SET NO_PERATURAN='SI-00153/SK/WPJ.19/KP.0403/2020', TGL_PERATURAN=TIMESTAMP '2020-10-15 00:00:00.000000', NOMINAL=54000000, STATUS='Y', SALDO=999999, TERPAKAI=64020000
+		WHERE ID=101;";
 		//print_r($query_list);die();
                 
         

@@ -35,7 +35,7 @@ function getNPWP($NPWP_CONSIGNEE)
     $curl = curl_init();
 
     curl_setopt_array($curl, array(
-        CURLOPT_URL => 'https://ibs-unicorn.pelindo.co.id/api/ApiBupot/ValidasiNpwpV3?NPWP=' . $NPWP_CONSIGNEE,
+        CURLOPT_URL => 'https://ibs-unicorn.pelindo.co.id/api/ApiBupot/ValidasiNpwpV4?NPWP=' . $NPWP_CONSIGNEE,
         CURLOPT_RETURNTRANSFER => true,
         CURLOPT_ENCODING => '',
         CURLOPT_MAXREDIRS => 10,
@@ -51,19 +51,19 @@ function getNPWP($NPWP_CONSIGNEE)
 
     $response_data = curl_exec($curl);
 
-    // Check for cURL errors
-    if ($response_data === false) {
-        throw new Exception(curl_error($curl));
-    }
+    // // Check for cURL errors
+    // if ($response_data === false) {
+    //     throw new Exception(curl_error($curl));
+    // }
 
-    // Check HTTP response code
-    $http_code = curl_getinfo($curl, CURLINFO_HTTP_CODE);
-    if ($http_code != 200) {
-        throw new Exception("HTTP Error: " . $http_code . " Response: " . $response_data);
-    }
+    // // Check HTTP response code
+    // $http_code = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+    // if ($http_code != 200) {
+    //     throw new Exception("HTTP Error: " . $http_code . " Response: " . $response_data);
+    // }
 
-    // Close cURL session
-    curl_close($curl);
+    // // Close cURL session
+    // curl_close($curl);
     $response = json_decode($response_data, true);
     return $response;
 }
@@ -73,9 +73,9 @@ try {
     if ($NPWP16 == null && $NPWP != null) {
 
         $response = getNPWP($NPWP_CONSIGNEE);
-        if ($response['status'] == 1) {
+        if ($response['status'] == 200) {
 
-            $NPWP16 =  $response['data']['npwp16'];
+            $NPWP16 =  $response['data']['npwp'];
 
             $query = "
             UPDATE
