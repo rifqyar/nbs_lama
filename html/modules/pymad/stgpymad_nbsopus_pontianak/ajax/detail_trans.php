@@ -1,7 +1,7 @@
 <?
 $db=getdb();
 $id=$_POST['AID'];
-$query="select * from BILLING.PYMA_STAGING where trx_number = '$id'";
+$query="select * from BILLING_NBS.PYMA_STAGING where trx_number = '$id'";
 $getds=$db->query($query);
 $getas=$getds->getAll();
 

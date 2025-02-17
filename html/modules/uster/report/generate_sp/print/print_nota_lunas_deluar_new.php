@@ -39,7 +39,7 @@ $query_get	= "SELECT c.NO_REQUEST, a.NOTA_LAMA, a.NO_NOTA, TO_CHAR(a.ADM_NOTA,'9
 	   CONCAT(TERBILANG(a.TOTAL_TAGIHAN),'rupiah') TERBILANG, m.name NAMA_LENGKAP, CASE WHEN TRUNC(TGL_NOTA) < TO_DATE('1/6/2013','DD/MM/RRRR')
 		THEN a.NO_NOTA
 		ELSE A.NO_FAKTUR END NO_FAKTUR_
-                            FROM nota_delivery a, request_delivery c, billing.tb_user m where
+                            FROM nota_delivery a, request_delivery c, BILLING_NBS.tb_user m where
                             a.NO_REQUEST = c.NO_REQUEST and a.no_request = '$no_req'
 							AND a.TGL_NOTA = (SELECT MAX(d.TGL_NOTA) FROM NOTA_DELIVERY d WHERE d.NO_REQUEST = '$no_req' )
 							and a.nipp_user = m.id";

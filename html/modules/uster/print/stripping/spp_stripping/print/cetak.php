@@ -149,7 +149,7 @@ if($lunas_nota == 'YES')
 					ON d.NO_CONTAINER = k.NO_CONTAINER AND c.NO_REQUEST = REPLACE(K.NO_REQUEST,'P','S')
                 LEFT JOIN REQUEST_RECEIVING g
                    ON a.NO_REQUEST_RECEIVING = g.NO_REQUEST
-                LEFT JOIN BILLING.REQ_DELIVERY_D h
+                LEFT JOIN BILLING_NBS.REQ_DELIVERY_D h
                 	ON a.O_REQNBS = trim(h.ID_REQ) AND c.NO_CONTAINER = h.NO_CONTAINER
                 WHERE a.NO_REQUEST = '$no_req' ";
 	if(isset($_GET['no_cont'])){

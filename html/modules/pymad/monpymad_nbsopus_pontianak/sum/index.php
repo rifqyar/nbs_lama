@@ -36,45 +36,45 @@ if($_GET['data']){
 	$query = "SELECT COUNT(*) AS NUMBER_OF_ROWS FROM (
     select a.nota_name as nota_name, currency,
         (select count(distinct(b.trx_number))
-            from billing.pyma_staging b where b.nota_name = a.nota_name
+            from BILLING_NBS.pyma_staging b where b.nota_name = a.nota_name
             and b.transfer_status = 'S' 
             and b.status_ar='Y' 
             and b.trx_number IS NOT NULL 
             and b.org_id in $ORG_ID 
             and to_char(b.trx_date,'yyyy') = '$YEAR') as count_yes, 
         (select count(distinct(d.trx_number)) 
-            from billing.pyma_staging d where d.nota_name = a.nota_name 
+            from BILLING_NBS.pyma_staging d where d.nota_name = a.nota_name 
             and d.transfer_status = 'S' and d.status_ar='N' 
             and d.trx_number IS NOT NULL 
             and d.org_id in $ORG_ID 
             and to_char(d.trx_date,'yyyy') = '$YEAR') as count_no 
-        from billing.pyma_staging a where a.trx_number IS NOT NULL 
+        from BILLING_NBS.pyma_staging a where a.trx_number IS NOT NULL 
         and to_char(a.trx_date,'yyyy') = '$YEAR' 
         AND ORG_ID in $ORG_ID group by a.nota_name, a.currency order by a.nota_name asc)";
 }else{
 $query ="SELECT COUNT(*) AS NUMBER_OF_ROWS FROM (
 	select a.nota_name as nota_name, currency, 
 		(select count(distinct(b.trx_number)) 
-			from billing.pyma_staging b 
+			from BILLING_NBS.pyma_staging b 
 			where b.nota_name = a.nota_name 
 			and b.transfer_status = 'S' 
 			and b.trx_number IS NOT NULL and b.org_id in $ORG_ID and to_char(b.trx_date,'yyyy') = '$YEAR') as count_yes, 
 		(select nvl(sum(distinct(c.amount)),0) 
-			from billing.pyma_staging c 
+			from BILLING_NBS.pyma_staging c 
 			where c.nota_name = a.nota_name 
 			and c.transfer_status = 'S' 
 			and c.trx_number IS NOT NULL and c.org_id in $ORG_ID and to_char(c.trx_date,'yyyy') = '$YEAR') as amount_yes,
 		(select count(distinct(d.trx_number)) 
-			from billing.pyma_staging d 
+			from BILLING_NBS.pyma_staging d 
 			where d.nota_name = a.nota_name 
 			and d.transfer_status = 'F' 
 			and d.trx_number IS NOT NULL and d.org_id in $ORG_ID and to_char(d.trx_date,'yyyy') = '$YEAR') as count_no,
 		(select nvl(sum(distinct(f.amount)),0) 
-			from billing.pyma_staging f 
+			from BILLING_NBS.pyma_staging f 
 			where f.nota_name = a.nota_name 
 			and f.transfer_status = 'F' 
 			and f.trx_number IS NOT NULL and f.org_id in $ORG_ID and to_char(f.trx_date,'yyyy') = '$YEAR') as amount_no
-	from billing.pyma_staging a 
+	from BILLING_NBS.pyma_staging a 
 	where a.trx_number IS NOT NULL and to_char(a.trx_date,'yyyy') = '$YEAR' $where_cab
 	group by a.nota_name, a.currency )";
 //print_r($query);die;
@@ -99,7 +99,7 @@ $responce->total = $total_pages;
 $responce->records = $count;
  if(!empty($_GET['data'])){ 
 $query = "select a.nota_name as nota_name, currency,
-(select count(distinct(b.trx_number)) from billing.pyma_staging b where b.nota_name = a.nota_name and b.transfer_status = 'S' and b.status_ar='Y' and b.trx_number IS NOT NULL and b.org_id in $ORG_ID and to_char(b.trx_date,'yyyy') = '$YEAR') as count_yes, (select count(distinct(d.trx_number)) from billing.pyma_staging d where d.nota_name = a.nota_name and d.transfer_status = 'S' and d.status_ar='N' and d.trx_number IS NOT NULL and d.org_id in $ORG_ID and to_char(d.trx_date,'yyyy') = '$YEAR') as count_no from billing.pyma_staging a where a.trx_number IS NOT NULL and to_char(a.trx_date,'yyyy') = '$YEAR' AND ORG_ID in $ORG_ID group by a.nota_name, a.currency order by a.nota_name asc";
+(select count(distinct(b.trx_number)) from BILLING_NBS.pyma_staging b where b.nota_name = a.nota_name and b.transfer_status = 'S' and b.status_ar='Y' and b.trx_number IS NOT NULL and b.org_id in $ORG_ID and to_char(b.trx_date,'yyyy') = '$YEAR') as count_yes, (select count(distinct(d.trx_number)) from BILLING_NBS.pyma_staging d where d.nota_name = a.nota_name and d.transfer_status = 'S' and d.status_ar='N' and d.trx_number IS NOT NULL and d.org_id in $ORG_ID and to_char(d.trx_date,'yyyy') = '$YEAR') as count_no from BILLING_NBS.pyma_staging a where a.trx_number IS NOT NULL and to_char(a.trx_date,'yyyy') = '$YEAR' AND ORG_ID in $ORG_ID group by a.nota_name, a.currency order by a.nota_name asc";
 if($res = $db->query($query)) {
 	$i=0;
 	while ($row = $res->fetchRow()) {
@@ -116,11 +116,11 @@ if($res = $db->query($query)) {
 }
 }else{
 $query="select a.nota_name as nota_name, currency,
-(select count(distinct(b.trx_number)) from billing.pyma_staging b where b.nota_name = a.nota_name and b.transfer_status = 'S' and b.trx_number IS NOT NULL and b.org_id in $ORG_ID and to_char(b.trx_date,'yyyy') = '$YEAR') as count_yes,
-(select nvl(sum(nvl(c.amount,0)),0) from billing.pyma_staging c where c.nota_name = a.nota_name and c.transfer_status = 'S' and c.trx_number IS NOT NULL and c.org_id in $ORG_ID and to_char(c.trx_date,'yyyy') = '$YEAR') as amount_yes,
-(select count(distinct(d.trx_number)) from billing.pyma_staging d where d.nota_name = a.nota_name and d.transfer_status = 'F' and d.trx_number IS NOT NULL and d.org_id in $ORG_ID and to_char(d.trx_date,'yyyy') = '$YEAR') as count_no,
-(select nvl(sum(nvl(f.amount,0)),0) from billing.pyma_staging f where f.nota_name = a.nota_name and f.transfer_status = 'F' and f.trx_number IS NOT NULL and f.org_id in $ORG_ID and to_char(f.trx_date,'yyyy') = '$YEAR') as amount_no
-from billing.pyma_staging a where a.trx_number IS NOT NULL and to_char(a.trx_date,'yyyy') = '$YEAR' AND ORG_ID in $ORG_ID group by a.nota_name, a.currency order by a.nota_name asc";
+(select count(distinct(b.trx_number)) from BILLING_NBS.pyma_staging b where b.nota_name = a.nota_name and b.transfer_status = 'S' and b.trx_number IS NOT NULL and b.org_id in $ORG_ID and to_char(b.trx_date,'yyyy') = '$YEAR') as count_yes,
+(select nvl(sum(nvl(c.amount,0)),0) from BILLING_NBS.pyma_staging c where c.nota_name = a.nota_name and c.transfer_status = 'S' and c.trx_number IS NOT NULL and c.org_id in $ORG_ID and to_char(c.trx_date,'yyyy') = '$YEAR') as amount_yes,
+(select count(distinct(d.trx_number)) from BILLING_NBS.pyma_staging d where d.nota_name = a.nota_name and d.transfer_status = 'F' and d.trx_number IS NOT NULL and d.org_id in $ORG_ID and to_char(d.trx_date,'yyyy') = '$YEAR') as count_no,
+(select nvl(sum(nvl(f.amount,0)),0) from BILLING_NBS.pyma_staging f where f.nota_name = a.nota_name and f.transfer_status = 'F' and f.trx_number IS NOT NULL and f.org_id in $ORG_ID and to_char(f.trx_date,'yyyy') = '$YEAR') as amount_no
+from BILLING_NBS.pyma_staging a where a.trx_number IS NOT NULL and to_char(a.trx_date,'yyyy') = '$YEAR' AND ORG_ID in $ORG_ID group by a.nota_name, a.currency order by a.nota_name asc";
 if($res = $db->query($query)) {
 	$i=0;
 	while ($row = $res->fetchRow()) {

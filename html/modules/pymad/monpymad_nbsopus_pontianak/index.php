@@ -44,9 +44,9 @@ if($_GET['year']){
 }
 $db = getDB();
 $sql = "select a.nota_name as NOTA_NAME, 
-(select count(distinct(b.trx_number)) from BILLING.pyma_staging b where b.nota_name = a.nota_name and b.transfer_status = 'S' and b.trx_number IS NOT NULL and to_char(b.trx_date,'yyyy')='$YEAR' and b.org_id in $ORG_ID) as COUNT_YES, 
-(select count(distinct(d.trx_number)) from BILLING.pyma_staging d where d.nota_name = a.nota_name and d.transfer_status = 'F' and d.trx_number IS NOT NULL and to_char(d.trx_date,'yyyy')='$YEAR' and d.org_id in $ORG_ID) as COUNT_NO
-from BILLING.pyma_staging a where a.trx_number IS NOT NULL and to_char(a.trx_date,'yyyy') = '$YEAR' $where_cab group by a.nota_name, a.currency order by a.nota_name asc";
+(select count(distinct(b.trx_number)) from BILLING_NBS.pyma_staging b where b.nota_name = a.nota_name and b.transfer_status = 'S' and b.trx_number IS NOT NULL and to_char(b.trx_date,'yyyy')='$YEAR' and b.org_id in $ORG_ID) as COUNT_YES, 
+(select count(distinct(d.trx_number)) from BILLING_NBS.pyma_staging d where d.nota_name = a.nota_name and d.transfer_status = 'F' and d.trx_number IS NOT NULL and to_char(d.trx_date,'yyyy')='$YEAR' and d.org_id in $ORG_ID) as COUNT_NO
+from BILLING_NBS.pyma_staging a where a.trx_number IS NOT NULL and to_char(a.trx_date,'yyyy') = '$YEAR' $where_cab group by a.nota_name, a.currency order by a.nota_name asc";
 $res = $db->query($sql);
 $rows = $res->getAll();
 $notaname = "";

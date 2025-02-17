@@ -12,7 +12,7 @@ $conf=$_POST['PYMASTAT'];
 //$userid = $aclist['USERID'];
 $userid = $_SESSION["NAMA_PENGGUNA"];
 for($no=0;$no<=$lid;$no++){
-$query="update BILLING.PYMA_STAGING set confirmation_status = '$conf',update_by='$userid',update_date=SYSDATE where trx_number = '".$id[$no]."'";
+$query="update BILLING_NBS.PYMA_STAGING set confirmation_status = '$conf',update_by='$userid',update_date=SYSDATE where trx_number = '".$id[$no]."'";
 //var_dump($query);exit;
 $db->query($query);
 }

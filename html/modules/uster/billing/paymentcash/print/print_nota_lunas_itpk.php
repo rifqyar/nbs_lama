@@ -61,7 +61,7 @@
 					             A.NO_FAKTUR
 					       END
 					          NO_FAKTUR_
-					  FROM nota_all_h a,  billing.tb_user mu
+					  FROM nota_all_h a,  BILLING_NBS.tb_user mu
 					 WHERE   a.TGL_NOTA = (SELECT MAX (d.TGL_NOTA)
 					                           FROM NOTA_RECEIVING d
 					                          WHERE d.NO_REQUEST = '$no_req')

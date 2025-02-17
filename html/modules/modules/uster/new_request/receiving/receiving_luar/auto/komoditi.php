@@ -4,7 +4,7 @@ $komo			= strtoupper($_GET["term"]);
 $db 			= getDB("storage");
 
 	
-$query 			= "select KD_COMMODITY, NM_COMMODITY from BILLING.MASTER_COMMODITY WHERE UPPER(NM_COMMODITY) LIKE '%$komo%'";
+$query 			= "select KD_COMMODITY, NM_COMMODITY from BILLING_NBS.MASTER_COMMODITY WHERE UPPER(NM_COMMODITY) LIKE '%$komo%'";
 
 //echo $query;
 $result			= $db->query($query);

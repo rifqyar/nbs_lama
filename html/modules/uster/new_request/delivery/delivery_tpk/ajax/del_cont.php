@@ -10,7 +10,7 @@ $ex_bp		= $_POST["EX_BP"];
 //echo $no_req2.$no_cont.$no_req;
 //die();
 
-$query_del_nbs	= "DELETE FROM billing.req_receiving_d WHERE NO_CONTAINER = '$no_cont' AND ID_REQ = '$no_req2'";
+$query_del_nbs	= "DELETE FROM BILLING_NBS.req_receiving_d WHERE NO_CONTAINER = '$no_cont' AND ID_REQ = '$no_req2'";
 
 // $qves = "select o_vessel, o_voyin, o_voyout from request_delivery where no_request = '$no_req'";
 $qves = "SELECT
@@ -34,7 +34,7 @@ $rvcode = $db->query($qvcode)->fetchRow();
 */
 $vessel_code = $rves['VESSEL_CODE'];
 $voyage = $rves['VOYAGE'];
-$qcekop = "SELECT CARRIER FROM billing.REQ_RECEIVING_D WHERE ID_REQ = '$no_req2' AND NO_CONTAINER = '$no_cont'";
+$qcekop = "SELECT CARRIER FROM BILLING_NBS.REQ_RECEIVING_D WHERE ID_REQ = '$no_req2' AND NO_CONTAINER = '$no_cont'";
 $rcekop = $db->query($qcekop)->fetchRow();
 $operatorid = $rcekop['CARRIER'];
 $param_b_var= array(	
@@ -49,7 +49,7 @@ $param_b_var= array(
 							);
 
 // echo var_dump($param_b_var);die;
-$query_ops = "declare begin billing.proc_delete_cont(:v_nocont, :v_req, :flag, :vessel, :voyage, :operatorId, :v_response, :v_msg); end;";
+$query_ops = "declare begin BILLING_NBS.proc_delete_cont(:v_nocont, :v_req, :flag, :vessel, :voyage, :operatorId, :v_response, :v_msg); end;";
 
 $query_del	= "DELETE FROM CONTAINER_DELIVERY WHERE NO_CONTAINER = '$no_cont' AND NO_REQUEST = '$no_req'";
 

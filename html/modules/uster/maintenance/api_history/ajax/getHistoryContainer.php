@@ -97,7 +97,7 @@ foreach ($container as $container) {
             LEFT JOIN REQUEST_BATAL_MUAT RBM
             ON RBM.NO_REQUEST = HC.NO_REQUEST
                             LEFT JOIN YARD_AREA YAR ON HC.ID_YARD = YAR.ID
-                            LEFT JOIN BILLING.TB_USER MU ON to_char(MU.ID) = HC.ID_USER
+                            LEFT JOIN BILLING_NBS.TB_USER MU ON to_char(MU.ID) = HC.ID_USER
                             WHERE MC.NO_CONTAINER = '$no_cont'
                             AND HC.NO_BOOKING = '$no_booking'
                             AND HC.COUNTER = '$counter'
@@ -144,7 +144,7 @@ foreach ($container as $container) {
             LEFT JOIN REQUEST_BATAL_MUAT RBM
             ON RBM.NO_REQUEST = HC.NO_REQUEST
                             LEFT JOIN YARD_AREA YAR ON HC.ID_YARD = YAR.ID
-                            LEFT JOIN BILLING.TB_USER MU ON TO_CHAR(MU.ID) = HC.ID_USER
+                            LEFT JOIN BILLING_NBS.TB_USER MU ON TO_CHAR(MU.ID) = HC.ID_USER
                             WHERE MC.NO_CONTAINER = '$no_cont'
                             AND HC.NO_BOOKING = '$no_booking'
                             AND HC.COUNTER = '$counter'

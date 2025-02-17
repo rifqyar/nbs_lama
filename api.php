@@ -7,7 +7,7 @@ include "framework/init.php";
 
 
 	/*$db = getDB();
-	$query = "SELECT * from BILLING.TB_USER WHERE USERNAME = 'dama' ";
+	$query = "SELECT * BILLING_NBS.TB_USER WHERE USERNAME = 'dama' ";
 	$result = $db->query($query);
 	//echo $result->RecordCount()."-";die;
  	if($result->RecordCount() >0)

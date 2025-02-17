@@ -464,7 +464,7 @@ function padStr(i) {
 		<td>    			<select id='jenis_sppb' name="ship" style="width:300px !important">
 			<option value="">-----</option>
 		<?php
-			$doc = "SELECT ID_DOKUMEN, NAMA_DUKUMEN FROM BILLING.JENIS_DOKUMEN";
+			$doc = "SELECT ID_DOKUMEN, NAMA_DUKUMEN FROM BILLING_NBS.JENIS_DOKUMEN";
 			$result = $db->query($doc);
 			while($row = $result->fetchRow()){
 				$value = $row['ID_DOKUMEN'];

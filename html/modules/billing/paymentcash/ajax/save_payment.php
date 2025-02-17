@@ -185,7 +185,7 @@ if ($rw_val['JML'] == 0) { /* no running process */
 					
 			
 			
-		$sqlCheck="SELECT COUNT('X') AS JML FROM BILLING.XEINVC_TERMINAL_LIVE_EINVOICE TE WHERE TE.EINVOICE='Y' AND 
+		$sqlCheck="SELECT COUNT('X') AS JML FROM BILLING_NBS.XEINVC_TERMINAL_LIVE_EINVOICE TE WHERE TE.EINVOICE='Y' AND 
 		TRUNC(SYSDATE) BETWEEN TE.START_EINVOICE AND NVL(TE.ENDDATE_EINVOICE,SYSDATE) ";	
 		$run_CheckLive=$db->query($sqlCheck);
 		$rs_CheckLive=$run_CheckLive->fetchRow();
