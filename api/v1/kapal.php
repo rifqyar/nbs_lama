@@ -29,11 +29,11 @@ try {
     }
 
     // Database connection parameters
-    $host = '10.15.42.43';
+    $host = '10.15.42.35';
     $port = '1521';
     $sid  = 'datamti';
     $username = 'OPUS_REPO';
-    $password = 'OPUS_REPO';
+    $password = 'opus_repo';
 
     // Create connection string
     $conn_string = "(DESCRIPTION=(ADDRESS_LIST = (ADDRESS = (PROTOCOL = TCP)(HOST = $host)(PORT = $port)))(CONNECT_DATA=(SID=$sid)))";

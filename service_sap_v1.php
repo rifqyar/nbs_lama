@@ -586,7 +586,7 @@ function GetStatusPayment()
 function SapPaymentPaid($faktur, $trx_number, $user_id, $bank_id, $paid_date, $paid_channel, $date)
 {
 
-    $conn =oci_connect('uster', 'uster', '10.15.42.43/datamti');
+    $conn =oci_connect('uster', 'uster', '10.15.42.35/datamti');
     // check connection if fails return error
     if (!$conn) {
         // close connection
@@ -842,7 +842,7 @@ function SapPaymentPaid($faktur, $trx_number, $user_id, $bank_id, $paid_date, $p
         // check flag opus is true, disabled for development
         if ($flag_opus == true) {
             // connect to opus_repo, flagging payment to opus
-            $conn_opus = oci_connect('OPUS_REPO', 'OPUS_REPO', '10.15.42.43/datamti');
+            $conn_opus = oci_connect('OPUS_REPO', 'OPUS_REPO', '10.15.42.35/datamti');
             
             if(!$conn_opus) {
                 return "^87^ORA - Database problem, cant connect to database. OPUS BILL";

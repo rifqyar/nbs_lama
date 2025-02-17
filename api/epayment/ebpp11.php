@@ -22,7 +22,7 @@ require_once('../../lib/nusoap/nusoap.php');
 function ePaymentInquiry($trx_number)
 {
    // Connection to USTER
-   $conn = oci_connect('uster', 'uster123', '10.15.42.43/datamti');
+   $conn = oci_connect('uster', 'uster123', '10.15.42.35/datamti');
 
    // check connection if fails return error
    if(!$conn) {
@@ -261,7 +261,7 @@ function ePaymentInquiry($trx_number)
 function ePaymentPaid($trx_number, $user_id, $bank_id, $paid_date, $paid_channel)
 {
   // Connection to USTER
-  $conn = oci_connect('uster', 'usasdter', '10.15.42.43/datamti');
+  $conn = oci_connect('uster', 'usasdter', '10.15.42.35/datamti');
 
   // check connection if fails return error
   if(!$conn) {
@@ -518,7 +518,7 @@ function ePaymentPaid($trx_number, $user_id, $bank_id, $paid_date, $paid_channel
     // check flag opus is true, disabled for development
     if($flag_opus == true){
         // connect to opus_repo, flagging payment to opus
-        $conn_opus = oci_connect('opus_repo', 'opus_reasdpo', '10.15.42.43/datamti');
+        $conn_opus = oci_connect('opus_repo', 'opus_reasdpo', '10.15.42.35/datamti');
         $out_status = '';
         $outmsg = '';
         //
