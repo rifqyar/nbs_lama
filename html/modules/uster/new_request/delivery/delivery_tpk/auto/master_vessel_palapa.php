@@ -33,7 +33,7 @@ $query 			= "SELECT
                     WHERE
                         TML_CD = 'PNK'
                         -- AND SYSDATE BETWEEN TO_DATE(OPEN_STACK, 'YYYYMMDDHH24MISS') AND TO_DATE(CLOSSING_TIME, 'YYYYMMDDHH24MISS')
-                        AND SYSDATE >= TO_DATE(OPEN_STACK, 'YYYYMMDDHH24MISS') AND SYSDATE >= TO_DATE(CLOSSING_TIME, 'YYYYMMDDHH24MISS')
+                        -- AND SYSDATE >= TO_DATE(OPEN_STACK, 'YYYYMMDDHH24MISS') AND SYSDATE >= TO_DATE(CLOSSING_TIME, 'YYYYMMDDHH24MISS')
                         AND (VESSEL LIKE '%$nama_kapal%'
                         OR VOYAGE_IN LIKE '%$nama_kapal%'
                         OR VOYAGE_OUT LIKE '%$nama_kapal%'
