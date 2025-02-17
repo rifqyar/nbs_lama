@@ -35,7 +35,7 @@ if($_GET['col'] && $_GET['key']){
 	$col = $_GET['col'];
 	$key = strtoupper($_GET['key']);
 $query ="SELECT COUNT(*) AS NUMBER_OF_ROWS FROM (select trx_number,trx_date,customer_name,nota_name,confirmation_status, sum(nvl(amount,0)) amount 
-from billing.PYMA_STAGING where TRX_NUMBER IS NOT NULL AND upper($col) like '%$key%' $where_cab 
+from BILLING_NBS.PYMA_STAGING where TRX_NUMBER IS NOT NULL AND upper($col) like '%$key%' $where_cab 
 group by trx_number,trx_date, customer_name,nota_name,confirmation_status)";
 //print_r($query);die;
 $res = $db->query($query)->fetchRow();
@@ -43,7 +43,7 @@ $count = $res[NUMBER_OF_ROWS];
 }else{
 $YEAR = $_GET['year'];
 $query ="SELECT COUNT(*) AS NUMBER_OF_ROWS FROM (select trx_number,trx_date,customer_name,nota_name,confirmation_status, sum(nvl(amount,0)) amount 
-from billing.PYMA_STAGING where TRX_NUMBER IS NOT NULL and to_char(trx_date,'yyyy') = '$YEAR' $where_cab  
+from BILLING_NBS.PYMA_STAGING where TRX_NUMBER IS NOT NULL and to_char(trx_date,'yyyy') = '$YEAR' $where_cab  
 group by trx_number,trx_date, customer_name,nota_name,confirmation_status)";
 //print_r($query);die;
 $res = $db->query($query)->fetchRow();
@@ -70,12 +70,12 @@ if($_GET['col'] && $_GET['key']){
 	$key = strtoupper($_GET['key']); 
 	
 $query="select nota_name,trx_number,to_char(trx_date,'YYYY-MM-DD') as trx_date,customer_name,confirmation_status, sum(nvl(amount,0)) amount 
-from billing.PYMA_STAGING where TRX_NUMBER IS NOT NULL AND upper($col) like '%$key%' $where_cab  
+from BILLING_NBS.PYMA_STAGING where TRX_NUMBER IS NOT NULL AND upper($col) like '%$key%' $where_cab  
 group by nota_name,trx_number,trx_date, customer_name,confirmation_status order by nota_name asc";
 }else{
 $YEAR = $_GET['year'];
 $query="select nota_name,trx_number,to_char(trx_date,'YYYY-MM-DD') as trx_date,customer_name,confirmation_status, sum(nvl(amount,0)) amount 
-from billing.PYMA_STAGING where TRX_NUMBER IS NOT NULL and to_char(trx_date,'yyyy') = '$YEAR' $where_cab  
+from BILLING_NBS.PYMA_STAGING where TRX_NUMBER IS NOT NULL and to_char(trx_date,'yyyy') = '$YEAR' $where_cab  
 group by nota_name,trx_number,trx_date, customer_name,confirmation_status order by nota_name asc";	
 }
 if($res = $db->query($query)) {

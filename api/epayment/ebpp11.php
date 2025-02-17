@@ -447,7 +447,7 @@ function ePaymentPaid($trx_number, $user_id, $bank_id, $paid_date, $paid_channel
     }
 
     $query_bank = "SELECT bank_account_name
-                   FROM billing.mst_bank_simkeu
+                   FROM billing_nbs.mst_bank_simkeu
                    WHERE bank_id = '{$bank_id}'";
 
     $parse_bank   = oci_parse($conn, $query_bank);

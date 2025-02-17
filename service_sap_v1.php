@@ -506,7 +506,7 @@ function GetStatusPayment()
 
             $query = $db->query("
             SELECT BANK_ID
-            FROM billing.mst_bank_simkeu
+            FROM billing_nbs.mst_bank_simkeu
             WHERE BANK_ACCOUNT_NAME = '$sapBank'");
             $bank = $query->fetchRow();
             $idBank = $bank['BANK_ID'];
@@ -771,7 +771,7 @@ function SapPaymentPaid($faktur, $trx_number, $user_id, $bank_id, $paid_date, $p
         }
 
         $query_bank = "SELECT bank_account_name
-                   FROM billing.mst_bank_simkeu
+                   FROM billing_nbs.mst_bank_simkeu
                    WHERE bank_id = '{$bank_id}'";
 
         $parse_bank   = oci_parse($conn, $query_bank);

@@ -42,7 +42,7 @@
 	   CONCAT(TERBILANG(a.TOTAL_TAGIHAN),'rupiah') TERBILANG, c.NO_DO, c.NO_BL, m.NAME NAMA_LENGKAP, CASE WHEN TRUNC(TGL_NOTA) < TO_DATE('1/6/2013','DD/MM/RRRR')
 		THEN a.NO_NOTA
 		ELSE A.NO_FAKTUR END NO_FAKTUR_
-                            FROM nota_stripping a, request_stripping c, billing.tb_user m where
+                            FROM nota_stripping a, request_stripping c, BILLING_NBS.tb_user m where
                             a.NO_REQUEST = c.NO_REQUEST
 							AND a.nipp_user = m.id(+)
 							AND a.TGL_NOTA = (SELECT MAX(d.TGL_NOTA) FROM NOTA_STRIPPING d WHERE d.NO_REQUEST = '$no_req' )

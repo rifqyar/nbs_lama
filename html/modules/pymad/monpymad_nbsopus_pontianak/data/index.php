@@ -35,7 +35,7 @@ $filename = "MONITORING_PYMAD_PETIKEMAS_NBS_OPUS_PONTIANAK.XLS";
 header("Content-type: application/xls");
 header("Content-Disposition: filename=$filename");
 $query="select nota_name,currency,trx_number,trx_date,customer_name,transfer_status,transfer_message,status_ar,ar_date,sum(nvl(amount,0)) amount 
-from billing.PYMA_STAGING where TRX_NUMBER IS NOT NULL and nota_name = '$NOTANAME' and transfer_status = '$STATUS' and to_char(trx_date,'yyyy') = '$YEAR' $where_cab
+from BILLING_NBS.PYMA_STAGING where TRX_NUMBER IS NOT NULL and nota_name = '$NOTANAME' and transfer_status = '$STATUS' and to_char(trx_date,'yyyy') = '$YEAR' $where_cab
 group by nota_name,currency,trx_number,trx_date, customer_name,transfer_status,transfer_message,status_ar,ar_date order by nota_name asc";
 $res = $db->query($query);
 $getas = $res->getAll(); 
@@ -81,7 +81,7 @@ $limit = isset($_POST['rows'])?$_POST['rows']:10; // get how many rows we want t
 $sidx = isset($_POST['sidx'])?$_POST['sidx']:1; // get index row - i.e. user click to sort
 
 $query ="SELECT COUNT(*) AS NUMBER_OF_ROWS FROM (select trx_number,trx_date,customer_name,nota_name,confirmation_status,status_ar,ar_date, sum(nvl(amount,0)) amount 
-from billing.PYMA_STAGING where TRX_NUMBER IS NOT NULL and nota_name = '$NOTANAME' and transfer_status = '$STATUS' and to_char(trx_date,'yyyy') = '$YEAR' $where_cab
+from BILLING_NBS.PYMA_STAGING where TRX_NUMBER IS NOT NULL and nota_name = '$NOTANAME' and transfer_status = '$STATUS' and to_char(trx_date,'yyyy') = '$YEAR' $where_cab
 group by trx_number,trx_date, customer_name,nota_name,confirmation_status,status_ar,ar_date)";
 //print_r($query);die;
 $res = $db->query($query)->fetchRow();
@@ -101,7 +101,7 @@ $responce->total = $total_pages;
 $responce->records = $count;
 
 $query="select nota_name,trx_number,trx_date,customer_name,transfer_status,transfer_message,status_ar,ar_date,sum(nvl(amount,0)) amount 
-from billing.PYMA_STAGING where TRX_NUMBER IS NOT NULL and nota_name = '$NOTANAME' and transfer_status = '$STATUS' and to_char(trx_date,'yyyy') = '$YEAR' $where_cab
+from BILLING_NBS.PYMA_STAGING where TRX_NUMBER IS NOT NULL and nota_name = '$NOTANAME' and transfer_status = '$STATUS' and to_char(trx_date,'yyyy') = '$YEAR' $where_cab
 group by nota_name,trx_number,trx_date, customer_name,transfer_status,transfer_message,status_ar,ar_date order by nota_name asc";	
 
 if($res = $db->query($query)) {

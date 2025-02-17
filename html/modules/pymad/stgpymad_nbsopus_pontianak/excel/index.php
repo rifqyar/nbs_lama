@@ -38,43 +38,43 @@ $KEY  = strtoupper($_GET['key']);
 if($COL!='' && $KEY!=''){
 	$querysum = "select a.nota_name as nota_name, currency, 
 	(select count(distinct(b.trx_number)) 
-	from billing.pyma_staging b where b.nota_name = a.nota_name 
+	from BILLING_NBS.pyma_staging b where b.nota_name = a.nota_name 
 	and b.confirmation_status = 'Y' and b.trx_number IS NOT NULL and upper(b.$COL) like '%$KEY%') as count_yes, 
 	(select nvl(sum(c.amount),0) 
-	from billing.pyma_staging c where c.nota_name = a.nota_name 
+	from BILLING_NBS.pyma_staging c where c.nota_name = a.nota_name 
 	and c.confirmation_status = 'Y' and c.trx_number IS NOT NULL and upper(c.$COL) like '%$KEY%') as amount_yes,
 	(select count(distinct(d.trx_number)) 
-	from billing.pyma_staging d where d.nota_name = a.nota_name 
+	from BILLING_NBS.pyma_staging d where d.nota_name = a.nota_name 
 	and d.confirmation_status = 'X' and d.trx_number IS NOT NULL and upper(d.$COL) like '%$KEY%') as count_no,
 	(select nvl(sum(f.amount),0) 
-	from billing.pyma_staging f where f.nota_name = a.nota_name 
+	from BILLING_NBS.pyma_staging f where f.nota_name = a.nota_name 
 	and f.confirmation_status = 'X' and f.trx_number IS NOT NULL and upper(f.$COL) like '%$KEY%') as amount_no
-	from billing.pyma_staging a where a.trx_number IS NOT NULL 
+	from BILLING_NBS.pyma_staging a where a.trx_number IS NOT NULL 
 	and a.org_id in $ORG_ID and upper(a.$COL) like '%$KEY%' group by a.nota_name, a.currency order by a.nota_name asc
 	";
 	$querydata="select nota_name,trx_number,trx_date,customer_name,currency,confirmation_status,amount,service_type,line_desc
-	from billing.PYMA_STAGING where TRX_NUMBER IS NOT NULL and upper($COL) like '%$KEY%' and org_id in $ORG_ID
+	from BILLING_NBS.PYMA_STAGING where TRX_NUMBER IS NOT NULL and upper($COL) like '%$KEY%' and org_id in $ORG_ID
 	order by nota_name,trx_number,trx_date";
 	//var_dump($querysum);exit;
 	}elseif($YEAR!=''){
 	$querysum  = "select a.nota_name as nota_name, currency, 
 	(select count(distinct(b.trx_number)) 
-	from billing.pyma_staging b where b.nota_name = a.nota_name 
+	from BILLING_NBS.pyma_staging b where b.nota_name = a.nota_name 
 	and b.confirmation_status = 'Y' and b.trx_number IS NOT NULL and to_char(b.trx_date,'yyyy')='$YEAR') as count_yes, 
 	(select nvl(sum(c.amount),0) 
-	from billing.pyma_staging c where c.nota_name = a.nota_name 
+	from BILLING_NBS.pyma_staging c where c.nota_name = a.nota_name 
 	and c.confirmation_status = 'Y' and c.trx_number IS NOT NULL and to_char(c.trx_date,'yyyy')='$YEAR') as amount_yes,
 	(select count(distinct(d.trx_number)) 
-	from billing.pyma_staging d where d.nota_name = a.nota_name 
+	from BILLING_NBS.pyma_staging d where d.nota_name = a.nota_name 
 	and d.confirmation_status = 'X' and d.trx_number IS NOT NULL and to_char(d.trx_date,'yyyy')='$YEAR') as count_no,
 	(select nvl(sum(f.amount),0) 
-	from billing.pyma_staging f where f.nota_name = a.nota_name 
+	from BILLING_NBS.pyma_staging f where f.nota_name = a.nota_name 
 	and f.confirmation_status = 'X' and f.trx_number IS NOT NULL and to_char(f.trx_date,'yyyy')='$YEAR') as amount_no
-	from billing.pyma_staging a where a.trx_number IS NOT NULL 
+	from BILLING_NBS.pyma_staging a where a.trx_number IS NOT NULL 
 	and a.org_id in $ORG_ID and to_char(a.trx_date,'yyyy')='$YEAR' group by a.nota_name, a.currency order by a.nota_name asc
 	";
 	$querydata="select nota_name,trx_number,trx_date,customer_name,currency,confirmation_status,amount,service_type,line_desc
-	from billing.PYMA_STAGING where TRX_NUMBER IS NOT NULL and to_char(trx_date,'yyyy') = '$YEAR' and org_id in $ORG_ID
+	from BILLING_NBS.PYMA_STAGING where TRX_NUMBER IS NOT NULL and to_char(trx_date,'yyyy') = '$YEAR' and org_id in $ORG_ID
 	order by nota_name,trx_number,trx_date";
 	//var_dump($querysum);exit;
 }else{
