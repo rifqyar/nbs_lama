@@ -7,7 +7,7 @@ function get_menu($data, $parent = 0) {
 		$i++;
 		foreach ($data[$parent] as $v) {
 			$hiddenMenu = array('Receiving', 'Payment Cash', 'Nota Receiving', 'Stripping', 'Perencanaan Stuffing', 'Nota Stuffing', 'History Container Uster', 'Delivery');
-			if(!in_array($v['MENU'], $hiddenMenu) || $$_SESSION['ID_USER'] != '347'){
+			if(!in_array($v['MENU'], $hiddenMenu) && $$_SESSION['ID_USER'] != '347'){
 				$child = get_menu($data, $v['ID_MENU']);
 				$html .= "\n\t$tab<li>";
 				if($v['LINKNYA'] <> "")
