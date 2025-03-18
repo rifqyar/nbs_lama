@@ -1,0 +1,39 @@
+
+ <div id="list">
+     <table class="grid-table" border='0' cellpadding="1" cellspacing="1"  width="100%" >
+                              <tr style=" font-size:10pt">
+                                  <th valign="top" class="grid-header"  style="font-size:8pt">No </th>
+                                  <th  valign="top" class="grid-header"  style="font-size:8pt">No. Container</th>
+                                  <th valign="top" class="grid-header"  style="font-size:8pt">No. Request</th>
+                                  <th valign="top" class="grid-header"  style="font-size:8pt">Size</th>
+                                  <th valign="top" class="grid-header"  style="font-size:8pt">Type</th>
+                                  <th valign="top" class="grid-header"  style="font-size:8pt">Status</th>
+                                  <th  valign="top" class="grid-header"  style="font-size:8pt">Kegiatan</th> 
+                                  <th valign="top" class="grid-header"  style="font-size:8pt">Tgl Approval</th>
+                                  <th valign="top" class="grid-header"  style="font-size:8pt">Tgl Realisasi</th>
+                                  <th valign="top" class="grid-header"  style="font-size:8pt">Eksekutor</th>
+                                  <th valign="top" class="grid-header"  style="font-size:8pt">Tgl Placement</th>
+                                  <th valign="top" class="grid-header"  style="font-size:8pt">Pemilik Barang</th>
+                                  <th valign="top" class="grid-header"  style="font-size:8pt">Kapal</th>
+                              </tr>
+							  <?php $i=1; ?>
+                              <fill src="row_list" var="rows">
+                              <tr bgcolor="#f9f9f3" onMouseOver=this.style.backgroundColor="#BAD5FC" onMouseOut=this.style.backgroundColor="">
+                                  <td width="4%" align="center" valign="middle" class="grid-cell" style="color:#000; font-family:Arial; font-size:9pt"><?=$i?> </td>
+                                  <td width="22%" align="center" valign="middle" class="grid-cell"   style="font-family:Arial; font-size:11pt; color:#555555"><b>{$rows.NO_CONTAINER}</b></td>
+                                  <td width="15%" align="center" valign="middle" class="grid-cell"  style="font-size:9pt">{$rows.NO_REQUEST}</td>
+                                  <td width="15%" align="center" valign="middle" class="grid-cell"  style="font-size:9pt">{$rows.SIZE_}</td>
+                                  <td width="15%" align="center" valign="middle" class="grid-cell"  style="font-size:9pt">{$rows.TYPE_}</td>
+                                  <td width="15%" align="center" valign="middle" class="grid-cell"  style="font-size:9pt">{$rows.STATUS_CONT}</td>
+                                  <td width="15%" align="center" valign="middle" class="grid-cell"  style="font-size:9pt;font-family:Arial;"><font color="#0066CC" style="font-size:10pt">{$rows.KEGIATAN}</font></td>
+                                  <td width="15%" align="center" valign="middle" class="grid-cell"  style="font-size:9pt;font-family:Arial;"><font color="#0066CC" style="font-size:10pt">{$rows.TGL_APPROVE}</font></td>
+                                  <td width="15%" align="center" valign="middle" class="grid-cell"  style="font-size:9pt;font-family:Arial;"><font color="#0066CC" style="font-size:10pt">{$rows.TGL_REALISASI}</font></td>
+                                  <td width="15%" align="center" valign="middle" class="grid-cell"  style="font-size:9pt;font-family:Arial;"><font color="#0066CC" style="font-size:10pt">{$rows.NAMA_LENGKAP}</font></td>
+                                  <td width="15%" align="center" valign="middle" class="grid-cell"  style="font-size:9pt;font-family:Arial;"><font color="#0066CC" style="font-size:10pt">{$rows.TGL_PLACEMENT}</font></td>
+                                  <td width="15%" align="center" valign="middle" class="grid-cell"  style="font-size:9pt;font-family:Arial;"><font color="#0066CC" style="font-size:10pt">{$rows.NM_PBM}</font></td>
+                                  <td width="15%" align="center" valign="middle" class="grid-cell"  style="font-size:9pt;font-family:Arial;"><font color="#0066CC" style="font-size:10pt">{$rows.NM_KAPAL} [{$rows.VOYAGE_IN}]</font></td>
+							             </tr>
+                  <?php $i++; ?>
+							</fill>
+        </table>
+ </div>

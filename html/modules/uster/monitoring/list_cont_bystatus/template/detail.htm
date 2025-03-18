@@ -1,0 +1,175 @@
+<? if (($kegiatan == 'receiving_tpk') OR ($kegiatan == 'receiving_luar')){ ?>
+  <table class="grid-table" border='0' cellpadding="1" cellspacing="1"  width="100%" >
+	<tr>
+		 <th valign="top" class="grid-header"  style="font-size:8pt">No</th>
+		 <th valign="top" class="grid-header"  style="font-size:8pt">No Container</th>
+		 <th valign="top" class="grid-header"  style="font-size:8pt">Size</th>
+		 <th valign="top" class="grid-header"  style="font-size:8pt">Type</th>
+		 <th valign="top" class="grid-header"  style="font-size:8pt">Status</th>
+		 <th valign="top" class="grid-header"  style="font-size:8pt">Tgl Request</th>
+		 <th valign="top" class="grid-header"  style="font-size:8pt">No Request</th>
+		 <th valign="top" class="grid-header"  style="font-size:8pt">EMKL</th>
+		 <th valign="top" class="grid-header"  style="font-size:8pt">Peralihan</th>
+		 <th valign="top" class="grid-header"  style="font-size:8pt">Tgl GATE IN</th>
+		 <th valign="top" class="grid-header"  style="font-size:8pt">NoPoL</th>
+		 <th valign="top" class="grid-header"  style="font-size:8pt">Tgl Placement</th>
+		 <th valign="top" class="grid-header"  style="font-size:8pt">Lokasi</th>
+	</tr>
+	<? $no= 1;
+	foreach ($row_list as $row){?>
+	<tr>
+		<td width="2%" align="center" valign="middle" class="grid-cell" style="color:#000; font-family:Arial; font-size:9pt"><?=$no?></td>
+		 <td width="5%" align="center" valign="middle" class="grid-cell" style="color:#000; font-family:Arial; font-size:9pt"><?=$row['NO_CONTAINER']?></td>
+		 <td width="2%" align="center" valign="middle" class="grid-cell" style="color:#000; font-family:Arial; font-size:9pt"><?=$row['SIZE_']?></td>
+		 <td width="2%" align="center" valign="middle" class="grid-cell" style="color:#000; font-family:Arial; font-size:9pt"><?=$row['TYPE_']?></td>
+		 <td width="2%" align="center" valign="middle" class="grid-cell" style="color:#000; font-family:Arial; font-size:9pt"><?=$row['STATUS']?></td>
+		 <td width="4%" align="center" valign="middle" class="grid-cell" style="color:#000; font-family:Arial; font-size:9pt"><?=$row['TGL_REQUEST']?></td>
+		 <td width="4%" align="center" valign="middle" class="grid-cell" style="color:#000; font-family:Arial; font-size:9pt"><?=$row['NO_REQUEST']?></td>
+		 <td width="8%" align="center" valign="middle" class="grid-cell" style="color:#000; font-family:Arial; font-size:9pt"><?=$row['NM_PBM']?></td>
+		 <td width="8%" align="center" valign="middle" class="grid-cell" style="color:#000; font-family:Arial; font-size:9pt"><?=$row['PERALIHAN']?></td>
+		 <td width="4%" align="center" valign="middle" class="grid-cell" style="color:#000; font-family:Arial; font-size:9pt"><?=$row['TGL_IN']?></td>
+		 <td width="4%" align="center" valign="middle" class="grid-cell" style="color:#000; font-family:Arial; font-size:9pt"><?=$row['NOPOL']?></td>
+		 <td width="4%" align="center" valign="middle" class="grid-cell" style="color:#000; font-family:Arial; font-size:9pt"><?=$row['TGL_PLACEMENT_']?></td>
+		 <td width="8%" align="center" valign="middle" class="grid-cell" style="color:#000; font-family:Arial; font-size:9pt"><?=$row['NAMA_BLOK']?>-<?=$row['SLOT_']?>-<?=$row['ROW_']?>-<?=$row['TIER_']?></td>
+	</tr>
+	<? $no++;}?>
+</table>
+<? } else if ($kegiatan == 'stripping_tpk'){ ?>
+	<table class="grid-table" border='0' cellpadding="1" cellspacing="1"  width="100%" >
+	<tr>
+		 <th valign="top" class="grid-header"  style="font-size:8pt">No</th>
+		 <th valign="top" class="grid-header"  style="font-size:8pt">No Container</th>
+		 <th valign="top" class="grid-header"  style="font-size:8pt">Size</th>
+		 <th valign="top" class="grid-header"  style="font-size:8pt">Type</th>
+		 <th valign="top" class="grid-header"  style="font-size:8pt">Status</th>
+		 <th valign="top" class="grid-header"  style="font-size:8pt">Tgl Request</th>
+		 <th valign="top" class="grid-header"  style="font-size:8pt">No Request</th>
+		 <th valign="top" class="grid-header"  style="font-size:8pt">EMKL</th>
+		 <?php if ($status != 'tgl_app'){ ?>
+		 <th valign="top" class="grid-header"  style="font-size:8pt">TGL IN</th>
+		 <!-- <th valign="top" class="grid-header"  style="font-size:8pt">NoPoL</th> -->
+		 <th valign="top" class="grid-header"  style="font-size:8pt">Tgl Placement</th>		 
+		 <th valign="top" class="grid-header"  style="font-size:8pt">Lokasi</th>
+		 <?php } ?>
+		 <th valign="top" class="grid-header"  style="font-size:8pt">Tgl Approve</th>
+		 <?php if ($status != 'tgl_app'){ ?>
+		 <th valign="top" class="grid-header"  style="font-size:8pt">Tgl Realisasi</th>
+		 <th valign="top" class="grid-header"  style="font-size:8pt">Tgl Relokasi</th>
+		 <th valign="top" class="grid-header"  style="font-size:8pt">Lokasi</th>
+		 <?php } ?>
+		 
+	</tr>
+	<? $no= 1;
+	foreach ($row_list as $row){?>
+	<tr>
+		<td width="2%" align="center" valign="middle" class="grid-cell" style="color:#000; font-family:Arial; font-size:9pt"><?=$no?></td>
+		 <td width="5%" align="center" valign="middle" class="grid-cell" style="color:#000; font-family:Arial; font-size:9pt"><?=$row['NO_CONTAINER']?></td>
+		 <td width="2%" align="center" valign="middle" class="grid-cell" style="color:#000; font-family:Arial; font-size:9pt"><?=$row['SIZE_']?></td>
+		 <td width="2%" align="center" valign="middle" class="grid-cell" style="color:#000; font-family:Arial; font-size:9pt"><?=$row['TYPE_']?></td>
+		 <td width="2%" align="center" valign="middle" class="grid-cell" style="color:#000; font-family:Arial; font-size:9pt"><?=$row['STATUS']?></td>
+		 <td width="4%" align="center" valign="middle" class="grid-cell" style="color:#000; font-family:Arial; font-size:9pt"><?=$row['TGL_REQUEST']?></td>
+		 <td width="4%" align="center" valign="middle" class="grid-cell" style="color:#000; font-family:Arial; font-size:9pt"><?=$row['NO_REQUEST']?></td>
+		 <td width="8%" align="center" valign="middle" class="grid-cell" style="color:#000; font-family:Arial; font-size:9pt"><?=$row['NM_PBM']?></td>
+		 <?php if ($status != 'tgl_app'){ ?>
+		 <td width="4%" align="center" valign="middle" class="grid-cell" style="color:#000; font-family:Arial; font-size:9pt"><?=$row['TGL_IN']?></td>
+		 <!-- <td width="4%" align="center" valign="middle" class="grid-cell" style="color:#000; font-family:Arial; font-size:9pt"><?=$row['NOPOL']?></td> -->
+		 <td width="4%" align="center" valign="middle" class="grid-cell" style="color:#000; font-family:Arial; font-size:9pt"><?=$row['TGL_PLACEMENT_']?></td>
+		 <td width="8%" align="center" valign="middle" class="grid-cell" style="color:#000; font-family:Arial; font-size:9pt"><?=$row['NAMA_BLOK']?>-<?=$row['SLOT_']?>-<?=$row['ROW_']?>-<?=$row['TIER_']?></td>
+		 <?php } ?>
+		  <td width="4%" align="center" valign="middle" class="grid-cell" style="color:#000; font-family:Arial; font-size:9pt"><?=$row['TGL_APPROVE']?></td>
+		  <?php if ($status != 'tgl_app'){ ?>
+		 <td width="4%" align="center" valign="middle" class="grid-cell" style="color:#000; font-family:Arial; font-size:9pt"><?=$row['TGL_REALISASI']?></td>
+		 <td width="4%" align="center" valign="middle" class="grid-cell" style="color:#000; font-family:Arial; font-size:9pt"><?=$row['TGL_RELOKASI']?></td>
+		 <td width="8%" align="center" valign="middle" class="grid-cell" style="color:#000; font-family:Arial; font-size:9pt"><?=$row['NAMA_BLOK_MTY']?>-<?=$row['SLOT_MTY']?>-<?=$row['ROW_MTY']?>-<?=$row['TIER_MTY']?></td>
+		 <?php } ?>
+	</tr>
+	<? $no++;}?>
+</table>
+<?php } else if ($kegiatan == 'stuffing_depo' || $kegiatan == 'stuffing_tpk'){ ?>
+	<table class="grid-table" border='0' cellpadding="1" cellspacing="1"  width="100%" >
+	<tr>
+		 <th valign="top" class="grid-header"  style="font-size:8pt">No</th>
+		 <th valign="top" class="grid-header"  style="font-size:8pt">No Container</th>
+		 <th valign="top" class="grid-header"  style="font-size:8pt">Size</th>
+		 <th valign="top" class="grid-header"  style="font-size:8pt">Type</th>
+		 <th valign="top" class="grid-header"  style="font-size:8pt">Status</th>
+		 <th valign="top" class="grid-header"  style="font-size:8pt">Tgl Request</th>
+		 <th valign="top" class="grid-header"  style="font-size:8pt">No Request</th>
+		 <th valign="top" class="grid-header"  style="font-size:8pt">EMKL</th>
+		 <?php if ( $kegiatan == 'stuffing_tpk') { ?>
+		 <th valign="top" class="grid-header"  style="font-size:8pt">Tgl In</th>
+		 <th valign="top" class="grid-header"  style="font-size:8pt">Tgl Placement</th>
+		 <?php }?>
+		 <th valign="top" class="grid-header"  style="font-size:8pt">Tgl Realisasi</th>
+		 <th valign="top" class="grid-header"  style="font-size:8pt">Tgl Request Delivery</th>
+		 <th valign="top" class="grid-header"  style="font-size:8pt">No Request Delivery</th>
+		 <th valign="top" class="grid-header"  style="font-size:8pt">Nm Kapal</th>
+		 <th valign="top" class="grid-header"  style="font-size:8pt">Tgl Gate Out</th>
+	</tr>
+	<?php $no= 1;
+	foreach ($row_list as $row){?>
+	<tr>
+		<td width="2%" align="center" valign="middle" class="grid-cell" style="color:#000; font-family:Arial; font-size:9pt"><?=$no?></td>
+		 <td width="5%" align="center" valign="middle" class="grid-cell" style="color:#000; font-family:Arial; font-size:9pt"><?=$row['NO_CONTAINER']?></td>
+		 <td width="2%" align="center" valign="middle" class="grid-cell" style="color:#000; font-family:Arial; font-size:9pt"><?=$row['SIZE_']?></td>
+		 <td width="2%" align="center" valign="middle" class="grid-cell" style="color:#000; font-family:Arial; font-size:9pt"><?=$row['TYPE_']?></td>
+		 <td width="2%" align="center" valign="middle" class="grid-cell" style="color:#000; font-family:Arial; font-size:9pt"><?=$row['STATUS']?></td>
+		 <td width="4%" align="center" valign="middle" class="grid-cell" style="color:#000; font-family:Arial; font-size:9pt"><?=$row['TGL_REQUEST']?></td>
+		 <td width="4%" align="center" valign="middle" class="grid-cell" style="color:#000; font-family:Arial; font-size:9pt"><?=$row['NO_REQUEST']?></td>
+		 <td width="8%" align="center" valign="middle" class="grid-cell" style="color:#000; font-family:Arial; font-size:9pt"><?=$row['NM_PBM']?></td>
+		 <?php if ( $kegiatan == 'stuffing_tpk') { ?>
+		 <td width="4%" align="center" valign="middle" class="grid-cell" style="color:#000; font-family:Arial; font-size:9pt"><?=$row['TGL_IN']?></td>		 
+		 <td width="4%" align="center" valign="middle" class="grid-cell" style="color:#000; font-family:Arial; font-size:9pt"><?=$row['TGL_PLACEMENT_']?></td>
+		 <td width="8%" align="center" valign="middle" class="grid-cell" style="color:#000; font-family:Arial; font-size:9pt"><?=$row['NAMA_BLOK']?>-<?=$row['SLOT_']?>-<?=$row['ROW_']?>-<?=$row['TIER_']?></td>
+		 <?php } ?>
+		 <td width="4%" align="center" valign="middle" class="grid-cell" style="color:#000; font-family:Arial; font-size:9pt"><?=$row['TGL_REALISASI']?></td>
+		 <td width="4%" align="center" valign="middle" class="grid-cell" style="color:#000; font-family:Arial; font-size:9pt"><?=$row['TGL_REQ_DELIVERY']?></td>
+<!-- 		 <td width="4%" align="center" valign="middle" class="grid-cell" style="color:#000; font-family:Arial; font-size:9pt"><?=$row['NO_REQ_DELIVERY']?></td>
+		 <td width="4%" align="center" valign="middle" class="grid-cell" style="color:#000; font-family:Arial; font-size:9pt"><?=$row['NM_KAPAL']?></td> -->
+		 <td width="4%" align="center" valign="middle" class="grid-cell" style="color:#000; font-family:Arial; font-size:9pt"><?=$row['TGL_GATE']?></td>
+	</tr>
+	<? $no++;}?>
+</table>
+<?php } else if ($kegiatan == 'delivery_tpk_mty' || $kegiatan == 'delivery_luar'){ ?>
+	<table class="grid-table" border='0' cellpadding="1" cellspacing="1"  width="100%" >
+	<tr>
+		 <th valign="top" class="grid-header"  style="font-size:8pt">No</th>
+		 <th valign="top" class="grid-header"  style="font-size:8pt">No Container</th>
+		 <th valign="top" class="grid-header"  style="font-size:8pt">Size</th>
+		 <th valign="top" class="grid-header"  style="font-size:8pt">Type</th>
+		 <th valign="top" class="grid-header"  style="font-size:8pt">Status</th>
+		 <th valign="top" class="grid-header"  style="font-size:8pt">Komoditi</th>
+		 <th valign="top" class="grid-header"  style="font-size:8pt">Berat</th>
+		 <th valign="top" class="grid-header"  style="font-size:8pt">Tgl Request</th>
+		 <th valign="top" class="grid-header"  style="font-size:8pt">No Request</th>
+		 <th valign="top" class="grid-header"  style="font-size:8pt">Perp Dari</th>
+		 <th valign="top" class="grid-header"  style="font-size:8pt">EMKL</th>
+		 <th valign="top" class="grid-header"  style="font-size:8pt">Active</th>
+		 <?php if ( $kegiatan == 'delivery_tpk_mty') { ?>
+		 <th valign="top" class="grid-header"  style="font-size:8pt">Nm Kapal</th>
+		 <?php } ?>
+		 <th valign="top" class="grid-header"  style="font-size:8pt">Tgl Gate Out</th>
+	</tr>
+	<?php $no= 1;
+	foreach ($row_list as $row){?>
+	<tr>
+		<td width="2%" align="center" valign="middle" class="grid-cell" style="color:#000; font-family:Arial; font-size:9pt"><?=$no?></td>
+		 <td width="5%" align="center" valign="middle" class="grid-cell" style="color:#000; font-family:Arial; font-size:9pt"><?=$row['NO_CONTAINER']?></td>
+		 <td width="2%" align="center" valign="middle" class="grid-cell" style="color:#000; font-family:Arial; font-size:9pt"><?=$row['SIZE_']?></td>
+		 <td width="2%" align="center" valign="middle" class="grid-cell" style="color:#000; font-family:Arial; font-size:9pt"><?=$row['TYPE_']?></td>
+		 <td width="2%" align="center" valign="middle" class="grid-cell" style="color:#000; font-family:Arial; font-size:9pt"><?=$row['STATUS']?></td>
+		 <td width="2%" align="center" valign="middle" class="grid-cell" style="color:#000; font-family:Arial; font-size:9pt"><?=$row['COMMODITY']?></td>
+		 <td width="2%" align="center" valign="middle" class="grid-cell" style="color:#000; font-family:Arial; font-size:9pt"><?=$row['BERAT']?></td>
+		 <td width="4%" align="center" valign="middle" class="grid-cell" style="color:#000; font-family:Arial; font-size:9pt"><?=$row['TGL_REQUEST']?></td>
+		 <td width="4%" align="center" valign="middle" class="grid-cell" style="color:#000; font-family:Arial; font-size:9pt"><?=$row['NO_REQUEST']?></td>
+		 <td width="4%" align="center" valign="middle" class="grid-cell" style="color:#000; font-family:Arial; font-size:9pt"><?=$row['PERP_DARI']?></td>
+		 <td width="8%" align="center" valign="middle" class="grid-cell" style="color:#000; font-family:Arial; font-size:9pt"><?=$row['NM_PBM']?></td>
+		 <td width="8%" align="center" valign="middle" class="grid-cell" style="color:#000; font-family:Arial; font-size:9pt"><?=$row['TGL_DELIVERY']?></td>
+		 <?php if ( $kegiatan == 'delivery_tpk_mty') { ?>
+		 <td width="4%" align="center" valign="middle" class="grid-cell" style="color:#000; font-family:Arial; font-size:9pt"><?=$row['NM_KAPAL']?> (<?=$row['VOYAGE_IN']?>)</td>  
+		 <?php } ?>
+		 <td width="4%" align="center" valign="middle" class="grid-cell" style="color:#000; font-family:Arial; font-size:9pt"><?=$row['TGL_GATE']?></td>
+	</tr>
+	<? $no++;}?>
+</table> 
+<?php }?>

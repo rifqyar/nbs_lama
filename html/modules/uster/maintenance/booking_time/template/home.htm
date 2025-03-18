@@ -1,0 +1,87 @@
+<span class="graybrown"><img src='images/sp2_p.png' border='0' class="icon"/><font color="#0378C6"> Master</font> Open Stack / Closing Time Uster</span><br/><br/>
+<fieldset class="form-fieldset" style="margin: 5px 5px 5px 5px; ">
+	
+    <table class="form-input" style="margin: 30px 30px 30px 30px;"  >
+    	<tr>
+            <td  class="form-field-caption"> Vessel </td>
+            <td> : </td>
+            <td> {$op_kpl} <blink id="checking" style="display:none"> <font style="color:red"> CHECKING </font> </blink></td> 
+        </tr>
+		<tr>
+            <td  class="form-field-caption"> Closing Time TPK </td>
+            <td> : </td>
+            <td> <div id="close_tpk"></div> </td>
+        </tr>
+		<tr>
+            <td  class="form-field-caption"> Open Stack Uster </td>
+            <td> : </td>
+            <td> <div id="time_open"></div> </td>
+        </tr>
+        <tr>
+            <td  class="form-field-caption"> Closing Time Uster </td>
+            <td> : </td>
+            <td> <div id="time_close"></div> </td>
+        </tr>       
+        <tr>
+        	<!-- <td colspan="7"><a class="link-button" onclick="search_request();" ><img src='images/cari.png' border='0' /> Cari User</a></td> -->
+        	<td colspan="7"><a class="link-button" onclick="save_booking();"><img src='images/tambah.png' border="0"> Simpan</a></td>
+        </tr>
+	</table>
+    
+    <div id="user_list" style="margin: 10px 10px 10px 10px;">
+    
+    </div>
+</fieldset>
+<div id="dialog-form"> </div>
+<div id="dialog-form-user"> </div>
+
+<script>
+$(function(){
+	var url = '{$HOME}{$APPID}/time';
+	var booking = $("#kapal").val();
+	$("#checking").attr('style','display:marker');
+	$("#close_tpk").load(url+" #close_tpk",{booking : booking});
+	$("#time_open").load(url+" #time_open",{booking : booking});
+	$("#time_close").load(url+" #time_close",{booking : booking},function(data){
+		$("#checking").attr('style','display:none');
+	});
+	
+});
+
+$("#kapal").change(function(){
+	var url = '{$HOME}{$APPID}/time';
+	var no_booking = $("#kapal").val();
+	$("#checking").attr('style','display:marker');
+	$("#close_tpk").load(url+" #close_tpk",{booking : no_booking});
+	$("#time_open").load(url+" #time_open",{booking : no_booking});
+	$("#time_close").load(url+" #time_close",{booking : no_booking},function(data){
+		$("#checking").attr('style','display:none');
+	});
+});
+
+function save_booking(){
+	var url = '{$HOME}{$APPID}/save_booking';
+	var tgl_open = $("#tglop").val()+"/"+$("#blnop").val()+"/"+$("#thnop").val();
+	var tgl_close = $("#tglcl").val()+"/"+$("#blncl").val()+"/"+$("#thncl").val();
+	var booking = $("#kapal").val();
+	var close_time = $("#closetpk").val();
+	$.post(url,{tgl_open : tgl_open, tgl_close : tgl_close, close_time : close_time, no_booking : booking},function(data){
+		if(data == 'Y'){
+			$.blockUI({ 
+				message: '<h1>Success!</h1>', 
+				timeout: 700
+			});	
+		} else if(data == 'V'){
+			$.blockUI({ 
+				message: '<h1>Closing melebihi closing tpk!</h1>', 
+				timeout: 700
+			});	
+		} else if(data == 'X'){
+			$.blockUI({ 
+				message: '<h1>Open melebihi closing tpk!</h1>', 
+				timeout: 700
+			});	
+		}
+	});
+}
+</script>

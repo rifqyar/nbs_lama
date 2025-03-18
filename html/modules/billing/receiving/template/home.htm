@@ -1,0 +1,143 @@
+<style>
+.content{
+	width:95%;
+	margin-left:auto;
+	margin-right:auto;
+	margin-bottom: 10px;
+	margin-top:20px;
+}
+.main_side{
+	width:100%;
+	float:left;
+	text-align:left;
+}
+.rightside{ 
+	width:25%;
+	float:right;
+	text-align:center;
+}
+.ganjil {
+  background-color: #FFF; /* Warna untuk baris ganjil */
+}
+.genap {
+  background-color: #bbe3fe; /* Warna untuk baris genap */
+}   
+
+</style>
+
+<script type="text/javascript">
+jQuery(function() {
+ jQuery("#nota_receiving").jqGrid({
+	url:'<?=HOME?>datanya/data?q=nota_receiving',
+	mtype : "post",
+	datatype: "json",
+	colNames:['Aksi Lolo','Aksi Penumpukan','Lolo','Penumpukan','Prof Lolo','Prof Penumpukan','No Request','Cust Lolo','Cust Penumpukan','Vessel','Jumlah Container'], 
+	colModel:[
+		{name:'aksi_lolo', width:60, align:"center",sortable:false,search:false},
+		{name:'aksi_pen', width:60, align:"center",sortable:false,search:false},
+		{name:'status_pen',index:'status', width:80, align:"center"},
+		{name:'status_lolo',index:'status', width:80, align:"center"},
+		{name:'prof_pen',index:'prof_pen', width:120, align:"center"},
+		{name:'prof_lolo',index:'prof_lolo', width:120, align:"center"},
+		{name:'id_req',index:'id_req', width:100, align:"center"},
+		{name:'emkl',index:'emkl', width:200, align:"center"},
+		{name:'emkl2',index:'emkl2', width:200, align:"center"},
+		{name:'vessel',index:'vessel', width:200, align:"center"},
+		{name:'jum_cont',index:'jum_cont', width:80, align:"center"}
+		
+	],
+	rowNum:20,
+	width: 865,
+	height: 500,
+
+	rowList:[10,20,30,40,50,60],
+	loadonce:true,
+	rownumbers: true,
+	rownumWidth: 15,
+	gridview: true,
+	pager: '#pg_nota_receiving',
+	viewrecords: true,
+	shrinkToFit: false,
+	caption:"Nota Receiving"
+ });
+  jQuery("#nota_receiving").jqGrid('navGrid','#pg_nota_receiving',{del:false,add:false,edit:false,search:false}); 
+ jQuery("#nota_receiving").jqGrid('filterToolbar',{stringResult: true,searchOnEnter : false});
+ 
+});
+
+
+function recalc(a,b)
+{
+	
+	var url="<?=HOME?>billing.receiving.ajax/recalc";
+	$.post(url,{ID_NOTA:a,ID_REQ:b},function (data){
+		alert(data);
+		
+	});
+	
+	
+	//alert(a+' OKE '+b);
+	return false;
+}
+
+function cek_save(id_req, parameter){
+//parameternya sama
+
+	var url="<?=HOME?>billing.receiving.ajax/cek_save";
+	$.post(url,{noreq:id_req},function (data){
+		if(data=="1"){
+			alert("Request belum disave. Silahkan save terlebih dahulu!");
+			return(false);
+		} else {
+			window.open("<?=HOME?>billing.receiving/preview?id="+id_req,'_blank');
+		}
+	});
+}
+
+function cek_save_beda_lolo(id_req){
+//parameternya beda
+
+	var url="<?=HOME?>billing.receiving.ajax/cek_save";
+	$.post(url,{noreq:id_req},function (data){
+		if(data=="1"){
+			alert("Request belum disave. Silahkan save terlebih dahulu!");
+			return(false);
+		} else {
+			window.open("<?=HOME?>billing.receiving/preview_lolo?id="+id_req,'_blank');
+		}
+	});
+}
+
+function cek_save_beda_penumpukan(id_req){
+//parameternya beda
+
+	var url="<?=HOME?>billing.receiving.ajax/cek_save";
+	$.post(url,{noreq:id_req},function (data){
+		if(data=="1"){
+			alert("Request belum disave. Silahkan save terlebih dahulu!");
+			return(false);
+		} else {
+			window.open("<?=HOME?>billing.receiving/preview_penumpukan?id="+id_req,'_blank');
+		}
+	});
+}
+
+
+
+
+</script>
+
+<div class="content">
+	<div class="main_side">
+	<p>
+	<h2> <img src="<?=HOME?>images/delivery.png" height="5%" width="5%" style="vertical-align:middle"> Billing Receiving </h2></p>
+	
+	<p><br/>
+	  </p>
+	<p><br/></p>
+	<table id='nota_receiving' width="100%"></table> <div id='pg_nota_receiving'></div>
+
+	<br/>
+	<br/>
+	</div>
+</div>

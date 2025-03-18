@@ -1,0 +1,63 @@
+<span class="graybrown"><img src='images/sp2_p.png' border='0' class="icon"/><font color="#0378C6"> Correction Container </font> Delivery - SP2 ke LUAR DEPO</span><br/><br/>
+<fieldset class="form-fieldset" style="margin: 5px 5px 5px 5px; ">
+<form id="dataForm" name="dataForm" action="<?=HOME?><?=APPID?>/save_del_luar_do" method="POST">
+	<center>
+        <table class="form-input" style="border:1px; margin: 30px 30px 30px 30px;" >
+		<tr>
+            <td  class="form-field-caption">NO REQUEST</td>
+            <td> : </td>
+            <td><input type="text" name="NO_REQ" id="NO_REQ" size="30" value="{$row_request.NO_REQUEST}" placeholder="{$row_request.NO_REQUEST}" readonly="readonly"/> </td>
+            <td width="100"> </td>
+         </tr>
+       <tr>
+            <td  width='100' class="form-field-caption">Penumpukan Empty Oleh / EMKL</td>
+            <td> : </td>
+            <td> <input type="text" name="EMKL" id="EMKL" size="50" value="{$row_request.NAMA_EMKL}" readonly="readonly" placeholder="{$row_request.NAMA_EMKL}"/>
+			<input type="hidden" name="KD_PBM" id="KD_PBM" value="{$row_request.KD_PBM}" /> </td>
+            <td width="50"> </td>
+            <td width="150" class="form-field-caption"> Tanggal Request Delivery</td>
+            <td> : </td>
+            <td width="300"><input type="text" name="tgl_dev"  id="tgl_dev" value="{$row_request.TGL_REQUEST_DELIVERY}" placeholder="{$row_request.TGL_REQUEST_DELIVERY}"/> </td>
+        </tr>
+         <tr>
+            <td  class="form-field-caption">Alamat</td>
+            <td> : </td>
+            <td><input type="text" name="alamat" id="ALAMAT" size="30" value="{$row_request.ALMT_PBM}" placeholder="{$row_request.ALMT_PBM}" readonly="readonly"/> </td>
+            <td width="50"> </td>
+             <td  class="form-field-caption">Keterangan</td>
+            <td> : </td>
+            <td> <input type="text" name="keterangan" id="keterangan" style="width:250px" value="{$row_request.KETERANGAN}" placeholder="{$row_request.KETERANGAN}"/></td>
+        </tr>
+         <tr>
+            <td  class="form-field-caption">NPWP</td>
+            <td> : </td>
+            <td><input type="text" name="npwp" id="NPWP" size="30" value="{$row_request.NO_NPWP_PBM}" placeholder="{$row_request.NO_NPWP_PBM}" readonly="readonly"/> </td>
+            <td width="100"> </td>
+         </tr>
+
+	</table>
+    </center>
+	
+	<center>
+    <div id="cont_list" style="margin: 10px 10px 10px 10px;">
+    
+    </div>
+    
+	</center>
+<div> <a class='link-button' id="submitForm" onclick="submitManual();"> <img border="0" src="<?=HOME?>/images/valid.png"> SIMPAN</a></div>
+</fieldset>
+
+</form>
+<script>
+function submitManual(){
+	$('#dataForm').submit();
+}
+$(function() {	
+	$("#cont_list").load('<?=HOME?><?=APPID?>/cont_list_del_luar?no_req={$row_request.NO_REQUEST} #list', function(data) {        	  
+	}); 
+	
+	$( "#tgl_dev" ).datepicker();
+	$( "#tgl_dev" ).datepicker( "option", "dateFormat", "yy-mm-dd" );
+	
+});
+</script>

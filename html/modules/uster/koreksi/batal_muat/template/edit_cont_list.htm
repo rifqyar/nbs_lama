@@ -1,0 +1,24 @@
+<div id="contdiv">
+    <table cellpadding="0" cellspacing="1" id="tableaddnew" style="border: 1px solid rgb(153, 153, 153);" align="center">
+		<tr height="20"  style="border:1px solid #999999;right-padding:2px; background-color:#F90;">
+			<td class="trhead" width="17" align="center">&nbsp;No</td>
+			<td class="trhead" width="170" align="center">&nbsp;No. Petikemas</td>
+			<td class="trhead" width="50" align="center">&nbsp;Size</td>
+			<td class="trhead" width="100" align="center">&nbsp;Status</td>
+			<td class="trhead" width="100" align="center">&nbsp;Type</td>
+			<td class="trhead" width="100" align="center">&nbsp;Tanggal Awal</td>
+			<td class="trhead" width="100" align="center">&nbsp;Tanggal Akhir</td>			
+		</tr>
+		<fill src="row_list" var="rows">
+		<tr bgcolor="#f9f9f3" onMouseOver=this.style.backgroundColor="#BAD5FC" onMouseOut=this.style.backgroundColor="">
+			<td align="center" valign="middle" class="grid-cell" style="color:#000; font-family:Arial; font-size:9pt">{$__ctr} </td>
+			<td align="center" valign="middle" class="grid-cell"   style="font-family:Arial; font-size:11pt; color:#555555"><b>{$rows.NO_CONTAINER}</b></td>
+			<td align="center" valign="middle" class="grid-cell"  style="font-size:9pt;font-family:Arial;"><font color="#0066CC" style="font-size:10pt">{$rows.SIZE_}</font></td>			
+			<td align="center" valign="middle" class="grid-cell"  style="font-size:9pt;font-family:Arial;"><font color="#0066CC" style="font-size:10pt">{$rows.STATUS}</font></td>
+			<td align="center" valign="middle" class="grid-cell"  style="font-size:9pt;font-family:Arial;"><font color="#0066CC" style="font-size:10pt">{$rows.TYPE_}</font></td>
+			<td align="center" valign="middle" class="grid-cell"  style="font-size:9pt;font-family:Arial;"><font color="#0066CC" style="font-size:10pt">{$rows.START_PNKN}</font></td>
+			<td align="center" valign="middle" class="grid-cell"  style="font-size:9pt;font-family:Arial;"><font color="#0066CC" style="font-size:10pt">{$rows.END_PNKN}</font></td>			
+		</tr>
+		</fill>
+	</table>
+ </div>

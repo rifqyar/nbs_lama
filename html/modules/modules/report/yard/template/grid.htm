@@ -1,0 +1,243 @@
+<html>
+<header>
+<script type="text/javascript">
+
+/***********************************************
+* Local Time script- © Dynamic Drive (http://www.dynamicdrive.com)
+* This notice MUST stay intact for legal use
+* Visit http://www.dynamicdrive.com/ for this script and 100s more.
+***********************************************/
+
+var weekdaystxt=["Sun", "Mon", "Tues", "Wed", "Thurs", "Fri", "Sat"]
+
+function showLocalTime(container, servermode, offsetMinutes, displayversion){
+if (!document.getElementById || !document.getElementById(container)) return
+this.container=document.getElementById(container)
+this.displayversion=displayversion
+var servertimestring=(servermode=="server-php")? '<? print date("F d, Y H:i:s", time())?>' : (servermode=="server-ssi")? '<!--#config timefmt="%B %d, %Y %H:%M:%S"--><!--#echo var="DATE_LOCAL" -->' : '<%= Now() %>'
+this.localtime=this.serverdate=new Date(servertimestring)
+this.localtime.setTime(this.serverdate.getTime()+offsetMinutes*60*1000) //add user offset to server time
+this.updateTime()
+this.updateContainer()
+}
+
+showLocalTime.prototype.updateTime=function(){
+var thisobj=this
+this.localtime.setSeconds(this.localtime.getSeconds()+1)
+setTimeout(function(){thisobj.updateTime()}, 1000) //update time every second
+}
+
+showLocalTime.prototype.updateContainer=function(){
+var thisobj=this
+if (this.displayversion=="long")
+this.container.innerHTML=this.localtime.toLocaleString()
+else{
+var hour=this.localtime.getHours()
+var minutes=this.localtime.getMinutes()
+var seconds=this.localtime.getSeconds()
+var ampm=(hour>=12)? "PM" : "AM"
+var dayofweek=weekdaystxt[this.localtime.getDay()]
+this.container.innerHTML=formatField(hour, 1)+":"+formatField(minutes)+":"+formatField(seconds)+" "+ampm+" ("+dayofweek+")"
+}
+setTimeout(function(){thisobj.updateContainer()}, 1000) //update container every second
+}
+
+function formatField(num, isHour){
+if (typeof isHour!="undefined"){ //if this is the hour field
+var hour=(num>12)? num-12 : num
+return (hour==0)? 12 : hour
+}
+return (num<=9)? "0"+num : num//if this is minute or sec field
+}
+
+</script>
+
+<style>
+.content{
+	width:95%;
+	margin-left:auto;
+	margin-right:auto;
+	margin-bottom: 10px;
+	margin-top:20px;
+}
+.main_side{
+	width:100%;
+	float:left;
+	text-align:left;
+}
+.rightside{ 
+	width:25%;
+	float:right;
+	text-align:center;
+}
+#zebra tr:nth-child(odd) td {
+  background-color: #FFF; /* Warna untuk baris ganjil */
+}
+#zebra tr:nth-child(even) td {
+  background-color: #bbe3fe; /* Warna untuk baris genap */
+}
+</style>
+</header>
+<body>
+<!--<script src="<?=HOME?>js_chart/js/highcharts.js"></script>
+<script src="<?=HOME?>js_chart/js/modules/exporting.js"></script>-->
+
+
+		
+		
+<div class="content">
+<div class="main_side"><h2>&nbsp;<img class="icon" border="0" width="32" height="32" src="images/excel-icon.png" />&nbsp;REPORT YARD</h2><p><br/></p><div align="center">
+<fieldset class="form-fieldset">
+<table border="0">
+<tr height='15'>
+		<td colspan="3" class="form-field-caption" valign="top" align="right">  </td>
+	</tr>
+	<tr>
+		<td class="form-field-caption" valign="top" align="right">Pilih Kategori</td>
+		<td class="form-field-caption" valign="top" align="right">:</td>
+		<td class="form-field-caption" valign="top" align="left">
+			<select name="kategori" id="kategori" class="form-field-caption" valign="top" align="right">
+                  <option value=""> -- Pilih -- </option>
+				  <option value="0"> Yard </option>
+				  <option value="1"> Vessel </option>
+            </select>
+		</td>
+	</tr>
+	<tr>
+		<td class="form-field-caption" valign="top" align="right">Nama Vessel / Voyage</td>
+		<td class="form-field-caption" valign="top" align="right">:</td>
+		<td class="form-field-caption" valign="top" align="left">
+			<input type="text" id="vessel" name="vessel" size="25" />
+			<input type="text" id="voyage" name="voyage" size="5" />
+			<input type="hidden" id="id_vessel" name="id_vessel" size="5" />
+		</td>
+	</tr>
+	<tr   height='15'>
+		<td colspan="3" class="form-field-caption" valign="top" align="right">  </td>
+	</tr>
+	<tr  height='25'>
+		<td colspan="3" class="form-field-caption" valign="top" align="center"> &nbsp;&nbsp; <a class="link-button" style="height:25" onclick="generate()"><img src='images/cari.png' border='0' />Generate Report</a>
+		&nbsp &nbsp <a class="link-button" style="height:25" onclick="toexcel()"><img src='images/cari.png' border='0' />Generate Excel</a> </td>
+	</tr>
+	<tr   height='15'>
+		<td colspan="3" class="form-field-caption" valign="top" align="right">  </td>
+	</tr>
+</table>
+</div>
+</fieldset>
+<p><br/>
+</p>
+<div id="detail_yard" align="center"></div>
+<p><br></p>
+
+<table>
+<tr>
+<td>
+<!--<div id="container" style="min-width: 400px; height: 400px; margin: 0 auto"></div>-->
+<p><br></p>
+</td>
+</tr>
+</table>
+</div></div>
+</body>
+</html>
+   
+<script type='text/javascript'>
+$(document).ready(function() 
+{
+        $( "#vessel" ).autocomplete({
+		minLength: 3,
+		source: "<?=HOME?>report.yard.auto/parameter",
+		focus: function( event, ui ) {
+			$( "#vessel" ).val( ui.item.NAMA);
+			return false;
+		},
+		select: function( event, ui ) {
+			$( "#vessel" ).val( ui.item.NAMA);
+                        $( "#voyage" ).val( ui.item.VOYAGE);
+                        $( "#id_vessel" ).val( ui.item.ID);
+			return false;
+		}
+	})
+	.data( "autocomplete" )._renderItem = function( ul, item ) {
+		return $( "<li></li>" )
+			.data( "item.autocomplete", item )
+			.append( "<a>" + item.NAMA + " VOY " + item.VOYAGE + "</a>")
+			.appendTo( ul );
+	};  
+});
+</script>
+<script>
+function generate()
+{
+	var kategori_		= $("#kategori").val();	
+	var id_vessel_ 		= $("#id_vessel").val();
+	var url 	       	= "<?=HOME?><?=APPID?>/detail_yard #list";
+	//var url2     	    = "<?=HOME?><?=APPID?>.chart/chart";
+	$.blockUI({ message: '<h1><br>Please wait...</h1><br><img src={$HOME}images/loadingbox.gif /><br><br>' }); 
+	$("#detail_yard").load(url,{kategori : kategori_, id_vessel : id_vessel_}, function(data){
+		if(data){
+				$.unblockUI({ 
+				onUnblock: function(){  } 
+				});
+		}
+	});
+	//$("#container").load(url2,{kategori : kategori_}, function(data){
+		//if(data){
+		//}
+	//});
+}
+
+function container(){
+	var kategori_	= $("#kategori").val();	
+	var url 	    = "<?=HOME?><?=APPID?>.chart/chart";
+	$("#container").load(url,{kategori : kategori_}, function(data){
+		if(data){
+		}
+	});
+}
+
+function fill_all()
+{
+	var url 	    = "<?=HOME?><?=APPID?>/detail_yard #list";
+	//$.blockUI({ message: '<h1><br>Please wait...</h1><br><img src={$HOME}images/loadingbox.gif /><br><br>' }); 
+	$("#detail_yard").load(url,{}, function(data){
+	if(data){
+		}
+	});
+}
+
+
+function fill($id_blok_, $kategori_)
+{
+	var kategori_	= $kategori_;
+	var id_blok_	= $id_blok_;
+	var url 	    = "<?=HOME?><?=APPID?>/detail_yard #list";
+	//$.blockUI({ message: '<h1><br>Please wait...</h1><br><img src={$HOME}images/loadingbox.gif /><br><br>' }); 
+	$("#detail_yard").load(url,{kategori : kategori_,id_blok : id_blok_}, function(data){
+	if(data){
+		}
+	});
+}
+
+function fill_book($id_book_, $kategori, $vessel)
+{
+	var id_book_	= $id_book_;
+	var vessel_		= $vessel;
+	var kategori_	= $kategori;
+	var url 	    = "<?=HOME?><?=APPID?>/detail_yard #list";
+	//$.blockUI({ message: '<h1><br>Please wait...</h1><br><img src={$HOME}images/loadingbox.gif /><br><br>' }); 
+	$("#detail_yard").load(url,{kategori : kategori_, id_vessel:vessel_,id_book : id_book_}, function(data){
+	if(data){
+		}
+	});
+}
+
+function toexcel(){
+	var kategori_		= $("#kategori").val();	
+	var id_vessel_ 		= $("#id_vessel").val();
+	var url 	    = "<?=HOME?><?=APPID?>.toexcel/toexcel?kategori="+kategori_+"&id_vessel="+id_vessel_;
+	
+	window.open(url, "_blank");
+}
+</script>

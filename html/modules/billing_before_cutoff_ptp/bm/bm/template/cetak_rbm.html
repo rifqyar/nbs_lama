@@ -1,0 +1,92 @@
+<style>
+fieldset { -moz-border-radius: 8px; border-radius: px; margin:10px }
+legend { margin-left:10px; color:#666; font-weight:bold }
+input { font-size:12px}
+.trwhite{color:#FFF;font-weight:bold}
+.noedit{-moz-border-radius: 0px;border-radius: px;background:#FFFFCC;border-color:#FF9900}
+.trflat{
+	-moz-border-radius: 0px;
+	border-radius: px;
+	font-size:12px
+	font-family:Arial, Helvetica, sans-serif;
+}
+.trhead{font-size:12px;font-weight:bold;}
+input.listNota{
+	-moz-border-radius: 0px;
+	border-radius: px;
+	font-size:12px;
+	border:1px solid #FF9900;
+	font-family:Arial, Helvetica, sans-serif;
+	background-color:#FFFF99;
+	margin-right:2px;
+}
+select.listNota{
+	-moz-border-radius: 0px;
+	border-radius: px;
+	font-size:12px;
+	border:1px solid #FF9900;
+	font-family:Arial, Helvetica, sans-serif;
+	background-color:#FFFF99;
+	margin-right:2px;
+}
+.imid{
+	vertical-align:middle;
+}
+.find{
+	vertical-align:middle;
+	margin-bottom:2px;
+	margin-left:2px;
+}
+#divnota{
+	margin:3px;
+	padding:10px;
+	border:1px solid #0000FF;
+	background-color:#FFFFFF;
+}
+</style>
+<span class="graybrown"><img src='images/dokumenbig.png' border='0' class="icon"/>{$formtitle}</span><br/>
+<br/>
+<form id="dataForm" action="{$formurl}" method="post" class="form-input" target="_blank">
+  <input type="hidden" name="__pbkey" value="" />
+  <table class="form-input" cellspacing='2' cellpadding='2' border='0' width="100%" style="margin-top:10px;">
+    <input id="id_NO_PKK" name="NO_UKK" type="hidden" value="{$row.NO_UKK}" />
+    <td colspan="2"><div style="padding:8px; font-size:9pt;"> <span style=" color:#DF2100"> <blink> <img src='images/warning.png' border='0' class="icon" width="30" height="30"/> <b> Peraturan Pencetakan Nota</b></blink></span>
+          <div style="padding-top:3px font-size:15pt; color:#DF2100"><b>1. Harap diperiksa kembali antara data di dokumen fisik dengan data digital</b></div>
+		  <div style="padding-top:3px font-size:15pt; color:#DF2100"><b>2. Pilih Gambar <img src="images/cont_preview.png" /> untuk cetak Pranota</b></div>
+        </div></td>
+    <tr>
+      <td colspan="2" align="center"><div id="divnota"></div></td>
+    </tr>
+    <tr>
+      <td class="form-field-caption" valign="top" align="left" width="70">O/I</td>
+      <td valign="top" class="form-field-input">:
+        <select name="CBOOI" id="CBOOI" >
+          <option value="O">Ocean Going </option>
+          <option value="I">Inter Island</option>
+        </select>
+      </td>
+    </tr>
+    <tr>
+      <td class="form-field-caption" valign="top" align="left">Discount</td>
+      <td valign="top" class="form-field-input">:
+        <input id="id_DISCOUNT" name="DISCOUNT" type="text" value="0" size="50"   size="15"  /></td>
+    </tr>
+    <tr>
+      <td class="form-field-caption" valign="top" align="left">PPN Subsidi</td>
+      <td valign="top" class="form-field-input">:
+        <select name="CBOPPNSUB" id="CBOPPNSUB" >
+          <option value="T">Tidak</option>
+          <option value="Y">Ya</option>
+        </select>
+      </td>
+    </tr>
+    <tr>
+      <td></td>
+      <td align="left"><!-- <img src="images/cont_preview.png" onclick="getNota()" onmouseover="_hand(this)" /> -->
+        <a href="{$urlpreview}" > <img src="images/cont_preview.png" onmouseover="_hand(this)" /> </a> </td>
+    </tr>
+    <tr>
+      <td colspan="2" class="form-footer"><a id="submitForm" onclick="submitForm('dataForm')" class="link-button" ><img src='images/valid.png' border='0' />&nbsp;Simpan</a> &nbsp;&nbsp; <a id="resetForm" onclick="resetForm('dataForm')" class="link-button" ><img src='images/reset.png' border='0' />&nbsp;Reset</a> &nbsp;&nbsp; <a id="cancelForm" onclick="cancelForm('dataForm')" class="link-button" ><img src='images/batal.png' border='0' />&nbsp;Batal</a></td>
+    </tr>
+  </table>
+</form>

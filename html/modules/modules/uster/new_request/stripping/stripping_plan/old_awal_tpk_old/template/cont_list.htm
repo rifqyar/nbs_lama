@@ -1,0 +1,31 @@
+<div id="list">
+	<table width="100%">
+    	<thead>
+        	<tr>
+            	<th class="grid-header" width="10px">No.</th>
+            	<th class="grid-header">No CONTAINER</th>
+                <th class="grid-header">UKURAN</th>
+                <th class="grid-header">TIPE</th>
+                <th class="grid-header">VIA</th>
+                <th class="grid-header">VOYAGE</th>
+                <th class="grid-header">TGL BONGKAR</th>
+                <th width="70px" class="grid-header">&nbsp;</th>
+            </tr>
+        </thead>
+        <tbody>
+        	<fill src="row_list" var="rows">
+		   	<alt var='bg' list='#f9f9f3,#ffe'/>
+        	<tr bgcolor="{$bg}" style="cursor:pointer;" onMouseOver=this.style.backgroundColor="#BAD5FC" onMouseOut=this.style.backgroundColor="">
+            	<td class="grid-cell" style="font-size:14px;">{$__ctr}</td>
+            	<td class="grid-cell" align="center" valign="middle" style="font-family:Arial; font-size:11pt; color:#555555"><b>{$rows.NO_CONTAINER}</b></td>
+            	<td align="center" valign="middle" class="grid-cell"  style="font-size:9pt">{$rows.SIZE_}</td>
+            	<td align="center" valign="middle" class="grid-cell"  style="font-size:9pt">{$rows.TYPE_}</td>
+            	<td align="center" valign="middle" class="grid-cell"  style="font-size:9pt">{$rows.VIA}</td>
+            	<td align="center" valign="middle" class="grid-cell"  style="font-size:9pt">{$rows.VOYAGE}</td>
+            	<td align="center" valign="middle" class="grid-cell"  style="font-size:9pt">{$rows.TGL_BONGKAR}</td>
+				<td style="padding: 5px 5px 5px 5px;"> <button value=" Hapus " onclick="del_cont('{$rows.NO_CONTAINER}')" > &nbsp;Hapus&nbsp; </button></td>
+            </tr>
+            </fill>
+        </tbody>
+    </table>
+</div>

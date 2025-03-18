@@ -1,0 +1,213 @@
+<html>
+<header>
+<style>
+.content{
+	width:95%;
+	margin-left:auto;
+	margin-right:auto;
+	margin-bottom: 10px;
+	margin-top:20px;
+}
+.main_side{
+	width:100%;
+	float:left;
+	text-align:left;
+}
+.rightside{ 
+	width:25%;
+	float:right;
+	text-align:center;
+}
+#zebra tr:nth-child(odd) td {
+  background-color: #FFF; /* Warna untuk baris ganjil */
+}
+#zebra tr:nth-child(even) td {
+  background-color: #bbe3fe; /* Warna untuk baris genap */
+}
+</style>
+</header>
+<body>
+<!--<script src="<?=HOME?>js_chart/js/highcharts.js"></script>
+<script src="<?=HOME?>js_chart/js/modules/exporting.js"></script>-->
+
+
+		
+		
+<div class="content">
+<div class="main_side"><h2>&nbsp;<img class="icon" border="0" width="32" height="32" src="images/excel-icon.png" />&nbsp;List Container by Status</h2><p><br/></p><div align="center">
+<fieldset class="form-fieldset">
+<table border="0">
+<tr height='15'>
+		<td colspan="3" class="form-field-caption" valign="top" align="right">  </td>
+	</tr>
+	
+	<tr>
+		<td class="form-field-caption" valign="top" align="right">Nama Vessel / Voyage</td>
+		<td class="form-field-caption" valign="top" align="right">:</td>
+		<td class="form-field-caption" valign="top" align="left">
+			<input type="text" id="vessel" name="vessel" size="25" />
+			<input type="text" id="voyage" name="voyage" size="5" />
+			<input type="hidden" id="id_vessel" name="id_vessel" size="5" />
+		</td>
+	</tr>
+	<tr>
+		<td class="form-field-caption" valign="top" align="right">Pilih Blok</td>
+		<td class="form-field-caption" valign="top" align="right">:</td>
+		<td class="form-field-caption" valign="top" align="left">
+			<?=$blok?>
+		</td>
+	</tr>
+	<tr>
+						<td class="form-field-caption" valign="top" align="right">Periode Gate IN</td>
+						<td class="form-field-caption" valign="top" align="right"> : </td>
+						<td class="form-field-caption" valign="top" align="left">
+						<input type="text" name="tgl_awal_gate" id="tgl_awal_gate"/> s/d  <input type="text" name="tgl_akhir_gate" id="tgl_akhir_gate"/></td>
+	<tr>
+	<tr>
+						<td class="form-field-caption" valign="top" align="right">Periode Placement</td>
+						<td class="form-field-caption" valign="top" align="right"> : </td>
+						<td class="form-field-caption" valign="top" align="left">
+						<input type="text" name="tgl_awal_place" id="tgl_awal_place"/> s/d  <input type="text" name="tgl_akhir_place" id="tgl_akhir_place"/></td>
+	<tr>
+	<tr   height='15'>
+		<td colspan="3" class="form-field-caption" valign="top" align="right">  </td>
+	</tr>
+	<tr  height='25'>
+		<td colspan="3" class="form-field-caption" valign="top" align="center"> &nbsp;&nbsp; <a class="link-button" style="height:25" onclick="generate()"><img src='images/cari.png' border='0' />Generate Data</a>
+		&nbsp &nbsp <a class="link-button" style="height:25" onclick="toexcel()"><img src='images/cari.png' border='0' />Generate Excel</a> </td>
+	</tr>
+	<tr   height='15'>
+		<td colspan="3" class="form-field-caption" valign="top" align="right">  </td>
+	</tr>
+</table>
+</div>
+</fieldset>
+<p><br/>
+</p>
+<div id="detail" align="center"></div>
+<p><br></p>
+
+<table>
+<tr>
+<td>
+<!--<div id="container" style="min-width: 400px; height: 400px; margin: 0 auto"></div>-->
+<p><br></p>
+</td>
+</tr>
+</table>
+</div></div>
+</body>
+</html>
+   
+<script type='text/javascript'>
+$(function() {	
+
+	$( "#tgl_awal_gate" ).datepicker();
+	$( "#tgl_awal_gate" ).datepicker( "option", "dateFormat", "dd/mm/yy" );
+        
+        $( "#tgl_akhir_gate" ).datepicker();
+	$( "#tgl_akhir_gate" ).datepicker( "option", "dateFormat", "dd/mm/yy" );
+	
+	$( "#tgl_awal_place" ).datepicker();
+	$( "#tgl_awal_place" ).datepicker( "option", "dateFormat", "dd/mm/yy" );
+        
+        $( "#tgl_akhir_place" ).datepicker();
+	$( "#tgl_akhir_place" ).datepicker( "option", "dateFormat", "dd/mm/yy" );
+
+});
+
+$(document).ready(function() 
+{
+        $( "#vessel" ).autocomplete({
+		minLength: 3,
+		source: "<?=HOME?>report.yard.auto/parameter",
+		focus: function( event, ui ) {
+			$( "#vessel" ).val( ui.item.NAMA);
+			return false;
+		},
+		select: function( event, ui ) {
+			$( "#vessel" ).val( ui.item.NAMA);
+                        $( "#voyage" ).val( ui.item.VOYAGE);
+                        $( "#id_vessel" ).val( ui.item.ID);
+			return false;
+		}
+	})
+	.data( "autocomplete" )._renderItem = function( ul, item ) {
+		return $( "<li></li>" )
+			.data( "item.autocomplete", item )
+			.append( "<a>" + item.NAMA + " VOY " + item.VOYAGE + "</a>")
+			.appendTo( ul );
+	};  
+});
+</script>
+<script>
+function generate()
+{
+	var blok_					= $("#blok").val();	
+	var id_vessel_ 				= $("#id_vessel").val();
+	var tgl_awal_gate_			= $("#tgl_awal_gate").val();	
+	var tgl_akhir_gate_ 		= $("#tgl_akhir_gate").val();
+	var tgl_awal_place_			= $("#tgl_awal_place").val();	
+	var tgl_akhir_place_ 		= $("#tgl_akhir_place").val();
+	var url 	       			= "<?=HOME?><?=APPID?>/detail #list";
+	
+	$.blockUI({ message: '<h1><br>Please wait...</h1><br><img src={$HOME}images/loadingbox.gif /><br><br>' }); 
+	$("#detail").load(url,{blok : blok_, id_vessel : id_vessel_, tgl_awal_gate: tgl_awal_gate_, tgl_akhir_gate : tgl_akhir_gate_, tgl_awal_place : tgl_awal_place_, tgl_akhir_place : tgl_akhir_place_}, function(data){
+		if(data){
+				$.unblockUI({ 
+				onUnblock: function(){  } 
+				});
+		}
+	});
+	//$("#container").load(url2,{kategori : kategori_}, function(data){
+		//if(data){
+		//}
+	//});
+}
+
+function container(){
+	var kategori_	= $("#kategori").val();	
+	var url 	    = "<?=HOME?><?=APPID?>.chart/chart";
+	$("#container").load(url,{kategori : kategori_}, function(data){
+		if(data){
+		}
+	});
+}
+
+function fill($id_blok_, $kategori_)
+{
+	var kategori_	= $kategori_;
+	var id_blok_	= $id_blok_;
+	var url 	    = "<?=HOME?><?=APPID?>/detail_yard #list";
+	//$.blockUI({ message: '<h1><br>Please wait...</h1><br><img src={$HOME}images/loadingbox.gif /><br><br>' }); 
+	$("#detail_yard").load(url,{kategori : kategori_,id_blok : id_blok_}, function(data){
+	if(data){
+		}
+	});
+}
+
+function fill_book($id_book_, $kategori, $vessel)
+{
+	var id_book_	= $id_book_;
+	var vessel_		= $vessel;
+	var kategori_	= $kategori;
+	var url 	    = "<?=HOME?><?=APPID?>/detail_yard #list";
+	//$.blockUI({ message: '<h1><br>Please wait...</h1><br><img src={$HOME}images/loadingbox.gif /><br><br>' }); 
+	$("#detail_yard").load(url,{kategori : kategori_, id_vessel:vessel_,id_book : id_book_}, function(data){
+	if(data){
+		}
+	});
+}
+
+function toexcel(){
+	var blok_					= $("#blok").val();	
+	var id_vessel_ 				= $("#id_vessel").val();
+	var tgl_awal_gate_			= $("#tgl_awal_gate").val();	
+	var tgl_akhir_gate_ 		= $("#tgl_akhir_gate").val();
+	var tgl_awal_place_			= $("#tgl_awal_place").val();	
+	var tgl_akhir_place_ 		= $("#tgl_akhir_place").val();
+	var url 	    = "<?=HOME?><?=APPID?>.toexcel/toexcel?blok="+blok_+"&id_vessel="+id_vessel_+"&tgl_awal_gate="+tgl_awal_gate_+"&tgl_akhir_gate="+tgl_akhir_gate+"&tgl_awal_place="+tgl_awal_place_+"&tgl_akhir_place="+tgl_akhir_place;
+	
+	window.open(url, "_blank");
+}
+</script>

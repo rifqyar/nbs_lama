@@ -1,0 +1,58 @@
+<div id="list">
+	<table width="100%">
+    	<thead>
+        	<tr>
+            	<th class="grid-header" width="10px;">No.</th>
+            	<th class="grid-header">No RENCANA</th>
+                <!--<th class="grid-header">No Request Receiving</th>-->
+                <th class="grid-header">TGL PENGAJUAN</th>
+                <!--<th class="grid-header">TGL AWAL</th>
+                <th class="grid-header">TGL AKHIR</th>-->
+                <th class="grid-header">PEMILIK</th>
+                <th class="grid-header">PENUMPUKAN EMPTY</th>
+                <th class="grid-header">CONTAINER DARI</th>
+                <th class="grid-header">&nbsp;</th>
+            </tr>
+        </thead>
+        <tbody>
+        	<fill src="row_list" var="rows">
+		   	<alt var='bg' list='#f9f9f3,#ffe'/>
+        	<tr bgcolor="{$bg}" style="cursor:pointer;" onMouseOver=this.style.backgroundColor="#BAD5FC" onMouseOut=this.style.backgroundColor="">
+            	<td class="grid-cell" style="font-size:14px;">{$__ctr}</td>
+            	<td class="grid-cell" align="center" valign="middle" style="font-family:Arial; font-size:11pt; color:#555555"><b>{$rows.NO_REQUEST}</b></td>
+            	<!--<td class="grid-cell" align="center" valign="middle" style="font-family:Arial; font-size:11pt; color:#555555"><b>{$rows.REQ_REC}</b></td> -->           	
+                <td align="center" valign="middle" class="grid-cell"  style="font-size:9pt"><b>{$rows.TGL_REQUEST}</b></td>
+            	<!--<td align="center" valign="middle" class="grid-cell"  style="font-size:10pt;font-family:Arial; color:#0066CC; font-weight:800;">{$rows.TGL_AWAL}</td>
+            	<td align="center" valign="middle" class="grid-cell"  style="font-size:10pt;font-family:Arial; color:#0066CC; font-weight:800;">{$rows.TGL_AKHIR}</td> -->
+            	<td align="center" valign="middle" class="grid-cell"  style="font-size:10pt;font-family:Arial; color:#0066CC; font-weight:800;">{$rows.NAMA_PEMILIK}</td>
+            	<td align="center" valign="middle" class="grid-cell"  style="font-size:10pt;font-family:Arial; color:#0066CC; font-weight:800;">{$rows.NAMA_PENUMPUK}</td>
+            	<td align="center" valign="middle" class="grid-cell"  style="font-size:10pt;font-family:Arial; color:#0066CC; font-weight:800;">{$rows.STRIPPING_DARI}</td>             	
+            	<!-- <a href="{$HOME}{$APPID}/view?no_req={$rows.NO_REQUEST}"> LIHAT </a> -->
+				<?php
+                	if($rows["APPROVE"] == "Y")
+                    {
+                ?>
+                	
+                    	<td class="grid-cell" style="font-size:14px;"> Approved </td>
+                	
+                <?php    
+                    }
+                    else if($rows["APPROVE"] == "N")
+                    {
+                ?>
+                	
+                    	<td class="grid-cell" style="font-size:14px;"> Ditolak</td>
+                	
+                <?php    
+                    }
+                    else if($rows["APPROVE"] == "NY")
+                    {
+               		?><td class="grid-cell" style="font-size:14px;"><?php	echo '<a href="'.HOME.APPID.'/view?no_req='.$rows["NO_REQUEST"].'" target="_self"><img src="images/cont_edit.gif" border="0" />&nbsp;LIHAT </a> '; ?></td><?php  
+                    }
+                ?>
+                
+            </tr>
+            </fill>
+        </tbody>
+    </table>
+</div>

@@ -1,0 +1,62 @@
+<style>
+.content{
+	width:95%;
+	margin-left:auto;
+	margin-right:auto;
+	margin-bottom: 10px;
+	margin-top:20px;
+}
+.main_side{
+	width:100%;
+	float:left;
+	text-align:left;
+}
+</style>
+
+<script type="text/javascript">
+jQuery(function() {
+ jQuery("#p_timesheet").jqGrid({
+	url:'<?=HOME?>datanya/data_dso?q=p_timesheet&template=false',
+	mtype : "post",
+	datatype: "json",
+	colNames:['REQUEST','PENGGUNA JASA','NO UPER B/M','VESSEL / VOYAGE','CETAK','INSERT'], 
+	colModel:[
+		{name:'id_req',index:'id_req', width:100, align:"center"},
+		{name:'pbm',index:'pbm', width:200, align:"center"},		
+		{name:'no_uper',index:'no_uper', width:120, align:"center"},
+		{name:'vessel/voyage',index:'vessel/voyage', width:200, align:"center"},
+		{name:'cetak',index:'cetak', width:150, align:"center",sortable:false,search:false},
+		{name:'insert',index:'insert', width:150, align:"center",sortable:false,search:false}
+	],
+	rowNum:20,
+	width: 865,
+	height: 300,//250
+
+	rowList:[10,20,30,40,50,60],
+	loadonce:true,
+	rownumbers: true,
+	rownumWidth: 15,
+	gridview: true,
+	pager: '#pg_p_timesheet',
+	viewrecords: true,
+	shrinkToFit: false,
+	caption:"Data Time Sheet"
+ });
+  jQuery("#p_timesheet").jqGrid('navGrid','#pg_p_timesheet',{del:false,add:false,edit:false,search:false}); 
+ jQuery("#p_timesheet").jqGrid('filterToolbar',{stringResult: true,searchOnEnter : false});
+ 
+});
+</script>
+
+<div class="content">
+	<div class="main_side">
+	<h2><span class="graybrown">
+    	<img class="icon" border="0" src="images/cetak.png" />
+        &nbsp;<font color="#0378C6">Time</font> Sheet
+        </span></h2>	
+	<p><br/></p>
+    <table id='p_timesheet' width="100%"></table> <div id='pg_p_timesheet'></div>
+	<br/>
+	<br/>
+	</div>
+</div>

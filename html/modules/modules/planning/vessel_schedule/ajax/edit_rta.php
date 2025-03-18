@@ -1,0 +1,1 @@
+<?php	$id_ukk=$_POST['UKK'];	$rta=$_POST['RTA'];	$user=$_SESSION['PENGGUNA_ID'];		$db=getDb();	$query="begin proc_update_rta('$id_ukk','$rta','$user');end;";		//print_r($query);die;	$exec=$db->query($query);?>

@@ -1,0 +1,49 @@
+<span class="graybrown"><img src='images/bayplan.png' border='0' class="icon"/><font color="#0378C6"> Cetak</font> Nota - Stuffing</span><br/><br/>
+      <fieldset class="form-fieldset" style="margin: 5px 5px 5px 5px; ">
+          <form id="searchForm" name="searchForm" action="{HOME}delivery.permintaan/search/" method="get">
+              <div style="padding:10px;font-family:Arial; font-size:8pt; color:#555555; font-weight:bold">Pencarian No Request : <input type="text" id="no_req" name="NO_REQ" /> <br />
+              Tgl Request Delivery &nbsp;&nbsp;: <input type="text" name="FROM" id="from"/> S/D <input type="text" name="TO" id="to"/>  
+              &nbsp;&nbsp; <a class="link-button" style="height:25" onclick="search_request()" ><img src='images/cari.png' border='0' />Cari</a><br />  
+              <br> 
+              </div>
+          </form>
+      </fieldset>
+
+<fieldset class="form-fieldset" style="margin: 5px 5px 5px 5px; ">
+	<center>
+    
+    <div id="nota_list" style="margin: 5px 5px 5px 5px">
+    
+    </div>
+    
+    </center>
+</fieldset>
+ 
+<script>
+
+$(function() {	
+	
+	$( "#from" ).datepicker();
+	$( "#from" ).datepicker( "option", "dateFormat", "yy-mm-dd" );
+	$( "#to" ).datepicker();
+	$( "#to" ).datepicker( "option", "dateFormat", "yy-mm-dd" );
+	
+	$("#nota_list").load('<?=HOME?><?=APPID?>/nota_list #list', function(data) {        	  
+	}); 	
+});
+
+function search_request()
+{
+	var no_req_ 	= $("#no_req").val();
+	var from_ 	= $("#from").val();	
+	var to_ 	= $("#to").val();	
+	
+	var url 	= "<?=HOME?><?=APPID?>/search_request #list";
+	 
+	$("#nota_list").load(url,{from : from_, to : to_, no_req : no_req_}, function(data){
+		//console.log(data);
+	});
+	
+}
+
+</script>

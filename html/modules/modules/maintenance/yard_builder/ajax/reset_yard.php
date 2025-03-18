@@ -1,0 +1,1 @@
+<?php$db=getDb();$user=$_SESSION["NAMA_LENGKAP"];$db->query("begin ISWS_JAMBI.reset_placement('$user','23'); end;");echo "OK";?>

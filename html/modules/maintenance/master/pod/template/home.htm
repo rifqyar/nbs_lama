@@ -1,0 +1,187 @@
+
+<head id="Head1">
+
+	<script type="text/javascript" src="js/jQuery.dualListBox-1.3.js"></script> 
+<!--	<script type="text/javascript" src="js/jquery.dualListBox-1.3.min.js"></script> -->
+    
+	<script language="javascript" type="text/javascript">
+
+	$.blockUI({ message: '<h1><br>Loading Data...</h1><br><img src=<?=HOME?>images/loadingbox.gif /><br><br>' });
+		/*
+        $(function() {
+            $.configureBoxes();
+        });
+		*/
+	
+	$.unblockUI({ onUnblock: function(){ 
+												$.configureBoxes();
+											
+											}});	
+		
+	
+	
+    </script>
+    
+	<title>
+	Master Port Of Discharge
+</title></head>
+
+
+<style>
+.content{
+	width:95%;
+	margin-left:auto;
+	margin-right:auto;
+	margin-bottom: 10px;
+	margin-top:20px;
+}
+.main_side{
+	width:100%;
+	float:left;
+	text-align:left;
+}
+.rightside{ 
+	width:25%;
+	float:right;
+	text-align:center;
+}
+.ganjil {
+  background-color: #FFF; /* Warna untuk baris ganjil */
+}
+.genap {
+  background-color: #bbe3fe; /* Warna untuk baris genap */
+}   
+
+.content{
+	width:95%;
+	margin-left:auto;
+	margin-right:auto;
+	margin-bottom: 10px;
+	margin-top:20px;
+}
+.main_side{
+	width:100%;
+	float:left;
+	text-align:left;
+}
+
+</style>
+<?php
+header("Cache-Control: no-cache, must-revalidate"); // HTTP/1.1
+$backuri                      = str_replace('&_saveok=1', '', $_SERVER['REQUEST_URI']);
+$_SESSION['__uriback'][APPID] = $backuri . (strpos($_SERVER['REQUEST_URI'], '?') === false ? '?' : '');
+
+
+$no_ukk=$_GET["no_ukk"];
+$size=$_GET["size"];
+
+?>
+
+
+<div class="content" >
+	<div class="main_side">
+		<p>
+	 <img src="<?=HOME?>images/port_icon.gif" height="10%" width="10%" style="vertical-align:middle"><b> <font color='#69b3e2' size='5px'>Master</font> </b>
+	 <font color='#888b8d' size='5px'>
+	 Port Of Discharge
+	 </font>
+	 
+	 </p><br/></p>
+	 
+	
+<fieldset class="form-fieldset" style="margin: 5px 5px 5px 5px; border-radius: 10px 10px 10px 10px;-moz-border-radius: 10px 10px 10px 10px; 
+-webkit-border-radius: 10px 10px 10px 10px; ">
+	<table id='booking' width="100%"></table> <div id='pg_l_booking'></div>
+<div id="dialog-form">
+<div>
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwUKMTk5MjI0ODUwOWRky6CoCkIXJ8wm5xhTe3/fLC1fdlk=" />
+</div>
+	<form name="frm1" action="<?=HOME?>billing.rbm.list_detail/create_bundle" onsubmit="Simpan()">
+		<div>
+		<br>
+		<table border="0" align="center"> 
+				<tr align="center">
+					<td width="400"><font color='#69b3e2' size='5px'><b>Data ICT</b></font></td>
+					<td width="20"></td>
+					<td width="400"><font color='#69b3e2' size='5px'><b>Data IN-HOUSE</b></font></td>
+				</tr>
+				<tr align="center">
+					<td>
+							Filter: <input type="text" id="box1Filter" size="40"/><button type="button" id="box1Clear">X</button><br /><br />
+
+                          {$collect2}<br/>
+					
+				<!--	</select>-->
+							<br/>
+							 <span id="box1Counter" class="countLabel"></span>
+						   <select style="display:none;" id="box1Storage">
+							</select>
+					</td>
+					<td>
+						
+					</td>
+					<td>
+						Filter: <input type="text" id="box2Filter" size="40"/><button type="button" id="box2Clear">X</button><br /><br />
+						{$collect}
+						<br/><br/>
+							 <span id="box2Counter" class="countLabel"></span>
+						   <select style="display:none;" id="box2Storage">
+							</select>
+					</td>
+				</tr>
+				<tr align="center">
+						<td><input style="font-size:22px; font-weight:bold; text-transform:uppercase"  id="kd_pel_ict" name="NO_NOTA" size="6"  class="suggestuwriter" type="text"  maxlength="6" /> &nbsp
+					<input style="font-size:22px; font-weight:bold; text-transform:uppercase"  id="nm_pel_ict" name="NO_NOTA" size="23"  class="suggestuwriter" type="text"  maxlength="20" /></td> 
+					<td><a onclick="sync()"><img src='<?=HOME?>images/sync.gif' border='0' width="70" title="Syncronize Data" height="70"/></a></td>
+					<td><input style="font-size:22px; font-weight:bold; text-transform:uppercase"  id="kd_pel_inhouse" name="NO_NOTA" size="6"  class="suggestuwriter" type="text"  maxlength="6"   /> &nbsp
+					<input style="font-size:22px; font-weight:bold; text-transform:uppercase"  id="nm_pel_inhouse" name="NO_NOTA" size="23"  class="suggestuwriter" type="text"  maxlength="20" /></td>
+				</tr>
+			</table>
+		</div>
+		<br />
+
+	</form>	
+		
+		<br />
+		<!-- <button type="button" onclick="myFunction()">Simpan</button> -->
+		</div>
+		<br/>
+		</div>
+	</div>
+</div>
+</fieldset>	
+
+<script type="text/javascript">
+	
+function change1(a,b)
+{
+	//var n = b.replaceAll("_", " ");
+	$('#kd_pel_ict').val(a);
+	$('#nm_pel_ict').val(b);
+}
+
+function change2(a, b)
+{	
+	//var n = b.replaceAll("_", " ");
+	$('#kd_pel_inhouse').val(a);
+	$('#nm_pel_inhouse').val(b);
+}
+
+
+
+function sync(){
+	var kd_pel_ict_ 	= $("#kd_pel_ict").val();
+	var kd_pel_inhouse_ = $("#kd_pel_inhouse").val();
+	
+	var url 			= '<?=HOME?><?=APPID?>/sync/';
+	
+	$.blockUI({ message: '<h1>Syncronizing...</h1>' });		
+	$.post(url,{ kd_pel_ict : kd_pel_ict_, kd_pel_inhouse : kd_pel_inhouse_}, function(data){
+		if(data){
+				$.unblockUI({ 
+				onUnblock: function(){ alert('Data has been sysncronized'); } 
+				});
+		}
+	});
+}
+</script>

@@ -1,0 +1,32 @@
+<div id="list">
+                        <table class="grid-table" border='0' cellpadding="1" cellspacing="1"  width="100%">
+                              <tr style=" font-size:10pt">
+                                  <th width="2%" valign="top" class="grid-header"  style="font-size:8pt">No </th>
+                                  <th width="150" valign="top" class="grid-header"  style="font-size:8pt">NO. REQUEST /<br>PERP DARI</th>
+                                  <th width="150" valign="top" class="grid-header"  style="font-size:8pt">TGL. REQUEST /<br> TGL. APPROVE</th>
+                                  <th width="150" valign="top" class="grid-header"  style="font-size:8pt">PEMILIK BARANG</th> 
+								   <th width="200" valign="top" class="grid-header"  style="font-size:8pt">JML BOX</th> 
+                                  <th valign="top" class="grid-header"  style="font-size:8pt">ACTION</th>  
+                              </tr>
+                              <fill src="row_list" var="rows">
+                              <tr bgcolor="#f9f9f3" onMouseOver=this.style.backgroundColor="#BAD5FC" onMouseOut=this.style.backgroundColor="">
+                                  <td width="4%" align="center" valign="middle" class="grid-cell" style="color:#000; font-family:Arial; font-size:8pt">{$__ctr} </td>
+                                  <td width="10%" align="left" valign="middle" class="grid-cell" style="font-family:Arial; font-size:8pt; color:#555555"><b>NO REQ : {$rows.NO_REQUEST}</b> <br> PERP DARI :  {$rows.PERP_DARI}</font></td>
+                                  <td width="10%" align="left" valign="middle" class="grid-cell" style="font-size:9pt">Tgl Request : <font color="#0066CC" style="font-size:8pt">{$rows.TGL_REQUEST}</font><br> Tgl Approve : <font color="#0066CC" style="font-size:10pt">{$rows.TGL_APPROVE}</font></td>
+								<td width="15%" align="center" valign="middle" class="grid-cell" style="font-size:9pt;font-family:Arial;"><font color="#0066CC" style="font-size:8pt">{$rows.NM_PBM}</font> </td>
+                                  <td width="5%" align="center" valign="middle" class="grid-cell" style="font-size:9pt;font-family:Arial;"><font color="#0066CC" style="font-size:8pt">{$rows.JUMLAH} BOX</font></td>
+                                
+                                  <td width="11%" align="center" valign="middle" class="grid-cell" style="font-size:9pt;">
+								 <?php if (($rows['PERP_DARI'] == NULL) AND ($rows['NOTA'] == 'T'))  {?>
+									&nbsp <i>Nota belum lunas</i> </a></td>
+								 <? } else if (($rows['PERP_DARI'] == NULL) AND ($rows['NOTA'] == 'Y'))  {?>
+									 <a href="{$HOME}{$APPID}/view?no_req={$rows.NO_REQUEST}"><img src='images/ico_approval.gif' border='0' />&nbsp Perpanjangan</a></td>
+								 <? } else if (($rows['PERP_DARI'] <> NULL) AND ($rows['NOTA'] == 'T'))  {?>
+								  <a href="{$HOME}{$APPID}/view?no_req={$rows.NO_REQUEST}"><img src='images/ico_approval.gif' border='0' />&nbsp Edit</a></td>
+								  <? } else if (($rows['PERP_DARI'] <> NULL) AND ($rows['NOTA'] == 'Y'))  {?>
+								   <i> &nbsp Nota sudah cetak</i></td>
+								<? } ?>
+								</tr>
+                              </fill>
+                          </table>
+</div>

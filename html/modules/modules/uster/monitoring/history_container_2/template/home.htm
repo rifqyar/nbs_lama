@@ -1,0 +1,535 @@
+<body>
+<style>
+.trstyle{
+	font-family:Tahoma; 
+	font-size:16pt; 
+	height:25px; 
+	text-align:center;
+	background-color:#FFFFFF;
+}
+.trhead{
+	text-align:center;
+	height:25px; 
+	background-color:#006699;
+	color:#FFFFFF;
+	font-family:Tahoma; 
+	font-family:Tahoma; 
+	font-size:16pt;
+}
+<link rel="stylesheet" type="text/css" href="{$HOME}lib/jquery.autocomplete.css" />
+
+</script><style>
+body {
+	padding:20px 20px;
+	font-family:"Lucida Grande","bitstream vera sans","trebuchet ms",sans-serif,verdana;
+}
+
+/* get rid of those system borders being generated for A tags */
+a:active {
+  outline:none;
+}
+
+:focus {
+  -moz-outline-style:none;
+}
+	
+	
+/* tab pane styling */
+.panes div {
+	display:none;		
+	padding:15px 10px;
+	border:1px solid #999;
+	border-top:0;
+	height:180px;
+	font-size:14px;
+	background-color:#fff;
+}
+/* root element for tabs  */
+ul.tabs { 
+	list-style:none; 
+	margin:0 !important; 
+	padding:0;	
+	border-bottom:1px solid #666;	
+	height:30px;
+}
+
+/* single tab */
+ul.tabs li { 
+	float:left;	 
+	text-indent:0;
+	padding:0;
+	margin:0 !important;
+	list-style-image:none !important; 
+}
+
+/* link inside the tab. uses a background image */
+ul.tabs a { 
+	background: url(http://118.97.72.37/petikemas/images/blue.png) no-repeat -420px 0; 
+	font-size:11px;
+	display:block;
+	height: 30px;  
+	line-height:30px;
+	width: 135px;
+	text-align:center;	
+	text-decoration:none;
+	color:#333;
+	padding:0px;
+	margin:0px;	
+	position:relative;
+	top:1px;
+}
+
+ul.tabs a:active {
+	outline:none;		
+}
+
+/* when mouse enters the tab move the background image */
+ul.tabs a:hover {
+	background-position: -420px -31px;	
+	color:#fff;	
+}
+
+/* active tab uses a class name "current". its highlight is also done by moving the background image. */
+ul.tabs a.current, ul.tabs a.current:hover, ul.tabs li.current a {
+	background-position: -420px -62px;		
+	cursor:default !important; 
+	color:#000 !important;
+}
+
+/* Different widths for tabs: use a class name: w1, w2, w3 or w2 */
+
+
+/* width 1 */
+ul.tabs a.s 			{ background-position: -553px 0; width:81px; }
+ul.tabs a.s:hover 	{ background-position: -553px -31px; }
+ul.tabs a.s.current  { background-position: -553px -62px; }
+
+/* width 2 */
+ul.tabs a.l 			{ background-position: -248px -0px; width:174px; }
+ul.tabs a.l:hover 	{ background-position: -248px -31px; }
+ul.tabs a.l.current  { background-position: -248px -62px; }
+
+
+/* width 3 */
+ul.tabs a.xl 			{ background-position: 0 -0px; width:248px; }
+ul.tabs a.xl:hover 	{ background-position: 0 -31px; }
+ul.tabs a.xl.current { background-position: 0 -62px; }
+
+
+/* initially all panes are hidden */ 
+.panes .pane {
+	display:none;		
+}
+.working{background:url('images/animated_loading.gif') no-repeat right center;}
+</style><span class="graybrown"><img src='images/dokumenbig.png' border='0' class="icon"/>History Container</span><br/><br/>
+<form enctype="multipart/form-data" method="post" class="form-input" name="formyard">
+<input type="hidden" name="__pbkey" value="" />
+<table class="form-input" border='0' width="100%">
+<tr>
+<td width="50%" valign="top">
+	<table class="form-input" border='0' width="100%">
+	<center>
+	<tr>
+		<td width="120" colspan="2"  align="right"  style="font-size:16px; font-weight:bold; font-family:Tahoma; color:#999" height="40">
+		Container No 
+		<td >
+		<input style="font-size:26px; font-weight:bold;" id="NO_CONT" size="12" class="suggestuwriter" type="text" maxlength="11" value="" /> (min.8 karakter) 
+		<a id="animated_load" class="working"></a><input id="NO_CONT2" size="12" type="hidden" maxlength="11" value="" /> 
+		</td>
+	</tr>
+	<tr>
+		<td width="100"  height="7" align="right"  class="form-field-caption">VESSEL </td>
+		<td align="left" colspan="5">
+			<input name="VESSEL" type="text" id="VESSEL" style="background-color:#FFCCFF;color:#0000CC" value="" size="40" maxlength="5" readonly="readonly" />&nbsp; 
+			<input name="VOYAGE" type="text" id="VOYAGE" value="" size="9" readonly="readonly" style="background-color:#FFCCFF;color:#0000CC;font-weight:bold;" />
+		</td>
+	</tr>
+	<tr>
+		<td width="100"  height="7" align="right"  class="form-field-caption">NO BOOKING</td>
+		<td align="left" colspan="5">
+			<input name="VESSEL" type="text" id="NO_BOOKING" value="" size="17" style="background-color:#FFCCFF;" readonly="readonly" /> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BP ID &nbsp;&nbsp; 
+			<input name="VESSEL" type="text" id="BP_ID" value="" size="24" readonly="readonly" style="background-color:#FFCCFF;" />
+		</td>
+	</tr>
+	<tr>
+		<td width="100"  height="7" align="right"  class="form-field-caption">SIZE/TYPE/STATUS</td>
+		<td align="left" colspan="5">
+			<input name="VESSEL" type="text" id="SIZE" value="" size="3" style="background-color:#FFEAC4;font-weight:bold;" readonly="readonly" />
+			<input name="VESSEL" type="text" id="TYPE" value="" size="3" style="background-color:#FFEAC4;font-weight:bold;" readonly="readonly" />
+			<input name="VESSEL" type="text" id="STATUS" value="" size="3" style="background-color:#FFEAC4;font-weight:bold;" readonly="readonly" />  
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LOCATION &nbsp;&nbsp; 
+			<input name="VESSEL" type="text" id="LOCATION" value="" size="24" readonly="readonly" style="background-color:#FFCCFF;" />
+			<!--<input name="VESSEL" type="text" id="id_OPR" value="" size="20" style="background-color:#FFEAC4;" readonly="readonly" />-->
+		</td>
+	</tr>
+	<!-- <tr>
+		<td width="100"  height="7" align="right"  class="form-field-caption">ISO CODE</td>
+		<td align="left" colspan="5">
+			<input name="VESSEL" type="text" id="id_ISOCODE" value="" size="5" style="background-color:#FFEAC4;" readonly="readonly" /> &nbsp;I/E/T&nbsp; 
+			<input name="VESSEL" type="text" id="id_IET" value="" size="2" style="background-color:#FFEAC4;" readonly="readonly" /> &nbsp;AKTIF&nbsp; 
+			<input name="VESSEL" type="text" id="id_AKTIF" value="" size="2" style="background-color:#FFEAC4;" readonly="readonly" />
+		</td>
+	</tr>
+	<tr>
+		<td width="100"  height="7" align="right"  class="form-field-caption">IMO CODE</td>
+		<td align="left" colspan="5">
+			<input name="VESSEL" type="text" id="id_IMOCODE" value="" size="5" style="background-color:#FFEAC4;" readonly="readonly" /> &nbsp;HZ&nbsp;&nbsp; 
+			<input name="VESSEL" type="text" id="id_HZ" value="" size="2" style="background-color:#FFEAC4;" readonly="readonly" /> &nbsp;LABEL&nbsp; 
+			<input name="VESSEL" type="text" id="id_LABEL" value="" size="2" style="background-color:#FFEAC4;" readonly="readonly" />
+		</td>
+	</tr> -->
+	<!-- <tr>
+		<td width="100"  height="7" align="right"  class="form-field-caption">GROSS</td>
+		<td align="left" colspan="5">
+			<input name="VESSEL" type="text" id="id_GROSS" value="" size="15" style="background-color:#FFEAC4;" readonly="readonly" />
+		</td>
+	</tr>
+	<tr>
+		<td width="100"  height="7" align="right"  class="form-field-caption">COMMODITY</td>
+		<td align="left" colspan="5">
+			<input name="VESSEL" type="text" id="id_COMMODITY" value="" size="55" style="background-color:#FFEAC4;" readonly="readonly" />
+		</td>
+	</tr> -->
+	<!-- <tr>
+		<td width="100"  height="7" align="right"  class="form-field-caption">OH / OW / OL</td>
+		<td align="left" colspan="5">
+			<input name="VESSEL" type="text" id="id_OH" value="" size="2" style="background-color:#FFEAC4;" readonly="readonly" /> / 
+			<input name="VESSEL" type="text" id="id_OW" value="" size="2" style="background-color:#FFEAC4;" readonly="readonly" /> / 
+			<input name="VESSEL" type="text" id="id_OL" value="" size="2" style="background-color:#FFEAC4;" readonly="readonly" /> &nbsp;TEMP. 
+			<input name="VESSEL" type="text" id="id_TEMP" value="" size="2" style="background-color:#FFEAC4;" readonly="readonly" />
+		</td>
+	</tr> -->
+	
+	</table>
+
+	</td>
+	</center>
+	<td valign="top">
+	
+	<!--<table class="form-input" border='0' width="100%">
+	<tr>
+		<td width="100"  height="7" align="right"  class="form-field-caption"></td>
+		<td align="left" colspan="5">
+		</td>
+	</tr>
+	<tr>
+		<td width="100"  height="7" align="right"  class="form-field-caption"></td>
+		<td align="left" colspan="5">
+		</td>
+	</tr>
+	<tr>
+		<td width="100"  height="7" align="right"  class="form-field-caption">CONSIGNEE</td>
+		<td align="left" colspan="5">
+			<input name="VESSEL" type="text" id="CONSIGNEE" value="" size="55" style="background-color:#FFEAC4;" readonly="readonly" />
+		</td>
+	</tr>
+	<tr>
+		<td width="100"  height="7" align="right"  class="form-field-caption">B/L NO.</td>
+		<td align="left" colspan="5">
+			<input name="VESSEL" type="text" id="BLNO" value="" size="20" style="background-color:#FFEAC4;" readonly="readonly" /> DO NO. 
+			<input name="VESSEL" type="text" id="DONO" value="" size="20" style="background-color:#FFEAC4;" readonly="readonly" />
+		</td>
+	</tr>
+	<tr>
+		<td width="100"  height="7" align="right"  class="form-field-caption">SEAL NO.</td>
+		<td align="left" colspan="5">
+		<input name="VESSEL" type="text" id="SEALNO" value="" size="20" style="background-color:#FFEAC4;" readonly="readonly" /> PEB NO. 
+		<input name="VESSEL" type="text" id="PEBNO" value="" size="20" style="background-color:#FFEAC4;" readonly="readonly" />
+		</td>
+	</tr>
+	<tr>
+		<td width="100"  height="7" align="right"  class="form-field-caption">STATUS.</td>
+		<td align="left" colspan="5">
+		<input name="STATUS" type="text" id="STATUS" value="" size="20" style="background-color:#FFEAC4;" readonly="readonly" />
+		</td>
+	</tr>
+	</table>-->
+	<!--<table class="form-input" border='0' width="100%">
+		<tr>
+			<td height="40" colspan="4">&nbsp;</td>
+		</tr>
+		<tr>
+			<td width="100"  align="right"  class="form-field-caption">SP2/KE NO.</td>
+			<td align="left" >
+				<input name="VESSEL" type="text" id="id_SP2KE" style="background-color:#FFFF99;color:#FF3300;font-weight:bold;" value="" size="15" readonly="readonly" /></td>
+			<td width="100"  align="right"  class="form-field-caption">INV NO.</td>
+			<td align="left" >
+				<input name="VESSEL" type="text" id="INVOICE" style="background-color:#FFFF99;color:#FF3300;font-weight:bold;" value="" size="13" readonly="readonly" /></td>
+		</tr>
+		<tr>
+			<td width="100"  align="right"  class="form-field-caption">CTPS [Y/T].</td>
+			<td align="left" >
+				<input name="VESSEL" type="text" id="id_CTPSYT" style="background-color:#FFEAC4;" value="" size="15" maxlength="5" readonly="readonly" />
+			</td>
+			<td width="100"  align="right"  class="form-field-caption">CTPS NO.</td>
+			<td align="left" >
+				<input name="VESSEL" type="text" id="id_CTPSNO" style="background-color:#FFEAC4;" value="" size="13" maxlength="5" readonly="readonly" />
+			</td>
+		</tr>
+		<tr>
+			<td width="100"  align="right"  class="form-field-caption">TGL ENTRY NPE.</td>
+			<td align="left" >
+				<input name="VESSEL" type="text" id="id_TGLENTRY" style="background-color:#FFEAC4;" value="" size="15" readonly="readonly" />
+			</td>
+		</tr>
+		<tr>
+			<td width="100"  align="right"  class="form-field-caption">TRUCK NO.</td>
+			<td align="left" >
+				<input name="VESSEL" type="text" id="id_TRUCKNO" style="background-color:#FFEAC4;" value="" size="15" readonly="readonly" />
+			</td>
+		</tr>
+		<tr>
+			<td width="100"  align="right"  class="form-field-caption">ORGIN PORT.</td>
+			<td align="left" >
+				<input name="VESSEL" type="text" id="id_ORGINPORT" style="background-color:#FFF7B7;" value="" size="20" readonly="readonly" />
+			</td>
+			<td width="100"  align="right"  class="form-field-caption">LOAD PORT.</td>
+			<td align="left" >
+				<input name="VESSEL" type="text" id="id_LOADPORT" style="background-color:#FFF7B7;" value="" size="15" readonly="readonly" />
+			</td>
+		</tr>
+		<tr>
+			<td width="100"  align="right"  class="form-field-caption">DISC PORT.</td>
+			<td align="left" >
+				<input name="VESSEL" type="text" id="id_DISCPORT" style="background-color:#FFF7B7;" value="" size="20" readonly="readonly" />
+			</td>
+			<td width="100"  align="right"  class="form-field-caption">FDISC PORT.</td>
+			<td align="left" >
+				<input name="VESSEL" type="text" id="id_FDISCPORT" style="background-color:#FFF7B7;" value="" size="15" readonly="readonly" />
+			</td>
+		</tr>
+		<tr>
+			<td width="100"  align="right"  class="form-field-caption">CRANE L/S</td>
+			<td align="left" >
+				<input name="VESSEL" type="text" id="id_CRANELS" style="background-color:#FFEAC4;" value="" size="15" readonly="readonly" />
+			</td>
+			<td width="100"  align="right"  class="form-field-caption">D/L/T/S</td>
+			<td align="left" ><input name="VESSEL" type="text" id="id_DLTS" style="background-color:#FFEAC4;" value="" size="15" readonly="readonly" />
+			</td>
+		</tr>
+		<tr>
+			<td width="100"  align="right"  class="form-field-caption">SHIFT BY</td>
+			<td align="left" >
+				<input name="VESSEL" type="text" id="id_SHIFTBY" style="background-color:#FFEAC4;" value="" size="5" maxlength="5" readonly="readonly" /></td>
+		</tr>
+		<tr>
+			<td width="100"  align="right"  class="form-field-caption">BAY-ROW-TIER</td>
+			<td align="left" colspan="4" >
+				<input name="VESSEL" type="text" id="id_BAY" style="background-color:#FFEAC4;" value="" size="3" maxlength="5" readonly="readonly" />
+				<input name="VESSEL" type="text" id="id_ROW" style="background-color:#FFEAC4;" value="" size="3" maxlength="5" readonly="readonly" />
+				<input name="VESSEL" type="text" id="id_TIER" style="background-color:#FFEAC4;" value="" size="3" maxlength="5" readonly="readonly" />
+			</td>
+		</tr>
+		<tr>
+			<td width="100"  align="right"  class="form-field-caption">USER ID</td>
+			<td align="left" >
+				<input name="VESSEL" type="text" id="id_USERID" style="background-color:#000000;color:#00FF00" value="" size="22" maxlength="5" readonly="readonly" /></td><td width="100"  align="right"  class="form-field-caption">UPD. TIME</td><td align="left" ><input name="VESSEL" type="text" id="id_UPDATETIME" style="background-color:#000000;color:#00FF00" value="" size="17" readonly="readonly" />
+			</td>
+		</tr>
+		<tr>
+			<td width="100"  align="right"  class="form-field-caption">REMARKS</td>
+			<td align="left" colspan="4" >
+				<input name="REMARKS" type="text" id="id_REMARKS" style="background-color:#FFEAC4;" value="" size="63" readonly="readonly" />
+					
+			</td>
+		</tr>
+</table>-->
+	</td>
+	
+	</tr><tr><td colspan="12" align="center" >&nbsp;</td></tr>
+	<!--
+	<tr><td colspan="12" align="center" ><div align="center" style="width:890px" id="tabs" class="ui-tabs ui-widget ui-widget-content ui-corner-all"><ul><li><a href="#divtab1">HANDLING</a></li><li><a href="#divtab2">YARD</a></li><li><a href="#divtab3">SP2</a></li><li><a href="#divtab4">KE</a></li><li><a href="#divtab5">STRIPPING</a></li><li><a href="#divtab6">STUFFING</a></li><li><a href="#divtab7">BAHANDLE</a></li></ul><div id="divtab1"></div><div id="divtab2"></div><div id="divtab3"></div><div id="divtab4"></div><div id="divtab5"></div><div id="divtab6"></div><div id="divtab7"></div></div> &nbsp;</td></tr>
+	-->
+	</table></form>
+
+	<div id="tabspage" class="tabss">
+				<ul>
+				<li><a href="#tabspage-1">Handling</a></li>
+				<li><a href="#tabspage-2">Placement</a></li>
+				<li><a href="#tabspage-3">Stripping</a></li>
+				<li><a href="#tabspage-4">Stuffing</a></li>
+				<li><a href="#tabspage-5">Receiving</a></li>
+				<li><a href="#tabspage-6">Delivery</a></li>								
+				</ul>
+				<div id="tabspage-1">
+				<center>
+				<div id="handling">
+				
+				</div>
+				</center>
+				</div>
+				<div id="tabspage-2">
+				<center>
+				<div id="placement">
+				
+				</div>
+				</center>
+				</div>
+				<div id="tabspage-3">				
+				<center>
+				<div id="stripping">
+				
+				</div>
+				</center>
+				</div>
+				<div id="tabspage-4">
+				<center>
+				<div id="stuffing">
+				
+				</div>
+				</center>
+				</div>
+				<div id="tabspage-5">
+				<center>
+				<div id="receiving">
+				
+				</div>
+				</center>
+				</div>
+				<div id="tabspage-6">
+				<center>
+				<div id="delivery">
+				
+				</div>
+				</center>
+				</div>
+				
+	</div>
+	</td><td></td></tr><tr><td></td><td> </td><td></td></tr><tr><td></td><td><!--<div class="graybrown" style="font-size:8pt; text-transform:uppercase">Group Name:ADMINJADAH --- Group Menu : ADMINJADAH</div>--></td><td></td></tr></table></div></div></div>
+	</body></html>
+	
+<script>
+
+$(function() {		
+		$( "#tabspage" ).tabs();
+		
+});
+
+$().ready(function() {	
+
+	function formatItem(item) {
+	   return item.NO_CONTAINER + " (<strong>id: " + item.VOYAGE_IN +" "+ item.SIZE_ +" "+ item.TYPE_ + "</strong>)";
+	}
+	
+	var cache = {};
+	$("#NO_CONT" ).autocomplete({
+			minLength: 8,
+			max : 10, 
+			scroll: true ,
+			width: 410,
+			height: 70,
+			matchContains: true,
+			autoFill: false,
+			//search  : function(){$(this).addClass('working');},
+			//open    : function(){$(this).removeClass('working');}, 
+			source: "{$HOME}{$APPID}.auto/container",
+			/*source: function( request, response ) {
+				var term = request.term;
+				if ( term in cache ) {
+					response( cache[ term ] );
+					return;
+				}
+				$.getJSON( "{$HOME}{$APPID}.auto/container", request, function( data, status, xhr ) {
+					cache[ term ] = data;
+					response( data );
+					
+				});
+			},*/
+			focus: function( event, ui ) {				
+				$("#NO_CONT").val( ui.item.NO_CONTAINER );				
+				return false;
+			},
+			select: function( event, ui ) {
+				$("#NO_CONT").val( ui.item.NO_CONTAINER );
+				$("#NO_CONT2").val( ui.item.NO_CONTAINER );
+				$("#SIZE").val( ui.item.SIZE_);
+				//$("#COUNTER").val( ui.item.STATUS);
+				$("#TYPE").val( ui.item.TYPE_);
+				$("#LOCATION").val( ui.item.LOCATION);
+				//$("#VESSEL").val( ui.item.NM_KAPAL);
+				var booking = ui.item.NO_BOOKING;
+				var booking_ = ui.item.NO_BOOKING;
+				//alert(booking);
+				
+				$.post("<?=HOME?><?=APPID?>.auto/get_status_cont",{NO_CONT : ui.item.NO_CONTAINER, NO_BOOKING : ui.item.NO_BOOKING}, function(datf){
+					$("#STATUS").val(datf);
+				});
+				
+				if(ui.item.NO_BOOKING == "VESSEL_NOTHING"){
+					var booking = '';
+					$("#VESSEL").val('VESSEL_NOTHING');
+				}
+				/*else{ */
+					if(booking == ''){						
+						$.post("<?=HOME?><?=APPID?>.auto/get_booking_temp",{NO_CONT : ui.item.NO_CONTAINER }, function(datea){
+							if(datea != ''){
+								booking = datea;
+								$.post("<?=HOME?><?=APPID?>.auto/con_vessel?NO_CONT="+ui.item.NO_CONTAINER+"&NO_BOOK="+booking, function(datax){
+								var datax = $.parseJSON(datax); 					
+								$("#VESSEL").val(datax.NM_KAPAL);
+								$("#VOYAGE").val(datax.VOYAGE_IN+"-"+datax.VOYAGE_OUT);
+								$("#NO_BOOKING").val(datax.NO_BOOKING);	
+								$("#BP_ID").val(datax.BP_ID);
+								//$("#BP_ID").val(datax.item.NM_KAPAL);	
+								//$("#ASAL_CONT").val(datax.item.NM_KAPAL);	
+								//$("#NO_BOOKING").val(datax.item.NM_KAPAL);
+								});	
+							}
+							else{
+								booking = '';
+								$("#VESSEL").val('VESSEL_NOTHING'); 
+								$("#VOYAGE").val('');
+								$("#NO_BOOKING").val('');	
+								$("#BP_ID").val('');
+							}							
+						});
+					}
+					else {
+						$.post("<?=HOME?><?=APPID?>.auto/con_vessel?NO_CONT="+ui.item.NO_CONTAINER+"&NO_BOOK="+booking, function(datax){
+								var datax = $.parseJSON(datax); 					
+								$("#VESSEL").val(datax.NM_KAPAL);
+								$("#VOYAGE").val(datax.VOYAGE_IN+"-"+datax.VOYAGE_OUT);
+								$("#NO_BOOKING").val(datax.NO_BOOKING);	
+								$("#BP_ID").val(datax.BP_ID);
+								//$("#BP_ID").val(datax.item.NM_KAPAL);	
+								//$("#ASAL_CONT").val(datax.item.NM_KAPAL);	
+								//$("#NO_BOOKING").val(datax.item.NM_KAPAL);
+							});	
+					}
+					
+					
+					//alert(booking);
+					
+				/*}					*/
+				
+				$('#handling').html('<p align=center><img src={$HOME}images/loadingbox.gif /></p>');
+				$('#stripping').html('<p align=center><img src={$HOME}images/loadingbox.gif /></p>');
+				$('#receiving').html('<p align=center><img src={$HOME}images/loadingbox.gif /></p>');
+				$('#stuffing').html('<p align=center><img src={$HOME}images/loadingbox.gif /></p>');
+				$('#delivery').html('<p align=center><img src={$HOME}images/loadingbox.gif /></p>');
+				$('#placement').html('<p align=center><img src={$HOME}images/loadingbox.gif /></p>');
+				
+				$("#handling").load("<?=HOME?><?=APPID?>/get_detail?ACT=handling&NO_CONT="+ui.item.NO_CONTAINER+"&COUNTER="+ui.item.COUNTER+"&NO_BOOK="+ui.item.NO_BOOKING+" #handling");
+				$("#stripping").load("<?=HOME?><?=APPID?>/get_detail?ACT=stripping&NO_CONT="+ui.item.NO_CONTAINER+"&COUNTER="+ui.item.COUNTER+"&NO_BOOK="+ui.item.NO_BOOKING+" #stripping");
+				$("#receiving").load("<?=HOME?><?=APPID?>/get_detail?ACT=receiving&NO_CONT="+ui.item.NO_CONTAINER+"&COUNTER="+ui.item.COUNTER+"&NO_BOOK="+booking_+" #receiving");
+				$("#stuffing").load("<?=HOME?><?=APPID?>/get_detail?ACT=stuffing&NO_CONT="+ui.item.NO_CONTAINER+"&COUNTER="+ui.item.COUNTER+"&NO_BOOK="+ui.item.NO_BOOKING+" #stuffing");
+				$("#delivery").load("<?=HOME?><?=APPID?>/get_detail?ACT=delivery&NO_CONT="+ui.item.NO_CONTAINER+"&COUNTER="+ui.item.COUNTER+"&NO_BOOK="+ui.item.NO_BOOKING+" #delivery");
+				$("#placement").load("<?=HOME?><?=APPID?>/get_detail?ACT=placement&NO_CONT="+ui.item.NO_CONTAINER+"&COUNTER="+ui.item.COUNTER+"&NO_BOOK="+ui.item.NO_BOOKING+" #placement");
+				//$("#SLOT").val( ui.item.SLOT_);
+				//$("#ROW").val( ui.item.ROW_);
+				//$("#TIER").val( ui.item.TIER_);
+				
+				return false;
+			}
+		})
+		.data( "autocomplete" )._renderItem = function( ul, item ) {
+			return $( "<li style='text-align:left'></li>" )
+				.data( "item.autocomplete", item ) 
+				.append( "<a style='text-align:left;font-size:16px;'>" + item.NO_CONTAINER + "<br/> "+item.SIZE_+" "+item.TYPE_+" | ["+item.NO_BOOKING+"] "+item.IE+"</a>" )
+				.appendTo( ul );
+		};
+		
+		
+		
+});
+</script>

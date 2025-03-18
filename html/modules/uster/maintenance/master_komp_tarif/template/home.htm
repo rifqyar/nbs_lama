@@ -1,0 +1,32 @@
+<span class="graybrown"><img src='images/sp2_p.png' border='0' class="icon"/><font color="#0378C6"> Master</font> Komponen Nota</span><br/><br/>
+<fieldset class="form-fieldset" style="margin: 5px 5px 5px 5px; ">
+	<center>
+   
+    <div id="cont_list" style="margin: 10px 10px 10px 10px;">
+	
+	<!--<div id="nota_list" style="margin: 10px 10px 10px 10px;">-->
+    
+    </div>
+    
+	</center>
+</fieldset>
+
+<script>
+
+$(function() {	
+	
+	$("#cont_list").load('<?=HOME?><?=APPID?>/list_tarif #list', function(data) {        	  
+	}); 	
+});
+
+function detail_komp_nota($id)
+{
+	var id_nota_	= $id;
+	var url 	    = "<?=HOME?><?=APPID?>/detail_komp_nota #list";
+	//$.blockUI({ message: '<h1><br>Please wait...</h1><br><img src={$HOME}images/loadingbox.gif /><br><br>' }); 
+	$("#nota_list").load(url,{id_nota : id_nota_}, function(data){
+	if(data){
+		}
+	});
+}
+</script>

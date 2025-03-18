@@ -1,0 +1,256 @@
+<div id="handling">
+	<table width="100%" border="0"  cellspacing="1" cellpadding="1">
+		<tr bgcolor="#006699">
+			<th class="grid-header"  style="font-size:8pt">HANDLING</td>
+			<th class="grid-header"  style="font-size:8pt">NO REQ</td>
+			<th class="grid-header"  style="font-size:8pt">NAMA YARD</td>
+			<th class="grid-header"  style="font-size:8pt">NAMA USER</td>
+			<th class="grid-header"  style="font-size:8pt">TANGGAL</td>
+		</tr>
+		<fill var='r_det' src='r_det'>
+		<alt var='bg' list='#f9f9f3,#ffe'/>
+		<tr bgcolor="{$bg}" style="cursor:pointer;" onMouseOver=this.style.backgroundColor="#BAD5FC" onMouseOut=this.style.backgroundColor="">
+			<td>{$r_det.KEGIATAN}</td>
+			<td>{$r_det.NO_REQ_REC}{$r_det.NO_REQ_STR}{$r_det.NO_REQ_DEL}{$r_det.NO_REQ_STF}{$r_det.NO_REQ_REL}{$r_det.NO_REQ_RBM}</td>
+			<td>{$r_det.NAMA_YARD}</td>
+			<td>{$r_det.NAMA_LENGKAP}</td>
+			<td>{$r_det.TGL_UPDATE}</td>
+		</tr>
+		</fill>
+	</table>
+</div>
+
+<div id="stripping">
+	<table width="100%" border="0"  cellspacing="1" cellpadding="1">
+		<tr bgcolor="#006699">
+			<th class="grid-header"  style="font-size:8pt">NO REQUEST</td>
+			<th class="grid-header"  style="font-size:8pt">NO NOTA</td>
+			<th class="grid-header"  style="font-size:8pt">LUNAS</td>
+			<th class="grid-header"  style="font-size:8pt">TGL REQUEST</td>
+			<th class="grid-header"  style="font-size:8pt">CONSIGNEE</td>
+			<th class="grid-header"  style="font-size:8pt">NO DO</td>
+			<th class="grid-header"  style="font-size:8pt">NO BL</td>
+			<th class="grid-header"  style="font-size:8pt">PERP KE</td>
+			<th class="grid-header"  style="font-size:8pt">TIPE STRIPPING</td>
+			<th class="grid-header"  style="font-size:8pt">TGL APPROVE</td>
+			<th class="grid-header"  style="font-size:8pt">TGL APPROVE END</td>
+			<th class="grid-header"  style="font-size:8pt">START PNKN</td>
+			<th class="grid-header"  style="font-size:8pt">ACTIVE TO</td>
+			<th class="grid-header"  style="font-size:8pt">TGL REALISASI</td>
+			<th class="grid-header"  style="font-size:8pt">USER REALISASI</td>
+		</tr>
+		<fill var='r_str' src='r_str'>
+		<alt var='bg' list='#f9f9f3,#ffe'/>
+		<tr bgcolor="{$bg}" style="cursor:pointer;" onMouseOver=this.style.backgroundColor="#BAD5FC" onMouseOut=this.style.backgroundColor="">
+			<td>{$r_str.NO_REQUEST}</td>
+			<td>{$r_str.NO_NOTA}</td>
+			<td>{$r_str.LUNAS}</td>
+			<td>{$r_str.TGL_REQUEST}</td>
+			<td>{$r_str.NAMA_CONSIGNEE}</td>
+			<td>{$r_str.NO_DO}</td>
+			<td>{$r_str.NO_BL}</td>
+			<td align="center">{$r_str.PERP_KE}</td>
+			<td>{$r_str.TYPE_STRIPPING}</td>
+			<td>{$r_str.TGL_APPROVE}</td>
+			<td>{$r_str.TGL_APP_SELESAI}</td>
+			<?php if ($r_str["STATUS_REQ"] == 'PERP') {?>
+			<td>{$r_str.START_PERP_PNKN}</td>
+			<td>{$r_str.END_STACK_PNKN}</td>
+			<?php } else { ?>
+			<td>{$r_str.TGL_MULAI}</td>
+			<td>{$r_str.TGL_SELESAI}</td>
+			<?php } ?>			
+			<td>{$r_str.TGL_REALISASI}</td>
+			<td>{$r_str.NAMA_LKP}</td>
+		</tr>
+		</fill>
+	</table>
+</div>
+
+<div id="receiving">
+	<table width="100%" border="0"  cellspacing="1" cellpadding="1">
+		<tr bgcolor="#006699">
+			<th class="grid-header"  style="font-size:8pt">NO REQUEST</td>
+			<th class="grid-header"  style="font-size:8pt">NO NOTA</td>
+			<th class="grid-header"  style="font-size:8pt">LUNAS</td>
+			<th class="grid-header"  style="font-size:8pt">TGL REQUEST</td>
+			<th class="grid-header"  style="font-size:8pt">CONSIGNEE</td>
+			<th class="grid-header"  style="font-size:8pt">RECEIVING DARI</td>
+			<th class="grid-header"  style="font-size:8pt">NO DO</td>
+			<th class="grid-header"  style="font-size:8pt">NO BL</td>
+			<th class="grid-header"  style="font-size:8pt">NO SPPB</td>
+			<th class="grid-header"  style="font-size:8pt">TGL SPPB</td>
+			<th class="grid-header"  style="font-size:8pt">PERALIHAN</td>
+		</tr>
+		<fill var='r_rec' src='r_rec'>
+		<alt var='bg' list='#f9f9f3,#ffe'/>
+		<tr bgcolor="{$bg}" style="cursor:pointer;" onMouseOver=this.style.backgroundColor="#BAD5FC" onMouseOut=this.style.backgroundColor="">
+			<td>{$r_rec.NO_REQUEST}</td>
+			<td>{$r_rec.NO_NOTA}</td>
+			<td>{$r_rec.LUNAS}</td>
+			<td>{$r_rec.TGL_REQUEST}</td>
+			<td>{$r_rec.CONSIGNEE}</td>
+			<td>{$r_rec.RECEIVING_DARI}</td>
+			<td>{$r_rec.NO_DO}</td>
+			<td>{$r_rec.NO_BL}</td>
+			<td>{$r_rec.NO_SPPB}</td>
+			<td>{$r_rec.TGL_SPPB}</td>
+			<td>{$r_rec.PERALIHAN}</td>
+		</tr>
+		</fill>
+	</table>
+</div>
+
+
+<div id="stuffing">
+	<table width="100%" border="0"  cellspacing="1" cellpadding="1">
+		<tr bgcolor="#006699">
+			<th class="grid-header"  style="font-size:8pt">NO REQUEST</td>
+			<th class="grid-header"  style="font-size:8pt">NO NOTA</td>
+			<th class="grid-header"  style="font-size:8pt">STATUS_NOTA</td>
+			<th class="grid-header"  style="font-size:8pt">LUNAS</td>
+			<th class="grid-header"  style="font-size:8pt">TGL REQUEST</td>
+			<th class="grid-header"  style="font-size:8pt">NO DOKUMEN</td>
+			<th class="grid-header"  style="font-size:8pt">TGL APPROVE</td>
+			<th class="grid-header"  style="font-size:8pt">START PNKN</td>
+			<th class="grid-header"  style="font-size:8pt">ACTIVE TO</td>
+			<th class="grid-header"  style="font-size:8pt">NO JPB</td>
+			<th class="grid-header"  style="font-size:8pt">BPRP</td>
+			<th class="grid-header"  style="font-size:8pt">NO PEB</td>
+			<th class="grid-header"  style="font-size:8pt">NO NPE</td>
+			<th class="grid-header"  style="font-size:8pt">STUFFING DARI</td>
+			<th class="grid-header"  style="font-size:8pt">CONSIGNEE</td>
+			<th class="grid-header"  style="font-size:8pt">KAPAL</td>
+			<th class="grid-header"  style="font-size:8pt">TGL REALISASI</td>
+			<th class="grid-header"  style="font-size:8pt">USER REALISASI</td>
+		</tr>
+		<fill var='r_stu' src='r_stu'>
+		<alt var='bg' list='#f9f9f3,#ffe'/>
+		<tr bgcolor="{$bg}" style="cursor:pointer;" onMouseOver=this.style.backgroundColor="#BAD5FC" onMouseOut=this.style.backgroundColor="">
+			<td>{$r_stu.NO_REQUEST}</td>
+			<td>{$r_stu.NO_NOTA}</td>
+			<td>{$r_stu.STATUS}</td>
+			<td>{$r_stu.LUNAS}</td> 
+			<td>{$r_stu.TGL_REQUEST}</td>
+			<td>{$r_stu.NO_DOKUMEN}</td>
+			<td>{$r_stu.TGL_APPROVE}</td>
+			<td>{$r_stu.START_STACK}</td>
+			<td>{$r_stu.START_PERP_PNKN}</td>
+			<td>{$r_stu.NO_JPB}</td>
+			<td>{$r_stu.BPRP}</td>
+			<td>{$r_stu.NO_PEB}</td>
+			<td>{$r_stu.NO_NPE}</td>
+			<td>{$r_stu.ASAL_CONT}</td>
+			<td>{$r_stu.NM_PBM}</td>
+			<td>{$r_stu.NM_KAPAL}</td>
+			<td>{$r_stu.TGL_REALISASI}</td>
+			<td>{$r_stu.NAMA_LKP}</td>
+		</tr>
+		</fill>
+	</table>
+</div>
+
+
+<div id="delivery">
+	<table width="100%" border="0"  cellspacing="1" cellpadding="1">
+		<tr bgcolor="#006699">
+			<th class="grid-header"  style="font-size:8pt">NO REQUEST</td>
+			<th class="grid-header"  style="font-size:8pt">NO NOTA</td>
+			<th class="grid-header"  style="font-size:8pt">LUNAS</td>
+			<th class="grid-header"  style="font-size:8pt">TGL REQUEST</td>
+			<th class="grid-header"  style="font-size:8pt">START PNKN</td>
+			<th class="grid-header"  style="font-size:8pt">ACTIVE TO</td>
+			<th class="grid-header"  style="font-size:8pt">KOMODITI</td>
+			<th class="grid-header"  style="font-size:8pt">AKTIF</td>
+			<th class="grid-header"  style="font-size:8pt">HZ</td>
+			<th class="grid-header"  style="font-size:8pt">PERALIHAN</td>
+			<th class="grid-header"  style="font-size:8pt">DELIVERY KE</td>
+			<th class="grid-header"  style="font-size:8pt">JENIS REPO</td>
+			<th class="grid-header"  style="font-size:8pt">NAMA EMKL</td>
+		</tr>
+		<fill var='r_del' src='r_del'>
+		<alt var='bg' list='#f9f9f3,#ffe'/>
+		<tr bgcolor="{$bg}" style="cursor:pointer;" onMouseOver=this.style.backgroundColor="#BAD5FC" onMouseOut=this.style.backgroundColor="">
+			<td>{$r_del.NO_REQUEST}</td>
+			<td>{$r_del.NO_NOTA}</td>
+			<td>{$r_del.LUNAS}</td>
+			<td>{$r_del.TGL_REQUEST}</td>
+			<td>{$r_del.START_STACK}</td>
+			<td>{$r_del.TGL_DELIVERY}</td>
+			<td>{$r_del.KOMODITI}</td>
+			<td>{$r_del.AKTIF}</td>
+			<td>{$r_del.HZ}</td>
+			<td>{$r_del.PERALIHAN}</td>
+			<td>{$r_del.DELIVERY_KE}</td>
+			<td>{$r_del.JN_REPO}</td>
+			<td>{$r_del.NAMA_EMKL}</td>
+		</tr>
+		</fill>
+	</table>
+</div>
+
+<div id="placement">
+	<table width="100%" border="0"  cellspacing="1" cellpadding="1">
+		<tr bgcolor="#006699">
+			<th class="grid-header"  style="font-size:8pt">TGL PLACEMENT</td>
+			<th class="grid-header"  style="font-size:8pt">NO_REQ_REC</td>
+			<th class="grid-header"  style="font-size:8pt">VIA</td>
+			<th class="grid-header"  style="font-size:8pt">NAMA YARD</td>
+			<th class="grid-header"  style="font-size:8pt">BLOK</td>
+			<th class="grid-header"  style="font-size:8pt">SLOT/ROW/TIER</td>
+			<th class="grid-header"  style="font-size:8pt">OPER NAME</td>
+			<th class="grid-header"  style="font-size:8pt">KETERANGAN</td>
+		</tr>
+		<fill var='r_pl' src='r_pl'>
+		<alt var='bg' list='#f9f9f3,#ffe'/>
+		<tr bgcolor="{$bg}" style="cursor:pointer;" onMouseOver=this.style.backgroundColor="#BAD5FC" onMouseOut=this.style.backgroundColor=""> 
+			<td>{$r_pl.TGL_UPDATE}</td>
+			<td>{$r_pl.NO_REQUEST}</td>
+			<td>{$r_pl.VIA}</td>
+			<td>{$r_pl.NAMA_YARD}</td>
+			<td>{$r_pl.NAME}</td>
+			<td>{$r_pl.SLOT_} / {$r_pl.ROW_} / {$r_pl.TIER_}</td>
+			<td>{$r_pl.NAMA_LENGKAP}</td>
+						<td>{$r_pl.KETERANGAN}</td>
+		</tr>
+		</fill>
+	</table>
+</div>
+
+
+<div id="detail_emkl">
+
+	<font size="3">	Nama EMKL : <b><?=$r_de11['EMKL'];?> </b><br />
+		Total Container Yang Belum Realisasi : <b><?=$jum_real;?> BOX</b></font><br />
+	<br/>
+	<table width="710px" border="0"  cellspacing="1" cellpadding="1">
+		
+		<tr bgcolor="#006699">
+			<th class="grid-header"  style="font-size:8pt">NO</td>
+			<th class="grid-header"  style="font-size:8pt">NO CONTAINER</td>
+			<th class="grid-header"  style="font-size:8pt">SIZE-TYPE</td>
+			<th class="grid-header"  style="font-size:8pt">NO REQUEST</td>
+			<th class="grid-header"  style="font-size:8pt">B-S-R-T</td>
+			<th class="grid-header"  style="font-size:8pt">TERTANDA</td>
+			<th class="grid-header"  style="font-size:8pt">TANGGAL APPROVE</td>
+			<th class="grid-header"  style="font-size:8pt">NAMA KAPAL</td>
+		</tr>
+		<?$i=1;?>
+		<fill var='r_de' src='r_de'>
+		<alt var='bg' list='#f9f9f3,#ffe'/>
+		<tr bgcolor="{$bg}" style="cursor:pointer;" onMouseOver=this.style.backgroundColor="#BAD5FC" onMouseOut=this.style.backgroundColor=""> 
+			<td align="center" class="grid-cell"><?=$i?></td>
+			<td align="center" class="grid-cell">{$r_de.NO_CONTAINER}</td>
+			<td align="center" class="grid-cell">{$r_de.SIZE_} - {$r_de.TYPE_}</td>
+			<td align="center" class="grid-cell">{$r_de.NO_REQUEST}</td>
+			<td align="center" class="grid-cell">{$r_de.BLOK_}-{$r_de.SLOT_}-{$r_de.ROW_}-{$r_de.TIER_}</td>
+			<td align="center" class="grid-cell">{$r_de.PERSONAL}</td>
+			<td align="center" class="grid-cell">{$r_de.TGL_APPROVE}</td>
+			<td align="center" class="grid-cell">{$r_de.NM_KAPAL} [{$r_de.VOYAGE_IN}]</td>
+		</tr>
+		<?$i++;$kd=$r_de11['KD_PBM'];?>
+		</fill>
+	</table>
+	<a class="link-button" style="height:25" onclick="toexcel('<?=$r_de11['KD_EMKL'];?>')"><img src='<?=HOME?>images/cari.png' border='0' />Generate Excel</a>
+	 <!--<a href="" onclick="cetak('<?=$r_de11['KD_EMKL'];?>')"><img src="<?=HOME?>images/print.png"> </a> -->
+</div>

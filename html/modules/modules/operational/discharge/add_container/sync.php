@@ -1,0 +1,1 @@
+<?php	$db=getDb();	$db->query("declare begin ISWS.GET_DATA_ANNE_ICT.GET_HEADER_ANNE; end;");?>

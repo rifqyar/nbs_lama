@@ -1,0 +1,33 @@
+<div id="list">
+                        <table class="grid-table" border='0' cellpadding="1" cellspacing="1"  width="100%" >
+                              <tr style=" font-size:10pt">
+                                  <th width="2%" valign="top" class="grid-header"  style="font-size:8pt">No </th>
+                                  <th width="110" valign="top" class="grid-header"  style="font-size:8pt">NO. REQUEST </th>
+                                  <th width="200" valign="top" class="grid-header"  style="font-size:8pt">TGL. REQUEST</th> 
+                                  <th  width="150" valign="top" class="grid-header"  style="font-size:<8pt">EMKL</th>
+                                   <th  width="150" valign="top" class="grid-header"  style="font-size:<8pt">LAPANGAN</th>
+                                  <th width="150" valign="top" class="grid-header"  style="font-size:8pt">ACTION</th>  
+                              </tr>
+                              <fill src="row_list" var="rows">
+                              <tr bgcolor="#f9f9f3" onMouseOver=this.style.backgroundColor="#BAD5FC" onMouseOut=this.style.backgroundColor="">
+                                  <td  align="center" valign="middle" class="grid-cell" style="color:#000; font-family:Arial; font-size:9pt">{$__ctr} </td>
+                                  <td  align="center" valign="middle" class="grid-cell"   style="font-family:Arial; font-size:11pt; color:#555555"><b>{$rows.NO_REQUEST}</b></font></td>
+                                  <td align="left" valign="middle" class="grid-cell"  style="font-size:9pt"><font color="#0066CC" style="font-size:10pt">TGL REQUEST : </font>{$rows.TGL_REQUEST} <br><font color="#0066CC" style="font-size:10pt"> TGL KELUAR : </font>{$rows.TGL_REQUEST_DELIVERY}</td>
+                                  <td align="center" valign="middle" class="grid-cell"  style="font-size:9pt;font-family:Arial;"><font color="#0066CC" style="font-size:10pt">{$rows.NAMA_EMKL}</font></td>
+                                   <td align="center" valign="middle" class="grid-cell"  style="font-size:9pt;font-family:Arial;"><font color="#0066CC" style="font-size:10pt">{$rows.NAMA_YARD}</font></td>
+                                  <td align="center" valign="middle" class="grid-cell" style="font-size:9pt;">
+                                      <?php
+                                        if ($rows['LUNAS'] == 'YES'){ ?>
+                                            <img src='images/money2.png' border='0' />&nbsp; LUNAS <br>
+                                            <a href="{$HOME}{$APPID}/view?no_req={$rows.NO_REQUEST}"><img src='images/ico_approval.gif' border='0' />&nbsp; preview data </a
+                                        <? } else if ($rows['LUNAS'] == 'PIUTANG'){ ?>
+                                            <img src='images/money2.png' border='0' />&nbsp; PIUTANG <br>
+                                            <a href="{$HOME}{$APPID}/view?no_req={$rows.NO_REQUEST}"><img src='images/ico_approval.gif' border='0' />&nbsp; preview data </a
+                                        <? } else { ?>
+                                           <a href="{$HOME}{$APPID}/edit?no_req={$rows.NO_REQUEST}"><img src='images/editp.png' border='0' />&nbsp; refisi data </a>
+                                      <?  }   ?>
+                                        </td>
+                              </tr>
+                              </fill>
+                          </table>
+</div>

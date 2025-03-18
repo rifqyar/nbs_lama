@@ -1,0 +1,284 @@
+<style>
+.content{
+	width:95%;
+	margin-left:auto;
+	margin-right:auto;
+	margin-bottom: 10px;
+	margin-top:20px;
+}
+</style>
+<script type="text/javascript">
+jQuery(function() {
+ jQuery("#l_behandle").jqGrid({
+	url:'<?=HOME?>request.hicoscan.data/',
+	mtype : "post",
+	datatype: "json",
+	colNames:['','No Request','Nama Pelanggan','Request Date','Ex-Vessel','Perdagangan','No. Bea Cukai','Jml container'], 
+	colModel:[
+		{name:'aksi', width:100, valign:"center", align:"center",sortable:false,search:false},
+		{name:'ID_REQUEST',index:'ID_REQUEST', width:100, align:"center"},
+		{name:'EMKL',index:'EMKL', width:200, align:"center"},
+		{name:'TGL_REQUEST',index:'TGL_REQUEST', width:80, align:"center",search:false},
+		{name:'VESSEL',index:'VESSEL', width:200, align:"center"},
+		{name:'TIPE_REQ',index:'TIPE_REQ', width:70, align:"center"},
+		{name:'NOMOR_INSTRUKSI',index:'NOMOR_INSTRUKSI', width:120, align:"center"},
+		{name:'jum_cont',index:'jum_cont', width:80, align:"center",sortable:false,search:false}
+	],
+	rowNum:20,
+	width: 865,
+	height: "100%",//250
+	sortname: "TGL_REQUEST",
+	sortorder: "desc",
+	rowList:[10,20,30,40,50,60],
+	//loadonce:true,
+	rownumbers: true,
+	rownumWidth: 15,
+	gridview: true,
+	pager: '#pg_l_behandle',
+	viewrecords: true,
+	shrinkToFit: false,
+	caption:"Data Request Hicoscan"
+ });
+  jQuery("#l_behandle").jqGrid('navGrid','#pg_l_behandle',{del:false,add:false,edit:false,search:false}); 
+ jQuery("#l_behandle").jqGrid('filterToolbar',{stringResult: true,searchOnEnter : false});
+});
+
+function reqbh_entry()
+{
+	var url = "<?=HOME?>request.hicoscan.ajax/add_reqbh";
+	var jum_detail = $("#jum_detail").val();
+	var counter = "";
+	var no_cont = "";
+	var id_brg = "";
+	var hz = "";	
+	var jns_cont = "";	
+	for (var i=1; i<=jum_detail; i++) {
+		if(counter=="")	counter = $("#counter"+i).val();
+		else			counter = counter + "&" + $("#counter"+i).val();
+		if(no_cont=="")	no_cont = $("#no_cont"+i).val();
+		else			no_cont = no_cont + "&" + $("#no_cont"+i).val();
+		if(id_brg=="")	id_brg = $("#id_brg"+i).val();
+		else			id_brg = id_brg + "&" + $("#id_brg"+i).val();
+		if(hz=="")		hz = $("#hz"+i).val();
+		else			hz = hz + "&" + $("#hz"+i).val();
+		if(jns_cont=="")		jns_cont = $("#jns_cont"+i).val();
+		else			jns_cont = jns_cont + "&" + $("#jns_cont"+i).val();
+	}
+	
+	$.blockUI({ message: '<h1><br>Please wait...</h1><br><img src=<?=HOME;?>images/103.gif width="30" height="30" /><br><br>' });
+	$.post(url,{PAID_THRU:$("#paid_thru").val(),VOYAGE_OUT:$("#voyage_out").val(),TIPE : $("#tipe_req").val(), KD_PELANGGAN:$("#iemkl").val(),VESSEL : $("#vessel").val(), VOYAGE : $("#voyage").val(), NO_UKK : $("#no_ukk").val(), SHIPPING : $("#shipping").val(), EMKL : $("#emkl").val(), ALAMAT : $("#alamat").val(), NPWP : $("#npwp").val(), NO_BC : $("#no_bc_i").val(), KET : $("#ket").val(), JUM_DETAIL : jum_detail, COUNTER : counter, NO_CONT : no_cont, ID_BRG : id_brg, HZ : hz, JNS_CONT : jns_cont},function(data){
+		alert(data);
+		console.log(data);
+		if(data == "OK")
+		{
+			$.unblockUI({
+			onUnblock: function(){ }
+			});
+			alert("Success...");
+			window.location = "<?=HOME?>request.hicoscan/";
+		}
+		else if(data == "KO")
+		{
+			$.unblockUI({
+			onUnblock: function(){ }
+			});
+			alert("Gagal Insert! \nData uper untuk PKK tersebut sudah ada \nHarap cek kembali");
+			window.location = "<?=HOME?>request.hicoscan/";
+		}
+		else
+		{
+			$.unblockUI({
+			onUnblock: function(){ }
+			});
+			alert("Failed...");
+			window.location = "<?=HOME?>request.hicoscan/";
+		}
+	});	
+}
+
+function add_reqbh()
+{
+	$('#add_reqbh').load("<?=HOME?>request.hicoscan.ajax/reqbh_insert").dialog({closeOnEscape: false, modal:true, height:600,width:600, title : "Insert Request Hi-co scan", open: function(event,ui){$(".ui-dialog-titlebar-close",ui.dialog).hide();}});
+}
+
+function reqbh_edit(id)
+{
+	var url			= "<?=HOME?>request.hicoscan.ajax/edit_reqbh";
+	var jum_detail = $("#jum_detail").val();
+	var counter = "";
+	var no_cont = "";
+	var id_brg = "";
+	var hz = "";	
+	var jns_cont = "";	
+	for (var i=1; i<=jum_detail; i++) {
+		if(counter=="")	counter = $("#counter"+i).val();
+		else			counter = counter + "&" + $("#counter"+i).val();
+		if(no_cont=="")	no_cont = $("#no_cont"+i).val();
+		else			no_cont = no_cont + "&" + $("#no_cont"+i).val();
+		if(id_brg=="")	id_brg = $("#id_brg"+i).val();
+		else			id_brg = id_brg + "&" + $("#id_brg"+i).val();
+		if(hz=="")		hz = $("#hz"+i).val();
+		else			hz = hz + "&" + $("#hz"+i).val();
+		if(jns_cont=="")		jns_cont = $("#jns_cont"+i).val();
+		else			jns_cont = jns_cont + "&" + $("#jns_cont"+i).val();
+	}
+	//alert()
+	$.blockUI({ message: '<h1><br>Please wait...</h1><br><img src=<?=HOME;?>images/103.gif width="30" height="30" /><br><br>' });
+	$.post(url,{PAID_THRU:$("#paid_thru").val(),VOYAGE_OUT:$("#voyage_out").val(),ID_REQUEST : id,KD_PELANGGAN: $("#iemkl").val(), TIPE : $("#tipe_req").val(), VESSEL : $("#vessel").val(), VOYAGE : $("#voyage").val(), NO_UKK : $("#no_ukk").val(), SHIPPING : $("#shipping").val(), EMKL : $("#emkl").val(), ALAMAT : $("#alamat").val(), NPWP : $("#npwp").val(), NO_BC : $("#no_bc_i").val(), KET : $("#ket").val(), JUM_DETAIL : jum_detail, COUNTER : counter, NO_CONT : no_cont, ID_BRG : id_brg, HZ : hz, JNS_CONT : jns_cont},function(data){
+		//alert(data);
+		if(data == "OK")
+			{
+				$.unblockUI({
+				onUnblock: function(){ }
+				});
+				alert("Success...");
+				window.location = "<?=HOME?>request.hicoscan/";
+			}
+		else if(data == "NO")
+			{
+				$.unblockUI({
+				onUnblock: function(){ }
+				});
+				alert("Data Not Complete...");
+				window.location = "<?=HOME?>request.hicoscan/";
+			}
+		else
+			{
+				$.unblockUI({
+				onUnblock: function(){ }
+				});
+				alert("Failed...");
+				window.location = "<?=HOME?>request.hicoscan/";
+			}
+	});	
+}
+
+function edit_reqbh(id)
+{
+	$('#edit_reqbh').load("<?=HOME?>request.hicoscan.ajax/reqbh_edit?id="+id).dialog({closeOnEscape: false, modal:true, height:600,width:600, title : "Edit Request Hico Scan", open: function(event,ui){$(".ui-dialog-titlebar-close",ui.dialog).hide();}});
+}
+
+function validation(tableid, id)
+{
+	var cek = true;
+	var tbl = document.getElementById(tableid);
+	var lastRow = tbl.rows.length - 1;
+	var i=0;
+	
+	if($('#tipe_req').val()=="") {
+		alert("Jenis Request harap dipilih!");
+		return false;
+	}
+	else if($('#vessel').val()=="" || $('#no_ukk').val()=="") {
+		alert("Vessel harap diisi!");
+		return false;
+	}
+	else if($('#emkl').val()=="" || $('#npwp').val()=="") {
+		alert("Pelanggan harap diisi!");
+		return false;
+	}
+	else if($('#no_bc_i').val()=="") {
+		alert("No Instruksi Pemeriksaan harap diisi!");
+		return false;
+	}
+	else if(lastRow > 0) {
+		for (i=1; i<=lastRow; i++) {		  
+		  if ($('#no_cont'+i).val()=="" || $('#id_brg'+i).val()=="") {
+			alert('Data Container ke-' + i + ' kosong / tidak valid, harap periksa kembali!');
+			return false;
+			break;
+		  }
+		}			
+	}
+	else {
+		alert('Data Container kosong!');
+		return false;
+	}
+	
+	if(cek) {
+		question = confirm("data akan disimpan, cek apakah data sudah benar?");
+		
+		if(question==true)
+		{
+			if(typeof(id)==='undefined')	reqbh_entry();
+			else							reqbh_edit(id);
+		}
+		else
+		{
+			return false;
+		}
+		
+	}
+}
+
+function send_keu(id)
+{
+	question = confirm("data akan dikirim ke simkeu dan tidak dapat di-edit lagi,\napa anda yakin?")
+	if (question != "0") {
+		var url	= "<?=HOME?>request.behandle.ajax/send_keu";
+	
+		$.blockUI({ message: '<h1><br>Please wait...</h1><br><img src=<?=HOME;?>images/103.gif width="30" height="30" /><br><br>' });
+		$.post(url,{ID_REQUEST : id},function(data){
+			//alert(data);
+			if(data == "OK")
+				{
+					$.unblockUI({
+					onUnblock: function(){ }
+					});
+					alert("Success...");
+					window.location = "<?=HOME?>request.behandle/";
+				}
+			else if(data == "NO")
+				{
+					$.unblockUI({
+					onUnblock: function(){ }
+					});
+					alert("Data Not Complete...");
+					window.location = "<?=HOME?>request.behandle/";
+				}
+			else
+				{
+					$.unblockUI({
+					onUnblock: function(){ }
+					});
+					alert("Failed...");
+					window.location = "<?=HOME?>request.extramovement/";
+				}
+		});	
+	}
+}
+</script>
+
+
+
+<div class="content">
+<div class="main_side">
+<p>
+<span class="graybrown">
+<img class="icon" border="0" src="images/dokumenbig.png">
+Request Hi Co Scan
+</span>
+</p>
+<br>
+<br>
+<p>
+<!--<a class="link-button" href="<?=HOME?>request.behandle/add_req">-->
+<a class="link-button" onclick="add_reqbh()">
+<img border="0" src="images/tambah.png">
+Tambah
+</a>
+</p>
+<br/>
+<table id='l_behandle' width="100%"></table> <div id='pg_l_behandle'></div>
+<div id="dialog-form">
+<form id="mainform">
+	<!--<input type="hidden" name="tes" value="tes"/>-->
+	<div id="add_reqbh"></div>
+	<div id="edit_reqbh"></div>
+</form>
+</div>
+
+</div>	
+
+</div>
+

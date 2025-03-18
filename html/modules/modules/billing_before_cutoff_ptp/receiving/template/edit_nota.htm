@@ -1,0 +1,43 @@
+<style>
+.content{
+	width:95%;
+	margin-left:auto;
+	margin-right:auto;
+	margin-bottom: 10px;
+	margin-top:20px;
+
+}
+</style>
+
+<div class="content">
+	<p>
+	<h2> <img src="<?=HOME?>images/delivery.png" height="5%" width="5%" style="vertical-align:middle"> Insert No Nota dan Faktur</h2></p>
+
+	<hr width="870" color="#e1e0de"></hr><p><br/></p>
+	<form method="post" action="<?=HOME?>billing.receiving/save_faktur" onSubmit="return cek_text()" >
+	<table>
+	 <tr>
+		<td class="form-field-caption" align="right" width='70'>No Request</td>
+		<td class="form-field-caption" align="right">:</td>
+		<td><input type="text" size="20" name="no_request" id="no_request"  value="{$id_req}" readonly="readonly"/></td>
+     </tr>
+	  <tr>
+		<td class="form-field-caption" align="right">No Nota</td>
+		<td class="form-field-caption" align="right">:</td>
+		<td><input type="text" size="30" name="no_nota" id="no_nota"/></td>
+     </tr>
+	 <tr>
+		<td class="form-field-caption" align="right">No Faktur</td>
+		<td class="form-field-caption" align="right">:</td>
+		<td><input type="text" size="50" name="no_faktur" id="no_faktur"/></td>
+	 </tr>
+	 <tr height="10">
+		<td colspan="3"></td>
+	 </tr>
+	  <tr>
+		<td colspan='3' align='center'><input type="submit" size="20" value="Simpan"/></td>
+	 </tr>
+	</table>
+	</form>
+</div>
+

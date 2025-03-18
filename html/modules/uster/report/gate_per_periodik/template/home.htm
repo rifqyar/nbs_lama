@@ -1,0 +1,255 @@
+
+<span class="graybrown"><img src='images/sp2_p.png' border='0' class="icon"/><font color="#0378C6"> Report GATE </font> Per Periodik</span><br/><br/>
+      <fieldset class="form-fieldset" style="margin: 5px 5px 5px 5px; ">
+        <form id="searchForm" name="searchForm" method="POST" action="{$HOME}{$APPID}.toexcel/toexcel">
+		<div style="padding:10px;font-family:Arial; font-size:8pt; color:#555555; font-weight:bold">
+            <table> <tr>
+						<td class="form-field-caption" valign="top" align="right">Periode Gate</td>
+						<td class="form-field-caption" valign="top" align="right"> : </td>
+						<td class="form-field-caption" valign="top" align="left">
+						<input type="text" name="tgl_awal" id="tgl_awal"/> s/d  <input type="text" name="tgl_akhir" id="tgl_akhir"/></td>
+				<tr>
+				<td class="form-field-caption" valign="top" align="right">Jenis Kegiatan </td><td class="form-field-caption" valign="top" align="right"> : </td><td class="form-field-caption" valign="top" align="left">
+				<select id="option_kegiatan" name="option_kegiatan" onchange="change_visible()" >
+				<option value=""> -- Pilih -- </option>		
+						<option value="GATI"> GATE IN </option>					
+						<option value="GATO"> GATE OUT </option>
+						<option value="ALL"> ALL </option>
+					</select>
+				</td>
+				</tr>
+				<tr>
+				<td class="form-field-caption" valign="top" align="right">Lokasi Gate </td><td class="form-field-caption" valign="top" align="right"> : </td><td class="form-field-caption" valign="top" align="left">
+				<select id="lokasi" name="lokasi" onchange="change_visible()" >
+				<option value=""> -- Pilih -- </option>		
+						<option value="08"> Gate 08 </option>					
+						<option value="06"> Gate 06 </option>					
+						<option value="03"> Gate 03 </option>
+						<option value="ALL"> ALL </option>
+					</select>
+				</td>
+				</tr>
+               <tr>
+				<td class="form-field-caption" valign="top" align="right">Shift </td><td class="form-field-caption" valign="top" align="right"> : </td><td class="form-field-caption" valign="top" align="left">
+				<select id="shift" name="shift">
+				<option value=""> -- Pilih -- </option>		
+						<option value="1"> Shift 1 (07.00 s/d 15.30) </option>					
+						<option value="2"> Shift 2 (15.30 s/d 23.00)</option>
+						<option value="4"> Shift 3 (23.00 s/d 07.00)</option>
+						<option value="3"> Kegiatan 1 Hari (00.00 s/d 23.59)</option>
+						<option value="ALL"> ALL </option>
+					</select>
+				</td>
+				</tr>
+				 <tr>
+				<td class="form-field-caption" valign="top" align="right">Size </td><td class="form-field-caption" valign="top" align="right"> : </td><td class="form-field-caption" valign="top" align="left">
+				<select id="size" name="size" >
+				<option value=""> -- Pilih -- </option>		
+						<option value="20"> 20" </option>					
+						<option value="40"> 40" </option>
+						<option value="45"> 45"  </option>
+						<option value="ALL"> ALL </option>
+					</select>
+				</td>
+				</tr>
+				 <tr>
+				<td class="form-field-caption" valign="top" align="right">Status </td><td class="form-field-caption" valign="top" align="right"> : </td><td class="form-field-caption" valign="top" align="left">
+				<select id="status" name="status" >
+				<option value=""> -- Pilih -- </option>		
+						<option value="MTY"> MTY </option>					
+						<option value="FCL"> FCL </option>
+						<option value="LCL"> LCL  </option>  
+						<option value="ALL"> ALL </option>
+					</select>
+				</td>
+				</tr>
+				<tr>
+				<td class="form-field-caption" valign="top" align="right">Nama Kapal </td><td class="form-field-caption" valign="top" align="right"> : </td><td class="form-field-caption" valign="top" align="left"><input type="text" style="width:200px" name="NM_KAPAL" id="NM_KAPAL"/>
+					<input type="hidden" name="NO_UKK" id="NO_UKK"/>			
+					<input type="hidden" name="VOYAGE" id="VOYAGE"/>			
+					<input type="hidden" name="NO_BOOKING" id="NO_BOOKING"/>			
+					<input type="button" value="x" onclick="clear_vessel()" /> 
+				</td>
+				</tr>
+				<tr>
+					<td colspan="3" class="form-field-caption" valign="top" align="left" align="left"> &nbsp;&nbsp; <a class="link-button" style="height:25" onclick="generate()"><img src='images/cari.png' border='0' />Generate Report</a> &nbsp;&nbsp;
+					<a class="link-button" style="height:25" onclick="$('#searchForm').submit()"><img src='images/cari.png' border='0' />Generate Excel</a></td>
+				</tr>
+				
+			</table>
+		</div>
+        </form>
+	
+	   </fieldset>
+	<div id="gate_list"></div>
+<script>
+$(function() {	
+
+	$( "#tgl_awal" ).datepicker();
+	$( "#tgl_awal" ).datepicker( "option", "dateFormat", "dd/mm/yy" );
+        
+    $( "#tgl_akhir" ).datepicker();
+	$( "#tgl_akhir" ).datepicker( "option", "dateFormat", "dd/mm/yy" );
+
+	
+	$("#NM_KAPAL").attr("readonly", true);
+
+	$( "#NM_KAPAL" ).autocomplete({
+		minLength: 3,
+		source: "{$HOME}{$APPID}.auto/master_vessel",
+		focus: function( event, ui ) {
+			$( "#NM_KAPAL" ).val( ui.item.NM_KAPAL );
+			return false;
+		},
+		select: function( event, ui ) {
+			var kapal = ui.item.NM_KAPAL + "[" + ui.item.VOYAGE_IN + "]";
+			$( "#NM_KAPAL" ).val( kapal );
+			$( "#ID_EMKL" ).val( ui.item.KD_PBM );
+            $( "#NO_UKK" ).val( ui.item.NO_UKK );
+            $( "#VOYAGE" ).val( ui.item.VOYAGE_IN ); 
+            $( "#NO_BOOKING" ).val( ui.item.NO_BOOKING ); 
+			return false;
+		}
+	})
+	.data( "autocomplete" )._renderItem = function( ul, item ) {
+		return $( "<li></li>" )
+			.data( "item.autocomplete", item )
+			.append( "<a>[" + item.VOYAGE_IN + "] "+item.NM_KAPAL+"</a>" )
+			.appendTo( ul );
+	};
+
+});
+
+function clear_vessel(){
+	$( "#NM_KAPAL" ).val('');
+	$( "#NO_UKK" ).val('' );
+    $( "#VOYAGE" ).val( '' );
+    $( "#NO_BOOKING" ).val( '' ); 
+}
+
+function change_visible(){
+	if ($("#option_kegiatan").val() == 'GATO' && $('#lokasi').val() == '06' ) {
+		$( "#NM_KAPAL" ).val('');
+		$( "#NO_UKK" ).val('' );
+	    $( "#VOYAGE" ).val( '' );
+	    $( "#NO_BOOKING" ).val( '' ); 
+		$("#NM_KAPAL").removeAttr("readonly");
+	}
+	else{
+		$( "#NM_KAPAL" ).val('');
+		$( "#NO_UKK" ).val('' );
+	    $( "#VOYAGE" ).val( '' );
+	    $( "#NO_BOOKING" ).val( '' ); 
+	    $("#NM_KAPAL").attr("readonly", true);
+		
+	}
+	
+}
+
+
+function generate()
+{
+	if($("#shift").val() == 4 || $("#shift").val() == 'ALL'){
+		if($("#tgl_awal").val() == $("#tgl_akhir").val()){
+			alert("Untuk kegiatan yang melibatkan shift 3, tgl awal harus lebih kecil dari tanggal akhir");
+			return false;
+		}
+		else {
+			
+			var tgl_awal_ 	= $("#tgl_awal").val();
+			var tgl_akhir_	= $("#tgl_akhir").val();	
+			var shift_	 	= $("#shift").val();
+			var size_		= $("#size").val();
+			var status_		= $("#status").val();	
+			var lokasi_		= $("#lokasi").val();	
+			var jenis 		= $("#option_kegiatan").val();
+			var no_booking 		= $("#NO_BOOKING").val();
+			var url 	       = "<?=HOME?><?=APPID?>/gate_list #list";
+			
+			if ($("#tgl_awal").val() == ''){
+				alert('periode kegiatan harus diisi');
+			} else if ($("#tgl_akhir").val() == ''){
+				alert('periode kegiatan harus diisi');
+			} else if ($("#option_kegiatan").val() == ''){
+				alert('jenis kegiatan harus diisi');
+			} else if ($("#lokasi").val() == ''){
+				alert('lokasi gate harus diisi');
+			} else {
+			$.blockUI({ message: '<h1><br>Please wait...</h1><br><img src={$HOME}images/loadingbox.gif /><br><br>' }); 
+			$("#gate_list").load(url,{tgl_awal : tgl_awal_, lokasi : lokasi_,tgl_akhir : tgl_akhir_, jenis : jenis, shift : shift_, size : size_, status : status_, no_booking : no_booking}, function(data){
+				if(data){
+						$.unblockUI({ 
+						onUnblock: function(){  } 
+						});
+				}
+			});
+			}
+		
+		}
+	}
+	else {
+		var tgl_awal_ 	= $("#tgl_awal").val();
+		var tgl_akhir_	= $("#tgl_akhir").val();	
+		var shift_	 	= $("#shift").val();
+		var size_		= $("#size").val();
+		var status_		= $("#status").val();	
+		var lokasi_		= $("#lokasi").val();	
+		var jenis 		= $("#option_kegiatan").val();
+		var no_booking 		= $("#NO_BOOKING").val();
+		var url 	       = "<?=HOME?><?=APPID?>/gate_list #list";
+		
+		if ($("#tgl_awal").val() == ''){
+			alert('periode kegiatan harus diisi');
+		} else if ($("#tgl_akhir").val() == ''){
+			alert('periode kegiatan harus diisi');
+		} else if ($("#option_kegiatan").val() == ''){
+			alert('jenis kegiatan harus diisi');
+		} else if ($("#lokasi").val() == ''){
+			alert('lokasi gate harus diisi');
+		} else {
+		$.blockUI({ message: '<h1><br>Please wait...</h1><br><img src={$HOME}images/loadingbox.gif /><br><br>' }); 
+		$("#gate_list").load(url,{tgl_awal : tgl_awal_, lokasi : lokasi_,tgl_akhir : tgl_akhir_, jenis : jenis, shift : shift_, size : size_, status : status_, no_booking : no_booking}, function(data){
+			if(data){
+					$.unblockUI({ 
+					onUnblock: function(){  } 
+					});
+			}
+		});
+		}		
+		
+	}
+	
+}
+
+function topdf(){
+	var tgl_awal_ 	= $("#tgl_awal").val();
+	var tgl_akhir_	= $("#tgl_akhir").val();	
+	var url 	    = "<?=HOME?><?=APPID?>.topdf/print?tgl_awal="+tgl_awal_+"&tgl_akhir="+tgl_akhir_;
+	
+	window.open(url, "_blank");
+}
+
+function toexcel(){
+	var tgl_awal_ 	= $("#tgl_awal").val();
+	var tgl_akhir_	= $("#tgl_akhir").val();
+	var jenis_ 		= $("#option_kegiatan").val();	
+	var shift_	 	= $("#shift").val();
+	var size_		= $("#size").val();
+	var status_		= $("#status").val();	
+	var lokasi_		= $("#lokasi").val();	
+	var url 	    = "<?=HOME?><?=APPID?>.toexcel/toexcel?lokasi="+lokasi_+"&tgl_awal="+tgl_awal_+"&tgl_akhir="+tgl_akhir_+"&jenis="+jenis_+"&shift="+shift_+"&size="+size_+"&status="+status_;
+	
+	if ($("#tgl_awal").val() == ''){
+		alert('periode kegiatan harus diisi');
+	} else if ($("#tgl_akhir").val() == ''){
+		alert('periode kegiatan harus diisi');
+	} else if ($("#option_kegiatan").val() == ''){
+		alert('jenis kegiatan harus diisi');
+	} else if ($("#lokasi").val() == ''){
+		alert('lokasi gate harus diisi');
+	} else {
+	window.open(url, "_blank");
+	}
+}
+</script>
+

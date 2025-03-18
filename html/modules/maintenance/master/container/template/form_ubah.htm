@@ -1,0 +1,88 @@
+<style>
+.content{
+	width:95%;
+	margin-left:auto;
+	margin-right:auto;
+	margin-bottom: 10px;
+	margin-top:20px;
+}
+.main_side{
+	width:100%;
+	float:left;
+	text-align:left;
+}
+</style>
+
+<div class="content">
+<div class="main_side">
+<h2>UBAH CONTAINER</h2>
+<br/>
+<form method="POST" action="<?=HOME?>coba/do_edit?id={$ubah.0.ID_CONT}">
+<div class="form-fieldset" style="margin: 5px 5px 5px 5px">
+   
+<table>
+		<tr>
+			<td>SIZE&nbsp;&nbsp;</td>
+			<td><?php
+				$d=$ubah[0]["SIZE"];
+				$ket=array("20","40","45");
+
+				echo "<select name='size'>";
+				for($i=0;$i<3;$i++)
+				{
+				if($ket[$i]==$d)
+				$select= 'selected';
+				else
+				$select='';
+
+				echo "<option value=\"$ket[$i]\"$select>$ket[$i]</option>";
+				}
+				echo "</select>";
+				?></td>
+		</tr>
+		<tr>
+			<td>TYPE&nbsp;&nbsp;</td>
+			<td><?php
+				$tp=$ubah[0]["TYPE"];
+				$ket_tp=array("DRY","OVD","RFR","HQ","TNK");
+
+				echo "<select name='type'>";
+				for($i=0;$i<5;$i++)
+				{
+				if($ket_tp[$i]==$tp)
+				$select= 'selected';
+				else
+				$select='';
+
+				echo "<option value=\"$ket_tp[$i]\"$select>$ket_tp[$i]</option>";
+				}
+				echo "</select>";
+				?></td>
+		</tr>
+		<tr>
+			<td>STATUS&nbsp;&nbsp;</td>
+			<td><?php
+				$sts=$ubah[0]["STATUS"];
+				$ket_sts=array("FCL","MTY","UC");
+
+				echo "<select name='status'>";
+				for($i=0;$i<3;$i++)
+				{
+				if($ket_sts[$i]==$sts)
+				$select= 'selected';
+				else
+				$select='';
+
+				echo "<option value=\"$ket_sts[$i]\"$select>$ket_sts[$i]</option>";
+				}
+				echo "</select>";
+				?></td>
+		</tr>
+</table>
+</div>
+<br/>
+<input type="submit" value="Simpan" name="Simpan" class="link-button"/>
+</form>
+<br/>
+</div>
+</div>

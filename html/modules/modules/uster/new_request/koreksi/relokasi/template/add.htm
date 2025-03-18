@@ -1,0 +1,71 @@
+<span class="graybrown"><img src='images/sp2_p.png' border='0' class="icon"/><font color="#0378C6"> Request</font> Relokasi</span><br/><br/>
+<fieldset class="form-fieldset" style="margin: 5px 5px 5px 5px; ">
+<form action="<?=HOME?><?=APPID?>/add_do" method="POST">
+	<center>
+    <table class="form-input" style="margin: 30px 30px 30px 30px;" >
+		<tr>
+			<td>Penerima / Consignee</td>
+            <td> : </td>
+            <td> 
+            	<input type="text" id="CONSIGNEE" size="40" name="CONSIGNEE" type="text" class="kdemkl " placeholder=" AUTOCOMPLETE" style="background-color:#FFFFCC;" /> 
+                <input size="40" name="KD_EMKL" id="KD_EMKL" type="hidden" />
+            </td>
+		</tr>
+    	<tr>
+        	<td>Depo Asal </td>
+            <td> : </td>
+            <td> 
+					<?=get_yard_origin()?> 
+
+            </td>
+            <td width="30" align="center"> - </td>
+            <td> Depo Tujuan</td>
+            <td> : </td>
+            <td> 
+					<?=get_yard_dest()?> 
+
+            </td>
+    	
+    	</tr>
+        <tr>
+			<td>Keterangan</td>
+            <td> : </td>
+            <td > <input id="keterangan" name="KETERANGAN" /></td>
+			
+            <td colspan="7" align="right"> <input type="submit" value=" Simpan "/></td>
+        </tr>
+    
+	</table>
+    </center>
+</form>
+</fieldset>
+
+ 
+<script>
+$(function(){
+	$( "#CONSIGNEE" ).autocomplete({
+		minLength: 3,
+		source: "{$HOME}{$APPID}.auto/pbm",
+		focus: function( event, ui ) {
+			$( "#CONSIGNEE" ).val( ui.item.NM_PBM );
+			return false;
+		},
+		select: function( event, ui ) {
+			$( "#CONSIGNEE" ).val( ui.item.NM_PBM );
+			$( "#KD_EMKL" ).val( ui.item.KD_PBM );
+			return false;
+		}
+	})
+	.data( "autocomplete" )._renderItem = function( ul, item ) {
+		return $( "<li></li>" )
+			.data( "item.autocomplete", item )
+			.append( "<a>" + item.NM_PBM + "</a>" )
+			.appendTo( ul );
+	};
+
+
+
+});
+
+
+</script>

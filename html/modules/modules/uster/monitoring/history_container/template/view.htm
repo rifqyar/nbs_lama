@@ -1,0 +1,60 @@
+<?php
+if ($_SESSION["LOGGED_STORAGE"] == NULL) {
+     exit();
+}
+	outputraw();
+	$db = getDB("storage");
+	$q = strtoupper($_GET["q"]);
+	if (!$q) return;
+
+	/*$query = "SELECT Q.NO_CONTAINER, Q.SIZE_, Q.TYPE_, Q.LOCATION, Q.TIME_, Q.NO_BOOKING, Q.COUNTER,
+CASE WHEN Q.NO_BOOKING LIKE 'BP%' THEN '[I]'
+WHEN Q.NO_BOOKING LIKE 'VESSEL_%' THEN '[]'
+ELSE '[E]'
+END IE
+FROM (SELECT DISTINCT MC.NO_CONTAINER, MC.SIZE_, MC.TYPE_, MC.LOCATION, P.NO_BOOKING, MAX(P.TGL_UPDATE) TIME_, P.COUNTER --, P.KEGIATAN
+                    FROM MASTER_CONTAINER MC
+                    JOIN HISTORY_CONTAINER P ON MC.NO_CONTAINER = P.NO_CONTAINER                    
+                    WHERE UPPER(MC.NO_CONTAINER) = '$q' --AND P.KEGIATAN IN ('REQUEST RECEIVING','REQUEST DELIVERY')
+                    GROUP BY MC.NO_CONTAINER, MC.SIZE_, MC.TYPE_, MC.LOCATION, P.NO_BOOKING, P.COUNTER --, P.KEGIATAN
+                    ORDER BY TIME_ DESC) Q";*/
+$query = "SELECT * FROM (SELECT Q.NO_CONTAINER, Q.SIZE_, Q.TYPE_, Q.LOCATION, Q.TIME_, Q.NO_BOOKING, Q.COUNTER,
+CASE WHEN Q.NO_BOOKING LIKE 'BP%' THEN '[I]'
+WHEN Q.NO_BOOKING LIKE 'VESSEL_%' THEN 
+        CASE WHEN W.KEGIATAN = 'REQUEST RECEIVING' THEN  '[I]' ELSE '[E]' END
+ELSE '[E]'
+END IE, W.KEGIATAN, Q.NM_KAPAL, Q.VOYAGE_IN
+FROM (SELECT DISTINCT MC.NO_CONTAINER, MC.SIZE_, MC.TYPE_, MC.LOCATION, P.NO_BOOKING, MAX(P.TGL_UPDATE) TIME_, P.COUNTER , PK.NM_KAPAL, PK.VOYAGE_IN
+                    FROM MASTER_CONTAINER MC
+                    JOIN HISTORY_CONTAINER P ON MC.NO_CONTAINER = P.NO_CONTAINER
+                    LEFT JOIN V_PKK_CONT PK ON REPLACE(P.NO_BOOKING, 'VESSEL_NOTHING', 'BSK100000023') = PK.NO_BOOKING                    
+                    WHERE MC.NO_CONTAINER = '$q' --AND P.KEGIATAN IN ('REQUEST RECEIVING','REQUEST DELIVERY')
+                    GROUP BY MC.NO_CONTAINER, MC.SIZE_, MC.TYPE_, MC.LOCATION, P.NO_BOOKING, P.COUNTER, PK.NM_KAPAL, PK.VOYAGE_IN
+                    ORDER BY TIME_ DESC) Q,  
+(SELECT NO_REQUEST,COUNTER, NO_BOOKING,KEGIATAN,NO_CONTAINER FROM HISTORY_CONTAINER) W
+WHERE Q.NO_BOOKING = W.NO_BOOKING(+)
+AND Q.COUNTER = W.COUNTER(+)
+AND Q.NO_CONTAINER = W.NO_CONTAINER(+)
+AND W.NO_BOOKING(+) = 'VESSEL_NOTHING'
+AND W.KEGIATAN(+) = 'REQUEST RECEIVING'
+ORDER BY TIME_ DESC ) WHERE ROWNUM <= 6 ";
+ 
+$result			= $db->query($query);
+
+while($row = $result->FetchRow()){
+	if (strpos(strtoupper($row['NO_CONTAINER']), $q) !== false) {
+			printf (	
+				$row['NO_CONTAINER']."|".
+                $row['SIZE_']."|".
+                $row['TYPE_']."|".
+                $row['LOCATION']."|".
+                $row['NO_BOOKING']."|".
+                $row['COUNTER']."|".
+				$row['IE']."|".
+				$row['NM_KAPAL']."|".
+				$row['VOYAGE_IN']."|"."\n "
+			);  
+	}	
+}  
+die();
+?>

@@ -1,0 +1,159 @@
+
+ <span class="graybrown"><img src='images/cont_gate.png' border='0' class="icon"/><font color="#0378C6"> Gate</font> Administrator (Gate In) </span><br/><br/>
+
+<fieldset class="form-fieldset" style="margin: 5px 5px 5px 5px; ">
+
+            <input type="hidden" name="KD_TRUCK" id="KD_TRUCK"/>
+            
+            <table class="form-input" cellspacing='1' cellpadding='1' border='0' width="100%" >
+                <tr>
+                    <td width="17%" height="40" align="right"  style="font-size:16px; font-weight:bold; font-family:Tahoma; color: #777">No. CONTAINER</td>
+                    <td ><input style="font-size:20px; background-color:#FFFFCC; font-weight:bold; text-transform:uppercase" placeholder='autocomplete' tabindex="1" name="NO_CONT" ID="NO_CONT" size="15" class="suggestuwriter" type="text" maxlength="11" value="" /></td>
+                    <td align="right" style="font-size:16px; font-weight:bold; font-family:Tahoma; color: #777">No POLISI TRUCK</td>
+                    <td ><input name="NO_POL" ID="NO_POL" style="font-size:20px; font-weight:bold; text-transform:uppercase" tabindex="2" value="" size="10" maxlength="11" />
+                    </td>
+                </tr>
+                <tr>
+                    <td  align="right"  class="form-field-caption">No Request Receiving</td>
+                    <td ><input name="NO_REQ" ID="NO_REQ" value="" size="15" readonly="readonly" style="color:#F00; font-size:12px; font-weight:bold" /></td>
+                   
+                     <td width="15%"  align="right" class="form-field-caption" >NO SEAL</td>
+                    <td width="37%"  valign="top" ><input name="NO_SEAL" id="NO_SEAL" value="" size="10"/></td>
+                </tr>
+                <tr>
+                    <td  align="right"  class="form-field-caption">Ukuran/ Type / Status </td>
+                    <td width="31%" ><input id="SIZE" value="" size="5" readonly="1" /> / <input id="TYPE" value="" size="5" readonly="1" /> / <input id="STATUS" name="STATUS" size="5" readonly="1" /></td>
+                     <td  align="right"  class="form-field-caption">Keterangan </td>
+                    <td ><input name="KETERANGAN" id="KETERANGAN" value="" size="40"/></td>
+                    <td  align="right" >&nbsp;</td><td  valign="top" >&nbsp;</td>
+                </tr>
+                 <tr>
+                     <td  align="right"  class="form-field-caption">Penerima /Consignee</td>
+                    <td><input id="NM_PBM" value="" size="40" readonly="1" /></td>
+					<td  align="right"  class="form-field-caption">Tgl Gate In</td>
+                    <td><input id="tgl_gati" value="" size="40" readonly="1" /></td>
+					<td  align="right" >&nbsp;</td><td  valign="top" >&nbsp;</td>
+                </tr>
+                <tr>
+                    <td  align="right"  class="form-field-caption">No Nota</td>
+                    <td ><input id="NO_NOTA" value="" size="20" readonly="1" /></td>
+                </tr>
+        </table>
+            
+					
+
+</fieldset>
+
+<fieldset class="form-fieldset" style="margin: 5px 5px 5px 5px; text-align:center">
+	<input type="button" value=" GATE IN " onclick="set_gatein()" />
+</fieldset>
+
+
+<div id="load" title="Loading"><p align=center><img src={$HOME}images/loadingbox.gif /></div>
+
+<script>
+
+$(function() {	
+$( "#tgl_gati" ).datepicker();
+$( "#tgl_gati" ).datepicker( "option", "dateFormat", "dd-mm-yy" );
+
+	
+$( "#load" ).dialog({
+			autoOpen: false,
+			height: 50,
+			width:600,
+			show: "blind",
+			hide: "explode",
+			modal: true
+		});
+		
+	$( "#NO_CONT" ).autocomplete({
+		minLength: 3,
+		source: "{$HOME}{$APPID}.auto/container",
+		focus: function( event, ui ) {
+			$( "#NO_CONT" ).val( ui.item.NO_CONTAINER );
+			return false;
+		},
+		select: function( event, ui ) {
+			$( "#NO_CONT" ).val( ui.item.NO_CONTAINER );
+			$( "#NO_REQ" ).val( ui.item.NO_REQUEST);
+			$( "#STATUS" ).val( ui.item.STATUS);
+			$( "#SIZE" ).val( ui.item.SIZE_);
+			$( "#TYPE" ).val( ui.item.TYPE_);
+			$( "#NM_PBM" ).val( ui.item.EMKL);
+			$( "#NO_NOTA" ).val( ui.item.NO_NOTA);
+			return false;
+		}
+	})
+	.data( "autocomplete" )._renderItem = function( ul, item ) {
+		return $( "<li style='text-align:left'></li>" )
+			.data( "item.autocomplete", item )
+			.append( "<a>" + item.NO_CONTAINER + "<br/> "+item.SIZE_+" "+item.TYPE_+"</a>" )
+			.appendTo( ul );
+	};
+});
+
+function set_gatein()
+{
+	if(($("#tgl_gati").val() == "") || ($("#NO_CONT").val() == "")){
+		alert('Silahkan isi tanggal no container dan gate in');
+	}
+	else{
+		var no_cont_	= $("#NO_CONT").val();
+		var no_req_		= $("#NO_REQ").val();
+		var no_pol_		= $("#NO_POL").val();
+		var status_		= $("#STATUS").val();
+		var tgl_gate	= $("#tgl_gati").val();
+		var url			= "{$HOME}{$APPID}.ajax/add_gatein";
+		var url_		= "{$HOME}{$APPID}.print/cetak_jobslip";
+
+
+		$( "#load" ).dialog( "open" );
+		$.post(url,{NO_CONT: no_cont_, NO_REQ : no_req_,NO_POL : no_pol_, STATUS:status_, tgl_gate : tgl_gate},function(data){
+			console.log(data);
+			$( "#load" ).dialog("close" );
+			if(data == "NOT_REQUEST")
+			{
+				alert("Container Belum di Request Receiving");	
+			}
+			else if(data == "NOT_PAID")
+			{
+				alert("Nota Belum Lunas");
+			}
+			else if(data == "EXIST_GATI")
+			{
+			alert("Container Sudah di Gate In Sebelumnya");
+			}
+			else if(data == "OK")
+			{
+				alert("GET IN Berhasil");
+				$("#NO_CONT").val('') ;
+				$("#NO_REQ").val('') ;
+				$("#NO_SEAL").val('') ;
+				$("#SIZE").val('') ;
+				$("#TYPE").val('') ;
+				$("#STATUS").val('') ;
+				$("#KETERANGAN").val('') ;
+				$("#NM_PBM" ).val('') ;
+				$("#NO_NOTA").val('') ;
+				$("#MASA_BERLAKU").val('') ;
+				$("#NO_POL").val('') ;
+				
+				$("#NO_CONT").focus();
+			}
+			else if(data == "NO_POL")
+			{
+				alert("Nomor Polisi Harus diisi");
+			}
+			else if(data == "EXIST")
+			{
+				alert("Container Sudah di GET IN");
+			}
+			else{
+				alert(data);
+			}
+		});	
+	}
+}
+
+</script>

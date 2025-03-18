@@ -1,0 +1,220 @@
+
+ 
+<span class="graybrown"><img src='images/document-open.png' border='0' class="icon"/><font color="#DE7E21"> Request Stripping </font></span>
+
+<fieldset class="form-fieldset" style="margin: 5px 5px 5px 5px; ">
+<form action="<?=HOME?><?=APPID?>/add_edit" method="POST">
+	<center>
+    <table style="margin: 30px 30px 30px 30px;" >
+    	<tr>
+        	<td class="form-field-caption">Nomor Request</td>
+            <td> : </td>
+            <td class="form-field-input"> <input type="text" name="NO_REQ" value="{$row_request.NO_REQUEST}" readonly="readonly" /> </td>
+    	</tr>
+    	<tr>
+        	<td class="form-field-caption">Pemilik</td>
+            <td> : </td>
+            <td class="form-field-input"> <input type="text" name="PEMILIK" id="PEMILIK" placeholder="{$row_request.NAMA_PEMILIK}"/> <input type="hidden" name="ID_PEMILIK" id="ID_PEMILIK" /> </td>
+    	</tr>
+    	<tr>
+        	<td class="form-field-caption">Pelayaran</td>
+            <td> : </td>
+            <td class="form-field-input"> <input type="text" name="EMKL" id="EMKL" placeholder="{$row_request.NAMA_EMKL}"/> <input type="hidden" name="ID_EMKL" id="ID_EMKL" /> </td>
+    	</tr>
+        <tr>
+        	<td class="form-field-caption">Nomor D.O</td>
+            <td> : </td>
+            <td class="form-field-input"> <input type="text" name="NO_DO"  placeholder="{$row_request.NO_DO}"/> </td>
+    	</tr>
+        <tr>
+        	<td class="form-field-caption">Nomor B.L</td>
+            <td> : </td>
+            <td class="form-field-input"> <input type="text" name="NO_BL" placeholder="{$row_request.NO_BL}"/> </td>
+    	</tr>
+        <tr>
+        	<td class="form-field-caption">Type Stripping</td>
+            <td> : </td>
+            <td class="form-field-input"> <input type="text" name="TYPE_S" value="{$row_request.TYPE_STRIPPING}" readonly="readonly"/> </td>
+    	</tr>
+        <tr>
+       		<td class="form-field-caption">Keterangan</td>
+            <td> : </td>
+            <td class="form-field-input"> <input type="text" name="keterangan" style="width:250px" value="{$row_request.KETERANGAN}"/></td>
+        </tr>
+        <tr>
+        	<td colspan="3" class="form-footer"> <a id="submitForm" onclick="save()" class="link-button" ><img src='images/valid.png' border='0' />&nbsp;Simpan Hasil Edit</a></td>
+        </tr>
+	</table>
+    </center>
+</form>
+</fieldset>
+
+<fieldset class="form-fieldset" style="margin: 5px 5px 5px 5px; ">
+	<center>
+    <table style="margin: 30px 30px 30px 30px;border:thin groove; padding-bottom:20px;"  >
+    	<tr>
+        	<td class="form-field-caption"> Nomor Container </td>
+            <td> : </td>
+            <td> <input type="text" name="NO_CONT" ID="NO_CONT" /> </td>
+            <td style="width:200px;">&nbsp;</td>
+            <td class="form-field-caption"> Ukuran </td>
+            <td> : </td>
+            <td> <input type="text" name="SIZE" ID="SIZE" /> </td>
+        </tr>
+        <tr>
+        	<td class="form-field-caption"> Berbahaya </td>
+            <td> : </td>
+            <td> <select name="BERBAHAYA" id="BERBAHAYA">
+				<option value="">--</option>
+				<option value="YA">YA</option>
+				<option value="TIDAK">TIDAK</option> 
+                </select>
+            </td>
+        	<td style="width:200px;">&nbsp;</td>
+            <td class="form-field-caption"> TIPE </td>
+            <td> : </td>
+            <td> <input type="text" name="TIPE" ID="TYPE" /> </td>
+        </tr>
+        <tr>
+        	<td class="form-field-caption"> VIA </td>
+            <td> : </td>
+            <td> 
+            	<select name="VIA" id="VIA">
+                    <option value="TPK">TPK</option>
+                    <option value="TONGKANG">TONGKANG</option> 
+                </select>
+            </td>
+        	<td style="width:200px;">&nbsp;</td>
+            <td class="form-field-caption"> Voyage </td>
+            <td> : </td>
+            <td> <input type="text" name="VOY" ID="VOY" /> </td>
+        </tr>
+        <tr>
+        	<td class="form-field-caption"> Tanggal Bongkar </td>
+            <td> : </td>
+            <td> 
+            	<input type="text" id="tgl_bongkar" name="tgl_bongkar"/>
+            </td>
+        	<td style="width:200px;" colspan="4">&nbsp;</td>
+        </tr>
+		<tr>
+        	<td style="width:200px;" colspan="4">&nbsp;</td>
+            <td>  </td>
+            <td>  </td>
+            <td> </td>
+        </tr>
+        <tr align="center">
+        	<td colspan="7"><a class="link-button" onClick="add_cont()"><img src='images/cont_addnew.gif' border="0"> Tambahkan Container </a>&nbsp;</td>
+        </tr>
+	</table>
+    
+    <div id="cont_list" style="margin: 10px 10px 10px 10px; border:thin inset">
+    
+    </div>
+    
+	</center>
+</fieldset>
+
+<script>
+
+$(function() {	
+	$( "#tgl_bongkar" ).datepicker();
+	$( "#tgl_bongkar" ).datepicker( "option", "dateFormat", "dd-mm-yy" );
+	
+	$( "#PEMILIK" ).autocomplete({
+		minLength: 3,
+		source: "{$HOME}{$APPID}.auto/pbm",
+		focus: function( event, ui ) {
+			$( "#PEMILIK" ).val( ui.item.NAMA );
+			return false;
+		},
+		select: function( event, ui ) {
+			$( "#PEMILIK" ).val( ui.item.NAMA );
+			$( "#ID_PEMILIK" ).val( ui.item.ID );
+			return false;
+		}
+	})
+	.data( "autocomplete" )._renderItem = function( ul, item ) {
+		return $( "<li></li>" )
+			.data( "item.autocomplete", item )
+			.append( "<a>" + item.NAMA + "</a>" )
+			.appendTo( ul );
+	};
+	
+	
+	$( "#NO_CONT" ).autocomplete({
+		minLength: 3,
+		source: "{$HOME}{$APPID}.auto/container",
+		focus: function( event, ui ) {
+			$( "#NO_CONT" ).val( ui.item.NO_CONTAINER );
+			return false;
+		},
+		select: function( event, ui ) {
+			$( "#NO_CONT" ).val( ui.item.NO_CONTAINER );
+			$( "#SIZE" ).val( ui.item.SIZE_);
+			$( "#TYPE" ).val( ui.item.TYPE_);
+			return false;
+		}
+	})
+	.data( "autocomplete" )._renderItem = function( ul, item ) {
+		return $( "<li style='text-align:left'></li>" )
+			.data( "item.autocomplete", item )
+			.append( "<a>" + item.NO_CONTAINER + "<br/> "+item.SIZE_+" "+item.TYPE_+"</a>" )
+			.appendTo( ul );
+	};
+	
+	$("#cont_list").load('<?=HOME?><?=APPID?>/cont_list?no_req={$row_request.NO_REQUEST} #list', function(data) {        	  
+	}); 	
+});
+
+function add_cont()
+{
+	var no_cont_		= $("#NO_CONT").val();
+	var no_req_strip	= "{$row_request.NO_REQUEST}";
+	var no_req_rec		= "{$row_request.NO_REQUEST_RECEIVING}";
+	var status_			= $("#STATUS").val();
+	var berbahaya_		= $("#BERBAHAYA").val();
+	var via_			= $("#VIA").val();
+	var voy_			= $("#VOY").val();
+	var tgl_			= $("#tgl_bongkar").val();
+	var url				= "{$HOME}{$APPID}.ajax/add_cont";
+	
+	
+	$.post(url,{NO_CONT: no_cont_, NO_REQ_STRIP : no_req_strip, NO_REQ_REC : no_req_rec, VIA: via_, VOY : voy_, TGL : tgl_, STATUS : status_, BERBAHAYA : berbahaya_},function(data){
+		console.log(data);
+		if(data == "EXIST" )
+		{
+			alert("Container Sudah Terdaftar");	
+		}
+		else if(data == "STATUS")
+		{
+			alert("Status belum diisi")
+		}
+		else if(data == "BERBAHAYA")
+		{
+			alert("Status Berbahaya belum diisi")
+		}
+		else if(data == "OK")
+		{
+			$("#cont_list").load('<?=HOME?><?=APPID?>/cont_list?no_req={$row_request.NO_REQUEST} #list', function(data) {        	  
+			}); 	
+		}
+	});	
+	//prosedur add comment disini, method $.post, include user id dan content id
+}
+
+function del_cont($no_cont)
+{
+	var no_req_		= "{$row_request.NO_REQUEST}";
+	var url			= "{$HOME}{$APPID}.ajax/del_cont";
+	
+	$.post(url,{NO_CONT: $no_cont, NO_REQ : no_req_},function(data){
+		console.log(data);
+		if(data == "OK")
+		{
+			$("#cont_list").load('<?=HOME?><?=APPID?>/cont_list?no_req={$row_request.NO_REQUEST} #list', function(data) {        	  
+			}); 	
+		}
+	});	
+}
+</script>

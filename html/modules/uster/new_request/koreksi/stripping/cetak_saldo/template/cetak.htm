@@ -1,0 +1,26 @@
+<div>
+<h3> Detail Container yang belum terealisasi </h3>
+<table border=1 width="100%">
+	<tr>
+		<th class="grid-header"  style="font-size:8pt">No.</th>
+		<th class="grid-header"  style="font-size:8pt">NO CONTAINER</th>
+		<th class="grid-header"  style="font-size:8pt">NO REQUEST</th>
+		<th class="grid-header"  style="font-size:8pt">NAMA PBM</th>
+		<th class="grid-header"  style="font-size:8pt">TERTANDA</th>
+		<th class="grid-header"  style="font-size:8pt">TGL APPROVE</th>
+	</tr>
+	<fill src='row' var='row'>
+		<tr>
+			<td class="grid-cell"  style="font-size:8pt">{$__ctr}</td>
+			<td class="grid-cell"  style="font-size:8pt">{$row.NO_CONTAINER}
+			<br/> {$row.BLOK_} / {$row.SLOT_} / {$row.ROW_} / {$row.TIER_}
+			</td>
+			<td class="grid-cell"  style="font-size:8pt">{$row.NO_REQUEST}</td>
+			<td class="grid-cell"  style="font-size:8pt">{$row.NM_PBM}</td>
+			<td class="grid-cell"  style="font-size:8pt">{$row.CONSIGNEE_PERSONAL}</td>
+			<td class="grid-cell"  style="font-size:8pt">{$row.TGL_APPROVE}</td>
+		</tr>
+	</fill>
+	
+</table>
+</div>

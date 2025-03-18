@@ -1,0 +1,71 @@
+
+<span class="graybrown"><img src='images/sp2_p.png' border='0' class="icon"/><font color="#0378C6"> Request</font> Relokasi Antar Depo Permintaan Pengguna Jasa</span><br/><br/>
+ <fieldset class="form-fieldset" style="margin: 5px 5px 5px 5px; ">
+          <!--<div style="padding:8px; font-size:8pt;"><span style=" color:#DF2100"><blink>
+                <img src='images/warning.png' border='0' class="icon" width="30" height="30"/><b> Anda Sekarang Berada di - Depo <font color="#0378C6" size="5pt">{$nama_yard}</font></b></blink></span>-->
+          <div style="padding-top:3px">
+              <font color="#0066CC">Pengajuan Relokasi</font> : Cari <font color="#0066CC">Tambah Pengajuan Relokasi</font>, untuk melakukan transaksi permintaan.</div><div style="padding-top:3px">
+              <div style="padding-top:7px; padding-left:15px"><font color="#0066CC"><a onclick="window.open('{$HOME}{$APPID}/add','_self')" class="link-button" style="height:25" ><img src='images/sp2p.png' border="0"> Tambah Pengajuan Relokasi</a></font></div>
+          </div>
+      </fieldset>
+      <fieldset class="form-fieldset" style="margin: 5px 5px 5px 5px; ">
+          <form id="searchForm" name="searchForm">
+              <div style="padding:10px;font-family:Arial; font-size:8pt; color:#555555; font-weight:bold">Pencarian No Request : <input type="text" id="NO_REQ" /> <br />
+              Tgl Request Delivery &nbsp;&nbsp;: <input type="text" name="FROM" id="from"/> S/D <input type="text" name="TO" id="to"/>  
+              &nbsp;&nbsp; <a class="link-button" style="height:25" onclick="search_request()"><img src='images/cari.png' border='0' />Cari</a><br />  </div>
+          </form>
+      </fieldset>
+
+<fieldset class="form-fieldset" style="margin: 5px 5px 5px 5px; ">
+	<center>
+    
+    <div id="request_list" style="border:thin inset; margin: 5px 5px 5px 5px">
+    
+    </div>
+    
+    </center>
+</fieldset>
+ 
+<script>
+
+$(function() {	
+	
+	$( "#from" ).datepicker();
+	$( "#from" ).datepicker( "option", "dateFormat", "yy-mm-dd" );
+	$( "#to" ).datepicker();
+	$( "#to" ).datepicker( "option", "dateFormat", "yy-mm-dd" );
+	
+	$('#request_list').html('<p align=center><img src={$HOME}images/loadingbox.gif /></p>');
+	$("#request_list").load('<?=HOME?><?=APPID?>/req_list #list', function(data) {        	  
+	}); 	
+});
+
+function search_request()
+{
+    var no_req_ = $("#NO_REQ").val();
+	var from_ 	= $("#from").val();
+	var to_ 	= $("#to").val();	
+	var cari_	= "cari"; 
+	var url 	= "<?=HOME?><?=APPID?>/req_list #list";
+	 
+	$('#request_list').html('<p align=center><img src={$HOME}images/loadingbox.gif /></p>'); 
+	$("#request_list").load(url,{from : from_, to : to_, cari : cari_, no_req : no_req_}, function(data){
+		//console.log(data);
+	});
+	
+}
+
+function hovering(){
+	$("#nota_cetak").html("Overview");
+}
+
+function outing(){
+	$("#nota_cetak").html("NOTA SUDAH CETAK");
+}
+function change_page($page){
+	var selected_p = $page;
+	
+	$('#request_list').html('<p align=center><img src={$HOME}images/loadingbox.gif /></p>');
+	$("#request_list").load('<?=HOME?><?=APPID?>/req_list?pp='+selected_p+' #list', function(data) {});
+}
+</script>

@@ -1,0 +1,95 @@
+
+ 
+<span class="graybrown"><img src='images/document-open.png' border='0' class="icon"/><font color="#DE7E21"> Perencanaan Stripping Petikemas </font></span>
+
+<fieldset class="form-fieldset" style="margin: 5px 5px 5px 5px; ">
+<form action="<?=HOME?><?=APPID?>/add_edit" method="POST">
+	<center>
+    <table style="margin: 30px 30px 30px 30px;" >
+    	<tr>
+        	<td class="form-field-caption">Nomor Request</td>
+            <td> : </td>
+            <td class="form-field-input"> <input type="text" name="NO_REQ" id="NO_REQ" value="{$row_request.NO_REQUEST}" readonly="readonly" />  &nbsp; <input type="text" id="NO_REQ2" name="NO_REQ2" value="{$no_req2}" readonly="readonly" /> </td>
+    	</tr>
+        <tr>
+        	<td class="form-field-caption">Penerima / Consignee</td>
+            <td> : </td>
+            <td> 
+            	<input type="text" id="CONSIGNEE" size="40" name="CONSIGNEE" type="text" class="kdemkl " placeholder="{$row_request.NAMA_PEMILIK}" style="background-color:#FFFFCC;" /> 
+                <input size="40" name="ID_CONSIGNEE" id="ID_CONSIGNEE" type="hidden" />
+                <input size="40" name="ALMT_CONSIGNEE" id="ALMT_CONSIGNEE" type="hidden" />
+                <input size="40" name="NPWP_CONSIGNEE" id="NPWP_CONSIGNEE" type="hidden" />
+            </td>
+    	</tr>
+    	<tr>
+        	<td class="form-field-caption"></td>
+            <td></td>
+            <td> 
+                <input type="hidden" id="PENUMPUKAN" size="40" name="PENUMPUKAN" class="kdemkl " placeholder="{$row_request.NAMA_PENUMPUK}" style="background-color:#FFFFCC;" /> 
+                <input size="40" name="ID_PENUMPUKAN" id="ID_PENUMPUKAN" type="hidden" />
+                <input size="40" name="ALMT_PENUMPUKAN" id="ALMT_PENUMPUKAN" type="hidden" />
+                <input size="40" name="NPWP_PENUMPUKAN" id="NPWP_PENUMPUKAN" type="hidden" />
+            </td>
+    	</tr>
+       <!-- <tr>
+       		<td class="form-field-caption">Tanggal Rencana Mulai Stripping</td>
+            <td> : </td>
+            <td> <input type="text" id="TGL_AWAL"  name="TGL_AWAL" value="{$row_request.TGL_AWAL}" placeholder="{$row_request.TGL_AWAL}"/>
+		</tr>
+        <tr>
+        	<td class="form-field-caption">Tanggal Rencana Selesai Stripping</td>
+            <td> : </td>
+            <td> <input type="text" id="TGL_AKHIR"  name="TGL_AKHIR" value="{$row_request.TGL_AKHIR}" placeholder="{$row_request.TGL_AKHIR}"/>
+		</tr> -->
+        <tr>
+        	<td class="form-field-caption">Nomor D.O</td>
+            <td> : </td>
+            <td class="form-field-input"> <input type="text" id="NO_DO" name="NO_DO"  value="{$row_request.NO_DO}"/> </td>
+    	</tr>
+        <tr>
+        	<td class="form-field-caption">Nomor B.L</td>
+            <td> : </td>
+            <td class="form-field-input"> <input type="text" id="NO_BL" name="NO_BL" value="{$row_request.NO_BL}"/> </td>
+    	</tr>
+        <tr>
+        	<td class="form-field-caption">Nomor SPPB</td>
+            <td> : </td>
+            <td> <input type="text" id="NO_SPPB" size="40" name="NO_SPPB" value="{$row_request.NO_SPPB}"  />  </td>
+    	</tr>
+		<tr>
+			<td class="form-field-caption">Tanggal SPPB</td>
+            <td> : </td>
+            <td> <input type="text" id="TGL_SPPB"  name="TGL_SPPB" value="{$row_request.TGL_SPPB}" /></td>
+		</tr>
+        <tr>
+        	<td class="form-field-caption">Type Stripping</td>
+            <td> : </td>
+            <td class="form-field-input"> <input type="text" name="TYPE_S" value="{$row_request.TYPE_STRIPPING}" readonly="readonly"/> </td>
+    	</tr>
+        <tr>
+       		<td class="form-field-caption">Keterangan</td>
+            <td> : </td>
+            <td class="form-field-input"> <input type="text" name="keterangan" style="width:250px" value="{$row_request.KETERANGAN}"/></td>
+        </tr>
+	</table>
+    </center>
+</form>
+</fieldset>
+
+
+<fieldset class="form-fieldset" style="margin: 5px 5px 5px 5px; ">
+	<center>
+    <div id="cont_list" style="margin: 10px 10px 10px 10px; border:thin inset">
+    
+    </div>
+    
+	</center>
+</fieldset>
+<div id="dialog-form"> </div>
+<div id="demo8"> </div>
+<script>
+$(function() {		
+	$("#cont_list").load('<?=HOME?><?=APPID?>/cont_list?no_req={$row_request.NO_REQUEST}&overview=yes #list', function(data) {        	  		
+	}); 		
+});
+</script>

@@ -1,0 +1,7 @@
+framework/conf.php
+edifact/*
+.svn/
+/.svn/
+**/__xl_*
+/.idea/
+

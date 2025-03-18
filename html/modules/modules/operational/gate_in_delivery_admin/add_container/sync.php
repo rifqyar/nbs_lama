@@ -1,0 +1,1 @@
+<?php	$db=getDb();	$db->query("declare begin ISWS.proc_sync_sp2; end;");?>

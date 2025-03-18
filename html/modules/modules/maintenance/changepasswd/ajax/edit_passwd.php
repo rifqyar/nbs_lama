@@ -1,0 +1,1 @@
+<?php$id_user = $_SESSION["ID_USER"];$new = $_POST['NEW_PASSWD'];$conf = $_POST['CONF_PASSWD'];    $db = getDB();	$db->query("update tb_user set password = '".$new."', password_enc = '".$conf."' where id = '".$id_user."'");	echo "OK";?>

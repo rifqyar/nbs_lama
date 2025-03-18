@@ -1,0 +1,390 @@
+<?php
+header("Cache-Control: no-cache, must-revalidate"); // HTTP/1.1
+header("Expires: Mon, 26 Jul 1997 05:00:00 GMT"); // Date in the past
+/*## url map..        
+$urlfilter = array();
+_map($urlfilter);
+## calculate page number
+#        
+if (isset($_q['p'])) {
+    $pp = (int) $_q['p'];
+} else {
+    foreach ($_q as $k => $v)
+        if (is_numeric($k))
+            $pp = (int) $v;
+}
+unset($_q['p']);
+## order
+#
+$sortinfo = false;
+$order    = "";
+$ofields  = array();
+if (isset($_q['_orderby']) && in_array($_q['_orderby'], $ofields)) {
+    $order = $_q['_orderby'];
+    if (isset($_SESSION['_gridsort'][APPID][SUBID])) {
+        $sortinfo = $_SESSION['_gridsort'][APPID][SUBID];
+        if ($sortinfo['field'] == $order) {
+            $sortinfo['ascending'] = !$sortinfo['ascending'];
+        } else {
+            $sortinfo = array(
+                'field' => $order,
+                'ascending' => true
+            );
+        }
+    } else {
+        $sortinfo = array(
+            'field' => $order,
+            'ascending' => true
+        );
+    }
+    if (!isset($_SESSION['_gridsort']))
+        $_SESSION['_gridsort'] = array();
+    $_SESSION['_gridsort'][APPID] = array(
+        SUBID => $sortinfo
+    );
+    if ($sortinfo['ascending'])
+        $order .= ' ASC';
+    else
+        $order .= ' DESC';
+} else if (isset($_SESSION['_gridsort'][APPID][SUBID])) {
+    $sortinfo = $_SESSION['_gridsort'][APPID][SUBID];
+    $order    = $sortinfo['field'];
+    if ($sortinfo['ascending'])
+        $order .= ' ASC';
+    else
+        $order .= ' DESC';
+}
+## order header..
+foreach ($ofields as $of)
+    if ($sortinfo && $sortinfo['field'] == $of) {
+        $sortclass[$of] = ($sortinfo['ascending']) ? 'grid-ascending' : 'grid-descending';
+    } else {
+        $sortclass[$of] = 'grid-sortable';
+    }
+unset($_q['_orderby']);
+if ($order != '')
+    $order = ' ORDER BY ' . $order;
+## default
+#
+if (!isset($searchurl))
+    $searchurl = _link(array(
+        'sub' => 'search'
+    ));
+if (!isset($item_per_page))
+    $item_per_page = 20;
+if (!isset($style))
+    $style = array(
+        'gridinfo' => 'grid-info',
+        'gridtable' => 'grid-table',
+        'gridheader' => 'grid-header',
+        'gridcell' => 'grid-cell'
+    );
+if (!isset($rand))
+    $rand = rand(10000, 99999);
+if (!isset($navurl))
+    $navurl = preg_replace(array(
+        '/\&_[^=]+=[^&]+/',
+        '/\?_[^=]+=[^&]+/'
+    ), array(
+        '',
+        '?'
+    ), $_SERVER['REQUEST_URI']);
+if (strpos($navurl, '?') === false)
+    $navurl .= '?';
+if (!isset($addurl))
+    $addurl = _link(array(
+        'sub' => 'add'
+    ));
+## lookup..
+#
+#
+####### end lookup
+## db & sql..
+#
+$db     = getDB();
+$sql    = "SELECT * FROM OG_NOTA_BPRPH";
+## filter
+#
+$filter = "";
+if ($filter == '' && strpos(strtolower($sql), 'where') === false)
+    $filter = " 1=1 ";
+if (strpos(strtolower($sql), 'where') === false)
+    $filter = ' WHERE ' . $filter;
+## paging..
+#
+$rs = $db->query($sql . $filter);
+if ($rs && $rs->RecordCount()) {
+    $row      = $rs->FetchRow();
+    $totalNum = $rs->RecordCount();
+    $maxPage  = ceil($totalNum / $item_per_page) - 1;
+    if ($maxPage < 0)
+        $maxPage = 0;
+}
+$page     = ($pp <= $maxPage + 1 && $pp > 0) ? $pp - 1 : 0;
+$__offset = $page * $item_per_page;
+## data..
+#
+$rs       = $db->selectLimit($sql . $filter . "order by id_dummy desc", $__offset, $item_per_page);
+$rows     = array();
+if ($rs && $rs->RecordCount() > 0) {
+    for ($__rowindex = 1 + $__offset; $row = $rs->FetchRow(); $__rowindex++) {
+        $row["_no"]       = $__rowindex;
+        
+		$row['urledit']   = _link(array(
+            'sub' => 'edit',
+            'id_dummy' => $row['ID_DUMMY']
+        ));
+		
+        $row['urldelete'] = _link(array(
+            'sub' => 'delete',
+            'id_dummy' => $row['ID_DUMMY']
+        ));
+		
+		$row['urlprimary'] = _link(array(
+            'sub' => 'delete',
+            'id_dummy' => $row['ID_DUMMY']
+        ));
+        
+		$row['linkid']    = $row['ID_DUMMY'];
+        $rows[]           = $row;
+    }
+    $rs->close();
+}
+$data =& $rows;
+## record info
+$recordStart = $__offset + 1;
+$recordEnd   = $__offset + count($rows);
+if (count($rows) > 0) {
+    $recordInfo = "record $recordStart ";
+    if ($recordEnd > $recordStart)
+        $recordInfo .= "- $recordEnd";
+    $recordInfo .= " dari $totalNum record";
+} else {
+    $recordinfo = "";
+}
+## navigator
+if ($maxPage > 0) {
+    $multipage = true;
+    ## begin create nav
+    $pages     = array();
+    for ($i = 0; $i <= $maxPage; $i++)
+        $pages[] = array(
+            $i + 1,
+            $i + 1
+        );
+    $nav['pages'] = $pages;
+    if ($page > 0) {
+        $nav['prev'] = array(
+            'label' => 'Prev',
+            'p' => $page - 1
+        );
+    } else {
+        $nav['prev'] = false;
+    }
+    if ($page < $maxPage) {
+        $nav['next'] = array(
+            'label' => 'Next',
+            'p' => $page + 1
+        );
+    } else {
+        $nav['next'] = false;
+    }
+    ## end create nav
+    $navlist = $nav['pages'];
+    $navpage = $page + 1;
+    if ($nav['next']) {
+        $nextvisible = true;
+        $navnext     = $nav['next'];
+    }
+    if ($nav['prev']) {
+        $prevvisible = true;
+        $navprev     = $nav['prev'];
+    }
+}*/
+### save URI
+$backuri                      = str_replace('&_saveok=1', '', $_SERVER['REQUEST_URI']);
+$_SESSION['__uriback'][APPID] = $backuri . (strpos($_SERVER['REQUEST_URI'], '?') === false ? '?' : '');
+?> 
+
+<script type="text/javascript">
+ //<![CDATA[
+jQuery(function() {
+ jQuery("#l_pranota_bprp").jqGrid({
+	url:'datanya/data?q=pranota_bprp',
+	mtype : "post",
+	datatype: "json",
+	colNames:['','No BPRP','No Nota','Tgl Nota','Terminal','Pemakai Jasa','Vessel','Voy','Kegiatan','JKM','Tagihan','Stat'], 
+	colModel:[
+		{name:'aksi', width:50, align:"center",sortable:false,search:false},
+		{name:'id_bprp',index:'id_bprp', width:65, align:"left"},
+		{name:'id_nota',index:'id_nota', width:65, align:"left"},
+		{name:'tgl_nota',index:'tgl_nota', width:60, align:"center"},
+		{name:'terminal',index:'terminal', width:50, align:"center"},
+		{name:'customer',index:'customer', width:120, align:"left"},
+		{name:'vessel',index:'vessel', width:120, align:"left"},
+		{name:'voy',index:'voy', width:30, align:"left"},
+		{name:'kegiatan',index:'kegiatan', width:70, align:"left"},
+		{name:'jkm',index:'jkm', width:80, align:"left"},
+		{name:'tagihan',index:'tagihan', width:100, align:"right", formatter:'currency',formatoptions:{prefix:'',suffix:'',thousandsSeparator:','}},
+		{name:'status',index:'status', width:25, align:"center"}
+	],
+	rowNum:10,
+	width: "915",
+	height: "100%",//250
+	rowList:[10,20,30,40,50,60],
+	loadonce:true,
+	rownumbers: true,
+	rownumWidth: 15,
+	gridview: true,
+	pager: '#pg_pranota_bprp',
+	viewrecords: true,
+	shrinkToFit: false,
+	caption:"Data Pranota Penumpukan",
+	onSelectRow: function(ids) {
+		if(ids == null) {
+			ids=0;
+			if(jQuery("#pranota_bprp_d").jqGrid('getGridParam','records') >0 ) {
+				jQuery("#pranota_bprp_d").jqGrid('setGridParam',{url:"datanya/data_d?q=pranota_bprp&id="+ids,page:1});
+				jQuery("#pranota_bprp_d").jqGrid('setCaption',"Detail Pranota: "+ids).trigger('reloadGrid');
+			}
+		} else {
+			jQuery("#pranota_bprp_d").jqGrid('setGridParam',{url:"datanya/data_d?q=pranota_bprp&id="+ids,page:1});
+			jQuery("#pranota_bprp_d").jqGrid('setCaption',"Detail Pranota: "+ids).trigger('reloadGrid');
+		}
+	}
+ }).navGrid('#pg_pranota_bprp',{
+	edit:false,
+	add:false,
+	del:false
+ });
+ 
+ jQuery("#pranota_bprp_d").jqGrid({
+	url:'datanya/data_d?q=pranota_bprp&id=0',
+	datatype: "json",
+	colNames:['Jenis Barang','Kemasan','Jumlah','Satuan','Bahaya','Tanggal In','Tanggal Out','Penumpukan','Kebersihan','Subtotal'],
+	colModel:[//260
+		{name:'jns_brg',index:'jns_brg',width:150,sortable:false},
+		{name:'kemasan',index:'kemasan',width:60,sortable:false},
+		{name:'bongkar',index:'bongkar',width:50,align:"center",sortable:false},
+		{name:'satuan',index:'satuan',width:50,sortable:false},
+		{name:'bahaya',index:'bahaya',width:60,align:"center",sortable:false},
+		{name:'tgl_in',index:'tgl_in',width:65,align:"center",sortable:false},
+		{name:'tgl_out',index:'tgl_out',width:65,align:"center",sortable:false},
+		{name:'tgh_penumpukan',index:'tgh_penumpukan',width:80,align:"right",sortable:false, formatter:'currency',formatoptions:{prefix:'',suffix:'',thousandsSeparator:','}},
+		{name:'tgh_kebersihan',index:'tgh_kebersihan',width:80,align:"right",sortable:false, formatter:'currency',formatoptions:{prefix:'',suffix:'',thousandsSeparator:','}},
+		{name:'subtotal',index:'subtotal',width:100,align:"right",sortable:false, formatter:'currency',formatoptions:{prefix:'',suffix:'',thousandsSeparator:','}}
+	],
+	rowNum:10,
+	rowList:[10,20],
+	rownumbers: true,
+	rownumWidth: 15,
+	width: "830",//835
+	height: "100%",//250
+	pager: '#pg_pranota_bprp_d',
+	//sortname: 'item',
+	viewrecords: true,
+	shrinkToFit: false,
+	//sortorder: "asc",
+	//multiselect: true,
+	caption:"Detail Pranota"
+ }).navGrid('#pg_pranota_bprp_d',{search:false,add:false,edit:false,del:false});
+});
+</script>
+
+<br />
+<h2>&nbsp;<img class="icon" border="0" src="images/cetak.png" />&nbsp;Nota Penumpukan OGDK</h2><br />
+<table id='l_pranota_bprp'></table> <div id='pg_pranota_bprp'></div>
+<br /><table id='pranota_bprp_d'></table> <div id='pg_pranota_bprp_d'></div>
+<br />
+
+<!--<div class="viewForm" id="formdetail" style="display: none;">
+  <div class="viewFormList" id="autoformdetail"> </div>
+</div>
+<span class="graybrown"><img src='images/dokumenbig.png' border='0' class="icon"/> Isian Pencarian </span><br/>
+<br/>
+<fieldset class="form-fieldset" style="width:875px;margin-left:20px;">
+<form id="searchForm" name="searchForm" action="{$searchurl}" method="get">
+  <table class="{$style.gridtable}" border="0" cellpadding="2" cellspacing="2" width="100%">
+    <tr>
+      <td colspan="3" align="right" class="form-footer"><a id="searchButton" onClick="submitForm('searchForm')" class="link-button"><img
+
+                           src='images/cari.png' border='0'/>Cari</a> <a id="resetButton"
+
+                                                                                    onclick="resetForm('searchForm')"
+
+                                                                                    class="link-button"><img
+
+                       src='images/batal.png' border='0'/>Batal</a> </td>
+    </tr>
+  </table>
+</form>
+</fieldset>
+<br/>
+<table class="{$style.gridblock}" border="0" cellpadding="0" cellspacing="0" width="100%">
+  <tr>
+    <td class="{$style.gridinfo}" align="center">{$recordInfo}</td>
+  </tr>
+  <block visible='multipage'>
+    <tr>
+      <td align="center" style="padding-bottom:4px;"><form action="{$navurl}" method="get">
+          <block visible="prevvisible"> <a onClick="decSelect('navsel_{$rand}_0')" style="cursor:pointer;">< Sebelumnya</a> </block>
+          <select id='navsel_{$rand}_0' name="p" list="navlist" selected="navpage" onChange="submit()"
+
+                           style="font-size:10px; border: solid 1px #cca; background-color:#FFFFFF;">
+          </select>
+          <block visible="nextvisible"> <a onClick="incSelect('navsel_{$rand}_0')" style="cursor:pointer;">Selanjutnya ></a> </block>
+        </form></td>
+    </tr>
+  </block>
+  <tr>
+    <td><a href='{$addurl}' class="link-button"><img src='images/tambah.png' border="0"> Tambah </a><br/>
+      <br/>
+      <table class="{$style.gridtable}" border='1' cellpadding="1" cellspacing="1" width="95%">
+        <tr>
+          <th class="{$style.gridheader}" valign="top">No </th>
+          <th class="{$style.gridheader}" valign="top">ID Dummy </th>
+          <th class="{$style.gridheader}" valign="top">Nama Dummy </th>
+          <th class="{$style.gridheader}" valign="top">Status Dummy </th>
+		  <th class="{$style.gridheader}" valign="top">Create By</th>
+		  <th class="{$style.gridheader}" valign="top">&nbsp;</th>		  
+        </tr>
+        <fill src='data' var='row' emptyflag='empty'>
+          <alt var='bg' list='#f0f0f0,#ffffff'/>
+          <tr bgcolor="{$bg}">
+            <td class="{$style.gridcell}" valign="top">{$row._no} </td>
+            <td class="{$style.gridcell}" valign="top">{$row.ID_DUMMY} </td>
+            <td class="{$style.gridcell}" valign="top">{$row.NAME_DUMMY} </td>
+            <td class="{$style.gridcell}" valign="top"><div align="center">{$row.STATUS_DUMMY} </div></td>
+			<td class="{$style.gridcell}" valign="top"><div align="center">{$row.CREATE_BY} </div></td>
+			<td class="{$style.gridcell}" valign="middle">
+				<div align="center"><a style="cursor:pointer" onClick="lookup('{$row.linkid}');"><img src="images/view.png">Detil</a> | 
+				  <a href="{$row.urledit}"> <img src="images/edit.png" border="0" /> Ubah</a> | 
+			    <a onClick="askDelete('{$row.urldelete}')" style="cursor:pointer;" ><img src="images/no.png" border="0" />Hapus</a></div></td>
+          </tr>
+        </fill>
+        <block visible='empty'>
+          <tr>
+            <td colspan="4">No Data</td>
+          </tr>
+        </block>
+      </table>
+      <br/>
+      <br/>
+    </td>
+  </tr>
+  <tr>
+    <td class="{$style.gridinfo}" align="center">{$recordInfo}</td>
+  </tr>
+  <block visible='multipage'>
+    <tr>
+      <td align="center" style="padding-top:4px;"><form action="{$navurl}" method="get">
+          <block visible="prevvisible"> <a onClick="decSelect('navsel_{$rand}_0')" style="cursor:pointer;">< Sebelumnya</a> </block>
+          <select id='navsel_{$rand}_0' name="p" list="navlist" selected="navpage" onChange="submit()"
+
+                           style="font-size:10px; border: solid 1px #cca; background-color:#ffffff;">
+          </select>
+          <block visible="nextvisible"> <a onClick="incSelect('navsel_{$rand}_0')" style="cursor:pointer;">Selanjutnya ></a> </block>
+        </form></td>
+    </tr>
+  </block>
+</table>-->

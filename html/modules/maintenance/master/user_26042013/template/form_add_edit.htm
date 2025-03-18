@@ -1,0 +1,107 @@
+<style>
+.content{
+	width:95%;
+	margin-left:auto;
+	margin-right:auto;
+	margin-bottom: 10px;
+	margin-top:20px;
+}
+.main_side{
+	width:100%;
+	float:left;
+	text-align:left;
+}
+</style>
+
+<div class="content">
+<div class="main_side">
+
+<? if($status=="ubah") 
+   {?>
+
+<h2>UBAH MASTER USER</h2>
+<br/>
+<form method="POST" action="<?=HOME?>maintenance.master.user/simpan_edit?ID={$ubah.ID}">
+<div class="form-fieldset" style="margin: 5px 5px 5px 5px">
+<table>
+		<tr>
+			<td>USERNAME</td>
+			<td>&nbsp;&nbsp;:&nbsp;&nbsp;</td>
+            <td><input type="text" name="USERNAME" value={$ubah.USERNAME} readonly="readonly"/></td>
+		</tr>
+		<tr>
+			<td>PASSWORD LAMA</td>
+			<td>&nbsp;&nbsp;:&nbsp;&nbsp;</td>
+            <td><input type="teks" name="PASSWORD" value={$ubah.PASSWORD} readonly="readonly"/></td>
+		</tr>
+		<tr>
+			<td>MASUKAN PASSWORD BARU</td>
+			<td>&nbsp;&nbsp;:&nbsp;&nbsp;</td>
+            <td><input type="password" name="PASSWORD"/> </td>
+		</tr>
+		
+        
+</table>
+</div>
+<br/>
+<input type="submit" value="Simpan" name="Simpan" class="link-button"/>
+</form>
+<br/>
+
+<? }
+    else
+    {
+    ?>
+<h2>TAMBAH MASTER USER</h2>
+<br/>
+<form method="POST" action="<?=HOME?>maintenance.master.user/simpan">
+<div class="form-fieldset" style="margin: 5px 5px 5px 5px">
+<table>
+		
+		<tr>
+			<td>NAME</td>
+			<td>&nbsp;&nbsp;:&nbsp;&nbsp;</td>
+            <td><input type="text" name="NAME"/></td>
+		</tr>
+		<tr>
+			<td>NIPP</td>
+			<td>&nbsp;&nbsp;:&nbsp;&nbsp;</td>
+            <td><input type="text" name="NIPP"/></td>
+		</tr>
+		<tr>
+			<td>USERNAME</td>
+			<td>&nbsp;&nbsp;:&nbsp;&nbsp;</td>
+            <td><input type="text" name="USERNAME"/></td>
+		</tr>
+		<tr>
+			<td>PASSWORD</td>
+			<td>&nbsp;&nbsp;:&nbsp;&nbsp;</td>
+            <td><input type="password" name="PASSWORD"/></td>
+		</tr>    
+		<tr>
+			<td>ID GROUP</td>
+			<td>&nbsp;&nbsp;:&nbsp;&nbsp;</td>
+            <td><input type="text" name="ID_GROUP"/></td>
+		</tr>  
+		<tr>
+			<td>DIVISI</td>
+			<td>&nbsp;&nbsp;:&nbsp;&nbsp;</td>
+            <td><input type="text" name="DIVISI"/></td>
+		</tr> 
+		<tr>
+			<td>JABATAN</td>
+			<td>&nbsp;&nbsp;:&nbsp;&nbsp;</td>
+            <td><input type="text" name="JABATAN"/></td>
+		</tr> 
+		
+</table>
+</div>
+<br/>
+<input type="submit" value="Simpan" name="Simpan" class="link-button"/>
+</form>
+<br/>
+
+<? } ?>
+
+</div>
+</div>

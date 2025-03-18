@@ -1,0 +1,115 @@
+<style>
+.content{
+	width:95%;
+	margin-left:auto;
+	margin-right:auto;
+	margin-bottom: 10px;
+	margin-top:20px;
+}
+.main_side{
+	width:100%;
+	float:left;
+	text-align:left;
+}
+</style>
+
+<script type="text/javascript">
+function isNumberKey(evt)
+{
+	var charCode = (evt.which) ? evt.which : event.keyCode;
+	if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+		if(charCode=="46" || charCode=="110")	return true;
+		else	return false;
+	}	
+	return true;
+}
+</script>
+
+<!--javascript datepicker-->
+<script>
+	$(function() {
+		$( "#datepicker" ).datepicker({
+			showOn: "button",
+			buttonImage: "images/cal.gif",
+			buttonImageOnly: true,
+			dateFormat: 'dd-mm-yy' 
+		});
+	});
+</script>
+<!----------end------------->
+
+
+<div class="content">
+<div class="main_side">
+
+<block name='form'><span class="graybrown"><img border="0" width="50" height="50" src="images/update_jkm.jpeg" /><font color=#FF9900><b>{$formtitle}</b></font>&nbsp;<font color=#0378C6>PAS OVER BAGASI</font></span>
+<br/>
+<form id="dataForm" action="{$formurl}" method=POST name="form1"><!--nama form autoSumForm dari javascript-->
+<input type="hidden" name="__pbkey" value="" />
+<div class="form-fieldset" style="margin: 15px 0px 0px 0px ">
+<table width="" border="0" style="padding: 5px 5px">
+    
+    <block visible="error">
+        <tr>
+          <td colspan="2"> Invalid Form Entry </td>
+        </tr>
+    </block>
+
+		<tr>
+			<td><b>Nomor Nota</b></td>
+			<td>&nbsp;&nbsp;:&nbsp;&nbsp;</td>
+      <td colspan="2">
+        <input type="text" id="NOTA" name="NOTA" style="background-color:#FFFF99; text-align:center" value="{$row.NO_NOTA}" readonly="yes"/>
+      </td>
+    </tr>
+    <tr>
+			<td><b>Pendapatan</b></td>
+			<td>&nbsp;&nbsp;:&nbsp;&nbsp;</td>
+      <td colspan="2">
+        <input type="text" id="INCOME" name="INCOME" style="background-color:#FFFF99; text-align:right" value="{$row.PENDAPATAN}" readonly="yes"/>
+      </td>
+    </tr>
+    <tr>
+			<td><b>Nomor Receipt</b></td>
+			<td>&nbsp;&nbsp;:&nbsp;&nbsp;</td>
+      <td colspan="2">
+        <input type="text" id="RECEIPT" name="RECEIPT" style="background-color:#FFCCFF;"/>
+      </td>
+    </tr> 
+    <tr>
+			<td><b>Nomor Bukti JKM</b></td>
+			<td>&nbsp;&nbsp;:&nbsp;&nbsp;</td>
+      <td colspan="2">
+        <input type="text" id="JKM" name="JKM" style="background-color:#FFCCFF;"/>
+      </td>
+    </tr>
+    <tr>
+			<td><b>Tanggal JKM</b></td>
+			<td>&nbsp;&nbsp;:&nbsp;&nbsp;</td>
+      <td colspan="2">
+        <input type="text" id="datepicker" name="TGL" style="background-color:#FFCCFF;"/>
+      </td>
+    </tr>
+     
+</table>
+</div>
+
+<p class="form-footer">
+  <a id="submitForm" onclick="submitForm('dataForm')" class="link-button"> 
+  <img src='images/valid.png' border='0' /> &nbsp;Simpan </a> &nbsp;&nbsp; 
+  <a id="resetForm" onclick="resetForm('dataForm')" class="link-button"> 
+  <img src='images/reset.png' border='0' /> &nbsp;Reset </a> &nbsp;&nbsp;
+  <a id="cancelForm" onclick="cancelForm('dataForm')" class="link-button"> 
+  <img src='images/batal.png' border='0' /> &nbsp;Batal </a> 
+</p>
+</form>
+<br/>
+
+</block>
+
+<block name='nodata'>
+  <div class='form-nodata'> No Data Match </div>
+</block>
+
+</div>
+</div>

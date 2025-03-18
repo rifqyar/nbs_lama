@@ -1,0 +1,659 @@
+<span class="graybrown"><img src='images/document-open.png' border='0' class="icon"/><font color="#DE7E21"> Request Delivery - SP2 </font><font color="#0066CC"> ke TPK</font></span><br/>
+<!--<span class="graybrown"><img src='images/dokumenbig.png' border='0' class="icon"/> {$formtitle}</span><br/><br/>-->
+<form id="dataForm" name="dataForm" action="<?=HOME?><?=APPID?>/edit_do" method="post" class="form-input" enctype="multipart/form-data">
+<input type="hidden" name="__pbkey" value="" />
+<!--<fieldset class="form-fieldset">-->
+	<table cellspacing='2' cellpadding='2' border='0' width="100%" style="margin-top:10px;"> <block visible="error">
+		<tr><td colspan="2">Invalid Form Entry</td></tr></block> 
+		<!--<tr><td colspan="2"><b>{$wizstep}</b></td></tr>-->
+		<tr>
+			<td width="49%" >
+			<table>
+				<!-- <tr>
+					<td class="form-field-caption" valign="top" align="right">Permintaan Dari </td>
+					<td valign="top" class="form-field-input">: 
+					<input id="REQUEST_BY"  name="REQUEST_BY" type="text" value="{$row.REQUEST_BY}" />
+				</tr> -->
+				<tr>
+					<td class="form-field-caption" valign="top" align="right">No Request Delivery </td>
+					<td valign="top" class="form-field-input">: 
+					<input id="NO_REQUEST"  name="NO_REQUEST" type="text" value="{$row.NO_REQUEST}" />
+                    <input id="NO_REQUEST2"  name="NO_REQUEST2" type="text" value="{$no_req2}" /></td>
+				</tr>
+				<tr>
+					<td class="form-field-caption" valign="top" align="right">Penumpukan Empty Oleh</td><td valign="top" class="form-field-input">: 
+					<input id="KD_PELANGGAN" name="KD_PELANGGAN" type="hidden" value="{$row.KD_PBM}" readonly size="3" />
+					<input id="NPWP" name="NPWP" type="hidden" value="{$row.NO_NPWP_PBM}" readonly size="3" />
+					<input id="ALAMAT" name="ALAMAT" type="hidden" value="{$row.ALAMAT}" readonly size="100" />
+					<input  id="NM_PELANGGAN" size="40" name="NM_PELANGGAN" type="text" value="{$row.NAMA_PBM}" class="kdemkl" title="Autocomplete" style="background-color:#FFFFCC;"  />
+					<!--<img src="{$HOME}images/ico_find.png" class="find" onmouseover="_hand(this)" onclick="popup_PELANGGAN(this.value);" ><div id="ref_PELANGGAN"></div><div class="suggestionsBox" id="popsuggestions_PELANGGAN" style="display: none;"><div class="suggestionList" id="popSuggestionsList"> &nbsp;</div></div>
+					<block visible="error.PEMILIK"><span class="form-field-error">{$error.PEMILIK}</span></block>--></td>
+				</tr>
+				<tr>
+					<td class="form-field-caption" valign="top" align="right">E.M.K.L</td><td valign="top" class="form-field-input">: 
+					<input id="KD_PELANGGAN2" name="KD_PELANGGAN2" type="hidden" value="{$row.KD_PBM2}" readonly size="3" />
+					<input  id="NM_PELANGGAN2" size="40" name="NM_PELANGGAN2" type="text" value="{$row.NAMA_PBM2}" title="Autocomplete" class="kdemkl2" style="background-color:#FFFFCC;"  />
+					<input id="NPWP2" name="NPWP2" type="hidden" value="{$row.NO_NPWP_PBM}" readonly size="3" />
+					<input id="ALAMAT2" name="ALAMAT2" type="hidden" value="{$row.ALAMAT}" readonly size="100" />
+
+					</td>
+				</tr>
+				<tr>
+					<td class="form-field-caption" valign="top" align="right">No P.E.B </td>
+					<td valign="top" class="form-field-input">: 
+					<input id="id_NO_PEB" name="NO_PEB" type="text" value="{$row.PEB}" size="50" size="15" style="background-color:#FFFFCC;"/>
+					<input id="id_KD_CABANG"  name="KD_CABANG" type="hidden" value="{$kd_cbg}" /></td>
+				</tr>
+				<tr>
+					<td class="form-field-caption" valign="top" align="right">No. N.P.E</td><td valign="top" class="form-field-input">: 
+					<input id="id_NO_NPE" name="NO_NPE" type="text" value="{$row.NPE}" size="50"   size="15" style="background-color:#FFFFCC;"/></td>
+				</tr>
+				<tr>
+					<td class="form-field-caption" valign="middle" align="right" width="177">No RO</td>
+					<td width="450" valign="top" class="form-field-input">: 
+					<input id="NO_RO" name="NO_RO" type="text" value="{$row.NO_RO}" size="16" />
+					<!--<img src="{$HOME}images/ico_find.png" class="find" onmouseover="_hand(this)" onclick="popup_NO_BOOKING(this.value);" ><div id="ref_NO_BOOKING"></div><div class="suggestionsBox" id="popsuggestions_NO_BOOKING" style="display: none;"><div class="suggestionList" id="popSuggestionsList"> &nbsp;</div></div>
+					<block visible="error.NO_BOOKING"><span class="form-field-error">{$error.NO_BOOKING}</span></block></td>-->
+				</tr>
+				
+				
+				<tr>
+					<td class="form-field-caption" valign="top" align="right">Nama Kapal </td><td valign="top" class="form-field-input">:
+					<input id="KD_KAPAL" name="KD_KAPAL" type="hidden" value="{$row.KD_KAPAL}" size="40" /> 
+					<input id="NM_KAPAL" name="NM_KAPAL" type="text" value="{$row.NM_KAPAL}" size="40" /><block visible="error.NO_UKK"><span class="form-field-error">{$error.NM_KAPAL}</span></block>
+					</td>
+				</tr>
+				<tr>
+					<td class="form-field-caption" valign="top" align="right">Voyage</td>
+					<td valign="top" class="form-field-input">: 
+					<input id="VOYAGE_IN" name="VOYAGE_IN" type="text" value="{$row.VOYAGE_IN}" size="5" readonly />
+					&nbsp; <a class="form-field-caption">ETD</a> : <input value="{$row.TGL_BERANGKAT}" id="ETD" name="ETD" type="text" size="8" readonly />
+					<a class="form-field-caption">ETA</a> : <input value="{$row.TGL_TIBA}" id="ETA" name="ETA" type="text" size="8" readonly />
+					</td>
+				</tr>
+
+				<tr>
+					<td class="form-field-caption" valign="top" align="right">Nama Agen</td><td valign="top" class="form-field-input">: 
+					<input id="KD_AGEN" name="KD_AGEN" type="hidden" value="{$row.KD_AGEN}" size="3" readonly />
+					<input id="TGL_BERANGKAT" name="TGL_BERANGKAT" type="hidden" value="{$row.TGL_BERANGKAT}" size="3" readonly />
+
+					<input id="NM_AGEN" name="NM_AGEN" type="text" value="{$row.NM_AGEN}" size="40"  readonly /><block visible="error.NO_UKK"><span class="form-field-error">{$error.NM_AGEN}</span></block></td>
+				</tr>
+					
+			</table>
+		  </td>
+			<td width="51%">
+			<table  border="0">
+				<tr>
+					<td class="form-field-caption" valign="top" align="right" >No PKK</td><td valign="top" class="form-field-input">: 
+					<input id="NO_UKK" name="NO_UKK" type="text" value="{$row.NO_UKK}" readonly size="16" maxlength="16" title="Autocomplete" class="pkkkapal" />
+					<!--<img src="{$HOME}images/ico_find.png" class="find" onmouseover="_hand(this)" onclick="popup_NO_PKK(this.value);" ><div id="ref_NO_PKK"></div><div class="suggestionsBox" id="popsuggestions_NO_PKK" style="display: none;"><div class="suggestionList" id="popSuggestionsList"> &nbsp;</div></div>
+					<block visible="error.NO_UKK"><span class="form-field-error">{$error.NO_UKK}</span></block>--></td>
+				</tr>
+				<tr>
+					<td class="form-field-caption" valign="middle" align="right" width="177">No Booking</td>
+					<td width="450" valign="top" class="form-field-input">: 
+					<input id="NO_BOOKING" name="NO_BOOKING" type="text" value="{$row.NO_BOOKING}" size="16" maxlength="16"    readonly />
+					<!--<img src="{$HOME}images/ico_find.png" class="find" onmouseover="_hand(this)" onclick="popup_NO_BOOKING(this.value);" ><div id="ref_NO_BOOKING"></div><div class="suggestionsBox" id="popsuggestions_NO_BOOKING" style="display: none;"><div class="suggestionList" id="popSuggestionsList"> &nbsp;</div></div>
+					<block visible="error.NO_BOOKING"><span class="form-field-error">{$error.NO_BOOKING}</span></block></td>-->
+				</tr>
+				<tr>
+					<td class="form-field-caption" valign="top" align="right" width="177">Port Of Destination</td>
+					<td valign="middle" class="form-field-input">: 
+					<input id="KD_PELABUHAN_ASAL" name="KD_PELABUHAN_ASAL" type="hidden" value="{$row.KD_PELABUHAN_ASAL}" size="3"   class="pod" readonly />
+					<input id="NM_PELABUHAN_ASAL" name="NM_PELABUHAN_ASAL" type="text" value="{$row.NM_PELABUHAN_ASAL}" size="40" maxlength="100" style="background-color:#FFFFCC;" title="Autocomplete" class="pod" />
+					
+				</tr>
+				<tr>
+					<td class="form-field-caption" valign="top" align="right" width="177">Final Discharge</td>
+					<td valign="top" class="form-field-input">: 
+					<input id="KD_PELABUHAN_TUJUAN" name="KD_PELABUHAN_TUJUAN" type="hidden" value="{$row.KD_PELABUHAN_TUJUAN}" size="3"   class="pod2" readonly />
+					<input id="NM_PELABUHAN_TUJUAN" name="NM_PELABUHAN_TUJUAN" type="text" value="{$row.NM_PELABUHAN_TUJUAN}" size="40" maxlength="100" style="background-color:#FFFFCC;"  class="pod2" title="Autocomplete"/></td>
+				</tr>
+				<!--<tr><td class="form-field-caption" valign="top" align="right">NO UKK</td><td class="form-field-input" valign="top">: <input id="id_NO_UKK" name="NO_UKK" type="text" value="{$row.NO_UKK}" size="14" maxlength="14" /><block visible="error.NO_UKK"><span class="form-field-error">{$error.NO_UKK}</span></block></td></tr>-->
+				  
+				<tr><td class="form-field-caption" valign="middle" align="right">Keterangan </td>
+				<td class="form-field-input" valign="middle">:&nbsp;<textarea id="KETERANGAN" name="KETERANGAN" cols="40" style="background-color:#FFFFCC;" rows="1" >{$row.KETERANGAN}</textarea><block visible="error.PEB_KETERANGAN"><span class="form-field-error">{$error.PEB_KETERANGAN}</span></block></td></tr>
+				<tr><td class="form-field-caption" valign="middle" align="right">Bayar Reefer</td><td>:&nbsp;<input id="id_SHIFT_RFR" name="SHIFT_RFR" style="background-color:#FFFFCC;" type="text" value="2" size="2" />
+				  &nbsp;<b>* Shift</b>  <!--<img src="images/calculator.png" width="20" onclick="calculator()" />--></td>
+				</tr>		
+				<tr>
+				  <td class="form-field-caption" valign="middle" align="right">Calculator Shift Reefer </td>
+				  <td>:
+					<input id="TGL_STACKING" name="TGL_STACKING" type="hidden" value="{$row.TGL_STACKING}" size="40" />  
+                    <input id="TGL_MUAT" name="TGL_MUAT" type="hidden" value="{$row.TGL_MUAT}" size="40" />
+					<input type="text" maxlength="19" size="12" value="" id="ID_TGL_MULAI" name="TGL_MULAI" readonly />&nbsp;
+					s/d
+					<input type="text" maxlength="19" size="12" value="" id="ID_TGL_NANTI" name="TGL_NANTI" readonly />&nbsp;
+					<img src="images/calculator.png" width="20" onclick="calculator()" />
+				</td></tr>
+				
+				
+
+			</table>
+		  </td>
+		</tr>
+		<tr>
+	<tr><td colspan="2" class="form-footer"> <a class="link-button" onClick="cekearly()"><img src='images/cont_addnew.gif' border="0"> Simpan </a>&nbsp;</td></tr>
+	</table>
+<!--</fieldset>-->
+</form> 
+
+</fieldset>
+
+<fieldset class="form-fieldset" style="margin: 5px 5px 5px 5px; ">
+	<center>
+    <table class="form-input" style="margin: 30px 30px 30px 30px;"  >
+    	<tr>
+            <td  class="form-field-caption"> Nomor Container </td>
+            <td> : </td>
+            <td> <input type="text" name="NO_CONT" ID="NO_CONT" /> </td>
+            <td style="width:200px;">&nbsp;</td>
+            <td  class="form-field-caption"> Ukuran </td>
+            <td> : </td>
+            <td> <input type="text" name="SIZE" id="SIZE" readonly="readonly" size="5" />
+		<input id="NO_REQUEST"  name="NO_REQUEST" type="hidden" value="{$row.NO_REQUEST}" /></td>
+        </tr>
+        <tr>
+        	<td  class="form-field-caption"> Status </td>
+            <td> : </td>
+            <td> <select name="STATUS" id="STATUS" class="kdemkl" onchange="set_status()">
+			<option value="MTY">MTY</option> 			
+			<option value="FCL">FCL</option> 
+			<option value="LCL">LCL</option> 
+			</select></td>
+        	<td style="width:200px;">&nbsp;</td>
+            <td  class="form-field-caption"> TIPE </td>
+            <td> : </td>
+            <td> <input type="text" name="TYPE" id="TYPE" readonly="readonly" size="5"/></td>
+        </tr>
+         <tr>
+            <td  class="form-field-caption"> HZ </td>
+            <td> : </td>
+            <td> <select name="HZ" id="HZ"> 			
+			<option value="N">T</option> 
+			<option value="Y">Y</option> 
+			</select>
+			</td>
+            <td style="width:200px;">&nbsp;</td>
+            <td  class="form-field-caption"> Komoditi </td>
+            <td> : </td>
+            <td> <input type="text" name="KOMODITI" ID="KOMODITI" /> 
+<input type="hidden" name="ID_KOMODITI" ID="ID_KOMODITI" /> </td>
+             </tr>
+         <tr>
+            <td  class="form-field-caption"> VIA</td>
+            <td> : </td>
+            <td> <select name="via" id="via"> 
+			<option value="darat">DARAT</option> <option value="tongkang">TONGKANG</option> <option value="ship_side">SHIP-SIDE</option>  </select></td>
+            <td style="width:200px;">&nbsp;</td>
+            <td  class="form-field-caption"> Berat </td>
+            <td> : </td>
+            <td> <input type="text" name="berat" ID="berat" /> </td>
+         </tr>
+         <tr>
+            <td  class="form-field-caption"> No Seal</td>
+            <td> : </td>
+            <td> <input type="text" name="no_seal" ID="no_seal" /></td> 
+            <td style="width:200px;">&nbsp;</td>
+            <td  class="form-field-caption"> Keterangan</td>
+            <td> : </td>
+            <td> <input type="text" name="keterangan" ID="keterangan" /></td>
+         </tr>
+        <tr align="center">
+        	<td colspan="7"><a class="link-button" onClick="addNewRow()"><img src='images/cont_addnew.gif' border="0"> Tambahkan Container </a>&nbsp;</td>
+        </tr>
+	</table>
+    
+    <div id="cont_list" style="margin: 10px 10px 10px 10px;">
+    
+    </div>
+    
+	</center>
+</fieldset>
+
+<script>
+function cekearly()
+{
+//	alert ("Undifined Result");
+		$NO_BOOKING = $("#NO_BOOKING").val();
+		$KD_PBM     = $("#KD_PELANGGAN").val();
+		$KD_PBM2    = $("#KD_PELANGGAN2").val(); 
+		$NO_UKK		= $("#NO_UKK").val();
+	if($NO_UKK != '' && $KD_PBM != '' && $KD_PBM2 != '' && $NO_BOOKING != '')
+	 {
+		$.post("{$HOME}<?=APPID?>/cekearly/",{"NO_BOOKING":$NO_BOOKING,"KD_PBM":$KD_PBM, "NO_UKK":$NO_UKK}, function(data){ 
+		//alert (data);
+		if( data == 'T' ){
+			$.blockUI({ message: '<div align=left style=font-size:15pt;font-weight:bold;color:red ><img src=\'images/cont_invalid.png\' align=absmiddle border=0> Closing Time Sudah Berakhir</div>' ,css: { 'left': '450px','margin-top': '100px', 'width': '350px', 'height': '40px', 'padding': '20px','align':'center' } });
+			$('.blockOverlay').attr('title','Klik untuk menutup').click($.unblockUI); 
+			setTimeout($.unblockUI, 2000); 
+			return false;
+				}else if( data == 'N' ){
+					$.blockUI({ message: '<div align=left style=font-size:15pt;font-weight:bold;color:red ><img src=\'images/cont_invalid.png\' align=absmiddle border=0> EMKL Tidak di izin kan Early Stacking!</div>' ,css: { 'left': '450px','margin-top': '100px', 'width': '350px', 'height': '40px', 'padding': '20px','align':'center' } });
+			$('.blockOverlay').attr('title','Klik untuk menutup').click($.unblockUI); 
+			setTimeout($.unblockUI, 2000); 
+			return false;				
+				}else if( data == 'Y' ){
+					$('#dataForm').submit();
+				}else {alert ("Undifined Result");}
+		});
+		}else if($NO_UKK == '' || $KD_PBM == '' || $KD_PBM2 == '')
+{
+	$.blockUI({ message: '<div align=left style=font-size:15pt;font-weight:bold;color:red ><img src=\'images/cont_invalid.png\' align=absmiddle border=0>Kapal dan EMKL Harus Diisi</div>' ,css: { 'left': '450px','margin-top': '100px', 'width': '350px', 'height': '40px', 'padding': '20px','align':'center' } });
+			$('.blockOverlay').attr('title','Klik untuk menutup').click($.unblockUI); 
+			setTimeout($.unblockUI, 2000); 
+			return false;
+}else if($NO_BOOKING == '')
+	 {
+	$.blockUI({ message: '<div align=left style=font-size:15pt;font-weight:bold;color:red ><img src=\'images/cont_invalid.png\' align=absmiddle border=0>Belum Booking Stack</div>' ,css: { 'left': '450px','margin-top': '100px', 'width': '350px', 'height': '40px', 'padding': '20px','align':'center' } });
+			$('.blockOverlay').attr('title','Klik untuk menutup').click($.unblockUI); 
+			setTimeout($.unblockUI, 2000); 
+			return false;
+	 }
+}
+
+function save(){
+ $("#dataForm").submit();
+}
+
+function set_status() 
+{
+	if($("#STATUS").val() == "EMPTY")
+	{
+              $('#HZ').val("N");
+		$('#via').val("darat");
+		$('#no_seal').val(" - ");
+		$('#komoditi').val(" - ");
+		$('#berat').val(" - ");
+		
+                
+	}
+	else
+	{
+		$('#via').val("darat");
+		$('#HZ').val("N");
+		
+	}
+}	
+
+$(function() {	
+	
+	$( "#NM_PELANGGAN" ).autocomplete({
+		minLength: 3,
+		source: "{$HOME}{$APPID}.auto/pbm",
+		focus: function( event, ui ) {
+			$( "#KD_PELANGGAN" ).val( ui.item.KD_PBM);
+			return false;
+		},
+		select: function( event, ui ) {
+			$( "#KD_PELANGGAN" ).val( ui.item.KD_PBM );
+			$( "#NM_PELANGGAN" ).val( ui.item.NM_PBM );
+			$( "#ALAMAT" ).val( ui.item.ALMT_PBM);
+			$( "#NPWP" ).val( ui.item.NO_NPWP_PBM );
+
+
+			return false;
+		}
+	})
+	.data( "autocomplete" )._renderItem = function( ul, item ) {
+		return $( "<li></li>" )
+			.data( "item.autocomplete", item )
+			.append( "<a>" + item.NM_PBM + "<br />" + item.ALMT_PBM + "</a>")
+			.appendTo( ul );
+	};    
+
+	$( "#NM_PELANGGAN2" ).autocomplete({
+		minLength: 3,
+		source: "{$HOME}{$APPID}.auto/pbm",
+		focus: function( event, ui ) {
+			$( "#KD_PELANGGAN2" ).val( ui.item.KD_PBM);
+			return false;
+		},
+		select: function( event, ui ) {
+			$( "#KD_PELANGGAN2" ).val( ui.item.KD_PBM );
+			$( "#NM_PELANGGAN2" ).val( ui.item.NM_PBM );
+			$( "#ALAMAT2" ).val( ui.item.ALMT_PBM);
+			$( "#NPWP2" ).val( ui.item.NO_NPWP_PBM );
+
+
+			return false;
+		}
+	})
+	.data( "autocomplete" )._renderItem = function( ul, item ) {
+		return $( "<li></li>" )
+			.data( "item.autocomplete", item )
+			.append( "<a>" + item.NM_PBM + "<br />" + item.ALMT_PBM + "</a>")
+			.appendTo( ul );
+	};   
+
+	
+	$( "#NM_PELABUHAN_ASAL" ).autocomplete({
+		minLength: 3,
+		source: "{$HOME}{$APPID}.auto/master_pelabuhan",
+		focus: function( event, ui ) {
+			$( "#NM_PELABUHAN_ASAL" ).val( ui.item.NM_PELABUHAN);
+			return false;
+		},
+		select: function( event, ui ) {
+			$( "#KD_PELABUHAN_ASAL" ).val( ui.item.KD_PELABUHAN );
+			$( "#NM_PELABUHAN_ASAL" ).val( ui.item.NM_PELABUHAN );
+
+
+			return false;
+		}
+	})
+	.data( "autocomplete" )._renderItem = function( ul, item ) {
+		return $( "<li></li>" )
+			.data( "item.autocomplete", item )
+			.append( "<a>" + item.KD_PELABUHAN + " | " + item.NM_PELABUHAN+ "</a>")
+			.appendTo( ul );
+	};   
+
+	$( "#NM_PELABUHAN_TUJUAN" ).autocomplete({
+		minLength: 3,
+		source: "{$HOME}{$APPID}.auto/master_pelabuhan",
+		focus: function(event, ui) {
+			$( "#NM_PELABUHAN_TUJUAN" ).val( ui.item.NM_PELABUHAN);
+			return false;
+		},
+		select: function(event, ui) {
+			$( "#KD_PELABUHAN_TUJUAN").val( ui.item.KD_PELABUHAN );
+			$( "#NM_PELABUHAN_TUJUAN").val( ui.item.NM_PELABUHAN );
+
+			return false;
+		}
+	})
+	.data( "autocomplete" )._renderItem = function( ul, item ) {
+		return $( "<li></li>" )
+			.data( "item.autocomplete", item )
+			.append( "<a>" + item.KD_PELABUHAN + " | " + item.NM_PELABUHAN+ "</a>")
+			.appendTo( ul );
+	};    
+
+	$( "#NM_KAPAL" ).autocomplete({
+		minLength: 3,
+		source: "{$HOME}{$APPID}.auto/master_vessel",
+		focus: function(event, ui) {
+			$( "#NM_KAPAL" ).val( ui.item.NM_KAPAL);
+			return false;
+		},
+		select: function(event, ui) {
+			$( "#KD_KAPAL").val( ui.item.KD_KAPAL);
+			$( "#NM_AGEN").val( ui.item.NM_AGEN);
+			$( "#KD_AGEN").val( ui.item.KD_AGEN);
+			$( "#NM_KAPAL").val( ui.item.NM_KAPAL);
+			$( "#VOYAGE_IN").val( ui.item.VOYAGE_IN);
+			$( "#VOYAGE_OUT").val( ui.item.VOYAGE_OUT);
+			$( "#NO_UKK").val( ui.item.NO_UKK);
+			$( "#NO_BOOKING").val( ui.item.NO_BOOKING);
+			$( "#TGL_BERANGKAT").val(ui.item.TGL_BERANGKAT)
+			$( "#TGL_STACKING").val(ui.item.TGL_STACKING)
+			$( "#TGL_MUAT").val(ui.item.TGL_MUAT)
+			return false;
+		}
+	})
+	.data( "autocomplete" )._renderItem = function( ul, item ) {
+		return $( "<li></li>" )
+			.data( "item.autocomplete", item )
+			.append( "<a>" + item.NM_KAPAL+ " | " + item.VOYAGE_IN+ "</a>")
+			.appendTo( ul );
+	};            
+	
+	 $( "#KOMODITI" ).autocomplete({
+		minLength: 3,
+		source: "{$HOME}{$APPID}.auto/komoditi",
+		focus: function(event, ui) {
+			$( "#KOMODITI" ).val( ui.item.NM_COMMODITY);
+			return false;
+		},
+		select: function(event, ui) {
+			$( "#KOMODITI").val( ui.item.NM_COMMODITY);
+			$( "#ID_KOMODITI").val( ui.item.KD_COMMODITY);
+			
+			return false;
+		}
+	})
+	.data( "autocomplete" )._renderItem = function( ul, item ) {
+		return $( "<li></li>" )
+			.data( "item.autocomplete", item )
+			.append( "<a>" + item.NM_COMMODITY+ "</a>")
+			.appendTo( ul );
+	};       
+     
+        $( "#NO_CONT" ).autocomplete({
+		minLength: 3,
+		source: "{$HOME}{$APPID}.auto/cont_delivery",
+		focus: function( event, ui ) {
+			$( "#NO_CONT" ).val( ui.item.NO_CONTAINER );
+			return false;
+		},
+		select: function( event, ui ) {
+			if(ui.item.NO_BOOKING != $("#NO_BOOKING").val()){
+				$.blockUI({ 
+					message: '<h1>Kapal tidak sesuai, Harap Melakukan batal muat terlebih dahulu!</h1>', 
+					timeout: 1000
+				});
+				$( "#NO_CONT" ).val( '' );
+			}
+			else {
+				$( "#NO_CONT" ).val( ui.item.NO_CONTAINER );
+				$( "#SIZE" ).val( ui.item.SIZE_);
+				$( "#TYPE" ).val( ui.item.TYPE_);
+				$( "#STATUS" ).val( ui.item.STATUS);
+				if(ui.item.STATUS == null){
+					$( "#STATUS" ).val('MTY');
+				}
+			}			
+			return false;
+		}
+	})
+	.data( "autocomplete" )._renderItem = function( ul, item ) {
+		return $( "<li style='text-align:left'></li>" )
+			.data( "item.autocomplete", item )
+			.append( "<a>" + item.NO_CONTAINER + " - "+item.NM_KAPAL+"<br/> "+item.SIZE_+" "+item.TYPE_+"</a>" )
+			.appendTo( ul );
+	};
+        
+        
+        
+	$("#cont_list").load('<?=HOME?><?=APPID?>/edit_cont_list?no_req={$row.NO_REQUEST}&no_req2={$no_req2} #list', function(data) {        	  
+	}); 	
+});
+function addNewRow() 
+{
+				var $nocont 	= $('#NO_CONT').val();
+				var $NO_UKK 	= $("#NO_CONT").val();
+				var $NO_BOOKING = $('#NO_BOOKING').val();
+				var $TYPE_NAME  = $('#TYPE').val();
+				var $JENIS   	= $('#STATUS').val();				
+				var $SIZE   	= $('#SIZE').val();
+
+		if($('#NO_CONT').val().length>=11)
+		{
+			$.post("{$HOME}<?=APPID?>/ceknocont/",{"NO_UKK" : $NO_UKK, "NO_CONTAINER" : $nocont ,"NO_BOOKING":$NO_BOOKING,"TYPE":$TYPE_NAME,"JENIS":$JENIS,"SIZE":$SIZE}, function(data){
+			if(data=='Y'){function add_cont()
+	{
+	var no_cont_        	= $("#NO_CONT").val();
+    var hz_                 = $("#HZ").val();
+	var no_req_				= $("#NO_REQUEST").val();
+	var no_req2_			= $("#NO_REQUEST2").val();
+	var status_				= $("#STATUS").val();
+    var komoditi_			= $("#KOMODITI").val();
+	var kd_komoditi_		= $("#ID_KOMODITI").val();
+    var keterangan_			= $("#keterangan").val();
+    var no_seal_			= $("#no_seal").val();
+    var berat_				= $("#berat").val();
+    var via_				= $("#via").val();
+	var size_				= $("#SIZE").val();
+	var tipe_				= $("#TYPE").val();
+	var no_booking_			= $("#NO_BOOKING").val();
+	var no_ukk_				= $("#NO_UKK").val();
+	var tgl_delivery		= $("#TGL_BERANGKAT").val();
+	var url					= "{$HOME}{$APPID}.ajax/add_cont_dev";
+	
+	$('#cont_list').html('<p align=center><img src={$HOME}images/loadingbox.gif /></p>');
+	
+	$.post(url,{KETERANGAN : keterangan_, NO_SEAL : no_seal_, BERAT : berat_, VIA : via_, KOMODITI: komoditi_, KD_KOMODITI: kd_komoditi_, NO_CONT: no_cont_, NO_REQ : no_req_, STATUS : status_, HZ : hz_, SIZE : size_, TIPE : tipe_, NO_BOOKING : no_booking_, NO_UKK : no_ukk_, NO_REQ2 : no_req2_, tgl_delivery : tgl_delivery},function(data){
+		console.log(data);
+		if(data == "NOT_EXIST")
+		{
+			alert("Container Belum Terdaftar");	
+		}
+		else if(data == "CLOSING_TIME")
+		{
+			alert("Masa Closing Time Sudah Habis, Silakan Lakukan Booking Stack Pada Kapal Lain");
+		}
+		else if(data == "OK")
+		{
+			alert("Berhasil Tambah Container");
+			$("#cont_list").load('<?=HOME?><?=APPID?>/edit_cont_list?no_req={$row.NO_REQUEST}&no_req2={$no_req2} #list', function(data) {        	  
+			}); 
+		}
+		else if(data == "BLM_PLACEMENT")
+		{
+				alert("Container Belum Placement");	
+		} 
+		else if(data == "SDH_REQUEST")
+		{
+				alert("Container Sudah Mengajukan Request Delivery");	
+		}
+			$("#NO_CONT").val('');
+			$("#HZ").val('');
+			$("#STATUS").val('');
+			$("#KOMODITI").val('');
+			$("#ID_KOMODITI").val('');
+			$("#keterangan").val('');
+			$("#no_seal").val('');
+			$("#berat").val('');
+			$("#via").val('');
+			$("#SIZE").val('');
+			$("#TYPE").val('');
+		
+		$("#cont_list").load('<?=HOME?><?=APPID?>/edit_cont_list?no_req={$row.NO_REQUEST}&no_req2={$no_req2} #list', function(data) {        	  
+		}); 
+	});	
+	//prosedur add comment disini, method $.post, include user id dan content id
+}}
+						else if(data=='T'){
+
+								//	$.blockUI({ message: '<h2>Container Dalam Proses Muat!</h2>' ,css: { 'color':'red' , 'height': '60px', 'margin-top': '100px', 'padding-top': '20px' } });
+
+									$.blockUI({ message: '<div align=left style=font-size:15pt;font-weight:bold;color:red ><img src=\'images/cont_invalid.png\' align=absmiddle border=0> Container Dalam Proses Muat!</div>' ,css: { 'left': '350px','margin-top': '100px', 'width': '550px', 'height': '40px', 'padding': '20px','align':'center' } });
+
+									$('.blockOverlay').attr('title','Klik untuk menutup').click($.unblockUI); 
+
+									setTimeout($.unblockUI, 2000); 
+
+							}
+							else if(data=='Z'){
+
+								//	$.blockUI({ message: '<h2>Container Dalam Proses Muat!</h2>' ,css: { 'color':'red' , 'height': '60px', 'margin-top': '100px', 'padding-top': '20px' } });
+
+									$.blockUI({ message: '<div align=left style=font-size:15pt;font-weight:bold;color:red ><img src=\'images/cont_invalid.png\' align=absmiddle border=0> Closing Time Dry/Reefer Sudah Habis!</div>' ,css: { 'left': '350px','margin-top': '100px', 'width': '550px', 'height': '40px', 'padding': '20px','align':'center' } });
+
+									$('.blockOverlay').attr('title','Klik untuk menutup').click($.unblockUI); 
+
+									setTimeout($.unblockUI, 3000); 
+
+							}else if(data=='X'){
+
+								//	$.blockUI({ message: '<h2>Container Dalam Proses Muat!</h2>' ,css: { 'color':'red' , 'height': '60px', 'margin-top': '100px', 'padding-top': '20px' } });
+
+									$.blockUI({ message: '<div align=left style=font-size:15pt;font-weight:bold;color:red ><img src=\'images/cont_invalid.png\' align=absmiddle border=0> Jumlah Booking Teus Sudah Habis!</div>' ,css: { 'left': '350px','margin-top': '100px', 'width': '550px', 'height': '40px', 'padding': '20px','align':'center' } });
+
+									$('.blockOverlay').attr('title','Klik untuk menutup').click($.unblockUI); 
+
+									setTimeout($.unblockUI, 2000); 
+
+							}
+											});
+		}
+}
+		/*
+function add_cont()
+{
+	var no_cont_        	= $("#NO_CONT").val();
+    var hz_                 = $("#HZ").val();
+	var no_req_				= $("#NO_REQUEST").val();
+	var no_req2_			= $("#NO_REQUEST2").val();
+	var status_				= $("#STATUS").val();
+    var komoditi_			= $("#KOMODITI").val();
+	var kd_komoditi_		= $("#ID_KOMODITI").val();
+    var keterangan_			= $("#keterangan").val();
+    var no_seal_			= $("#no_seal").val();
+    var berat_				= $("#berat").val();
+    var via_				= $("#via").val();
+	var size_				= $("#SIZE").val();
+	var tipe_				= $("#TYPE").val();
+	var no_booking_			= $("#NO_BOOKING").val();
+	var no_ukk_				= $("#NO_UKK").val();
+	var tgl_delivery		= $("#TGL_BERANGKAT").val();
+	var url					= "{$HOME}{$APPID}.ajax/add_cont_dev";
+	
+	$('#cont_list').html('<p align=center><img src={$HOME}images/loadingbox.gif /></p>');
+	
+	$.post(url,{KETERANGAN : keterangan_, NO_SEAL : no_seal_, BERAT : berat_, VIA : via_, KOMODITI: komoditi_, KD_KOMODITI: kd_komoditi_, NO_CONT: no_cont_, NO_REQ : no_req_, STATUS : status_, HZ : hz_, SIZE : size_, TIPE : tipe_, NO_BOOKING : no_booking_, NO_UKK : no_ukk_, NO_REQ2 : no_req2_, tgl_delivery : tgl_delivery},function(data){
+		console.log(data);
+		if(data == "NOT_EXIST")
+		{
+			alert("Container Belum Terdaftar");	
+		}
+		else if(data == "CLOSING_TIME")
+		{
+			alert("Masa Closing Time Sudah Habis, Silakan Lakukan Booking Stack Pada Kapal Lain");
+		}
+		else if(data == "OK")
+		{
+			alert("Berhasil Tambah Container");
+			$("#cont_list").load('<?=HOME?><?=APPID?>/edit_cont_list?no_req={$row.NO_REQUEST}&no_req2={$no_req2} #list', function(data) {        	  
+			}); 
+		}
+		else if(data == "BLM_PLACEMENT")
+		{
+				alert("Container Belum Placement");	
+		} 
+		else if(data == "SDH_REQUEST")
+		{
+				alert("Container Sudah Mengajukan Request Delivery");	
+		}
+			$("#NO_CONT").val('');
+			$("#HZ").val('');
+			$("#STATUS").val('');
+			$("#KOMODITI").val('');
+			$("#ID_KOMODITI").val('');
+			$("#keterangan").val('');
+			$("#no_seal").val('');
+			$("#berat").val('');
+			$("#via").val('');
+			$("#SIZE").val('');
+			$("#TYPE").val('');
+		
+		$("#cont_list").load('<?=HOME?><?=APPID?>/edit_cont_list?no_req={$row.NO_REQUEST}&no_req2={$no_req2} #list', function(data) {        	  
+		}); 
+	});	
+	//prosedur add comment disini, method $.post, include user id dan content id
+}
+*/
+function del_cont($no_cont)
+{
+	var no_req_		= "{$row.NO_REQUEST}";//$("#NO_REQUEST").val(); 
+	var url			= "{$HOME}{$APPID}.ajax/del_cont";
+	
+	$('#cont_list').html('<p align=center><img src={$HOME}images/loadingbox.gif /></p>');
+	$.post(url,{NO_CONT: $no_cont, NO_REQ : no_req_},function(data){
+		console.log(data);
+		if(data == "OK")
+		{
+			$("#cont_list").load('<?=HOME?><?=APPID?>/edit_cont_list?no_req={$row.NO_REQUEST}&no_req2={$no_req2} #list', function(data) {        	  
+			}); 
+		}
+		else
+		{
+			$("#cont_list").load('<?=HOME?><?=APPID?>/edit_cont_list?no_req={$row.NO_REQUEST}&no_req2={$no_req2} #list', function(data) {        	  
+			}); 		
+		}
+	});	
+}
+
+</script>

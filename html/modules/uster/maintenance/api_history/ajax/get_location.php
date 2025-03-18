@@ -1,0 +1,1 @@
+<?php$no_cont = $_POST["NO_CONT"];$db = getDB("storage");$query = $db->query("SELECT LOCATION FROM MASTER_CONTAINER WHERE NO_CONTAINER = '$no_cont'");$result = $query->fetchRow();$location = $result["LOCATION"];echo $location;exit();?>

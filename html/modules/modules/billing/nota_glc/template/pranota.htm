@@ -1,0 +1,64 @@
+<style>
+.content{
+	width:95%;
+	margin-left:auto;
+	margin-right:auto;
+	margin-bottom: 10px;
+	margin-top:20px;
+}
+.main_side{
+	width:100%;
+	float:left;
+	text-align:left;
+}
+</style>
+
+<script type="text/javascript">
+jQuery(function() {
+ jQuery("#r_nota_glc").jqGrid({
+	url:'<?=HOME?>datanya/data?q=r_nota_glc&template=false',
+	mtype : "post",
+	datatype: "json",
+	colNames:['REQUEST','PBM','NO UPER B/M','TGL KEGIATAN','VESSEL / VOYAGE','ALAT','STATUS','CETAK'], 
+	colModel:[
+		{name:'id_req',index:'id_req', width:100, align:"center"},
+		{name:'pbm',index:'pbm', width:200, align:"center"},		
+		{name:'no_uper',index:'no_uper', width:120, align:"center"},
+		{name:'tgl_kegiatan',index:'tgl_kegiatan', width:230, align:"center"},
+		{name:'vessel',index:'vessel', width:200, align:"center"},
+		{name:'alat',index:'alat', width:200, align:"center"},
+		{name:'status',index:'status', width:80, align:"center"},
+		{name:'cetak',index:'cetak', width:120, align:"center",sortable:false,search:false}
+	],
+	rowNum:10,
+	width: 865,
+	height: 300,//250
+
+	rowList:[10,20,30,40,50,60],
+	loadonce:true,
+	rownumbers: true,
+	rownumWidth: 15,
+	gridview: true,
+	pager: '#pg_r_nota_glc',
+	viewrecords: true,
+	shrinkToFit: false,
+	caption:"Data Sewa GLC"
+ });
+  jQuery("#r_nota_glc").jqGrid('navGrid','#pg_r_nota_glc',{del:false,add:false,edit:false,search:false}); 
+ jQuery("#r_nota_glc").jqGrid('filterToolbar',{stringResult: true,searchOnEnter : false});
+ 
+});
+</script>
+
+<div class="content">
+	<div class="main_side">
+	<h2><span class="graybrown">
+    	<img class="icon" border="0" src="images/cetak.png" />
+        &nbsp;<font color="#0378C6">Pranota</font> GLC
+        </span></h2>	
+	<p><br/></p>
+    <table id='r_nota_glc' width="100%"></table> <div id='pg_r_nota_glc'></div>
+	<br/>
+	<br/>
+	</div>
+</div>

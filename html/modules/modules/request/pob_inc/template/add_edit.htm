@@ -1,0 +1,185 @@
+<style>
+.content{
+	width:95%;
+	margin-left:auto;
+	margin-right:auto;
+	margin-bottom: 10px;
+	margin-top:20px;
+}
+.main_side{
+	width:100%;
+	float:left;
+	text-align:left;
+}
+</style>
+
+<!--javascript datepicker-->
+<script>
+	$(function() {
+		$( "#datepicker" ).datepicker({
+			showOn: "button",
+			buttonImage: "images/cal.gif",
+			buttonImageOnly: true
+		});
+	});
+</script>
+<!----------end------------->
+
+<!--javascript autocomplete nomor stok-->
+<script>
+  $(function() {	
+	 $( "#STOK" ).autocomplete({
+      minLength: 1,
+      source: "{$HOME}request.pob_inc.autocomplete/stok",
+		  focus: function( event, ui ) {
+			$( "#STOK" ).val( ui.item.NM_PBM );
+			return false;
+		  },
+		  select: function( event, ui ) {
+			$( "#STOK" ).val( ui.item.NO_STOK );
+			$( "#TGL_STOK" ).val( ui.item.TGL_STOK );
+			$( "#PERIODE" ).val( ui.item.PERIODE );
+			$( "#SERIX" ).val( ui.item.NO_SERIX );
+			$( "#SERIY" ).val( ui.item.NO_SERIY );
+			$( "#LEMBAR" ).val( ui.item.JUMLAH_LEMBAR );
+			return false;
+		  }
+	 })
+	.data( "autocomplete" )._renderItem = function( ul, item ) {
+		return $( "<li></li>" )
+			.data( "item.autocomplete", item )
+			.append( "<a>" + item.NO_STOK + "</a>" )
+			.appendTo( ul );
+	};
+});
+</script>
+<!----------end------------->
+
+<!--javascript untuk perkalian pas-->
+<script type="text/javascript">
+  function hitung()
+  {
+    var lembar = eval(document.form1.LEMBAR.value);
+    var total = eval(document.form1.TOTAL.value);
+    var ppn = eval(document.form1.PPN.value);
+    var pendapatan;
+    
+    total = lembar * 11000;
+    ppn = total * 0.1;
+    pendapatan = total + ppn;
+    
+    document.form1.TOTAL.value = total;
+    document.form1.PPN.value = ppn;
+    document.form1.PENDAPATAN.value = pendapatan;
+  }
+</script>
+<!----------end------------->
+
+<script type="text/javascript">
+function isNumberKey(evt)
+{
+	var charCode = (evt.which) ? evt.which : event.keyCode;
+	if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+		if(charCode=="46" || charCode=="110")	return true;
+		else	return false;
+	}	
+	return true;
+}
+</script>
+
+
+
+<div class="content">
+<div class="main_side">
+
+<block name='form'><span class="graybrown"><img border="0" width="50" height="50" src="images/money4.png" /><font color=#FF9900><b>{$formtitle}</b></font>&nbsp;<font color=#0378C6>PAS OVER BAGASI</font></span>
+<br/>
+<form id="dataForm" action="{$formurl}" method=POST name="form1"><!--nama form autoSumForm dari javascript-->
+<div class="form-fieldset" style="margin: 15px 0px 0px 0px ">
+<table width="" border="0" style="padding: 5px 5px">
+    
+    <block visible="error">
+        <tr>
+          <td colspan="2"> Invalid Form Entry </td>
+        </tr>
+    </block>
+
+		<tr>
+			<td><b>Nomor Request Stok</b></td>
+			<td>&nbsp;&nbsp;:&nbsp;&nbsp;</td>
+      <td colspan="2"><input type="text" id="STOK" name="STOK" style="background-color:#FFFF99;" placeholder="AUTOCOMPLETE"/>&nbsp;
+          <img border="0" width="18" height="18" src="images/find.gif" />
+      </td>
+      <td></td>
+      <td colspan="3"><b>Perhitungan Pendapatan</b></td>
+		</tr>
+		<tr>
+			<td><b>Tanggal Stok</b></td>
+			<td>&nbsp;&nbsp;:&nbsp;&nbsp;</td>
+      <td><input type="text" id="TGL_STOK" name="TGL_STOK" style="background-color:#FFFF99;" readonly="readonly"/></td>
+      <td></td>
+      <td width="50"></td>
+      <td><b>Total</b></td>
+      <td>:</td>
+      <td><input type="text" id="TOTAL" name="TOTAL" style="background-color:#66FF66; text-align:right" readonly="readonly"/></td>
+		</tr>
+		<tr>
+			<td><b>Periode</b></td>			
+			<td>&nbsp;&nbsp;:&nbsp;&nbsp;</td>
+      <td><input type="text"  id="PERIODE" name="PERIODE" style="background-color:#FFFF99;" readonly="readonly" size="5"/></td>
+      <td></td>
+      <td width="50"></td>
+      <td><b>PPN 10%</b></td>
+       <td>:</td>
+      <td><input type="text"  id="PPN" name="PPN" style="background-color:#66FF66; text-align:right" readonly="readonly"/></td>
+		</tr>
+		<tr>
+			<td><b>No Seri</b></td>			
+			<td>&nbsp;&nbsp;:&nbsp;&nbsp;</td>
+      <td><input type="text"  id="SERIX" name="SERIX" style="background-color:#FFFF99;" readonly="readonly"/> s/d </td>
+      <td><input type="text"  id="SERIY" name="SERIY" style="background-color:#FFFF99;" readonly="readonly"/></td>
+      <td width="50"></td>
+      <td><b>Pendapatan</b></td>
+       <td>:</td>
+      <td><input type="text"  id="PENDAPATAN" name="PENDAPATAN" style="background-color:#66FF66; text-align:right" readonly="readonly"/></td>
+		</tr>
+    <tr>
+			<td><b>Jumlah Lembar</b></td>
+			<td>&nbsp;&nbsp;:&nbsp;&nbsp;</td>
+      <td><input type="text" id="LEMBAR" name="LEMBAR" style="background-color:#FFFF99" readonly="readonly" size="5" onFocus="startCalc();" onBlur="stopCalc();"/> lembar</td>
+		   <td></td>
+      <td width="50"></td>
+      <td><input type="button" value="Hitung" onClick="hitung()" /></td>
+    </tr>
+			<tr>
+			<td><b>Tanggal Pendapatan</b></td>
+			<td>&nbsp;&nbsp;:&nbsp;&nbsp;</td>
+      <td><input type="text" id="datepicker" name="TGL" style="background-color:#FFCCFF;"/></td>
+		</tr>
+		<tr>
+			<td><b>Keterangan</b></td>
+			<td>&nbsp;&nbsp;:&nbsp;&nbsp;</td>
+      <td colspan="2"><input type="text" size="50" name="KETERANGAN" style="background-color:#FFCCFF;"/></td>
+		</tr>
+</table>
+</div>
+
+<p class="form-footer">
+        <a id="submitForm" onclick="submitForm('dataForm')" class="link-button"> 
+            <img src='images/valid.png' border='0' /> &nbsp;Simpan </a> &nbsp;&nbsp; 
+          <a id="resetForm" onclick="resetForm('dataForm')" class="link-button"> 
+            <img src='images/reset.png' border='0' /> &nbsp;Reset </a> &nbsp;&nbsp; 
+          <a id="cancelForm" onclick="cancelForm('dataForm')" class="link-button"> 
+            <img src='images/batal.png' border='0' /> &nbsp;Batal </a> 
+</p>
+</form>
+<br/>
+
+</block>
+
+<block name='nodata'>
+  <div class='form-nodata'> No Data Match </div>
+</block>
+
+</div>
+</div>

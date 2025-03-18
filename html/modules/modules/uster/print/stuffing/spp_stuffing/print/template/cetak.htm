@@ -1,0 +1,287 @@
+<style>
+
+body { margin:0px; padding-top:10px; width:100%; height:100%; font-family:Arial}
+
+.style1 {
+
+	font-size: 18px;
+
+	font-weight: bold;
+
+}
+
+</style>
+
+
+
+<fill src="row_list" var="row">
+
+<div style="width:767px; height:487px; border:1px solid  #FFF">   
+
+<table border="0px" width="100%" height="460" cellpadding="0"  cellspacing="0" style="margin-left:0px; margin-top:0px; margin-bottom:15px; font-size:12px">
+
+  <tr> 
+
+    <td width="15%" height="70">&nbsp;</td>
+
+    <td width="41%">&nbsp;</td>
+
+    <td width="12%" align="right" valign="top">&nbsp;</td>
+
+    <td width="22%" align="left" valign="top"> No SPPS : {$row.NO_REQUEST}</td>
+
+    <td width="14%" valign="top">
+
+      <p>
+
+        <p2> &nbsp</p2>
+
+      </p>
+
+      <p> &nbsp </p></td>
+
+  <!--
+
+  <tr>
+
+    <td>&nbsp;</td>
+
+    <td>&nbsp;</td>
+
+    <td>&nbsp;</td>
+
+    <td>&nbsp;</td>
+
+    <td>{$row.KD_UPER_LUNAS}</td>
+
+  </tr>
+
+  -->
+
+  <tr>
+
+    <td height="18">&nbsp;</td>
+
+    <td>&nbsp;</td>
+
+    <td>&nbsp;</td>
+
+    <td><?
+
+				//if ($row['PP']=='2'){
+
+					//echo "#PERPANJANGAN#";
+
+				//}
+
+			?>
+			
+			<?php if($row["STATUS_REQ"] == 'PERP') { ?>
+			#PERPANJANGAN# 
+			 <?php }?></td>
+
+    <td>&nbsp;</td>
+
+  </tr>
+
+  <tr>
+
+    <td height="41" colspan="5" align="right"><span style="padding-right:30px; font-size:24px"></span></td>
+
+
+
+  <tr>
+
+    <td width="15%" height="20">&nbsp;</td>
+
+    <td valign="top"><b style="font-size:24px">{$row.NO_CONTAINER}</b></td>
+
+    <td>&nbsp;</td>
+
+    <td valign="top"><span class="style1">USTER IPC</span></td>
+
+    <td>&nbsp;</td>
+
+  </tr>
+
+  <tr>
+
+    <td height="1">&nbsp;</td>
+
+    <td>{$row.SIZE_} / MTY</td>
+
+    <td colspan="2" align="right"><img alt="testing" src="{$HOME}lib/barcode.php?text=<?php echo $row[NO_CONTAINER] ?>&size=35" /></td>
+
+    <td>&nbsp;</td>
+
+  </tr>
+
+  <tr>
+
+    <td height="6">&nbsp;</td>
+
+    <td>{$row.NM_KAPAL}/{$row.VOYAGE}</td>
+
+    <td>&nbsp;</td>
+
+    <td></td>
+
+    <td>&nbsp;</td>
+
+  </tr>
+
+  <tr>
+
+    <td height="6">&nbsp;</td>
+
+    <td>{$row.EMKL}</td>
+
+    <td>&nbsp;</td>
+
+    <td> &nbsp <?php if($row["STATUS_REQ"] == 'PERP') { ?> {$row.TGL_AKHIR} <?php } else { ?>{$row.TGL_AWAL}<?php } ?></td>
+
+    <td>&nbsp;</td>
+
+    </tr>
+
+  <tr>
+
+    <td height="6">&nbsp;</td>
+
+    <td ><strong style="font:14px"><span class="style1">{$row.BLOK_TPK}</span> {$row.ROW_TPK}-{$row.SLOT_TPK}-{$row.TIER_TPK}</strong></td>
+
+    <td>&nbsp;</td>
+
+    <td><?php if($row["STATUS_REQ"] == 'PERP') { ?> {$row.END_STACK_PNKN} <?php } else { ?>{$row.TGL_AKHIR}<?php } ?> </td>
+
+    <td>&nbsp;</td>
+    </tr>
+
+  <tr>	
+
+    <td height="1">&nbsp;</td>
+
+    <td >{$row.EMKL}</td>
+
+	<td>&nbsp;</td>
+
+    <td colspan="2"></td>
+
+
+
+    </tr>
+
+  <tr>
+
+    <td height="1">&nbsp;</td>
+
+    <td >........ / ......... - ......... - ......... </td>
+
+	<td>&nbsp;</td>
+
+    <td ></td>
+
+  </tr>
+
+   <tr>
+
+    <td height="1">&nbsp;</td>
+
+    <td ><strong>STUFFING {$row.TYPE_STUFFING}</strong></td>
+
+	<td>&nbsp;</td>
+
+    <td >&nbsp;</td>
+
+  </tr>
+
+  <tr>
+
+    <td height="1">&nbsp;</td>
+
+    <td >STUFFING DARI : {$row.ASAL_CONT}</td>
+
+	<td>&nbsp;</td>
+
+    <td > </td>
+
+  </tr>
+
+  <tr>
+
+    <td height="1"></td>
+
+    <td>user print SPPS : {$name}</td>
+
+    <td>&nbsp;</td>
+
+    <td colspan="2" style="padding-left:15px"></td>
+
+    </tr>
+	<tr>
+
+    <td height="1"></td>
+
+    <td></td>
+
+    <td>&nbsp;</td>
+
+    <td colspan="2" style="padding-left:15px">&nbsp;<?=date('d M Y')?></td>
+
+    </tr>
+
+ <!--  <tr>
+
+    <td height="29">&nbsp;</td>
+
+    <td>&nbsp;</td>
+
+    <td>&nbsp;</td>
+
+    <td><span style="padding-left:15px">&nbsp;SUWANDA</span></td>
+
+    <td>&nbsp;</td>
+
+  </tr> -->
+
+  <!--<tr>
+
+    <td height="59">&nbsp;</td>
+
+    <td>&nbsp;</td>
+
+    <td>&nbsp;</td>
+
+    <td colspan="2" style="padding-left:15px">&nbsp;</td>
+
+    </tr>-->
+
+</table>
+
+
+
+<!-- END DATA -->
+
+</td>
+
+</tr> 
+
+</table>  
+
+</div>
+
+
+
+<?php if(($__ctr%2)==0):?>
+
+<div style=" margin-top:-12px;"></div>
+
+<?php endif;?>
+<?php if(($__ctr%2)!=0):?>
+<div style=" margin-top:10px;"></div>
+
+<?php endif;?>
+
+ 
+
+</fill> 

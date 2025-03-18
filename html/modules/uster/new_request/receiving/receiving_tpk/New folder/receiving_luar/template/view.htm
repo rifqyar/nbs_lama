@@ -1,0 +1,202 @@
+
+ 
+<div class="form-fieldset" style="margin: 5px 5px 5px 5px">
+	<h2> Request Receiving</h2>
+</div>
+
+
+<fieldset class="form-fieldset" style="margin: 5px 5px 5px 5px; ">
+<form action="<?=HOME?><?=APPID?>/add_edit" method="POST">
+	<center>
+    <table style="margin: 30px 30px 30px 30px;" >
+    	<tr>
+        	<td>Nomor Request</td>
+            <td> : </td>
+            <td> <input type="text" name="NO_REQ" value="{$row_request.NO_REQUEST}" readonly="readonly" /> </td>
+    	</tr>
+    	<tr>
+        	<td>E.M.K.L</td>
+            <td> : </td>
+            <td> <input type="text" name="EMKL" id="EMKL" placeholder="{$row_request.NAMA_EMKL}"/> <input type="hidden" name="ID_EMKL" id="ID_EMKL" /> </td>
+    	</tr>
+        <tr>
+       		<td>Penumpukan Empty Oleh</td>
+            <td> : </td>
+            <td> <input type="text" name="PNMT" id="PNMT" placeholder="{$row_request.NAMA_PNMT}"/> <input type="hidden" name="ID_PNMT" id="ID_PNMT"/></td>
+        </tr>
+         <tr>
+       		<td>Keterangan</td>
+            <td> : </td>
+            <td> <input type="text" name="keterangan" style="width:250px" value="{$row_request.KETERANGAN}"/></td>
+        </tr>
+        <tr>
+        	<td colspan="3"> <input type="submit" value=" Simpan Hasil Edit "/></td>
+        </tr>
+	</table>
+    </center>
+</form>
+</fieldset>
+
+<fieldset class="form-fieldset" style="margin: 5px 5px 5px 5px; ">
+	<center>
+    <table style="margin: 30px 30px 30px 30px;border:thin groove;"  >
+    	<tr>
+        	<td> Nomor Container </td>
+            <td> : </td>
+            <td> <input type="text" name="NO_CONT" ID="NO_CONT" /> </td>
+            <td style="width:200px;">&nbsp;</td>
+            <td> Ukuran </td>
+            <td> : </td>
+            <td> <input type="text" name="SIZE" ID="SIZE" /> </td>
+        </tr>
+        <tr>
+        	<td> Status </td>
+            <td> : </td>
+            <td> <select name="STATUS" id="STATUS">
+				<option value="">--</option>
+				<option value="FULL">FULL</option>
+				<option value="EMPTY">EMPTY</option> </select></td>
+        	<td style="width:200px;">&nbsp;</td>
+            <td> Type </td>
+            <td> : </td>
+            <td> <input type="text" name="TIPE" ID="TYPE" /> </td>
+        </tr>
+		<tr>
+        	<td> Berbahaya </td>
+            <td> : </td>
+            <td> <select name="BERBAHAYA" id="BERBAHAYA">
+				<option value="">--</option>
+				<option value="YA">YA</option>
+				<option value="TIDAK">TIDAK</option> </select></td>
+        	<td style="width:200px;">&nbsp;</td>
+            <td>  </td>
+            <td>  </td>
+            <td> </td>
+        </tr>
+        <tr align="center">
+        	<td colspan="7"><input type="button" value=" Tambahkan Container " onClick="add_cont()"/></td>
+        </tr>
+	</table>
+    
+    <div id="cont_list" style="margin: 10px 10px 10px 10px; border:thin inset">
+    
+    </div>
+    
+	</center>
+</fieldset>
+
+<script>
+
+$(function() {	
+	$( "#EMKL" ).autocomplete({
+		minLength: 3,
+		source: "{$HOME}{$APPID}.auto/pbm",
+		focus: function( event, ui ) {
+			$( "#EMKL" ).val( ui.item.NAMA );
+			return false;
+		},
+		select: function( event, ui ) {
+			$( "#EMKL" ).val( ui.item.NAMA );
+			$( "#ID_EMKL" ).val( ui.item.ID );
+			return false;
+		}
+	})
+	.data( "autocomplete" )._renderItem = function( ul, item ) {
+		return $( "<li></li>" )
+			.data( "item.autocomplete", item )
+			.append( "<a>" + item.NAMA + "</a>" )
+			.appendTo( ul );
+	};
+	
+	$( "#PNMT" ).autocomplete({
+		minLength: 3,
+		source: "{$HOME}{$APPID}.auto/pbm",
+		focus: function( event, ui ) {
+			$( "#PNMT" ).val( ui.item.NAMA );
+			return false;
+		},
+		select: function( event, ui ) {
+			$( "#PNMT" ).val( ui.item.NAMA );
+			$( "#ID_PNMT" ).val( ui.item.ID );
+			return false;
+		}
+	})
+	.data( "autocomplete" )._renderItem = function( ul, item ) {
+		return $( "<li></li>" )
+			.data( "item.autocomplete", item )
+			.append( "<a>" + item.NAMA + "</a>" )
+			.appendTo( ul );
+	};
+	
+	$( "#NO_CONT" ).autocomplete({
+		minLength: 3,
+		source: "{$HOME}{$APPID}.auto/container",
+		focus: function( event, ui ) {
+			$( "#NO_CONT" ).val( ui.item.NO_CONTAINER );
+			return false;
+		},
+		select: function( event, ui ) {
+			$( "#NO_CONT" ).val( ui.item.NO_CONTAINER );
+			$( "#SIZE" ).val( ui.item.SIZE_);
+			$( "#TYPE" ).val( ui.item.TYPE_);
+			return false;
+		}
+	})
+	.data( "autocomplete" )._renderItem = function( ul, item ) {
+		return $( "<li style='text-align:left'></li>" )
+			.data( "item.autocomplete", item )
+			.append( "<a>" + item.NO_CONTAINER + "<br/> "+item.SIZE_+" "+item.TYPE_+"</a>" )
+			.appendTo( ul );
+	};
+	
+	$("#cont_list").load('<?=HOME?><?=APPID?>/cont_list?no_req={$row_request.NO_REQUEST} #list', function(data) {        	  
+	}); 	
+});
+
+function add_cont()
+{
+	var no_cont_	= $("#NO_CONT").val();
+	var no_req_		= "{$row_request.NO_REQUEST}";
+	var status_		= $("#STATUS").val();
+	var berbahaya_	= $("#BERBAHAYA").val();
+	var url			= "{$HOME}{$APPID}.ajax/add_cont";
+	
+	
+	$.post(url,{NO_CONT: no_cont_, NO_REQ : no_req_, STATUS : status_, BERBAHAYA : berbahaya_},function(data){
+		console.log(data);
+		if(data == "EXIST" )
+		{
+			alert("Container Sudah Terdaftar");	
+		}
+		else if(data == "STATUS")
+		{
+			alert("Status belum diisi")
+		}
+		else if(data == "BERBAHAYA")
+		{
+			alert("Status Berbahaya belum diisi")
+		}
+		else if(data == "OK")
+		{
+			$("#cont_list").load('<?=HOME?><?=APPID?>/cont_list?no_req={$row_request.NO_REQUEST} #list', function(data) {        	  
+			}); 	
+		}
+	});	
+	//prosedur add comment disini, method $.post, include user id dan content id
+}
+
+function del_cont($no_cont)
+{
+	var no_req_		= "{$row_request.NO_REQUEST}";
+	var url			= "{$HOME}{$APPID}.ajax/del_cont";
+	
+	$.post(url,{NO_CONT: $no_cont, NO_REQ : no_req_},function(data){
+		console.log(data);
+		if(data == "OK")
+		{
+			$("#cont_list").load('<?=HOME?><?=APPID?>/cont_list?no_req={$row_request.NO_REQUEST} #list', function(data) {        	  
+			}); 	
+		}
+	});	
+}
+</script>

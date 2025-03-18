@@ -1,0 +1,95 @@
+<? if($status_form=="req")
+   {	
+    ?>
+<div id="workingtime_list">
+<br/>
+<table id="dataTable" border="1" bordercolor="#4D5A77" width=80% style="border-collapse:collapse">
+	  <tr>
+		<th style="background-color:#607095" width="30" height="30">NO</th>
+        <th style="background-color:#607095" width="50">ALAT</th>
+		<th style="background-color:#607095" width="80">MULAI KERJA</th>
+		<th style="background-color:#607095" width="80">SELESAI KERJA</th>
+		<th style="background-color:#607095" width="80">ESTIMASI SHIFT</th>
+        <th style="background-color:#607095" width="40">DELETE</th>
+     </tr>
+    <? $i=1; ?>
+	<fill src="hasil_detail" var="hasil_details">	 
+		<tr>  
+        	<td align="center" bgcolor="#FAFAFA" height="30">{$i}</td> 
+            <td align="center" bgcolor="#FAFAFA">{$hasil_details.ID_ALAT}</td>
+			<td align="center" bgcolor="#FAFAFA">{$hasil_details.MULAI}</td>
+			<td align="center" bgcolor="#FAFAFA">{$hasil_details.SELESAI}</td>
+            <td align="center" bgcolor="#FAFAFA">{$hasil_details.SHIFT}</td>
+			<td align="center" bgcolor="#FAFAFA"><input type="button" onclick="del_alat('{$hasil_details.ID_DETAILS}','{$status_form}')" value="Hapus" name="Hapus"/></td>
+		</tr>
+     <? $i++; ?>
+	</fill>
+	</table>
+	<br/>
+</div>
+	
+	<? 
+	}
+	else if($status_form=="realisasi")
+    {
+    ?>
+    
+<div id="workingtime_list">
+<br/>
+<table id="dataTable" border="1" bordercolor="#4D5A77" width=80% style="border-collapse:collapse">
+	  <tr>
+		<th style="background-color:#607095" width="30" height="30">NO</th>
+        <th style="background-color:#607095" width="50">ALAT</th>       
+		<th style="background-color:#607095" width="150">MULAI KERJA</th>
+		<th style="background-color:#607095" width="150">SELESAI KERJA</th>
+		<th style="background-color:#607095" width="50">STAT</th>
+		<th style="background-color:#607095" width="180">KETERANGAN</th>
+		<th style="background-color:#607095" width="70">BOX/TON</th>
+		<th style="background-color:#607095" width="70">PROD</th>
+        <th style="background-color:#607095" width="60">DELETE</th>
+     </tr>
+     <? $i=0; ?>
+	<fill src="hasil_detail" var="hasil_details">
+		<tr>  
+        	<td align="center" bgcolor="#FAFAFA" height="30"><?=$i+1;?></td> 
+            <td align="center" bgcolor="#FAFAFA">{$hasil_details.ID_ALAT}</td>            
+            <td align="center" bgcolor="#FAFAFA">{$hasil_details.MULAI}</td>
+			<td align="center" bgcolor="#FAFAFA">{$hasil_details.SELESAI}</td>
+			<td align="center" bgcolor="#FAFAFA">{$glc_stat.$i}</td>
+			<td align="center" bgcolor="#FAFAFA">{$hasil_details.KETERANGAN}</td>
+			<td align="center" bgcolor="#FAFAFA">{$jml_prod.$i}</td>
+			<td align="center" bgcolor="#FAFAFA"><? if(($glc_stat[$i]=="OK")&&($hasil_details['STAT_TIME']=="WORKING")) { ?> <input type="button" onclick="insert_prod('{$hasil_details.ID_REQ}','{$hasil_details.ID_DETAILS}')" value="Insert" name="Insert"/> <? } else { ?> - <? } ?></td>
+			<td align="center" bgcolor="#FAFAFA"><input type="button" onclick="del_alat('{$hasil_details.ID_DETAILS}','{$status_form}')" value="Hapus" name="Hapus"/></td>
+		</tr>
+	<? $i++; ?>
+	</fill>
+	</table>
+	<br/>
+</div>
+<? }
+	else if($status_form=="view")
+    {
+	?>
+	
+<div id="workingtime_list">
+<br/>
+<table id="dataTable" border="1" bordercolor="#4D5A77" width=80% style="border-collapse:collapse">
+	  <tr>
+		<th style="background-color:#607095" width="30" height="30">NO</th>
+        <th style="background-color:#607095" width="80">ALAT</th>       
+		<th style="background-color:#607095" width="80">START WORK</th>
+		<th style="background-color:#607095" width="80">END WORK</th>
+        <th style="background-color:#607095" width="60">TOTAL SHIFT</th>
+     </tr>	 
+		<tr>  
+        	<td align="center" bgcolor="#FAFAFA" height="30">1</td> 
+            <td align="center" bgcolor="#FAFAFA">{$glc}</td>            
+            <td align="center" bgcolor="#FAFAFA">{$strt}</td>
+			<td align="center" bgcolor="#FAFAFA">{$end}</td>
+			<td align="center" bgcolor="#FAFAFA"><? if($shift!="-") { echo number_format($shift,2); } else { echo "-"; }?></td>
+		</tr>
+	</table>
+	<br/>
+</div>
+	
+<? } ?>

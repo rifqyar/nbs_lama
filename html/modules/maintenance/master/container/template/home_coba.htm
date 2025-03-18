@@ -1,0 +1,49 @@
+<style>
+.content{
+	width:95%;
+	margin-left:auto;
+	margin-right:auto;
+	margin-bottom: 10px;
+	margin-top:20px;
+}
+.main_side{
+	width:100%;
+	float:left;
+	text-align:left;
+}
+.rightside{ 
+	width:25%;
+	float:right;
+	text-align:center;
+}
+
+.tabss{
+	margin-top: 20px;
+}
+</style>
+
+<div class="content">
+	<div class="main_side">
+	<h2>MASTER CONTAINER</h2>
+	<br/>
+	<form method="POST" action="<?=HOME?>maintenance.container/add_master">
+	<input type="submit" value="Tambah Master" class="link-button"/>
+	</form>
+	<br/>
+	<table border="1" width=50%>
+		<th>ID</th>
+		<th>SIZE/TYPE/STATUS</th>
+		<th>ACTION</th>
+		<fill src="master" var="coba">
+		<tr>
+			<td align="center">{$coba.ID_CONT}</td>
+			<td align="center"><? $v = list_requestSP2($coba["ID_CONT"]); ?>
+				{$v.SIZE}/{$v.TYPE}/{$v.STATUS}</td>
+		    <td align="center"><a href="<?=HOME?>maintenance.container/edit?id={$coba.ID_CONT}"><img src="<?=HOME?>images/edit.png" /></a>&nbsp;&nbsp;&nbsp;<a href="<?=HOME?>maintenance.container/delete?id={$coba.ID_CONT}"><img src="<?=HOME?>images/ico_delete.gif" /></a></td>
+		</tr>
+		</fill>
+	</table>
+	<br/>
+	<br/>
+	</div>
+</div>

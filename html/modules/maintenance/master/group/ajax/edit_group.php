@@ -1,0 +1,1 @@
+<?php$id_group = $_POST['ID_GROUP'];$nama_group = $_POST['NAMA_GROUP'];//echo "begin group_upd('".$id_group."','".$nama_group."'); end;"; die;if(($id_group==""))	echo "NO";else{	$db=getDB();	$db->query("begin group_upd('".$id_group."','".$nama_group."'); end;");	echo "OK";}?>

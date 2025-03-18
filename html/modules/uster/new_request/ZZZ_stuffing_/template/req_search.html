@@ -1,0 +1,32 @@
+<div id="list">
+	<table width="100%">
+    	<thead>
+        	<tr>
+            	<th class="grid-header" width="10px;">No.</th>
+            	<th class="grid-header">No Request</th>
+                <th class="grid-header">Tanggal Request</th>
+                <th class="grid-header">EMKL</th>
+                <th class="grid-header">PEMILIK</th>
+                <th class="grid-header">&nbsp;</th>
+            </tr>
+        </thead>
+        <tbody>
+        	<fill src="row_list" var="rows">
+		   	<alt var='bg' list='#f9f9f3,#ffe'/>
+        	<tr bgcolor="{$bg}" style="cursor:pointer;" onMouseOver=this.style.backgroundColor="#BAD5FC" onMouseOut=this.style.backgroundColor="">
+            	<td class="grid-cell" style="font-size:14px;">{$__ctr}</td>
+            	<td class="grid-cell" align="center" valign="middle" style="font-family:Arial; font-size:11pt; color:#555555"><b>{$rows.NO_REQUEST}</b></td>
+            	<td align="center" valign="middle" class="grid-cell"  style="font-size:9pt"><b>{$rows.TGL_REQUEST}</b></td>
+            	<td align="center" valign="middle" class="grid-cell"  style="font-size:10pt;font-family:Arial; color:#0066CC; font-weight:800;">{$rows.NAMA_EMKL}</td>
+            	<td align="center" valign="middle" class="grid-cell"  style="font-size:10pt;font-family:Arial; color:#0066CC; font-weight:800;">{$rows.NAMA_PNMT}</td>            	
+            	<td class="grid-cell" style="font-size:14px;">
+				<!-- <a href="{$HOME}{$APPID}/view?no_req={$rows.NO_REQUEST}"> LIHAT </a> -->
+				<?php 
+                    	cek_nota($rows["NO_REQUEST"]);
+                ?>
+				</td>
+            </tr>
+            </fill>
+        </tbody>
+    </table>
+</div>

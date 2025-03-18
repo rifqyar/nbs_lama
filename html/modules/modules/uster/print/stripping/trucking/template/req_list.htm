@@ -1,0 +1,33 @@
+<div id="list">
+	<table width="100%">
+    	<thead>
+        	<tr>
+            	<th class="grid-header"  style="font-size:8pt">No.</th>
+            	<th class="grid-header"  style="font-size:8pt">No Request</th>
+                <th class="grid-header"  style="font-size:8pt">Tgl Request</th>
+                <th class="grid-header"  style="font-size:8pt">EMKL</th>
+                <th class="grid-header"  style="font-size:8pt">&nbsp;</th>
+            </tr>
+        </thead>
+        <tbody>
+        	<fill src="row_list" var="rows">
+		   	<alt var='bg' list='#f9f9f3,#ffe'/>
+        	<tr bgcolor="{$bg}" style="cursor:pointer;">
+            	<td class="grid-cell" align="center" style="font-size:9pt">{$__ctr}</td>
+            	<td class="grid-cell" align="center" style="font-size:9pt"><b>{$rows.NO_REQUEST}</b></td>
+            	<td class="grid-cell" align="center" style="font-size:9pt"><font color="#0066CC" style="font-size:10pt">{$rows.TGL_REQUEST}</font></td>
+            	<td class="grid-cell" align="center" style="font-size:9pt"><font color="#0066CC" style="font-size:10pt">{$rows.NAMA_CONSIGNEE}</font></td>
+            	<td class="grid-cell" align="left" style="font-size:9pt">
+                    <?php 
+                        if ($rows['LUNAS']== 'YES'){
+                         ?><a href="{$HOME}{$APPID}.print/cetak?no_req={$rows.NO_REQUEST}" target="_blank"><img src="images/printer.png"> Cetak Semua  Kartu Truk </a> <br/> <a onclick="cont_list('{$rows.NO_REQUEST}')"> <img src="images/printer.png"> Cetak per Container</a>
+                         <?
+                        } else {
+                         ?> Nota Blm Lunas <?
+                        } ?>
+                </td>
+            </tr>
+            </fill>
+        </tbody>
+    </table>
+</div>

@@ -1,0 +1,262 @@
+<link rel="stylesheet" href="<?=HOME?>css/jqtreeview/jquery.treeview.css" />
+<!--<link rel="stylesheet" href="<?=HOME?>css/jqtreeview/screen.css" />-->
+<!--<script src="<?=HOME?>js/jqtreeview/jquery.js" type="text/javascript"></script>-->
+<script src="<?=HOME?>js/jqtreeview/jquery.cookie.js" type="text/javascript"></script>
+<script src="<?=HOME?>js/jqtreeview/jquery.treeview.js" type="text/javascript"></script>
+<script type="text/javascript" src="<?=HOME?>js/jqtreeview/demo.js"></script>
+	
+
+<script type="text/javascript">
+function menu_entry()
+{
+	var url			= "<?=HOME?>maintenance.master.menu.ajax/add_menu";
+	var arr = [];
+	$("#box2View > option").each(function(){arr.push(this.value);});
+	var otorisasi = arr.sort().toString().replace(/,/g,"");	//sort array, convert to string then replace all commas : 1,2,3,4, => 1234
+	//alert(otorisasi);
+	
+	$.blockUI({ message: '<h1><br>Please wait...</h1><br><img src=<?=HOME;?>images/103.gif width="30" height="30" /><br><br>' });
+	$.post(url,{MENU : $("#menu").val(), OTORISASI : otorisasi, URLNYA : $("#url").val(), PARENT_ID : $("#parent_id").val(), MENU_ORDER : $("#menu_order").val()},function(data){
+		//alert(data);
+		if(data == "OK")
+			{
+				$.unblockUI({
+				onUnblock: function(){ }
+				});
+				alert("Success...");
+				window.location = "<?=HOME?>maintenance.master.menu/";
+			}
+		else if(data == "NO")
+			{
+				$.unblockUI({
+				onUnblock: function(){ }
+				});
+				alert("Data Not Complete...");
+				window.location = "<?=HOME?>maintenance.master.menu/";
+			}
+		else
+			{
+				$.unblockUI({
+				onUnblock: function(){ }
+				});
+				alert("Failed...");
+				window.location = "<?=HOME?>maintenance.master.menu/";
+			}
+	});	
+}
+
+function valid_entry()
+{
+	if($('#menu').val()=="")	alert("Nama Menu harus diisi!");
+	else if($('#menu_order').val()=="")	alert("Urutan Menu (Order) harus diisi!");
+	else	menu_entry();
+}
+
+function add_menu(pid)
+{
+	$('#add_menu').load("<?=HOME?>maintenance.master.menu.ajax/menu_insert?pid="+pid).dialog({closeOnEscape: false, modal:true, height:400,width:500, title : "Insert Menu", open: function(event,ui){$(".ui-dialog-titlebar-close",ui.dialog).hide();}});
+}
+
+function menu_edit(id)
+{
+	var url			= "<?=HOME?>maintenance.master.menu.ajax/edit_menu";
+	var arr = [];
+	$("#box2View > option").each(function(){arr.push(this.value);});
+	var otorisasi = arr.sort().toString().replace(/,/g,"");	//sort array, convert to string then replace all commas : 1,2,3,4, => 1234
+	//alert(otorisasi);
+	
+	$.blockUI({ message: '<h1><br>Please wait...</h1><br><img src=<?=HOME;?>images/103.gif width="30" height="30" /><br><br>' });
+	$.post(url,{ID_MENU : id, MENU : $("#menu").val(), OTORISASI : otorisasi, URLNYA : $("#url").val(), PARENT_ID : $("#parent_id").val(), MENU_ORDER : $("#menu_order").val()},function(data){
+		//alert(data);
+		if(data == "OK")
+			{
+				$.unblockUI({
+				onUnblock: function(){ }
+				});
+				alert("Success...");
+				window.location = "<?=HOME?>maintenance.master.menu/";
+			}
+		else if(data == "NO")
+			{
+				$.unblockUI({
+				onUnblock: function(){ }
+				});
+				alert("Data Not Complete...");
+				window.location = "<?=HOME?>maintenance.master.menu/";
+			}
+		else
+			{
+				$.unblockUI({
+				onUnblock: function(){ }
+				});
+				alert("Failed...");
+				window.location = "<?=HOME?>maintenance.master.menu/";
+			}
+	});	
+}
+
+function valid_edit(id)
+{
+	if($('#menu').val()=="")	alert("Nama Menu harus diisi!");
+	else if($('#menu_order').val()=="")	alert("Urutan Menu (Order) harus diisi!");
+	else	menu_edit(id);
+}
+
+function edit_menu(id)
+{
+	$('#edit_menu').load("<?=HOME?>maintenance.master.menu.ajax/menu_edit?id="+id).dialog({closeOnEscape: false, modal:true, height:400,width:500, title : "Edit Menu", open: function(event,ui){$(".ui-dialog-titlebar-close",ui.dialog).hide();}});
+}
+
+function menu_delete(id)
+{
+	var url			= "<?=HOME?>maintenance.master.menu.ajax/del_menu";
+	
+	$.blockUI({ message: '<h1><br>Please wait...</h1><br><img src=<?=HOME;?>images/103.gif width="30" height="30" /><br><br>' });
+	$.post(url,{ID_MENU : id},function(data){
+		//alert(data);
+		if(data == "OK")
+			{
+				$.unblockUI({
+				onUnblock: function(){ }
+				});
+				alert("Success...");
+				window.location = "<?=HOME?>maintenance.master.menu/";
+			}
+		else if(data == "NO")
+			{
+				$.unblockUI({
+				onUnblock: function(){ }
+				});
+				alert("Data Not Complete...");
+				window.location = "<?=HOME?>maintenance.master.menu/";
+			}
+		else
+			{
+				$.unblockUI({
+				onUnblock: function(){ }
+				});
+				alert("Failed...");
+				window.location = "<?=HOME?>maintenance.master.menu/";
+			}
+	});	
+}
+
+function del_menu(id,menu)
+{
+	question = confirm("menu \""+menu+"\" & semua child menu-nya akan dihapus, apa anda yakin??")
+	if (question != "0")	menu_delete(id);
+}
+
+</script>
+<style>
+.content{
+	width:95%;
+	margin-left:auto;
+	margin-right:auto;
+	margin-bottom: 10px;
+	margin-top:20px;
+}
+</style>
+
+<?
+function show_menu($data, $parent = 0) {
+	static $i = 1;
+	$tab = str_repeat("\t\t", $i);
+	if (isset($data[$parent])) {
+		$html = "\n$tab<ul>";
+		$i++;
+		foreach ($data[$parent] as $v) {
+			$child = show_menu($data, $v['ID_MENU']);
+			if($v['SUM_CHILD'] > 0) {
+				$html .= "\n\t$tab<li class='closed'>";
+				$span_class = "folder";
+			}
+			else {
+				$html .= "\n\t$tab<li>";
+				$span_class = "file";
+			}
+			//$html .= '<span class="'.$span_class.'">&nbsp;'.$v['MENU'].'</span>';
+			$html .= '<span class="'.$span_class.'">
+						<table>
+							<tr bgcolor="#F6F4E4" bordercolor="#F6F4E4" onMouseOut="style.background=\'#F6F4E4\'" onMouseOver="style.background=\'#AABEF9\'">
+								<td width="200">&nbsp;'.$v['MENU'].'</td>
+								<td width="40">ID: <b>'.$v['ID_MENU'].'</b></td>
+								<td width="350">URL: <b>'.$v['LINKNYA'].'</b></td>
+								<td width="150">GROUP: <b>'.$v['OTORISASI'].'</b></td>
+								<td width="65">ORDER: <b>'.$v['MENU_ORDER'].'</b></td>
+								<td width="60">
+									<a onclick="edit_menu('.$v[ID_MENU].')"><img border="0" src="'.HOME.'images/edit.png" title="edit menu"></a>
+									<a onclick="add_menu('.$v[ID_MENU].')"><img border="0" width="12" height="12" src="'.HOME.'images/add1.png" title="add child menu"></a>
+									<a onclick="del_menu('.$v[ID_MENU].',\''.$v[MENU].'\')"><img border="0" width="12" height="12" src="'.HOME.'images/delete.png" title="delete menu"></a>
+								</td>
+							</tr>
+						</table>
+					  </span>';
+			if ($child) {
+				$i--;
+				$html .= $child;
+				$html .= "\n\t$tab";
+			}
+			$html .= '</li>';
+		}
+		$html .= "\n$tab</ul>";
+		return $html;
+	} else {
+		return false;
+	}
+}
+?>
+
+<div class="content">
+<h2>&nbsp;<img class="icon" border="0" src="images/Winforms_menu.gif" />&nbsp;Master Menu</h2>
+<br />
+<a class="link-button" style="height:25" onclick="add_menu(0)">
+	<img border="0" src="<?=HOME?>images/tambah.png">
+	Tambah Menu
+</a>
+<p><br/></p>
+
+<ul id="browser" class="filetree">
+<?
+	$db = getDB();
+	$sql = "SELECT A.*, (SELECT COUNT(1) FROM TB_MENU WHERE PARENT_ID=A.ID_MENU) AS SUM_CHILD
+			FROM TB_MENU A
+			ORDER BY PARENT_ID, MENU_ORDER";
+	$rs = $db->query($sql);
+	while($row = $rs->fetchRow())
+		$datanya[$row['PARENT_ID']][] = $row;
+	echo show_menu($datanya);
+?>
+</ul>
+<!--<ul id="browser" class="filetree">
+	<li><span class="folder">Folder 1</span>
+		<ul>
+			<li><span class="file">Item 1.1</span></li>
+		</ul>
+	</li>
+	<li><span class="folder">Folder 2</span>
+		<ul>
+			<li><span class="folder">Subfolder 2.1</span>
+				<ul id="folder21">
+					<li><span class="file">File 2.1.1</span></li>
+					<li><span class="file">File 2.1.2</span></li>
+				</ul>
+			</li>
+			<li><span class="file">File 2.2</span></li>
+		</ul>
+	</li>
+	<li class="closed"><span class="folder">Folder 3 (closed at start)</span>
+		<ul>
+			<li><span class="file">File 3.1</span></li>
+		</ul>
+	</li>
+	<li><span class="file">File 4</span></li>
+</ul>-->
+
+<div id="dialog-form">
+<form id="mainform">
+	<div id="add_menu"></div>
+	<div id="edit_menu"></div>
+</form>
+</div>
+</div>

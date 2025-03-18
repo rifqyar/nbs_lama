@@ -1,0 +1,13 @@
+
+<div id="list2">
+	<!--<textarea rows="3" cols="80" readonly="readonly" value="<?=$email?>"></textarea>-->
+		<? $i=1;?>
+			<fill src="data" var="row">
+			<? if ($i % 3 == 0){ ?> <br> <?} else {}?>
+				<input type='button' name="email" value="{$row.NAMA}-{$row.EMAIL}" />
+				<input type='button' onclick="disable('{$row.ID_RECIPIENT}')" name="save" value="x" />
+			<?$i++;?>
+			</fill>
+ </div>
+ 
+ 

@@ -1,0 +1,134 @@
+<style>
+.content{
+	width:95%;
+	margin-left:auto;
+	margin-right:auto;
+	margin-bottom: 10px;
+	margin-top:20px;
+}
+.main_side{
+	width:100%;
+	float:left;
+	text-align:left;
+}
+.rightside{ 
+	width:25%;
+	float:right;
+	text-align:center;
+}
+
+.tabss{
+	margin-top: 20px;
+}
+</style>
+
+<script>
+
+$(function() {
+		$('#fp').MultiFile({
+			STRING: {
+			remove: '<img src="images/bin.gif" height="16" width="16" alt="x"/>'
+			}
+		});
+		$( "#tabspage" ).tabs();	
+
+		setInterval(function() {
+			$("#filelist").load("<?=HOME?>storage/listfile #dinamiclist");
+			$("#fileshared").load("<?=HOME?>storage/listshared #fileshared2");
+		},1000);
+		
+		$( "#dialog-form" ).dialog({
+			autoOpen: false,
+			height: 300,
+			width: 250,
+			modal: true,
+			close: function() {
+
+			}
+		});
+		
+		$('a[rel*=downloadr]').downloadr();
+});
+
+function deletefile(id){
+	//alert(id);
+	$.post("<?=HOME?>storage/deletefile", {id:id});
+}
+function downloadfile(file_id,file_name){
+	//alert(id);
+	$.post("<?=HOME?>storage/download", {file_id:file_id});
+	//window.open("file/"+file_name);
+	//window.location.href = 'file/'+file_name;
+	$url = "file/"+file_name;
+	$('a#down').attr({target: '_blank', href  : $url});
+
+}
+
+/*function addtoarray(peopleid){
+	alert(peopleid);
+	var data = { 'people[]' : []};
+	$(":checked").each(function() {
+	  data['people[]'].push($(this).val());
+	});
+	//$.post("ajax.php", data);
+}
+
+function sharefile(){
+	$.post("<?=HOME?>storage/do_sharefile", { 'people[]': ["Jon", "Susan"] });
+}*/
+function share(id){
+	//alert(id);
+	$("#dialog-form").load("<?=HOME?>storage/sharefile?file_id="+id+" #shareform");
+	$("#dialog-form").dialog("open");
+}
+</script>
+
+<script type="text/javascript">
+	            jQuery().ready(function (){
+	                jQuery("#tb_request").jqGrid({
+	                    url:'<?=HOME?>request/list_request',
+	                    mtype : "post",
+	                    datatype: "json",
+	                    colNames:['NO REQUEST','PEMILIK BARANG','VESSEL/VOYAGE','TGL START STACK','TGL END STACK','STATUS','ACTION'],
+	                    colModel:[
+                            {name:'NO_REQUEST',index:'NO_REQUEST', width:100, align:"center"},  
+	                        {name:'PEMILIK BARANG',index:'PEMILIK BARANG', width:200, align:"center"},
+	                        {name:'VESSEL/VOYAGE',index:'VESSEL/VOYAGE', width:220, align:"center"},  
+                            {name:'TGL_START_STACK',index:'TGL_START_STACK', width:200, align:"center"},
+                            {name:'TGL_END_STACK',index:'TGL_END_STACK', width:200, align:"center"},
+	                        {name:'STATUS',index:'STATUS', width:100, align:"center"},
+	                        {name:'ACTION',index:'ACTION',width:100, align:"center",editable: false}
+	                    ],
+	                    rowNum:10,
+	                    shrinkToFit:false,
+	                    width: 875,
+	                    height: 200,
+	                    rowList:[10,20,30,40,50,60],
+	                    loadonce:true,
+	                    rownumbers: true,
+	                    rownumWidth: 40,
+	                    gridview: true,
+                        sortorder: "asc",
+                        pager: '#pager1',
+	                    sortname: 'REQ_NUMB',
+	                    viewrecords: true,
+	                    caption:"Data Request Delivery"
+  
+	                });
+	                jQuery("#tb_request").jqGrid('navGrid','#pager1',{view:true,del:false,add:false,edit:false,search:false}); 
+                  jQuery("#tb_request").jqGrid('filterToolbar',{stringResult: true,searchOnEnter : false}); 
+	            });
+</script>
+
+
+<div class="content">
+	<div class="main_side">
+	<h2>REQUEST SP2</h2>
+	<br/>
+	<table id="tb_request" class="scroll"></table>
+	<div id="pager1" class="scroll"></div>
+	<br/>
+	</div>
+</div>
+<div id="dialog-form" title="Share File">
+</div>

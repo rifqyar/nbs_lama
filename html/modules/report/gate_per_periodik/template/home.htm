@@ -1,0 +1,170 @@
+
+<span class="graybrown"><img src='images/gate.gif' border='0' class="icon" width="50" height="50"/><font color="#0378C6"> Report GATE </font> Per Periodik</span><br/><br/>
+      <fieldset class="form-fieldset" style="margin: 5px 5px 5px 5px; ">
+        <form id="searchForm" name="searchForm" action="{HOME}delivery.permintaan/search/" method="get">
+		<div style="padding:10px;font-family:Arial; font-size:8pt; color:#555555; font-weight:bold">
+            <table> <tr>
+						<td class="form-field-caption" valign="top" align="right">Periode Gate</td>
+						<td class="form-field-caption" valign="top" align="right"> : </td>
+						<td class="form-field-caption" valign="top" align="left" width="500">
+						<input type="text" name="tgl_awal" id="tgl_awal"/> s/d  <input type="text" name="tgl_akhir" id="tgl_akhir"/></td>
+				<tr>
+				<td class="form-field-caption" valign="top" align="right">Jenis Kegiatan </td><td class="form-field-caption" valign="top" align="right"> : </td><td class="form-field-caption" valign="top" align="left"><select id="option_kegiatan" >
+				<option value=""> -- Pilih -- </option>		
+						<option value="GATI"> GATE IN </option>					
+						<option value="GATO" disabled> GATE OUT </option>
+						<option value="ALL"> ALL </option>
+					</select>
+				</td>
+				</tr>
+               <tr>
+				<td class="form-field-caption" valign="top" align="right">Shift </td><td class="form-field-caption" valign="top" align="right"> : </td><td class="form-field-caption" valign="top" align="left"><select id="shift">
+				<option value=""> -- Pilih -- </option>		
+						<option value="1"> Shift 1 (08.00 s/d 20.00) </option>					
+						<option value="2"> Shift 2 (20.00 s/d 08.00)</option>
+						<option value="ALL"> ALL </option>
+					</select>
+				</td>
+				</tr>
+				 <tr>
+				<td class="form-field-caption" valign="top" align="right">Size </td><td class="form-field-caption" valign="top" align="right"> : </td><td class="form-field-caption" valign="top" align="left"><select id="size" >
+				<option value=""> -- Pilih -- </option>		
+						<option value="20"> 20" </option>					
+						<option value="40"> 40" </option>
+						<option value="45"> 45"  </option>
+						<option value="ALL"> ALL </option>
+					</select>
+				</td>
+				</tr>
+				 <tr>
+				<td class="form-field-caption" valign="top" align="right">Status </td><td class="form-field-caption" valign="top" align="right"> : </td><td class="form-field-caption" valign="top" align="left"><select id="status" >
+				<option value=""> -- Pilih -- </option>		
+						<option value="MTY"> MTY </option>					
+						<option value="FCL"> FCL </option>
+						<option value="ALL"> ALL </option>
+					</select>
+				</td>
+				</tr>
+				 <tr>
+				<td class="form-field-caption" valign="top" align="right">Type </td><td class="form-field-caption" valign="top" align="right"> : </td><td class="form-field-caption" valign="top" align="left">
+				<select id="type_" >
+				<option value=""> -- Pilih -- </option>		
+						<option value="DRY"> DRY </option>					
+						<option value="FLT"> FLT </option>
+						<option value="HQ"> HQ </option>
+						<option value="OVD"> OVD </option>
+						<option value="RFR"> RFR </option>
+						<option value="TNK"> TNK </option>
+					</select>
+				</td>
+				</tr>
+				 <tr>
+				<td class="form-field-caption" valign="top" align="right">Nama Vessel </td>
+				<td class="form-field-caption" valign="top" align="right"> : </td>
+				<td class="form-field-caption" valign="top" align="left"><input type="input" id="vessel" name="vessel" size="30" />
+				<input type="input" id="voyage" name="voyage" size="10" />
+				<input type="hidden" id="id_vs" name="id_vs" size="10" />
+				</td>
+				</tr>
+				<tr height="10">
+					<td colspan="3" class="form-field-caption" valign="top" align="right" ></td>
+				</tr>
+				<tr>
+					<td colspan="3" class="form-field-caption" valign="top" align="right" ><a class="link-button" style="height:25" onclick="generate()"><img src='images/cari.png' border='0' />Generate Report</a>  &nbsp;&nbsp; <a class="link-button" style="height:25" onclick="toexcel()"><img src='images/cari.png' border='0' />Export Excel</a> </td>
+				</tr>
+				
+			</table>
+		</div>
+        </form>
+	
+	   </fieldset>
+	<div id="gate_list"></div>
+<script>
+$(function() {	
+
+	$( "#tgl_awal" ).datepicker();
+	$( "#tgl_awal" ).datepicker( "option", "dateFormat", "dd/mm/yy" );
+        
+    $( "#tgl_akhir" ).datepicker();
+	$( "#tgl_akhir" ).datepicker( "option", "dateFormat", "dd/mm/yy" );
+
+});
+
+function generate()
+{
+	var tgl_awal_ 	= $("#tgl_awal").val();
+	var tgl_akhir_	= $("#tgl_akhir").val();	
+	var shift_	 	= $("#shift").val();
+	var size_		= $("#size").val();
+	var status_		= $("#status").val();	
+	var jenis 		= $("#option_kegiatan").val();
+	var type_		= $("#type_").val();
+	var id_vs		= $("#id_vs").val();
+	var url 	       = "<?=HOME?><?=APPID?>/gate_list #list";
+	
+	if ($("#tgl_awal").val() == ''){
+		alert('periode kegiatan harus diisi');
+	} else if ($("#tgl_akhir").val() == ''){
+		alert('periode kegiatan harus diisi');
+	} else if ($("#option_kegiatan").val() == ''){
+		alert('jenis kegiatan harus diisi');
+	} else {
+	$.blockUI({ message: '<h1><br>Please wait...</h1><br><img src={$HOME}images/loadingbox.gif /><br><br>' }); 
+	$("#gate_list").load(url,{type:type_, id_vs:id_vs,tgl_awal : tgl_awal_,tgl_akhir : tgl_akhir_, jenis : jenis, shift : shift_, size : size_, status : status_}, function(data){
+		if(data){
+				$.unblockUI({ 
+				onUnblock: function(){  } 
+				});
+		}
+	});
+	}
+}
+
+function toexcel(){
+	var type_		= $("#type_").val();
+	var id_vs		= $("#id_vs").val();
+	var tgl_awal_ 	= $("#tgl_awal").val();
+	var tgl_akhir_	= $("#tgl_akhir").val();
+	var jenis_ 		= $("#option_kegiatan").val();	
+	var shift_	 	= $("#shift").val();
+	var size_		= $("#size").val();
+	var status_		= $("#status").val();	
+	var url 	    = "<?=HOME?>report.gate_per_periodik.toexcel/toexcel?&tgl_awal="+tgl_awal_+"&tgl_akhir="+tgl_akhir_+"&jenis="+jenis_+"&shift="+shift_+"&size="+size_+"&status="+status_+"&type="+type_+"&id_vs="+id_vs;
+	
+	if ($("#tgl_awal").val() == ''){
+		alert('periode kegiatan harus diisi');
+	} else if ($("#tgl_akhir").val() == ''){
+		alert('periode kegiatan harus diisi');
+	} else if ($("#option_kegiatan").val() == ''){
+		alert('jenis kegiatan harus diisi');
+	} else {
+	window.open(url, "_blank");
+	}
+}
+
+	<!------------------- autocomplete Vessel ------------>
+	$( "#vessel" ).autocomplete({
+		minLength: 3,
+		source: "<?=HOME?>planning.bay_allocation.auto/vessel",
+		focus: function( event, ui ) {
+			$( "#vessel" ).val( ui.item.NM_KAPAL );
+			return false;
+		},
+		select: function( event, ui ) {
+			$( "#vessel" ).val( ui.item.NM_KAPAL );
+			$( "#voyage" ).val( ui.item.VOYAGE );
+			$( "#id_vs" ).val( ui.item.ID_VS );
+			return false;
+		}
+	})
+	.data( "autocomplete" )._renderItem = function( ul, item ) {
+		return $( "<li></li>" )
+			.data( "item.autocomplete", item )
+			.append( "<a>" + item.NM_KAPAL + " [" + item.VOYAGE + "] " + "</a>" )
+			.appendTo( ul );
+	};
+	<!------------------- autocomplete Vessel ------------>
+	
+
+</script>
+

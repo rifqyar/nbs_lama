@@ -1,0 +1,34 @@
+<html>
+<style type="text/css">
+A:hover {text-decoration: none; color: blue; font-weight:bold;}
+</style>
+<center>
+	<table width="90%" border=1>
+		<tr>
+			<th> NAMA</th>
+			<th> ALAMAT</th>
+			<th> TANGGAL LAHIR</th>
+			<th> GENDER</th>
+			<th> HOBI</th>
+			<th> KOTA</th>
+			<th> KODE POS</th>
+		</tr>
+		<fill src='rowprofile' var='row'> <!--sama dengan printah foreach di php -->
+		<alt var='bg' list='#f9f9f3,#ff9900'/>
+		<tr bgcolor="{$bg}">
+			<td> <a href="main/viewProfile?id={$row.ID}">{$row.NAMA}</a> </td>
+			<td> {$row.ALAMAT}</td>
+			<td> {$row.TANGGAL_LAHIR}</td>
+			<td> {$row.GENDER}</td>
+		<?php 
+			$r_id = $row['ID'];
+			getHobi($r_id);
+			$kota_id = $row['ID_KOTA'];
+			getKota($kota_id);
+		?>
+		
+		</tr>
+		</fill>
+	</table>
+</center>
+<html>

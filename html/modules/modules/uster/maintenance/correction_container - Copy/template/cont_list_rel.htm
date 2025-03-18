@@ -1,0 +1,22 @@
+ <div id="list">
+     <table class="grid-table" border='0' cellpadding="1" cellspacing="1"  width="100%" >
+                              <tr style=" font-size:10pt">
+                                  <th width="2%" valign="top" class="grid-header"  style="font-size:8pt">No </th>
+                                  <th width="110" valign="top" class="grid-header"  style="font-size:8pt">NO. CONTAINER </th>
+                                  <th width="150" valign="top" class="grid-header"  style="font-size:8pt">STATUS </th>
+                                  <th width="200" valign="top" class="grid-header"  style="font-size:8pt">UKURAN</th> 
+                                  <th valign="top" class="grid-header"  style="font-size:8pt">TIPE</th>
+                              </tr>
+                              <?php $i=0; foreach($row_list as $rowx) { $i++;?>
+                              <tr bgcolor="#f9f9f3" onMouseOver=this.style.backgroundColor="#BAD5FC" onMouseOut=this.style.backgroundColor="">
+                                  <td width="4%" align="center" valign="middle" class="grid-cell" style="color:#000; font-family:Arial; font-size:9pt"><?=$i?> </td>
+                                  <td width="22%" align="center" valign="middle" class="grid-cell"   style="font-family:Arial; font-size:11pt; color:#555555"><b><?php echo '<input type="text" name="NO_CONT[]" id="NO_CONT" value="'.$rowx['NO_CONTAINER'].'" />'; ?>
+									<?php echo '<input type="hidden" name="NO_CONT_OLD[]" id="NO_CONT_OLD" value="'.$rowx['NO_CONTAINER'].'" />'; ?></b></td>
+                                  <td width="15%" align="center" valign="middle" class="grid-cell"  style="font-size:9pt"><?php echo $rowx["STATUS"]; ?></td>
+                                  <td width="15%" align="center" valign="middle" class="grid-cell"  style="font-size:9pt;font-family:Arial;"><font color="#0066CC" style="font-size:10pt"><?php echo $rowx["SIZE_"]; ?></font></td>
+                                  <td width="15%" align="center" valign="middle" class="grid-cell"  style="font-size:9pt;font-family:Arial;"><font color="#0066CC" style="font-size:10pt"><?php echo $rowx["TYPE_"]; ?></font></td>
+								  	
+                              </tr>
+                             <?php } ?>
+                          </table>
+ </div>

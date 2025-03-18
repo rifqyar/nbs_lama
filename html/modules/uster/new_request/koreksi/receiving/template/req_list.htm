@@ -1,0 +1,61 @@
+<!--
+<div id="list">
+	<table width="100%">
+    	<thead>
+        	<tr>
+            	<th>No.</th>
+            	<th>No Request</th>
+                <th>Tanggal Request</th>
+                <th>EMKL</th>
+                <th>PEMILIK</th>
+                <th>&nbsp;</th>
+            </tr>
+        </thead>
+        <tbody>
+        	<fill src="row_list" var="rows">
+		   	<alt var='bg' list='#f9f9f3,#ffe'/>
+        	<tr bgcolor="{$bg}" style="cursor:pointer;">
+            	<td>{$__ctr}</td>
+            	<td>{$rows.NO_REQUEST}</td>
+            	<td>{$rows.TGL_REQUEST}</td>
+            	<td>{$rows.NAMA_EMKL}</td>
+            	<td>{$rows.NAMA_PNMT}</td>
+            	<td>  -->
+				<!-- <a href="{$HOME}{$APPID}/view?no_req={$rows.NO_REQUEST}"> LIHAT </a> -->
+				<!--
+				<?php 
+                 //   	cek_nota($rows["NO_REQUEST"]);
+                ?>
+				</td>
+            </tr>
+            </fill>
+        </tbody>
+    </table>
+</div>
+-->
+
+<div id="list">
+                        <table class="grid-table" border='0' cellpadding="1" cellspacing="1"  width="100%" >
+                              <tr style=" font-size:10pt">
+                                  <th width="2%" valign="top" class="grid-header"  style="font-size:8pt">No </th>
+                                  <th width="110" valign="top" class="grid-header"  style="font-size:8pt">NO. REQUEST </th>
+                                  <th width="150" valign="top" class="grid-header"  style="font-size:8pt">TGL. REQUEST</th>
+                                  <th width="200" valign="top" class="grid-header"  style="font-size:8pt">EMKL</th> 
+                                  <th valign="top" class="grid-header"  style="font-size:8pt">RECEIVING DARI</th>
+                                  <th valign="top" class="grid-header"  style="font-size:8pt">ACTION</th>  
+                              </tr>
+                              <fill src="row_list" var="rows">
+                              <tr bgcolor="#f9f9f3" onMouseOver=this.style.backgroundColor="#BAD5FC" onMouseOut=this.style.backgroundColor="">
+                                  <td width="4%" align="center" valign="middle" class="grid-cell" style="color:#000; font-family:Arial; font-size:9pt">{$__ctr} </td>
+                                  <td width="20%" align="center" valign="middle" class="grid-cell"   style="font-family:Arial; font-size:11pt; color:#555555"><b>{$rows.NO_REQUEST}</b></font></td>
+                                  <td width="15%" align="center" valign="middle" class="grid-cell"  style="font-size:9pt">{$rows.TGL_REQUEST}</td>
+                                  <td width="25%" align="center" valign="middle" class="grid-cell"  style="font-size:9pt">{$rows.NAMA_EMKL}</td>
+                                  <td width="10%" align="center" valign="middle" class="grid-cell"  style="font-size:9pt;font-family:Arial;"><font color="#0066CC" style="font-size:10pt">{$rows.RECEIVING_DARI}</font></td>
+                                  <td width="20%" align="center" valign="middle" class="grid-cell" style="font-size:9pt;"><?php 
+                    	cek_nota($rows["NO_REQUEST"]);
+                ?><img src='images/ico_approval.gif' border='0' />&nbsp;  </a></td>
+                                
+                              </tr>
+                              </fill>
+                          </table>
+</div>

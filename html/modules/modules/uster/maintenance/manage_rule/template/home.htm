@@ -1,0 +1,80 @@
+<span class="graybrown"><img src='images/sp2_p.png' border='0' class="icon"/><font color="#0378C6"> Manage</font> User Rule</span><br/><br/>
+<fieldset class="form-fieldset" style="margin: 5px 5px 5px 5px; ">
+	
+    
+    <div id="rule_list" style="margin: 10px 10px 10px 10px;">
+
+    </div>
+</fieldset>
+<div id="dialog-form"></div>
+<script>
+$(function(){
+	$("#rule_list").load('<?=HOME?><?=APPID?>/rule_list #rule', function(data) { });
+	
+	$( "#dialog-form" ).dialog({
+			autoOpen: false,
+			height: 300,
+			width: 600,
+			modal: true,
+			buttons: {
+					"Change": function() {					
+					add_kategori_do();
+					$( this ).dialog( "close" );
+				},
+					"Close": function() {					
+					$( this ).dialog( "close" );
+					return false;
+				}
+			},
+			close: function() {
+
+			}
+		});
+});
+
+function ubah_rule($id_rule,$id_kategori){
+	$("#rule_list").load('<?=HOME?><?=APPID?>/edit_rule #rule',{ID_RULE : $id_rule, ID_KATEGORI : $id_kategori}, function(data) { });	
+}
+
+function hapus_rule($id_rule, $id_kategori,$id_menu,$id_submenu){
+	var url = '<?=HOME?><?=APPID?>/hapus_rule_do';
+	$.post(url,{ID_RULE : $id_rule, ID_KATEGORI : $id_kategori, ID_MENU : $id_menu,  ID_SUBMENU : $id_submenu},function(data){
+		if(data){
+			alert(data);
+			$("#rule_list").load('<?=HOME?><?=APPID?>/edit_rule #rule',{ID_RULE : $id_rule, ID_KATEGORI : $id_kategori}, function(data) { });
+		}
+	});
+}
+
+
+function add_kategori($id_rule,$id_kategori){
+	$("#dialog-form").load('<?=HOME?><?=APPID?>/add_kategori #add',{ID_RULE : $id_rule, ID_KATEGORI : $id_kategori}, function(data) { 
+		load_submenu();
+	});
+	$( "#dialog-form" ).dialog("open");
+}
+
+function back_to(){
+	$("#rule_list").load('<?=HOME?><?=APPID?>/rule_list #rule', function(data) { });
+}
+
+function load_submenu(){
+	var id_menu = $("#id_menu_c").val();
+	$("#submenu_c").load('<?=HOME?><?=APPID?>/load_submenu #sub',{ID_MENU : id_menu},function(data){});
+}
+
+function add_kategori_do(){
+	var id_rule = $("#id_rule_do").val();
+	var id_kategori = $("#id_kate_do").val();
+	var id_menu = $("#id_menu_c").val();
+	var id_submenu = $("#id_submenu_do").val();
+	var url = '<?=HOME?><?=APPID?>/add_kategori_do';
+	$.post(url,{ID_RULE : id_rule, ID_KATEGORI : id_kategori, ID_MENU : id_menu, ID_SUBMENU : id_submenu},function(data){
+		if(data){
+			alert(data);
+			$("#rule_list").load('<?=HOME?><?=APPID?>/edit_rule #rule',{ID_RULE : id_rule, ID_KATEGORI : id_kategori}, function(data) { });
+		}
+	});
+	
+}
+</script>

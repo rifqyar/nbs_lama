@@ -1,0 +1,2 @@
+- ensure Bin/Dynamic is writable for your IIS user account
+- for more information about running PHP code on .NET, see http://www.php-compiler.net

@@ -1,0 +1,1 @@
+<?php	echo "ini index dari submodul 1 <br>";?>

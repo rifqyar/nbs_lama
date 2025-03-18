@@ -1,0 +1,226 @@
+<style>
+.content{
+	width:95%;
+	margin-left:auto;
+	margin-right:auto;
+	margin-bottom: 10px;
+	margin-top:20px;
+}
+</style>
+<script src="<?=HOME?>js/nicEdit.js" type="text/javascript"></script>
+				<script type="text/javascript">
+				bkLib.onDomLoaded(function() {
+					new nicEditor({iconsPath : '<?=HOME?>images/nicEditorIcons.gif'}).panelInstance('area3');
+				});
+</script>
+<div class="content">
+<div class="main_side">
+	<p>
+	 <img src="<?=HOME?>images/email.png" height="7%" width="7%" style="vertical-align:middle"> <font size=5px color='#7cb15e'>Send </font> <font size=5px color='#606263'>Email </font></p>
+	
+	<p><br/>
+	  </p>
+	
+	<hr width="870" color="#e1e0de"></hr><p><br/></p>
+	
+	<fieldset style="border: 1px solid #e1e0de;-moz-border-radius:5px;vertical-align:middle; border-radius: 10px 10px 10px 10px;-moz-border-radius: 10px 10px 10px 10px; 
+-webkit-border-radius: 10px 10px 10px 10px;">
+	<br>
+		<table>
+		<tr>
+			<td></td>
+			<td></td>
+			<td></td>
+		</tr>
+		<tr>
+			<td align="right"  width="200" class="form-field-caption">From </td>
+			<td class="form-field-caption">:</td>
+			<td><input type='text'  size="80" name="from" value="Bongkar Muat S| bongkar_muat@indonesiaport.co.id" />
+		
+			</td>
+		</tr>
+		<tr>
+			<td align="right"  width="200" class="form-field-caption">To </td>
+			<td class="form-field-caption">:</td>
+			<td><div id="save_recipient_"></div> 
+			<!--<input type='button' onclick="disable()" name="save" value="X" />-->
+		
+			</td>
+		</tr>
+		<!--<tr>
+			<td align="right" class="form-field-caption">Add New Recipients</td>
+			<td class="form-field-caption">:</td>
+			<td class="form-field-caption"> Nama : <input type='input' size="30" name="name" id="name"/> Email : <input type='input' size="30" name="email" id="email"/> <input type='button' onclick="save_recipient()" name="save" value="Save New Recipients" /> <br>
+			</td>
+		</tr>-->
+		
+		<tr>
+			<td></td>
+			<td></td>
+			<td></td>
+		</tr>
+		<tr>
+			<td  align="right"  valign="middle"  class="form-field-caption">Subject </td>
+			<td class="form-field-caption">:</td>
+			<td><input type='input' size="100" name="subject" value="REALISASI BONGKAR MUAT VESSEL {$kapal} VOYAGE {$voy_in}/{$voy_out}" /> 
+			<input type='hidden' size="100" name="no_ukk" value="{$no_ukk}" /> </td>
+		</tr>
+		<tr>
+			<td></td>
+			<td></td>
+			<td></td>
+		</tr>
+		<tr>
+			<td align="right"  class="form-field-caption">Lampiran </td>
+			<td class="form-field-caption">:</td>
+			<td class="form-field-caption">
+			<input type="checkbox" name="rbm_ict" value="rbm_ict" checked /> &nbsp &nbsp <font color="red">1. Realisasi Bongkar Muat ICT </font><a style="cursor:pointer;" onclick="view_rbm('<?=$id_vessel?>')"><font color="blue">[ <?=$rbm_ict?> ] </font></a><br>
+			<input type="checkbox" name="rbm_jict" value="rbm_jict" checked /> &nbsp &nbsp <font color="red">2. Realisasi Bongkar Muat JICT </font> <a style="cursor:pointer;" onclick="view_pranota('<?=$id_vessel?>')"><font color="blue">[ <?=$rbm_jict?> ]</font></a><br>
+			</td>
+		</tr>
+			
+		<tr>
+			
+			<td></td>
+			<td></td>
+			<td class="form-field-caption"></td>
+		</tr>
+		<tr>
+			
+			<td></td>
+			<td></td>
+			<td class="form-field-caption"></td>
+		</tr>
+		<tr>
+			<td align="right" class="form-field-caption">Message</td>
+			<td class="form-field-caption">:</td>
+			<td>	<div id="sample">
+				<textarea bgcolor="white" cols="100" id="area3"></textarea>
+				</div>
+				</div>
+			</td>
+		</tr>
+		<tr>
+			<td></td>
+			<td></td>
+			<td></td>
+		</tr>
+		<tr>
+			<td></td>
+			<td></td>
+			<td class="form-field-caption" align="right"><input onclick="sent_email('{$no_ukk}')" type='button' name="sent" value="Sent Email" /> </td>
+		</tr>
+		</table>
+<br>		
+	</fieldset>
+	<br><br>
+	<fieldset style="background-color:white; border: 1px solid #e1e0de;-moz-border-radius:5px;vertical-align:middle; border-radius: 10px 10px 10px 10px;-moz-border-radius: 10px 10px 10px 10px; 
+-webkit-border-radius: 10px 10px 10px 10px;">
+		<div id="view_detail"></div>
+	</fieldset>
+	
+	</div>
+</div>
+
+<script type='text/javascript'>
+$("#save_recipient_").load('<?=HOME?><?=APPID?>/save_recipient #list2', function(data) {        	  
+	}); 
+	
+function disable($id)
+{
+	var id_	= $id;
+	var url 	    = "<?=HOME?><?=APPID?>/disable #list";
+	//$.blockUI({ message: '<h1><br>Please wait...</h1><br><img src={$HOME}images/loadingbox.gif /><br><br>' }); 
+	$("#save_recipient_").load(url,{id : id_}, function(data){
+	if(data == 'OK'){
+			alert('email deleted');
+			$("#save_recipient_").load('<?=HOME?><?=APPID?>/save_recipient #list2', function(data) {        	  
+			}); 
+		} else {
+			alert('email deleted');
+			$("#save_recipient_").load('<?=HOME?><?=APPID?>/save_recipient #list2', function(data) {        	  
+			}); 
+		}
+	});
+}
+
+function view_rbm($id_vessel)
+{
+	var id_vessel_	= $id_vessel;
+	var url 	    = "<?=HOME?><?=APPID?>/view_rbm #list";
+	//$.blockUI({ message: '<h1><br>Please wait...</h1><br><img src={$HOME}images/loadingbox.gif /><br><br>' }); 
+	$("#view_detail").load(url,{id_vessel : id_vessel_}, function(data){
+	if(data){
+		}
+	});
+}
+
+function view_pranota($id_vessel)
+{
+	var id_vessel_	= $id_vessel;
+	var url 	    = "<?=HOME?><?=APPID?>/view_pranota #list";
+	//$.blockUI({ message: '<h1><br>Please wait...</h1><br><img src={$HOME}images/loadingbox.gif /><br><br>' }); 
+	$("#view_detail").load(url,{id_vessel : id_vessel_}, function(data){
+	if(data){
+		}
+	});
+}
+
+function view_rbm_jict($id_vessel)
+{
+	var id_vessel_	= $id_vessel;
+	var url 	    = "<?=HOME?><?=APPID?>.cetak/preview_rbm_jict #list";
+	//$.blockUI({ message: '<h1><br>Please wait...</h1><br><img src={$HOME}images/loadingbox.gif /><br><br>' }); 
+	$("#view_detail").load(url,{id_vessel : id_vessel_}, function(data){
+	if(data){
+		}
+	});
+}
+
+
+function save_recipient()
+{
+	var name_	= $("#name").val();
+	var email_	= $("#email").val();
+	var url 	    = "<?=HOME?><?=APPID?>.print/save_new_rec #list2";
+	//$.blockUI({ message: '<h1><br>Please wait...</h1><br><img src={$HOME}images/loadingbox.gif /><br><br>' }); 
+	$("#save_recipient_").load(url,{email : email_, name : name_}, function(data){
+		if(data == "OK")
+			{
+				//alert(data);
+				alert("recipient added");
+				$("#save_recipient_").load('<?=HOME?><?=APPID?>/save_recipient #list2', function(data) {        	  
+			}); 
+			}
+		else
+			{
+				//alert(data);
+				alert("failed");
+					$("#save_recipient_").load('<?=HOME?><?=APPID?>/save_recipient #list2', function(data) {        	  
+			}); 
+			}
+	});	
+}
+function sent_email($ukk)
+{
+	var ukk			=  $ukk;
+	var modul 		= 'RBM';
+	var url 	    = "<?=HOME?><?=APPID?>.ajax/sent_email_proses";
+	//$.blockUI({ message: '<h1><br>Please wait...</h1><br><img src={$HOME}images/loadingbox.gif /><br><br>' }); 
+	$.post(url,{ukk : ukk, modul : modul},function(data){
+		if(data == "OK")
+			{
+				alert(data);
+				alert("Email sent");
+			}
+		else
+			{
+				alert(data);
+				alert("Email failed to be sent");
+			}
+	});	
+}
+
+
+</script>
+

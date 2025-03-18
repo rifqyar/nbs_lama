@@ -1,0 +1,76 @@
+<style>
+.content{
+	width:95%;
+	margin-left:auto;
+	margin-right:auto;
+	margin-bottom: 10px;
+	margin-top:20px;
+}
+.main_side{
+	width:100%;
+	float:left;
+	text-align:left;
+}
+.rightside{ 
+	width:25%;
+	float:right;
+	text-align:center;
+}
+.ganjil {
+  background-color: #FFF; /* Warna untuk baris ganjil */
+}
+.genap {
+  background-color: #bbe3fe; /* Warna untuk baris genap */
+}   
+
+</style>
+
+<script type="text/javascript">
+  $(document).ready(function() {
+    $("tr:odd").addClass("ganjil");
+    $("tr:even").addClass("genap");
+  }); 
+</script>
+
+<div class="content">
+	<div class="main_side">
+	<h2>Master User</h2>
+	<p><br/>
+	  <a href="<?=HOME?>maintenance.master.user/add" class="link-button">
+      <img border="0" src="images/tambah.png" />
+      Tambah User</a>	  </p>
+	<p><br/>
+	  </p>
+	<p><br/></p>
+	<table id="zebra" border="1" bordercolor="#FFFFFF" width=100% style="border-collapse:collapse">
+	  <tr>
+		<th height="34">NO</th>
+        <th>ID</th>
+		<th>NAME</th>
+		<th>NIPP</th>
+		<th>USERNAME</th>
+		<th>NAME GROUP</th>
+		<th>DIVISI</th>
+		<th>JABATAN</th>
+        <th>ACTION</th>
+     </tr>
+     	<? $no=1; ?>
+		<fill src="nota" var="notas">
+		<tr>        
+            <td align="center" height="34">{$no}</td>
+			<td align="center"><b>{$notas.ID}</b></td>
+            <td align="center"><b>{$notas.NAME}</b></td>
+			<td align="center"><b>{$notas.NIPP}</b></td>
+            <td align="center">{$notas.USERNAME}</td>
+			<td align="center">{$notas.NAME_GROUP}</td>
+			<td align="center">{$notas.DIVISI}</td>
+			<td align="center">{$notas.JABATAN}</td>
+			<td align="center"><a href="<?=HOME?>maintenance.master.user/edit?ID={$notas.ID}"><img src="<?=HOME?>images/edit.png" />Edit </a>&nbsp;&nbsp;<a href="<?=HOME?>maintenance.master.user/delete?ID={$notas.ID}"><img src="<?=HOME?>images/ico_delete.gif" />delete</a></td>
+		</tr>
+        <? $no++; ?>
+		</fill>
+	</table>
+	<br/>
+	<br/>
+	</div>
+</div>

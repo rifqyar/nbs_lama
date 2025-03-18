@@ -1,0 +1,145 @@
+<style>
+.content{
+	width:95%;
+	margin-left:auto;
+	margin-right:auto;
+	margin-bottom: 10px;
+	margin-top:20px;
+}
+.main_side{
+	width:100%;
+	float:left;
+	text-align:left;
+}
+.tabss{
+	margin-top: 20px;
+}
+</style>
+
+<script type="text/javascript">
+      	$(document).ready(function()
+        {				
+			var watermark = 'Autocomplete';						
+			<!------------------- watermark Vessel ------------>
+			$('#vessel').val(watermark).addClass('watermark');
+			//if blur and no value inside, set watermark text and class again.
+			$('#vessel').blur(function(){
+				if ($(this).val().length == 0){
+					$(this).val(watermark).addClass('watermark');
+				}
+			});
+		 
+			//if focus and text is watermrk, set it to empty and remove the watermark class
+			$('#vessel').focus(function(){
+				if ($(this).val() == watermark){
+					$(this).val('').removeClass('watermark');
+				}
+		    });
+			<!------------------- watermark Vessel ------------>
+											
+	   });
+		
+		
+$(function() {
+	
+	<!------------------- autocomplete Vessel ------------>
+	$( "#vessel" ).autocomplete({
+		minLength: 3,
+		source: "{$HOME}{$APPID}.auto/vessel",
+		focus: function( event, ui ) {
+			$( "#vessel" ).val( ui.item.NAMA_VESSEL );
+			return false;
+		},
+		select: function( event, ui ) {
+			$( "#vessel" ).val( ui.item.NAMA_VESSEL );
+			$( "#voyage" ).val( ui.item.VOYAGE );
+			$( "#id_vs" ).val( ui.item.ID_VS );
+			return false;
+		}
+	})
+	.data( "autocomplete" )._renderItem = function( ul, item ) {
+		return $( "<li></li>" )
+			.data( "item.autocomplete", item )
+			.append( "<a>" + item.NAMA_VESSEL + " [" + item.VOYAGE + "] " + "</a>" )
+			.appendTo( ul );
+	};
+	<!------------------- autocomplete Vessel ------------>
+	
+});
+
+function display_bay(b)
+{
+	var id_vs_ = $("#id_vs").val();
+	$('#table_bay').load('<?=HOME?>planning.bay_allocation.ajax/insert_bay?id='+id_vs_+'&bay='+b).dialog({modal:true, height:600,width:800, title:"Bay "+b+""});
+}
+
+</script>
+
+
+<div class="content">
+	<h2><span class="graybrown">
+    	<img class="icon" border="0" src="images/cont_set_yard.png" width="36" height="36"/>
+        &nbsp;<font color="#0378C6">Bay</font> Allocation
+        </span></h2>
+	<br/>
+	<hr width="870" color="#e1e0de"></hr><p><br/></p>
+	<table>
+        <tr>
+			<td>VESSEL / VOYAGE</td>
+			<td>&nbsp;&nbsp;:&nbsp;&nbsp;</td>
+            <td><input type="text" name="vessel" id="vessel" title="Autocomplete" style="background-color:#FFCCFF" />
+                <input type="hidden" name="id_vs" id="id_vs" /> / <input type="text" name="voyage" id="voyage" size="10" style="background-color:#FFCCFF" readonly="readonly"/></td>
+            <td></td>
+		</tr>       
+      </table>
+	<br/>
+	<div id="main_side">			
+		<img src="images/profil2.png" align="center"/>
+		<!--<map name="profil_kapal">
+		  <area shape="rect" coords="184,80,228,143" alt="Sun" onclick="display_bay('34')" />
+		  <area shape="rect" coords="238,80,261,201" alt="Sun" onclick="display_bay('31')" />
+		  <area shape="rect" coords="261,80,282,200" alt="Sun" onclick="display_bay('29')" />
+		  <area shape="rect" coords="290,80,313,200" alt="Sun" onclick="display_bay('27')" />
+		  <area shape="rect" coords="314,80,334,200" alt="Sun" onclick="display_bay('25')" />
+		  <area shape="rect" coords="342,80,365,201" alt="Sun" href="23" />
+		  <area shape="rect" coords="366,80,386,201" alt="Sun" href="21" />
+		  <area shape="rect" coords="392,89,413,200" alt="Sun" href="19" />
+		  <area shape="rect" coords="414,89,436,200" alt="Sun" href="17" />
+		  <area shape="rect" coords="442,89,463,200" alt="Sun" href="15" />
+		  <area shape="rect" coords="463,89,486,200" alt="Sun" href="13" />
+		  <area shape="rect" coords="492,89,513,201" alt="Sun" href="11" />
+		  <area shape="rect" coords="513,89,536,200" alt="Sun" href="9" />
+		  <area shape="rect" coords="547,96,568,184" alt="Sun" href="7" />
+		  <area shape="rect" coords="568,96,591,185" alt="Sun" href="5" />
+		  <area shape="rect" coords="595,96,617,185" alt="Sun" href="3" />
+		  <area shape="rect" coords="617,96,640,185" alt="Sun" href="1" />
+		</map>-->
+    <div id="dialog-form">
+	<form>
+		<div id="table_bay"></div>
+	</form>
+	</div>
+    <table class="grid-table" id="zebra" border="1" bordercolor="#FFFFFF" width=100% style="border-collapse:collapse">
+	  <tr>
+		<th class="grid-header" height="34" width="30">NO</th>
+        <th class="grid-header">BAY</th>
+        <th class="grid-header">STATUS</th>
+		<th class="grid-header">JUMLAH BOX</th>
+		<th class="grid-header">DETAIL</th>
+      </tr>
+     	<? $no=1; ?>
+		<fill src="keg" var="kegs">
+		<tr>        
+            <td class="grid-cell" align="center" height="34">{$no}</td>
+            <td class="grid-cell" align="center">{$kegs.KEGIATAN}</td>
+			<td class="grid-cell" align="center"><b>{$kegs.STATUS}</b></td>
+			<td class="grid-cell" align="center"><b>{$kegs.STATUS}</b></td>
+		    <td class="grid-cell" align="center"><a href="<?=HOME?><?=APPID?>./edit?id={$notas.ID_SHIP}"><img src="<?=HOME?>images/edit.png" /></a>&nbsp;&nbsp;<a href="<?=HOME?><?=APPID?>/delete?id={$kegs.ID_ACT}"><img src="<?=HOME?>images/ico_delete.gif" /></a></td>
+		</tr>
+        <? $no++; ?>
+		</fill>
+	</table>
+    <br/>	
+	</div><!-- main side -->
+	<br/>
+	</div>

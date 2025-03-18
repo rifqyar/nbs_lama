@@ -1,0 +1,201 @@
+<style>
+.content{
+	width:95%;
+	margin-left:auto;
+	margin-right:auto;
+	margin-bottom: 10px;
+	margin-top:20px;
+
+}
+</style>
+
+<script type="text/javascript">
+	function cek_text()
+	{
+		var id_bm_=document.getElementById("id_bm").value;
+		var status_gate_=document.getElementById("status_gate").value;
+		var jenis_bm=document.getElementById("jenis_batalmuat").value;
+		var pbm=document.getElementById("kode_pbm").value;
+		var ves=document.getElementById("vessel").value;
+		var voy=document.getElementById("voyage").value;
+		var berangkat=document.getElementById("tgl_berangkat").value;
+		var keluar=document.getElementById("tgl_keluar").value;
+		
+		if(id_bm_=="")
+		{
+			alert("Nomor Request harus diisi");
+			return false;
+		}
+		else if(status_gate_=="")
+		{
+			alert("Status Gate harus diisi");
+			return false;
+		}
+		else if(jenis_bm=="")
+		{
+			alert("Jenis Batal Muat harus diisi");
+			return false;
+		}
+		else if(jenis_bm=="DELIVERY")
+		{
+			if(status_gate_!="AFTER GATE IN")
+			{
+				alert("Batal Muat Delivery harus sudah Gate IN");
+				return false;
+			}
+			else 
+				return true;
+		}
+		else if(pbm=="")
+		{
+			alert("Nama Pemilik harus diisi");
+			return false;
+		}
+		else if(ves=="")
+		{
+			alert("Vessel harus diisi");
+			return false;
+		}
+		else if(voy=="")
+		{
+			alert("Voyage harus diisi");
+			return false;
+		}
+		else if(berangkat=="")
+		{
+			alert("Tanggal berangkat harus diisi");
+			return false;
+		}
+		else if(keluar=="")
+		{
+			alert("Tanggal keluar harus diisi");
+			return false;
+		}
+	}	
+	
+</script>
+
+<script type='text/javascript'>
+$(document).ready(function() 
+{
+	$("#tgl_berangkat").datepicker({
+			dateFormat: 'dd-mm-yy'
+            });
+	$("#tgl_keluar").datepicker({
+			dateFormat: 'dd-mm-yy'
+            });
+			
+	$( "#emkl" ).autocomplete({
+		minLength: 3,
+		source: "{$HOME}request.batalmuat.auto/pbm",
+		focus: function( event, ui ) {
+			$( "#emkl" ).val( ui.item.KODE_PBM);
+			return false;
+		},
+		select: function( event, ui ) {
+			$( "#emkl" ).val( ui.item.NAMA);
+			$( "#kode_pbm" ).val( ui.item.KODE_PBM);
+			return false;
+		}
+	})
+	.data( "autocomplete" )._renderItem = function( ul, item ) {
+		return $( "<li></li>" )
+			.data( "item.autocomplete", item )
+			.append( "<a>" + item.NAMA + "<br />" + item.ALAMAT + "</a>")
+			.appendTo( ul );
+	};
+
+	$( "#vessel" ).autocomplete({
+		minLength: 3,
+		source: "{$HOME}request.batalmuat.auto/vessel",
+		focus: function( event, ui ) {
+			$( "#vessel" ).val( ui.item.KODE_KAPAL);
+			return false;
+		},
+		select: function( event, ui ) {
+			$( "#vessel" ).val( ui.item.NAMA_VESSEL);
+			return false;
+		}
+	})
+	.data( "autocomplete" )._renderItem = function( ul, item ) {
+		return $( "<li></li>" )
+			.data( "item.autocomplete", item )
+			.append( "<a>" + item.KODE_KAPAL + " | " + item.NAMA_VESSEL + "</a>")
+			.appendTo( ul );
+	};  	
+	
+});  
+  
+
+</script>
+
+<div class="content">
+	<p>
+	<span class="graybrown">
+	<img class="icon" border="0" align="absmiddle" src="images/sp2_p.png">
+	<b><font color="#AB4904">  Batal Muat Delivery</font></b>
+	</span></p>
+	<p><br/>
+	  </p>	
+	<hr width="870" color="#e1e0de"></hr><p><br/></p>
+	<form method="post" action="<?=HOME?>request.batalmuat/save" onSubmit="return cek_text()" >
+	<table>
+	 <tr>
+		<td class="form-field-caption" align="right">No Request</td>
+		<td class="form-field-caption" align="right">:</td>
+		<td><input type="text" size="20" name="id_bm" id="id_bm" />
+		</td>
+		<td></td>
+		<td class="form-field-caption" align="right">Status Gate</td>
+		<td class="form-field-caption" align="right">:</td>
+		<td><input type="text" id="status_gate" style="width:120px;color:#000000;font:bold; color:#808080; background-color:#FFFF99" name="status_gate" readonly="readonly" value="AFTER GATE IN" />
+		</td>
+	</tr>
+	 <tr>
+		<td class="form-field-caption" align="right">Nama Pemilik</td>
+		<td class="form-field-caption" align="right">:</td>
+		<td><input type="text" size="25" name="emkl" id="emkl" style="background-color:#FFFFCC;" /><a id="submitForm" href="maintenance.master.pbm/" class="link-button" ><img src='images/valid.png' border='0' />&nbsp;Master EMKL</a>
+		<input type="hidden" size="40" name="kode_pbm" id="kode_pbm" />
+		</td>
+		<td>&nbsp;</td>
+		<td class="form-field-caption" align="right">Jenis Batal Muat</td>
+		<td class="form-field-caption" align="right">:</td>
+		<td><input type="text" id="jenis_batalmuat" style="width:140px;color:#000000;font:bold; color:#808080; background-color:#FFFF99" name="jenis_batalmuat" readonly="readonly" value="DELIVERY / LIFT ON" />
+		</td>
+     </tr>
+	 <tr>
+		<td class="form-field-caption" align="right">Vessel</td>
+		<td class="form-field-caption" align="right">:</td>
+		<td><input type="text" size="25" name="vessel" id="vessel" style="background-color:#FFFFCC;" /><a id="submitForm" href="maintenance.master.vessel" class="link-button" ><img src='images/valid.png' border='0' />&nbsp;Master Vessel</a>
+		</td>
+		<td>&nbsp;</td>
+		<td class="form-field-caption" align="right">Keberangkatan Kapal</td>
+		<td class="form-field-caption" align="right">:</td>
+		<td><input type="text" size="15" name="tgl_berangkat" id="tgl_berangkat" />
+		</td>
+     </tr>
+	 <tr>
+		<td class="form-field-caption" align="right">Voyage</td>
+		<td class="form-field-caption" align="right">:</td>
+		<td><input type="text" size="30" name="voyage" id="voyage" size="8"/>
+		</td>
+		<td>&nbsp;</td>
+		<td class="form-field-caption" align="right">Tgl Delivery</td>
+		<td class="form-field-caption" align="right">:</td>
+		<td><input type="text" size="15" name="tgl_keluar" id="tgl_keluar" />
+		</td>		
+     </tr>
+	 <tr>
+		<td colspan="7" align="right">&nbsp;</td>
+     </tr>
+	 <tr>
+		<td colspan="7" align="right"><input type="submit" value="Create Request"/></td>
+     </tr>
+	</table>
+	</form>
+	<br>
+	<hr width="870" color="#e1e0de"></hr>
+	<br/>
+	<br/>	
+</div>
+

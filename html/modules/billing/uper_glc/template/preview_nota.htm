@@ -1,0 +1,42 @@
+<style>
+.content{
+	width:95%;
+	margin-left:auto;
+	margin-right:auto;
+	margin-bottom: 10px;
+	margin-top:20px;
+}
+.main_side{
+	width:100%;
+	float:left;
+	text-align:left;
+}
+</style>
+
+<script type="text/javascript">
+<!------------------- load preview nota ------------>
+$(function() {
+		
+						//setInterval($('#working').html('<img src="<?=HOME?>images/loadingbox.gif" />'),1000);
+						$('#preview_nota').html('<img src="<?=HOME?>images/cont_loading.gif" />');
+						$("#preview_nota").load("<?=HOME?><?=APPID?>/lihat_nota?id={$id_req}&remark={$remark} #id_nota");
+						
+});
+<!------------------- load preview nota ------------>
+
+</script>
+
+<div class="content">
+	<div class="main_side">
+	<h2><span class="graybrown">
+    	<img class="icon" border="0" src="<?=HOME?>images/money.png" />
+        &nbsp;<font color="#0378C6">Nota</font> Sewa GLC
+        </span></h2>	
+	<p><br/></p>
+    <div id="preview_nota" align="center"></div>
+	
+	<br/>
+    <br/>
+    <br/>
+	</div>
+</div>

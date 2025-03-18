@@ -1,0 +1,51 @@
+<?php
+$no_cont		= strtoupper($_GET["term"]);
+
+$db 			= getDB("storage");
+
+
+$query	="  SELECT MASTER_CONTAINER.NO_CONTAINER, 
+                          CONTAINER_STUFFING.NO_REQUEST AS NO_REQ_STUFF,
+                          CONTAINER_STUFFING.TYPE_STUFFING AS VIA,
+                          CONTAINER_STUFFING.COMMODITY AS KOMODITI,
+                          CONTAINER_STUFFING.HZ AS HZ,
+                          MASTER_CONTAINER.SIZE_ AS SIZE_, 
+                          MASTER_CONTAINER.TYPE_ AS TYPE_,
+                          REQUEST_STUFFING.TGL_REQUEST AS TGL_REQUEST,
+						  MASTER_CONTAINER.NO_BOOKING,
+                          CONTAINER_STUFFING.NO_SEAL AS NO_SEAL,
+                          CONTAINER_STUFFING.BERAT AS BERAT,
+                          CONTAINER_STUFFING.KETERANGAN AS KETERANGAN,                        
+                          CONTAINER_STUFFING.REMARK_SP2,
+                          REQUEST_STUFFING.O_IDVSB NO_UKK
+                   FROM MASTER_CONTAINER 
+                   INNER JOIN CONTAINER_STUFFING 
+                        ON MASTER_CONTAINER.NO_CONTAINER = CONTAINER_STUFFING.NO_CONTAINER 
+                   JOIN REQUEST_STUFFING 
+                        ON CONTAINER_STUFFING.NO_REQUEST = REQUEST_STUFFING.NO_REQUEST
+                   WHERE MASTER_CONTAINER.NO_CONTAINER LIKE '%$no_cont%' --AND REQUEST_STUFFING.NOTA='Y' 
+				   AND LOCATION = 'IN_YARD' 
+				   AND  AKTIF = 'Y'
+			"; /*GATO dilepas sementara*/
+	
+/*	
+$query 			= "SELECT MASTER_CONTAINER.NO_CONTAINER, 
+                          MASTER_CONTAINER.SIZE_ AS SIZE_, 
+                          MASTER_CONTAINER.TYPE_ AS TYPE_,
+						  CONTAINER_STUFFING.COMMODITY AS COMMODITY,
+						  CONTAINER_STUFFING.HZ AS HZ,
+						  CONTAINER_STUFFING.NO_REQUEST AS NO_REQUEST,
+						  CONTAINER_STUFFING.TYPE_STUFFING AS TYPE,
+						  REQUEST_STUFFING.TGL_REQUEST AS TGL_REQUEST						  
+				   FROM MASTER_CONTAINER  INNER JOIN CONTAINER_STUFFING ON MASTER_CONTAINER.NO_CONTAINER = CONTAINER_STUFFING.NO_CONTAINER JOIN REQUEST_STUFFING ON CONTAINER_STUFFING.NO_REQUEST = REQUEST_STUFFING.NO_REQUEST
+                   WHERE MASTER_CONTAINER.NO_CONTAINER LIKE '%$no_cont%' AND LOCATION NOT LIKE 'GATO' AND AKTIF = 'Y'";
+*/
+$result			= $db->query($query);
+$row			= $result->getAll();	
+
+//print_r($row);
+
+echo json_encode($row);
+
+
+?>

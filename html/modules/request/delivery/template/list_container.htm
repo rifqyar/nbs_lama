@@ -1,0 +1,20 @@
+<table class="grid-table" border='0' cellpadding="1" cellspacing="1"  width="100%" id="list_cont_dev">
+	<tr>
+		<th class="grid-header">No.</th>	
+		<th class="grid-header">Jenis Container</th>
+		<th class="grid-header">Hz</th>
+		<th class="grid-header">Jumlah</th>
+		<th class="grid-header">Action</th>
+	</tr>
+	<? $A=1;?>
+	<fill src="list" var="rows">
+	<tr align="center">
+		<tD>{$A}</tD>	
+		<td>{$rows.UKURAN}/{$rows.TYPE}/{$rows.STATUS}</td>
+		<tD>{$rows.HZ}</td>
+		<td>{$rows.JUMLAH}</td>
+		<td><i><a href="<?=HOME?>request.delivery/delete_cont?id={$rows.ID_REQ}&nomor={$rows.NO}"><img src="<?=HOME?>images/cont_red_delete.png" style="vertical-align:middle" height="10%" width="10%">delete</a></i></td>
+	</tr>
+	<? $A+=1;?>
+	</fill>
+	</table>

@@ -1,0 +1,29 @@
+<div id="list">
+	<table width="100%">
+    	<thead>
+        	<tr>
+            	<th class="grid-header">No.</th>
+            	<th class="grid-header">No Request</th>
+                <th class="grid-header">Tanggal Request</th>
+                <th class="grid-header">PBM / PEMILIK</th>
+                <th class="grid-header">&nbsp;</th>
+            </tr>
+        </thead>
+        <tbody>
+        	<fill src="row_list" var="rows">
+		   	<alt var='bg' list='#f9f9f3,#ffe'/>
+        	<tr bgcolor="{$bg}" style="cursor:pointer;">
+            	<td>{$__ctr}</td>
+            	<td>{$rows.NO_REQUEST}</td>
+            	<td>{$rows.TGL_REQUEST}</td>
+            	<td>{$rows.NAMA_EMKL}</td>
+            	<td>
+                	<?php 
+                    	cek_nota($rows["NO_REQUEST"]);
+                    ?>
+                </td>
+            </tr>
+            </fill>
+        </tbody>
+    </table>
+</div>

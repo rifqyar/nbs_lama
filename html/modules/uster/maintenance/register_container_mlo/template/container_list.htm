@@ -1,0 +1,21 @@
+<div id="list">
+<table class="grid-table" border='0' cellpadding="1" cellspacing="1"  width="100%" >
+	  <tr style=" font-size:10pt">
+		  <th width="2%" valign="top" class="grid-header"  style="font-size:8pt">No </th>
+		  <th width="110" valign="top" class="grid-header"  style="font-size:8pt">NO CONTAINER </th>
+		  <th width="110" valign="top" class="grid-header"  style="font-size:8pt">SIZE / TYPE </th>
+		  <th valign="top" class="grid-header"  style="font-size:8pt">ACTION</th>
+	  </tr>
+	  <fill src="row_mlo" var="rows">
+	  <tr bgcolor="#f9f9f3" onMouseOver=this.style.backgroundColor="#BAD5FC" onMouseOut=this.style.backgroundColor="">
+		  <td width="4%" align="center" valign="middle" class="grid-cell" style="color:#000; font-family:Arial; font-size:9pt">{$__ctr} </td>
+		  <td width="15%" align="center" valign="middle" class="grid-cell"   style="font-size:9pt"><b>{$rows.NO_CONTAINER}</b></td>
+		  <td width="20%" align="center" valign="middle" class="grid-cell"  style="font-size:9pt; font-size:11pt; color:#555555"><b>{$rows.SIZE_}  / {$rows.TYPE_}</b></td>
+		  <td width="20%" align="center" valign="middle" class="grid-cell" style="font-size:9pt;">
+			 <a onclick="unregister('{$rows.NO_CONTAINER}');"><img src='images/cont_edit.gif' border='0' />&nbsp; Unregister </a>			 
+		  </td>
+		  
+	  </tr>
+	  </fill>
+</table>
+</div>

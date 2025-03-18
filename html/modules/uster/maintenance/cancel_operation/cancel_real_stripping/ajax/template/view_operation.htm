@@ -1,0 +1,29 @@
+<div id="data_container">
+	  <fieldset style="margin-left:80px; margin-right:80px; border:medium solid #999; padding-bottom:10px;">
+            <legend style="font-size:16px; font-weight:bold; color:#999"> Data Petikemas </legend>            
+			
+		<table width="100%">
+			<tr>
+				<th>Kegiatan</th>
+				<th>No Request</th>
+				<th>Eksekutor</th>
+				<th>Time</th>
+				<th>Acton</th>
+			</tr>
+			<?php $i=1;?>
+			<fill var='rw_operation' src='rw_operation'>
+			<tr>
+				<td>{$rw_operation.KEGIATAN}</td>
+				<td>{$rw_operation.NO_REQUEST}</td>
+				<td>{$rw_operation.NAMA_LENGKAP}</td>
+				<td>{$rw_operation.TGL_UPDATE}</td>
+				<td> <?php if($i == 1){?>
+					<a onclick="delete_operation('{$rw_operation.NO_CONTAINER}','{$rw_operation.NO_REQUEST}','{$rw_operation.NO_BOOKING}','{$rw_operation.KEGIATAN}')" style="cursor:pointer"><b>Hapus</b></a>
+					<?php } ?>
+				</td>
+			</tr>
+			<?php $i++;?>
+			</fill>			
+		</table>
+        </fieldset>
+</div>

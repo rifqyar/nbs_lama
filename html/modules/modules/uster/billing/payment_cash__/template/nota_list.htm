@@ -1,0 +1,70 @@
+<div id="list">
+	<table cellpadding="2" cellspacing="2" width="100%">
+    	<thead>
+        <tr style=" font-size:10pt">
+                                  <th width="2%" valign="top" class="grid-header"  style="font-size:8pt">No </th>
+								  <th  width="100" valign="top" class="grid-header"  style="font-size:8pt">KEGIATAN</th>
+                                  <th width="100" valign="top" class="grid-header"  style="font-size:8pt">NO. REQUEST </th>
+                                  <th width="100" valign="top" class="grid-header"  style="font-size:8pt">NO NOTA</th> 
+                                  <th  width="150" valign="top" class="grid-header"  style="font-size:8pt">EMKL</th>
+								   <th  width="90" valign="top" class="grid-header"  style="font-size:8pt">TGL CETAK</th>
+                                  <th width="50" valign="top" class="grid-header"  style="font-size:8pt">STATUS NOTA</th>
+								  <th width="50" valign="top" class="grid-header"  style="font-size:8pt">PEMBAYARAN</th>
+								 <!--   <th width="50" valign="top" class="grid-header"  style="font-size:8pt">PAYMENT</th>-->
+                              </tr>
+                              <fill src="row_list" var="rows">
+                              <tr bgcolor="#f9f9f3" onMouseOver=this.style.backgroundColor="#BAD5FC" onMouseOut=this.style.backgroundColor="">
+                                  <td width="4%" align="center" valign="middle" class="grid-cell" style="color:#000; font-family:Arial; font-size:9pt">{$__ctr} </td>
+								  <td width="10%" align="center" valign="middle" class="grid-cell"><font color="black" style="font-size:10pt"><b> {$keg}</b></font></td>
+                                  <td width="10%" align="center" valign="middle" class="grid-cell"><font color="black" style="font-size:10pt"><b> {$rows.NO_REQUEST}</b></font></td>
+                                  <td width="10%" align="center" valign="middle" class="grid-cell"  style="font-size:9pt;font-family:Arial;"><font color="#0066CC" style="font-size:10pt">{$rows.NO_NOTA}</font></td>
+								  <td width="20%" align="center" valign="middle" class="grid-cell"  style="font-size:9pt"><font color="#0066CC" style="font-size:10pt"><b>{$rows.EMKL}</font></b></td>
+								  <td width="10%" align="center" valign="middle" class="grid-cell"><font color="black" style="font-size:10pt"><b> {$rows.TGL_NOTA_1}</b></font></td>
+            	<td align="center" class="grid-cell" style="color:#000; font-family:Arial; font-size:9pt">
+				<?php IF ($rows['LUNAS'] == 'NO'){ ?>
+						<font color="red"><b><i> BELUM LUNAS</i></b></font>
+                 <? } else if  ($rows['LUNAS'] == 'YES'){  ?>
+						<font color="green"><b><i> SUDAH LUNAS </i></b></font>
+				<? }?>
+                </td>
+				<td align="center" valign="middle" class="grid-cell" style="color:#000; font-family:Arial; font-size:9pt">
+					
+               Bayar melalui : <br>
+              <select name="bayar" id="id_bayar">
+                <option value="0">--- PILIH ---</option>
+                <option value="BANK">BANK</option>
+                <option value="CASH">CASH</option>
+                <option value="AUTODB">AUTODB</option>
+                <option value="DEPOSIT">DEPOSIT</option>
+              </select>
+ 
+				</td>
+			<!--	<td align="center" valign="middle" class="grid-cell" style="color:#000; font-family:Arial; font-size:9pt">
+					
+              <select name="receipt_account">
+                <?php 
+					$db2	= getDB("ora");
+                    $query_get_yard = "select RECEIPT_ACCOUNT from apps.xpi2_ar_receipt_method_v@simkeu_link where kode_cabang = 'PTK'";
+                    $result_yard	= $db2->query($query_get_yard);
+                    $row_yard		= $result_yard->getAll();
+                    foreach($row_yard as $row)
+                    {
+                ?>
+                  <option value="<?=$row['RECEIPT_ACCOUNT']?>"><?=$row['RECEIPT_ACCOUNT'] ?></option>
+                <?php 
+                    }
+                ?>
+                </select>
+
+				</td>-->
+			<!--	<td colspan="8" align="center" valign="middle" class="grid-cell" style="color:#000; font-family:Arial; font-size:9pt"><a onclick="cont_list('{$rows.NO_REQUEST}',$('#id_bayar').val())" target="_blank"><img src="images/kasir.png"> <br>Payment Cash</a></td>-->
+            </tr>
+			
+            </fill>
+		
+            </td>
+          </tr>
+		 
+        </tbody>
+    </table>
+</div>

@@ -1,0 +1,49 @@
+
+ <div id="list">
+     <table class="grid-table" border='0' cellpadding="1" cellspacing="1"  width="100%" >
+                              <tr style=" font-size:10pt">
+                                  <th valign="top" class="grid-header"  style="font-size:8pt">No </th>
+                                  <th valign="top" class="grid-header"  style="font-size:8pt">No.  Request</th>
+                                  <th  valign="top" class="grid-header"  style="font-size:8pt">No.  Container</th>
+                                  <th  valign="top" class="grid-header"  style="font-size:8pt">Kegiatan</th> 
+                                  <th  valign="top" class="grid-header"  style="font-size:8pt">Lokasi</th> 
+                                  <th valign="top" class="grid-header"  style="font-size:8pt">Tgl Approval</th>
+                                  <th valign="top" class="grid-header"  style="font-size:8pt">Tgl Realisasi</th>
+                                  <th valign="top" class="grid-header"  style="font-size:8pt">Tgl Placement</th>
+                                  <th valign="top" class="grid-header"  style="font-size:8pt">Pemilik Barang</th>
+                              </tr>
+							  <?php $i=0; $before= ""; ?>
+                              <fill src="row_list" var="rows">
+							  <?php  $i++;	?>
+                              <tr bgcolor="#f9f9f3" onMouseOver=this.style.backgroundColor="#BAD5FC" onMouseOut=this.style.backgroundColor="">
+							   <td width="4%" align="center" valign="middle" class="grid-cell" style="color:#000; font-family:Arial; font-size:9pt"><?=$i?> </td>
+								<?php if($rows["NO_REQUEST"] != $before) { ?>                                 
+                                 <td width="22%" align="center" valign="middle" class="grid-cell"   style="font-family:Arial; font-size:11pt; color:#555555"><b>{$rows.NO_REQUEST}</b></td>
+                                  <td width="15%" align="center" valign="middle" class="grid-cell"  style="font-size:9pt">{$rows.NO_CONTAINER}<br>{$rows.SIZE_} / {$rows.TYPE_}</td>
+                                  <td width="15%" align="center" valign="middle" class="grid-cell"  style="font-size:9pt;font-family:Arial;"><font color="#0066CC" style="font-size:10pt">{$rows.KEGIATAN}</font></td>
+								  <td width="15%" align="center" valign="middle" class="grid-cell"  style="font-size:9pt;font-family:Arial;"><font color="#0066CC" style="font-size:10pt">{$rows.LOKASI_TPK}</font></td>
+                                  <td width="15%" align="center" valign="middle" class="grid-cell"  style="font-size:9pt;font-family:Arial;"><font color="#0066CC" style="font-size:10pt">{$rows.TGL_APPROVE}</font></td>
+                                  <td width="15%" align="center" valign="middle" class="grid-cell"  style="font-size:9pt;font-family:Arial;"><font color="#0066CC" style="font-size:10pt">{$rows.TGL_REALISASI}</font></td>
+                                  <td width="15%" align="center" valign="middle" class="grid-cell"  style="font-size:9pt;font-family:Arial;"><font color="#0066CC" style="font-size:10pt">{$rows.TGL_PLACEMENT}</font></td>
+                                  <td width="15%" align="center" valign="middle" class="grid-cell"  style="font-size:9pt;font-family:Arial;"><font color="#0066CC" style="font-size:10pt">{$rows.NM_PBM}</font></td>
+								<?php } else { ?>
+								<!-- <td width="4%" align="center" valign="middle" class="grid-cell" style="color:#000; font-family:Arial; font-size:9pt"></td> -->
+                                  <td width="22%" align="center" valign="middle" class="grid-cell"   style="font-family:Arial; font-size:11pt; color:#555555"><b></b></td>
+                                  <td width="15%" align="center" valign="middle" class="grid-cell"  style="font-size:9pt">{$rows.NO_CONTAINER} <br/> {$rows.SIZE_} / {$rows.TYPE_}</td>
+                                  <td width="15%" align="center" valign="middle" class="grid-cell"  style="font-size:9pt;font-family:Arial;"><font color="#0066CC" style="font-size:10pt">{$rows.KEGIATAN}</font></td>
+								  <td width="15%" align="center" valign="middle" class="grid-cell"  style="font-size:9pt;font-family:Arial;"><font color="#0066CC" style="font-size:10pt">{$rows.LOKASI_TPK}</font></td>
+                                  <td width="15%" align="center" valign="middle" class="grid-cell"  style="font-size:9pt;font-family:Arial;"><font color="#0066CC" style="font-size:10pt">{$rows.TGL_APPROVE}</font></td>
+                                  <td width="15%" align="center" valign="middle" class="grid-cell"  style="font-size:9pt;font-family:Arial;"><font color="#0066CC" style="font-size:10pt">{$rows.TGL_REALISASI}</font></td>
+                                  <td width="15%" align="center" valign="middle" class="grid-cell"  style="font-size:9pt;font-family:Arial;"><font color="#0066CC" style="font-size:10pt">{$rows.TGL_PLACEMENT}</font></td>
+                                  <td width="15%" align="center" valign="middle" class="grid-cell"  style="font-size:9pt;font-family:Arial;"><font color="#0066CC" style="font-size:10pt">{$rows.NM_PBM}</font></td>
+								<?php }   $before = $rows["NO_REQUEST"];  ?>
+							</tr>
+							</fill>
+							<?php //if(count($rows) > 0) {?>
+							<tr>
+								<td colspan="6" align="right"> </td>
+								<td align="right"> <input type="button" value=" Export to Excel" onclick="toexcel()" /> </td>
+							</tr>
+							<?php //} ?>
+        </table>
+ </div>

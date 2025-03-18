@@ -1,0 +1,107 @@
+<script type="text/javascript"> 
+function ReloadPage() { 
+	location.reload();
+}
+$(document).ready(function() {
+	setTimeout("ReloadPage()", 180000);
+});
+
+jQuery(function() {
+ jQuery("#l_uper").jqGrid({
+	url:'billing.uper_bm.data/',
+	mtype : "post",
+	datatype: "json",
+	colNames:['AKSI','NO UPER','UKK','VESSEL','VOYAGE','SHIPPING LINE','JUMLAH UPER','VALUTA','PAYMENT DATE','PAYMENT VIA'], 
+	colModel:[
+		{name:'aksi', width:50, align:"center",sortable:false,search:false},
+		{name:'NO_UPER',index:'NO_UPER', width:100, align:"left"},
+		{name:'NO_UKK',index:'NO_UKK', width:100, align:"left"},
+		{name:'NM_KAPAL',index:'NM_KAPAL', width:150, align:"left"},
+		{name:'(VOYAGE_IN||VOYAGE_OUT)',index:'(VOYAGE_IN||VOYAGE_OUT)', width:60, align:"center",sortable:false},
+		{name:'NM_PEMILIK',index:'NM_PEMILIK', width:150, align:"left"},
+		{name:'TOTAL',index:'TOTAL', width:100, align:"right",search:false},
+		{name:'VALUTA',index:'VALUTA', width:60, align:"center"},
+		{name:'TGL_LUNAS',index:'TGL_LUNAS', width:95, align:"center",search:false},
+		{name:'PAYMENT_VIA',index:'PAYMENT_VIA', width:85, align:"center"}
+	],
+	rowNum:10,
+	width: 875,
+	height: "100%",
+	rowList:[10,20,30],
+	//loadonce:true,
+	rownumbers: true,
+	rownumWidth: 15,
+	gridview: true,
+	sortname: 'NO_UPER',
+	sortorder: "DESC",
+	pager: '#pg_uper',
+	viewrecords: true,
+	shrinkToFit: false,
+	//addurl: "billing.uper_bm/add/",
+	caption:"Data Uper"
+ }).navGrid('#pg_uper',{
+	search:false,
+	add:false,
+	edit:false,
+	del:false
+ });
+ jQuery("#l_uper").jqGrid('filterToolbar',{stringResult: true,searchOnEnter : false});
+});
+
+function pay(a,b,c,d)
+{
+	$('#pay').load("<?=HOME?>billing.uper_bm.ajax/payment?iduper="+a+"&ukk="+b+"&val="+c+"&tgh="+d).dialog({closeOnEscape: false, modal:true, height:200,width:350, title : "Pembayaran Uper B/M", open: function(event,ui){$(".ui-dialog-titlebar-close",ui.dialog).hide();}});
+}
+
+function save_payment(a,b)
+{
+	var via=$('#via').val();
+	var payment_date=$('#payment_date').val();
+	var url="<?=HOME?>billing.uper_bm.ajax/save_payment";
+	
+	if(via=='')
+	{
+		alert ('Please choose payment via');
+		return false;
+	}
+	else
+	{
+		question = confirm("data akan ditransfer, cek apakah data sudah benar?")
+		if (question != "0") {
+			$.blockUI({ message: '<h1><br>Please wait... Transfer Payment</h1><br><img src=images/loadingbox.gif /><br><br>' });
+			$.post(url,{NO_UPER : a, NO_UKK : b, VIA : via, DATE : payment_date},function(data){	
+				alert(data);
+				$.unblockUI({
+					onUnblock: function(){  }
+				});
+				$('#pay').dialog('destroy').remove();	
+				$('#mainform').append('<div id="pay"></div>');
+				//document.location.reload(true);
+				$("#l_uper").jqGrid('setGridParam',{url:"billing.uper_bm.data/", datatype:"json"}).trigger("reloadGrid");	
+			});
+		}
+	}
+}
+</script>
+<style>
+.content{
+	width:95%;
+	margin-left:auto;
+	margin-right:auto;
+	margin-bottom: 10px;
+	margin-top:20px;
+}
+</style>
+
+<div class="content">
+<h2>&nbsp;<img class="icon" border="0" src="images/uper.png" />&nbsp;Uper Bongkar-Muat</h2>
+
+<p><br/></p>
+<table id='l_uper'></table> <div id='pg_uper'></div>
+<div id="dialog-form">
+<form id="mainform">
+	<div id="pay"></div>
+</form>
+</div>
+
+</div>

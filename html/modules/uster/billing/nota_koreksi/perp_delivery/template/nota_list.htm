@@ -1,0 +1,31 @@
+<div id="list">
+	<table width="100%">
+    	<thead>
+        <tr style=" font-size:10pt">
+                                  <th width="2%" valign="top" class="grid-header"  style="font-size:8pt">No </th>
+                                  <th width="200" valign="top" class="grid-header"  style="font-size:8pt">NO. REQUEST </th>
+								  <th width="100" valign="top" class="grid-header"  style="font-size:8pt">NO. NOTA </th>
+                                  <th width="150" valign="top" class="grid-header"  style="font-size:8pt">TGL. REQUEST</th> 
+                                  <th  width="200" valign="top" class="grid-header"  style="font-size:8pt">EMKL</th>
+                                  <th width="200" valign="top" class="grid-header"  style="font-size:8pt">JML Cont</th>
+                                  <th width="50" valign="top" class="grid-header"  style="font-size:8pt">ACTION</th>  
+                              </tr>
+                              <fill src="row_list" var="rows">
+                              <tr bgcolor="#f9f9f3" onMouseOver=this.style.backgroundColor="#BAD5FC" onMouseOut=this.style.backgroundColor="">
+                                  <td width="4%" align="center" valign="middle" class="grid-cell" style="color:#000; font-family:Arial; font-size:9pt">{$__ctr} </td>
+                                  <td width="25%" align="left" valign="middle" class="grid-cell"   ><b><font color="#0066CC" style="font-size:10pt"> NO REQUEST : </b></font><font color="black" style="font-size:10pt"><b> {$rows.NO_REQUEST}</b></font><br><font color="#0066CC" style="font-size:10pt"> <b>EXT REQUEST : </b></font><font color="red" style="font-size:10pt"> {$rows.PERP_DARI}</font></td>
+                                  <td width="15%" align="left" valign="middle" class="grid-cell"   ><b><font color="#0066CC" style="font-size:10pt"> <b>{$rows.NO_NOTA}</b></font></td>
+                                  <td width="20%" align="left" valign="middle" class="grid-cell"  style="font-size:9pt"><font color="#0066CC" style="font-size:10pt">TGL REQUEST : </font>{$rows.TGL_REQUEST} <br><font color="#0066CC" style="font-size:10pt"> TGL REQ DELIVERY : </font>{$rows.TGL_REQUEST_DELIVERY}</td>
+                                 
+                                  <td width="20%" align="center" valign="middle" class="grid-cell"  style="font-size:9pt;font-family:Arial;"><font color="#0066CC" style="font-size:10pt">{$rows.NAMA_EMKL}</font></td>
+								  <td width="20%" align="center" valign="middle" class="grid-cell"  style="font-size:9pt"><font color="#0066CC" style="font-size:10pt"><b>{$rows.JML_CONT}</font>  BOX </b></td>
+            	<td align="center" class="grid-cell" style="color:#000; font-family:Arial; font-size:9pt">
+                	<?php 
+                    	cek_nota($rows["NO_REQUEST"]);
+                    ?>
+                </td>
+            </tr>
+            </fill>
+        </tbody>
+    </table>
+</div>

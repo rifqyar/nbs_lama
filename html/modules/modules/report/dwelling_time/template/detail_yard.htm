@@ -1,0 +1,141 @@
+<div id="list" align="center">
+
+	<table id="zebra" border="1" bordercolor="#FFFFFF" width="100%" style="border-collapse:collapse" align="center">
+	  <tr style="cursor:pointer;" onclick="fill_all()">
+		<th height="20" width="5">NO</th>
+		<th height="20" width="40">BLOK</th>
+        <th height="20" width="5">CAP</th> 
+		<th height="20" width="5">USED</th> 
+		<th height="20" width="5">AVA</th> 
+		<th height="20" width="50">VESSEL</th>	
+		<th height="20" width="50">VOYAGE</th>
+		<th height="20" width="20">NOMOR<br>CONTAINER</th>        
+		<th height="20" width="20">SIZE-TYPE<br>-STATUS</th>
+		<th height="20" width="20">SLOT-ROW<br>-TIER</th>
+		<th height="20" width="20">ACT</th>
+		<th height="20" width="20">TGL<br> GATEIN</th>        
+		<th height="20" width="20">TGL<br>PLACEMENT</th>
+		<th height="20" width="20">DWELLING<br>TIME</th>        
+		<th height="20" width="20">ACTION</th>
+     </tr>
+	  <?php $i=1;?>
+	<fill src="header" var="rows">
+	 <tr style="cursor:pointer;" onclick="fill('{$rows.ID}')">
+		<td class="grid-cell" align ="center" valign="top" style="font-size:10;color:#3300CC"><?=$i;?></td>
+		<td class="grid-cell" align="center" valign="top" style="font-size:10;color:#3300CC"><b>{$rows.NAME}</b></td>
+		<td class="grid-cell" align ="center" valign="top" style="font-size:10;color:#3300CC">{$rows.KAPASITAS}</td>
+		<td class="grid-cell" align="center" valign="top" style="font-size:10;color:#3300CC">{$rows.USED}</td>
+		<td class="grid-cell" align ="center" valign="top" style="font-size:10;color:#3300CC">{$rows.AVA}</td>
+		<td colspan="10"></td>
+	</tr>
+	<?	
+		$db 	= getDB();
+		$id_blok_ = $rows['ID'];
+		//echo "SELECT c.ID_VS, a.NAMA_VESSEL, b.VOYAGE FROM YD_PLACEMENT_YARD c, VESSEL_SCHEDULE b, MASTER_VESSEL a WHERE c.ID_VS = b.ID_VS AND b.ID_VES = a.KODE_KAPAL AND c.ID_BLOCKING_AREA = '$id_blok' GROUP BY c.ID_VS, a.NAMA_VESSEL, b.VOYAGE";die;
+		if ($id_blok == NULL) {
+		//echo "SELECT VESSEL, VOYAGE, JML_TERALOKASI, JML_CETAK_JOBSLIP, JML_PLACEMENT FROM REPORT_YARD WHERE 
+		//ID_BLOK ='$id_blok'";die;
+			$query = " SELECT c.ID_VS, a.NAMA_VESSEL, b.VOYAGE FROM YD_PLACEMENT_YARD c, VESSEL_SCHEDULE b, MASTER_VESSEL a WHERE c.ID_VS = b.ID_VS AND b.ID_VES = a.KODE_KAPAL AND c.ID_BLOCKING_AREA = '' GROUP BY c.ID_VS, a.NAMA_VESSEL, b.VOYAGE";
+		} else {
+			if ($id_blok <> $id_blok_){
+		//	echo "SELECT c.ID_VS, a.NAMA_VESSEL, b.VOYAGE FROM YD_PLACEMENT_YARD c, VESSEL_SCHEDULE b, MASTER_VESSEL a WHERE c.ID_VS = b.ID_VS AND b.ID_VES = a.KODE_KAPAL AND c.ID_BLOCKING_AREA = '236' GROUP BY c.ID_VS, a.NAMA_VESSEL, b.VOYAGE";die;
+			$query = "SELECT c.ID_VS, a.NAMA_VESSEL, b.VOYAGE FROM YD_PLACEMENT_YARD c, VESSEL_SCHEDULE b, MASTER_VESSEL a WHERE c.ID_VS = b.ID_VS AND b.ID_VES = a.KODE_KAPAL AND c.ID_BLOCKING_AREA = '' GROUP BY c.ID_VS, a.NAMA_VESSEL, b.VOYAGE";
+			 } else {
+		//	 echo "SELECT c.ID_VS, a.NAMA_VESSEL, b.VOYAGE FROM YD_PLACEMENT_YARD c, VESSEL_SCHEDULE b, MASTER_VESSEL a WHERE c.ID_VS = b.ID_VS AND b.ID_VES = a.KODE_KAPAL AND c.ID_BLOCKING_AREA = '$id_blok' GROUP BY c.ID_VS, a.NAMA_VESSEL, b.VOYAGE";die;
+			 $query = "SELECT c.ID_VS, a.NAMA_VESSEL, b.VOYAGE FROM YD_PLACEMENT_YARD c, VESSEL_SCHEDULE b, MASTER_VESSEL a WHERE c.ID_VS = b.ID_VS AND b.ID_VES = a.KODE_KAPAL AND c.ID_BLOCKING_AREA = '$id_blok' GROUP BY c.ID_VS, a.NAMA_VESSEL, b.VOYAGE";
+			 }
+		}
+		$result = $db->query($query);
+	    $detail = $result->getAll();
+		
+		foreach ($detail as $row){
+	?>
+	<tr style="cursor:pointer;" onclick="fill_vs('{$rows.ID}','{$row.ID_VS}')">
+		<td colspan='5'></td>
+		<td class="grid-cell" align ="left" valign="top" style="font-size:10;color:#3300CC"><?=$row['NAMA_VESSEL']?></td>
+		<td class="grid-cell" align ="left" valign="top" style="font-size:10;color:#3300CC"><?=$row['VOYAGE']?></td>
+		<td colspan="8"></td>
+	</tr>
+
+	<?
+		$id_vs_ = $row['ID_VS'];
+		$id_blok_ = $rows['ID'];
+		
+		if ($id_vs == NULL) {
+		//echo "SELECT VESSEL, VOYAGE, JML_TERALOKASI, JML_CETAK_JOBSLIP, JML_PLACEMENT FROM REPORT_YARD WHERE 
+		//ID_BLOK ='$id_blok'";die;
+			$query2= " SELECT c.ID_VS, a.NAMA_VESSEL, b.VOYAGE FROM YD_PLACEMENT_YARD c, VESSEL_SCHEDULE b, MASTER_VESSEL a WHERE c.ID_VS = b.ID_VS AND b.ID_VES = a.KODE_KAPAL AND c.ID_BLOCKING_AREA = '' GROUP BY c.ID_VS, a.NAMA_VESSEL, b.VOYAGE";
+		} else {
+			if ($id_vs <> $id_vs_){
+			$query2 = "SELECT c.ID_VS, a.NAMA_VESSEL, b.VOYAGE FROM YD_PLACEMENT_YARD c, VESSEL_SCHEDULE b, MASTER_VESSEL a WHERE c.ID_VS = b.ID_VS AND b.ID_VES = a.KODE_KAPAL AND c.ID_BLOCKING_AREA = '' GROUP BY c.ID_VS, a.NAMA_VESSEL, b.VOYAGE";
+			 } else {
+			 $query2 = "SELECT a.NO_CONTAINER, a.ACTIVITY,a.SIZE_, a.TYPE_CONT, a.STATUS_CONT, a.SLOT_YARD, a.ROW_YARD, a.TIER_YARD, TO_DATE(b.TGL_GATEIN,'dd/mm/rrrr') TGL_GATEIN, TO_DATE(a.PLACEMENT_DATE,'dd/mm/rrrr') TGL_PLACEMENT, get_duration2(a.PLACEMENT_DATE, SYSDATE) DWELLING_TIME
+						from yd_placement_yard a, tb_cont_jobslip b
+						where a.id_jobslip = b.id_job_slip
+						and a.id_blocking_area = '$id_blok'
+						and a.id_vs = '$id_vs' ";
+			 }
+		}
+		$result2 = $db->query($query2);
+	    $detail2 = $result2->getAll();
+		
+		foreach ($detail2 as $row){
+		if ($row['ACTIVITY'] == 'MUAT'){
+		$act = 'EXP';
+		} else {
+		$act = 'IMP';
+		}
+	?>
+	<tr>
+		<td colspan='7'></td>
+		<td class="grid-cell" align ="center" valign="top" style="font-size:10;color:#3300CC"><?=$row['NO_CONTAINER']?></td>
+		<td class="grid-cell" align ="center" valign="top" style="font-size:10;color:#3300CC"><?=$row['SIZE_']?>-<?=$row['TYPE_CONT']?>-<?=$row['STATUS_CONT']?></td>
+		<td class="grid-cell" align ="center" valign="top" style="font-size:10;color:#3300CC">S<?=$row['SLOT_YARD']?>-R<?=$row['ROW_YARD']?>-T<?=$row['TIER_YARD']?></td>
+		<td class="grid-cell" align ="center" valign="top" style="font-size:10;color:#3300CC"><?=$act?></td>
+		<td class="grid-cell" align ="center" valign="top" style="font-size:10;color:#3300CC"><?=$row['TGL_GATEIN']?></td>
+		<td class="grid-cell" align ="center" valign="top" style="font-size:10;color:#3300CC"><?=$row['TGL_PLACEMENT']?></td>
+		<td class="grid-cell" align ="center" valign="top" style="font-size:10;color:#3300CC"><?=$row['DWELLING_TIME']?></td>
+		<td class="grid-cell" align ="center" valign="top" style="font-size:10;color:#3300CC"><b><a href="#">PLP</a></b></td>
+	</tr>
+	<?}
+		$db = getDB();
+		$query3 = "SELECT COUNT(DISTINCT(b.NO_CONTAINER)) USED_
+        FROM yd_placement_yard b WHERE b.ID_VS = '$id_vs' ";
+		$result3 = $db->query($query3);
+	    $detail3 = $result3->fetchRow();
+		
+		$query4 = "SELECT COUNT(DISTINCT(b.NO_CONTAINER)) USED_
+        FROM yd_placement_yard b WHERE b.ID_BLOCKING_AREA = '$id_blok' AND b.ID_VS = '$id_vs_'";
+		$result4 = $db->query($query4);
+	    $detail4 = $result4->fetchRow();
+		
+		if ($id_vs == NULL){
+			$per_vessel = $detail4['USED_'];
+		} else {
+			$per_vessel = $detail3['USED_'];
+		}
+	?>
+	<tr>
+		<td></td><td colspan="13" class="grid-cell" align ="right" valign="top" style="font-size:10;color:red"><b> TOTAL PLACEMENT VESSEL <i><font color='blue'> <?=$row['NAMA_VESSEL']?></font></i></b></td>
+		<td class="grid-cell" align ="right" valign="top" style="font-size:10;color:red"><?=$per_vessel?> BOX</td>
+	</tr>
+		<?}
+		if ($id_blok == NULL){
+			$used = $rows['NAME'];
+		} else {
+			$used = $rows['NAME'];
+		}?>
+	<tr>
+		<td></td><td colspan="13" class="grid-cell" align ="right" valign="top" style="font-size:10;color:red"><b> TOTAL PLACEMENT di BLOCK <i><font color='blue'> <?=$rows['NAME']?></font></i></b></td>
+		<td class="grid-cell" align ="right" valign="top" style="font-size:10;color:red">{$rows.USED} BOX </td>
+	</tr>
+	<? $i++;?>	
+	</fill>
+	<tr>
+		<td></td><td colspan="13" class="grid-cell" align ="right" valign="top" style="font-size:10;color:red"><b> GRAND TOTAL</b></td>
+		<td class="grid-cell" align ="right" valign="top" style="font-size:10;color:red"><?=$grand?> BOX </td>
+	</tr>
+	</table>
+	<br>
+	<a class="link-button" style="height:25" onclick="toexcel()"><img src='images/cari.png' border='0' />Generate Excel</a>
+</div>

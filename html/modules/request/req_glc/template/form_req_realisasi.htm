@@ -1,0 +1,601 @@
+<style>
+.content{
+	width:95%;
+	margin-left:auto;
+	margin-right:auto;
+	margin-bottom: 10px;
+	margin-top:20px;
+}
+.main_side{
+	width:100%;
+	float:left;
+	text-align:left;
+}
+#alat{
+		width:110%;
+    	height:25px;
+		font-size:16px;
+}
+#keterangan{
+		width:190%;
+    	height:25px;
+		font-size:14px;
+}
+</style>
+	
+<script type="text/javascript">
+      	$(document).ready(function()
+        {
+	     	 $("#rta").datepicker({
+                                        dateFormat: 'd/m/yy'
+                  
+                                        });
+             $("#rtd").datepicker({
+                                        dateFormat: 'd/m/yy'
+                  
+                                     });
+			$("#real_mulai").datepicker({
+                                        dateFormat: 'd/m/yy'
+                  
+                                        });
+             $("#real_selesai").datepicker({
+                                        dateFormat: 'd/m/yy'
+                  
+                                     });
+			$("#est_mulai").datepicker({
+                                        dateFormat: 'd/m/yy'
+                  
+                                        });
+            $("#est_selesai").datepicker({
+                                        dateFormat: 'd/m/yy'
+                  
+                                     });
+		});
+
+function add_alat()
+{
+	var remark_		= "{$remark}"; //req,realisasi
+	var id_req_     = "{$request.ID_REQ}";
+	var eta_        = "{$request.ETA}";
+	var etd_        = "{$request.ETD}";
+	var rta_		= $("#rta").val();
+	var rta_jam_	= $("#rta_jam").val();
+	var rta_menit_	= $("#rta_menit").val();
+	var rtd_		= $("#rtd").val();
+	var rtd_jam_	= $("#rtd_jam").val();
+	var rtd_menit_	= $("#rtd_menit").val();
+	var real_mulai_	= $("#real_mulai").val();
+	var real_mulai_jam_	= $("#real_mulai_jam").val();
+	var real_mulai_menit_ = $("#real_mulai_menit").val();
+	var real_selesai_ = $("#real_selesai").val();
+	var real_selesai_jam_ = $("#real_selesai_jam").val();
+	var real_selesai_menit_ = $("#real_selesai_menit").val();	
+	var alat_		= $("#alat").val();
+	var keterangan_ = $("#keterangan").val();
+	var stat_keterangan_ = $("#stat_keterangan").val();
+	var tarif_ = $("#tarif").val();
+	//var stat_time_  = $("#stat_time").val(); //wrk,it,wt,not
+	var estimasi_	= $("#estimasi").val();
+	var mulai_		= $("#est_mulai").val();
+	var mulai_jam_	= $("#est_mulai_jam").val();
+	var mulai_menit_ = $("#est_mulai_menit").val();	
+	var selesai_     = $("#est_selesai").val();
+	var selesai_jam_   = $("#est_selesai_jam").val();
+	var selesai_menit_ = $("#est_selesai_menit").val();
+	var url			= "{$HOME}{$APPID}.ajax/tambah_alat";
+	
+	
+	$.post(url,{remark : remark_, id_req : id_req_, eta : eta_, etd : etd_, rta : rta_, rta_jam : rta_jam_, rta_menit : rta_menit_, rtd : rtd_, rtd_jam : rtd_jam_, rtd_menit : rtd_menit_, real_mulai : real_mulai_, real_mulai_jam : real_mulai_jam_, real_mulai_menit : real_mulai_menit_, real_selesai : real_selesai_, real_selesai_jam : real_selesai_jam_, real_selesai_menit : real_selesai_menit_, alat : alat_, keterangan : keterangan_, stat_keterangan : stat_keterangan_, tarif : tarif_, estimasi : estimasi_, mulai : mulai_, mulai_jam : mulai_jam_, mulai_menit : mulai_menit_, selesai : selesai_, selesai_jam : selesai_jam_, selesai_menit : selesai_menit_},function(data){
+		console.log(data);
+		if(data == "OK")
+		{	
+			$("#glc01").load('<?=HOME?><?=APPID?>/working?id_req={$request.ID_REQ}&remark={$remark}&alat=GLC01 #workingtime_list', function(data) {        	  
+			});
+			$("#glc02").load('<?=HOME?><?=APPID?>/working?id_req={$request.ID_REQ}&remark={$remark}&alat=GLC02 #workingtime_list', function(data) {        	  
+			});
+			$("#glc03").load('<?=HOME?><?=APPID?>/working?id_req={$request.ID_REQ}&remark={$remark}&alat=GLC03 #workingtime_list', function(data) {        	  
+			});
+			$("#glc04").load('<?=HOME?><?=APPID?>/working?id_req={$request.ID_REQ}&remark={$remark}&alat=GLC04 #workingtime_list', function(data) {        	  
+			});
+			$("#glc05").load('<?=HOME?><?=APPID?>/working?id_req={$request.ID_REQ}&remark={$remark}&alat=GLC05 #workingtime_list', function(data) {        	  
+			});
+			$("#glc06").load('<?=HOME?><?=APPID?>/working?id_req={$request.ID_REQ}&remark={$remark}&alat=GLC06 #workingtime_list', function(data) {        	  
+			});
+		}
+		else if(data == "NO")
+		{
+			alert("Data inputan tidak lengkap...Silakan dicek kembali!!!");
+		}
+		else if(data == "TANGGAL")
+		{
+			alert("Silakan Cek Kembali Inputan Tanggal...!!!");
+		}
+		else if(data == "SHIFT")
+		{
+			alert("Periode Waktu Melebihi Alokasi Shift...!!!");
+		}
+	});	
+	//prosedur add comment disini, method $.post, include user id dan content id
+}
+
+function del_alat($id_details, $stat_form)
+{
+	var id_req_		= "{$request.ID_REQ}";
+	var url			= "{$HOME}{$APPID}.ajax/hapus_alat";
+		
+	$.post(url,{ID_REQ : id_req_, ID_DETAILS : $id_details, STAT_FORM : $stat_form},function(data){
+		console.log(data);
+		if(data == "OK")
+		{
+			$("#glc01").load('<?=HOME?><?=APPID?>/working?id_req={$request.ID_REQ}&remark={$remark}&alat=GLC01 #workingtime_list', function(data) {        	  
+			});
+			$("#glc02").load('<?=HOME?><?=APPID?>/working?id_req={$request.ID_REQ}&remark={$remark}&alat=GLC02 #workingtime_list', function(data) {        	  
+			});
+			$("#glc03").load('<?=HOME?><?=APPID?>/working?id_req={$request.ID_REQ}&remark={$remark}&alat=GLC03 #workingtime_list', function(data) {        	  
+			});
+			$("#glc04").load('<?=HOME?><?=APPID?>/working?id_req={$request.ID_REQ}&remark={$remark}&alat=GLC04 #workingtime_list', function(data) {        	  
+			});
+			$("#glc05").load('<?=HOME?><?=APPID?>/working?id_req={$request.ID_REQ}&remark={$remark}&alat=GLC05 #workingtime_list', function(data) {        	  
+			});
+			$("#glc06").load('<?=HOME?><?=APPID?>/working?id_req={$request.ID_REQ}&remark={$remark}&alat=GLC06 #workingtime_list', function(data) {        	  
+			}); 	
+		}
+	});	
+}
+
+function hitung_shift()
+{
+	var mulai_		   = $("#est_mulai").val();
+	var mulai_jam_	   = $("#est_mulai_jam").val();
+	var mulai_menit_   = $("#est_mulai_menit").val();
+	var selesai_       = $("#est_selesai").val();
+	var selesai_jam_   = $("#est_selesai_jam").val();
+	var selesai_menit_ = $("#est_selesai_menit").val();
+	var url			   = "{$HOME}{$APPID}.ajax/hitung";
+	
+	$.post(url,{MULAI : mulai_, MULAI_JAM : mulai_jam_, MULAI_MENIT : mulai_menit_, SELESAI : selesai_, SELESAI_JAM : selesai_jam_, SELESAI_MENIT : selesai_menit_},function(data){
+		console.log(data);
+	$('#estimasi').val(data);
+	});	
+	//prosedur add comment disini, method $.post, include user id dan content id
+}
+
+function insert_prod(b,c)
+{
+	//alert(b);
+	$('#table_produksi').load("<?=HOME?>request.req_glc/insert_produksi?id="+b+"&detail="+c+"&barang=container #table_prod").dialog({modal:true, height:300,width:400});
+}
+
+function insert_palka(b,c)
+{
+	//alert(b);
+	$('#table_produksi').load("<?=HOME?>request.req_glc/insert_produksi?id="+b+"&detail="+c+"&barang=palka #table_prod").dialog({modal:true, height:300,width:400});
+}
+
+function tambah_ct(id_rq,id_dtl,brg)
+{
+	//alert(id_rq);
+	var jml_cont_ = $("#jml_cont").val();
+	var jml_palka_ = $("#jml_palka").val();
+	var size_ 	= $("#size").val();
+	var type_ 	= $("#type").val();
+	var status_ = $("#status").val();
+	var no_req_ = id_rq;
+	var id_details_ = id_dtl;
+	var barang_ = brg;
+	var url	= "{$HOME}{$APPID}.ajax/add_produksi";
+	$.post(url,{SIZE : size_, TYPE : type_, STATUS : status_, JML_CONT : jml_cont_, JML_PALKA : jml_palka_, ID_REQ : no_req_, ID_DETAILS : id_details_, BARANG : barang_});	
+	$('#table_produksi').load("<?=HOME?>request.req_glc/insert_produksi?id="+id_rq+"&detail="+id_dtl+"&barang="+brg+" #table_prod").dialog({modal:true, height:400,width:400});
+	$("#glc01").load("<?=HOME?><?=APPID?>/working?id_req={$request.ID_REQ}&remark={$remark}&alat=GLC01 #workingtime_list");
+	$("#glc02").load("<?=HOME?><?=APPID?>/working?id_req={$request.ID_REQ}&remark={$remark}&alat=GLC02 #workingtime_list");
+	$("#glc03").load("<?=HOME?><?=APPID?>/working?id_req={$request.ID_REQ}&remark={$remark}&alat=GLC03 #workingtime_list");
+	$("#glc04").load("<?=HOME?><?=APPID?>/working?id_req={$request.ID_REQ}&remark={$remark}&alat=GLC04 #workingtime_list");
+	$("#glc05").load("<?=HOME?><?=APPID?>/working?id_req={$request.ID_REQ}&remark={$remark}&alat=GLC05 #workingtime_list");
+	$("#glc06").load("<?=HOME?><?=APPID?>/working?id_req={$request.ID_REQ}&remark={$remark}&alat=GLC06 #workingtime_list");
+}
+
+function minus_ct(id_dtl,req,id_details,brg)
+{
+	//alert(id_rq);
+	var url		= "{$HOME}{$APPID}.ajax/del_produksi";
+	$.post(url,{ID : id_dtl, ID_REQ : req, ID_DETAILS : id_details});	
+	$('#table_produksi').load("<?=HOME?>request.req_glc/insert_produksi?id="+req+"&detail="+id_details+"&barang="+brg+" #table_prod").dialog({modal:true, height:400,width:400});
+	$("#glc01").load("<?=HOME?><?=APPID?>/working?id_req={$request.ID_REQ}&remark={$remark}&alat=GLC01 #workingtime_list");
+	$("#glc02").load("<?=HOME?><?=APPID?>/working?id_req={$request.ID_REQ}&remark={$remark}&alat=GLC02 #workingtime_list");
+	$("#glc03").load("<?=HOME?><?=APPID?>/working?id_req={$request.ID_REQ}&remark={$remark}&alat=GLC03 #workingtime_list");
+	$("#glc04").load("<?=HOME?><?=APPID?>/working?id_req={$request.ID_REQ}&remark={$remark}&alat=GLC04 #workingtime_list");
+	$("#glc05").load("<?=HOME?><?=APPID?>/working?id_req={$request.ID_REQ}&remark={$remark}&alat=GLC05 #workingtime_list");
+	$("#glc06").load("<?=HOME?><?=APPID?>/working?id_req={$request.ID_REQ}&remark={$remark}&alat=GLC06 #workingtime_list");
+}
+
+function simpan_realisasi()
+{
+	var id_req_     = "{$request.ID_REQ}";
+	var rtd_		= $("#rtd").val();
+	var rtd_jam_	= $("#rtd_jam").val();
+	var rtd_menit_	= $("#rtd_menit").val();
+	var url			= "{$HOME}{$APPID}.ajax/simpan_realisasi";	
+
+	$.post(url,{ID_REQ : id_req_, RTD : rtd_, RTD_JAM : rtd_jam_, RTD_MENIT : rtd_menit_},function(data){
+		console.log(data);
+		if(data == "OK")
+		{
+			alert("Data Berhasil Disimpan...!!!");
+			window.location = "{$HOME}print.time_sheet/";
+		}
+	});	
+}
+
+</script>
+   
+<script>
+
+<!------------------- load detail shift ------------>
+$(function() {
+		
+						$( "#tabspage" ).tabs();
+						//setInterval($('#working').html('<img src="<?=HOME?>images/loadingbox.gif" />'),1000);	
+						$("#glc01").load("<?=HOME?><?=APPID?>/working?id_req={$request.ID_REQ}&remark={$remark}&alat=GLC01 #workingtime_list");
+						$("#glc02").load("<?=HOME?><?=APPID?>/working?id_req={$request.ID_REQ}&remark={$remark}&alat=GLC02 #workingtime_list");
+						$("#glc03").load("<?=HOME?><?=APPID?>/working?id_req={$request.ID_REQ}&remark={$remark}&alat=GLC03 #workingtime_list");
+						$("#glc04").load("<?=HOME?><?=APPID?>/working?id_req={$request.ID_REQ}&remark={$remark}&alat=GLC04 #workingtime_list");
+						$("#glc05").load("<?=HOME?><?=APPID?>/working?id_req={$request.ID_REQ}&remark={$remark}&alat=GLC05 #workingtime_list");
+						$("#glc06").load("<?=HOME?><?=APPID?>/working?id_req={$request.ID_REQ}&remark={$remark}&alat=GLC06 #workingtime_list");
+						
+						/*setInterval(function() {					
+							$("#idle").load("<?=HOME?>request.req_glc/r_idle #idletime_list");
+							$("#waiting").load("<?=HOME?>request.req_glc/r_waiting #waitingtime_list");
+							$("#not").load("<?=HOME?>request.req_glc/r_not #nottime_list");
+						},1000);*/						
+												
+						/*$('a[rel*=downloadr]').downloadr();*/
+});
+<!------------------- load detail shift ------------>
+
+</script>
+  
+   
+<div class="content">
+<div class="main_side">
+
+<!------------------------------------------------------ REALISASI ----------------------------------------------->
+<? if($remark=="realisasi") 
+   {
+    if($status=="SHIFT")
+    {
+   ?>
+   
+<script type="text/javascript">
+$(document).ready(function()
+        {	     				
+			var watermark = 'Autocomplete';
+			<!------------------- watermark KETERANGAN ------------> 
+			//init, set watermark text and class
+			$('#keterangan').val(watermark).addClass('watermark');
+			//if blur and no value inside, set watermark text and class again.
+			$('#keterangan').blur(function(){
+				if ($(this).val().length == 0){
+					$(this).val(watermark).addClass('watermark');
+				}
+			});
+		 
+			//if focus and text is watermrk, set it to empty and remove the watermark class
+			$('#keterangan').focus(function(){
+				if ($(this).val() == watermark){
+					$(this).val('').removeClass('watermark');
+				}
+		    });
+			<!------------------- watermark KETERANGAN ------------>
+	   });
+	   
+$(function() {
+		
+						$( "#tabspage" ).tabs();	
+				<!------------------- autocomplete KETERANGAN ------------>
+				$( "#keterangan" ).autocomplete({
+					minLength: 3,
+					source: "{$HOME}{$APPID}.auto/keterangan",
+					focus: function( event, ui ) {
+						$( "#keterangan" ).val( ui.item.KEGIATAN );
+						return false;
+					},
+					select: function( event, ui ) {
+						$( "#keterangan" ).val( ui.item.KEGIATAN );
+						$( "#stat_keterangan" ).val( ui.item.STATUS );
+						$( "#tarif" ).val( ui.item.TARIF );
+						return false;
+					}
+				})
+				.data( "autocomplete" )._renderItem = function( ul, item ) {
+					return $( "<li></li>" )
+						.data( "item.autocomplete", item )
+						.append( "<a>" + item.KEGIATAN + "</a>" )
+						.appendTo( ul );
+				};
+				<!------------------- autocomplete KETERANGAN ------------>
+						
+});
+</script> 
+
+   
+<h2><span class="graybrown">
+	<img class="icon" border="0" src="images/dokumenbig.png" />
+	&nbsp;<font color="#0378C6">Form Realisasi</font> Time Sheet
+    </span></h2>
+<br/>
+<form method="POST">
+<table class="form-input" width="100%" border="0" cellspacing="1" cellpadding="1" style="padding:5px 5px 5px 5px;">
+		<tr>
+			<td width="100">NO UPER B/M</td>
+			<td width="10">&nbsp;&nbsp;:&nbsp;&nbsp;</td>
+            <td width><input type="text" name="no_uper" value={$request.NO_UPER_BM} disabled="disabled"/>
+			           <input type="hidden" name="id_req" id="id_req" value={$request.ID_REQ} /></td>
+            <td width="40"></td>
+            <td>NO REQ</td>
+			<td>&nbsp;&nbsp;:&nbsp;&nbsp;</td>
+            <td><input type="text" name="id_req2" id="id_req2" value={$request.ID_REQ} disabled="disabled"/></td>
+		</tr>
+		<tr>
+			<td>PENGGUNA JASA</td>
+			<td>&nbsp;&nbsp;:&nbsp;&nbsp;</td>
+            <td><input type="text" name="pbm" value={$request.NAMA} disabled="disabled" size="25"/></td>
+            <td width="40"></td>
+            <td>ETA</td>
+			<td>&nbsp;&nbsp;:&nbsp;&nbsp;</td>
+            <td><input type="text" name="eta" id="eta" size="10" style="background-color:#E2F7F7" value={$request.ETA_DATE} readonly=readonly />&nbsp;&nbsp;&nbsp;<input type="text" name="eta_jam" id="eta_jam" size="2" maxlength="2" value={$request.ETA_JAM} style="background-color:#E2F7F7" readonly=readonly />&nbsp;:&nbsp;<input type="text" name="eta_menit" id="eta_menit" size="2" maxlength="2" value={$request.ETA_MENIT} style="background-color:#E2F7F7" readonly=readonly /></td>
+		</tr>
+		<tr>
+			<td>VESSEL / VOYAGE</td>
+			<td>&nbsp;&nbsp;:&nbsp;&nbsp;</td>
+            <td><input type="text" name="vessel" value={$request.NAMA_VESSEL} disabled="disabled" size="30"/> / <input type="text" name="voyage" value={$request.VOYAGE} disabled="disabled" size="8"/></td>
+            <td width="40"></td>
+            <td>RTA</td>
+			<td>&nbsp;&nbsp;:&nbsp;&nbsp;</td>
+            <td><input type="text" name="rta" id="rta" size="10" style="background-color:#FFFFD6" value={$request.RTA_DATE} />&nbsp;&nbsp;&nbsp;<input type="text" name="rta_jam" id="rta_jam" size="2" maxlength="2" value={$request.RTA_JAM} />&nbsp;:&nbsp;<input type="text" name="rta_menit" id="rta_menit" size="2" maxlength="2" value={$request.RTA_MENIT} /></td>           
+		</tr>
+        <tr>
+			<td>KADE</td>
+			<td>&nbsp;&nbsp;:&nbsp;&nbsp;</td>
+            <td><input type="text" name="kade" value={$request.KADE} disabled="disabled" size="3"/></td>
+            <td width="40"></td>
+            <td width="40">ETD</td>
+			<td width="10">&nbsp;&nbsp;:&nbsp;&nbsp;</td>
+            <td><input type="text" name="etd" id="etd" size="10" style="background-color:#E2F7F7" value={$request.ETD_DATE} readonly=readonly />&nbsp;&nbsp;&nbsp;<input type="text" name="etd_jam" id="etd_jam" size="2" maxlength="2" value={$request.ETD_JAM} style="background-color:#E2F7F7" readonly=readonly />&nbsp;:&nbsp;<input type="text" name="etd_menit" id="etd_menit" size="2" maxlength="2" value={$request.ETD_MENIT} style="background-color:#E2F7F7" readonly=readonly /></td>
+		</tr>
+		<tr>
+			<td>TERMINAL</td>
+			<td>&nbsp;&nbsp;:&nbsp;&nbsp;</td>
+            <td><input type="text" name="terminal" value={$request.TERMINAL} disabled="disabled" size="3"/></td>
+            <td width="40"></td>
+            <td width="40">RTD</td>
+			<td width="10">&nbsp;&nbsp;:&nbsp;&nbsp;</td>
+            <td><input type="text" name="rtd" id="rtd" size="10" style="background-color:#FFFFD6" value={$request.RTD_DATE} />&nbsp;&nbsp;&nbsp;<input type="text" name="rtd_jam" id="rtd_jam" size="2" maxlength="2" value={$request.RTD_JAM} />&nbsp;:&nbsp;<input type="text" name="rtd_menit" id="rtd_menit" size="2" maxlength="2" value={$request.RTD_MENIT} /></td>
+		</tr>
+</table>
+<br/>
+<fieldset style="padding: 10px 10px 10px 20px;">
+<legend>Entry Realisasi Alat</legend>
+<table border="0" cellspacing="3" cellpadding="1">
+        <tr>
+			<td width="60"><blink>
+                <span class="graybrown">
+                <font style="font-size:16px; color:#F00;"><b>ALAT</b></font>
+                </span>
+                </blink></td>
+			<td width="19">&nbsp;&nbsp;:&nbsp;&nbsp;</td>
+            <td width="90"><select name="alat" id="alat">
+                    <option value="GLC01">GLC01</option>
+                    <option value="GLC02">GLC02</option>
+                    <option value="GLC03">GLC03</option>
+                    <option value="GLC04">GLC04</option>
+					<option value="GLC04">GLC05</option>
+					<option value="GLC04">GLC06</option>
+                </select></td>
+            <td width="150">&nbsp;</td>
+            <td width="130"><font style="font-size:14px;"><b>PERIODE WAKTU</b></font></td>
+            <td width="19">&nbsp;</td>
+            <td width="250">&nbsp;</td>
+			<td width="50">&nbsp;</td>
+		</tr>
+        <tr>
+			<td>KETERANGAN</td>
+			<td>&nbsp;&nbsp;:&nbsp;&nbsp;</td>
+            <td><input type="text" name="keterangan" id="keterangan" style="background-color:#FFFF99; text-transform:uppercase;" title="Autocomplete"/>
+			    <input type="hidden" name="stat_keterangan" id="stat_keterangan" />
+				<input type="hidden" name="tarif" id="tarif" /></td>
+            <td width="150">&nbsp;</td>
+            <td colspan="3"><input type="text" name="real_mulai" id="real_mulai" size="10" style="background-color:#FFFFD6"/>&nbsp;&nbsp;&nbsp;<input type="text" name="real_mulai_jam" id="real_mulai_jam" size="2" maxlength="2"/>&nbsp;:&nbsp;<input type="text" name="real_mulai_menit" id="real_mulai_menit" size="2" maxlength="2"/>&nbsp;&nbsp;&nbsp;s/d&nbsp;&nbsp;&nbsp;<input type="text" name="real_selesai" id="real_selesai" size="10" style="background-color:#FFFFD6"/>&nbsp;&nbsp;&nbsp;<input type="text" name="real_selesai_jam" id="real_selesai_jam" size="2" maxlength="2"/>&nbsp;:&nbsp;<input type="text" name="real_selesai_menit" id="real_selesai_menit" size="2" maxlength="2"/></td>
+				</td>
+            <td width="50" align="left"><input type="button" onClick="add_alat()" value="Tambah Realisasi" name="Tambah"/></td>				
+		</tr>
+</table>
+</fieldset>
+<br/>
+<div id="tabspage" class="tabss">
+				<ul>
+				<li><a href="#tabspage-1">GLC01</a></li>
+				<li><a href="#tabspage-2">GLC02</a></li>
+                <li><a href="#tabspage-3">GLC03</a></li>
+                <li><a href="#tabspage-4">GLC04</a></li>
+				<li><a href="#tabspage-5">GLC05</a></li>
+				<li><a href="#tabspage-6">GLC06</a></li>
+				</ul>
+				<div id="tabspage-1">
+                    <div id="glc01" align="center"></div>
+				</div>
+				<div id="tabspage-2">
+                    <div id="glc02" align="center"></div>
+				</div>
+                <div id="tabspage-3">
+                    <div id="glc03" align="center"></div>
+				</div>
+                <div id="tabspage-4">
+                    <div id="glc04" align="center"></div>
+				</div>
+				<div id="tabspage-5">
+                    <div id="glc05" align="center"></div>
+				</div>
+				<div id="tabspage-6">
+                    <div id="glc06" align="center"></div>
+				</div>
+</div>
+<br/>
+<a class="link-button" style="height:25" onclick="simpan_realisasi()">
+      <img border="0" src="images/save_peb.gif" />
+      Simpan</a>
+</form>
+<div id="dialog-form">
+<form>
+	<div id="table_produksi"></div>
+</form>
+</div>
+<br/>
+
+<? } else if($status=="NON SHIFT") 
+   { ?>
+   
+   
+   
+<?  } ?>
+
+<!------------------------------------------------------ REALISASI ----------------------------------------------->
+<? }
+    else if($remark=="req")
+   {
+   	if($status=="SHIFT")
+    {
+    ?>
+<h2><span class="graybrown">
+	<img class="icon" border="0" src="images/dokumenbig.png" />
+	&nbsp;<font color="#0378C6">Entry Permintaan</font> Alat
+    </span></h2>
+<br/>
+<!------------------------------------------------------ REQUEST ----------------------------------------------->
+<form method="POST">
+<table class="form-input" width="100%" border="0" cellspacing="1" cellpadding="1" style="padding:5px 5px 5px 5px;">
+		<tr>
+			<td width="100">NO REQUEST</td>
+			<td width="10">&nbsp;&nbsp;:&nbsp;&nbsp;</td>
+            <td width><input type="text" name="id_req2" id="id_req2" value={$request.ID_REQ} disabled="disabled"/>
+					  <input type="hidden" name="id_req" id="id_req" value={$request.ID_REQ} /></td>
+            <td width="40"></td>
+            <td>ETA</td>
+			<td>&nbsp;&nbsp;:&nbsp;&nbsp;</td>
+            <td><input type="text" name="id_req2" id="id_req2" value={$request.ETA} disabled="disabled"/></td>
+		</tr>
+		<tr>
+			<td width="100">NO UPER B/M</td>
+			<td width="10">&nbsp;&nbsp;:&nbsp;&nbsp;</td>
+            <td width><input type="text" name="no_uper" value={$request.NO_UPER_BM} disabled="disabled"/></td>
+            <td width="40"></td>
+            <td>ETD</td>
+			<td>&nbsp;&nbsp;:&nbsp;&nbsp;</td>
+            <td><input type="text" name="id_req2" id="id_req2" value={$request.ETD} disabled="disabled"/></td>
+		</tr>
+		<tr>
+			<td>PBM</td>
+			<td>&nbsp;&nbsp;:&nbsp;&nbsp;</td>
+            <td><input type="text" name="pbm" value={$request.NAMA} disabled="disabled" size="25"/></td>
+            <td width="40"></td>
+            <td>KADE</td>
+			<td>&nbsp;&nbsp;:&nbsp;&nbsp;</td>
+            <td><input type="text" name="terminal" value={$request.KADE} disabled="disabled" size="3"/></td>
+		</tr>
+		<tr>
+			<td>VESSEL / VOYAGE</td>
+			<td>&nbsp;&nbsp;:&nbsp;&nbsp;</td>
+            <td><input type="text" name="vessel" value={$request.NAMA_VESSEL} disabled="disabled" size="30"/> / <input type="text" name="voyage" value={$request.VOYAGE} disabled="disabled" size="8"/></td>
+            <td width="40"></td>
+            <td>TERMINAL</td>
+			<td>&nbsp;&nbsp;:&nbsp;&nbsp;</td>
+            <td><input type="text" name="terminal" value={$request.TERMINAL} disabled="disabled" size="3"/></td>            
+		</tr>
+        <tr></tr>        
+</table>
+<br/>
+<fieldset style="padding: 10px 10px 10px 20px;">
+<legend>Entry Permintaan Alat</legend>
+<table border="0" cellspacing="3" cellpadding="1">
+        <tr>
+			<td><blink>
+                <span class="graybrown">
+                <font style="font-size:16px; color:#F00;"><b>ALAT</b></font>
+                </span>
+                </blink></td>
+			<td>&nbsp;&nbsp;:&nbsp;&nbsp;</td>
+            <td><select name="alat" id="alat">
+                    <option value="GLC01">GLC01</option>
+                    <option value="GLC02">GLC02</option>
+                    <option value="GLC03">GLC03</option>
+                    <option value="GLC04">GLC04</option>
+					<option value="GLC04">GLC05</option>
+					<option value="GLC04">GLC06</option>
+                </select></td>
+            <td width="80"></td>
+            <td>MULAI KERJA</td>
+            <td>&nbsp;&nbsp;:&nbsp;&nbsp;</td>
+            <td><input type="text" name="est_mulai" id="est_mulai" size="10" style="background-color:#FFFFD6"/>&nbsp;&nbsp;&nbsp;<input type="text" name="est_mulai_jam" id="est_mulai_jam" size="2" maxlength="2"/>&nbsp;:&nbsp;<input type="text" name="est_mulai_menit" id="est_mulai_menit" size="2" maxlength="2"/>
+				</td>
+            <td></td>
+		</tr>
+        <tr>
+			<td>ESTIMASI</td>
+			<td>&nbsp;&nbsp;:&nbsp;&nbsp;</td>
+            <td><input type="text" name="estimasi" id="estimasi" size="5" readonly="readonly" style="background-color:#FFFFD6" />&nbsp;&nbsp;Shift</td>
+            <td width="80"></td>
+            <td>SELESAI KERJA</td>
+			<td>&nbsp;&nbsp;:&nbsp;&nbsp;</td>
+			<td><input type="text" name="est_selesai" id="est_selesai" size="10" style="background-color:#FFFFD6"/>&nbsp;&nbsp;&nbsp;<input type="text" name="est_selesai_jam" id="est_selesai_jam" size="2" maxlength="2"/>&nbsp;:&nbsp;<input type="text" name="est_selesai_menit" id="est_selesai_menit" size="2" maxlength="2"/>&nbsp;&nbsp;
+				<a onClick="hitung_shift()">
+				<img src="images/calculator.png" width="18" height="18" /></a></td>
+            <td align="center">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="button" onClick="add_alat()" value="Tambah Permintaan Alat" name="Tambah"/></td>
+		</tr>			
+</table>
+</fieldset>
+<div style="color:#F00; font-weight:bold" colspan="7">
+                <blink>&nbsp;&nbsp;&nbsp;&nbsp;*JANGAN LUPA LAKUKAN HITUNG ULANG UNTUK ESTIMASI JUMLAH SHIFT PADA SETIAP PERUBAHAN WAKTU KERJA</blink>
+                </div>
+<br/>
+<div id="tabspage" class="tabss">
+				<ul>
+				<li><a href="#tabspage-1">GLC01</a></li>
+				<li><a href="#tabspage-2">GLC02</a></li>
+                <li><a href="#tabspage-3">GLC03</a></li>
+                <li><a href="#tabspage-4">GLC04</a></li>
+				<li><a href="#tabspage-5">GLC05</a></li>
+				<li><a href="#tabspage-6">GLC06</a></li>
+				</ul>
+				<div id="tabspage-1">
+                    <div id="glc01" align="center"></div>
+				</div>
+				<div id="tabspage-2">
+                    <div id="glc02" align="center"></div>
+				</div>
+                <div id="tabspage-3">
+                    <div id="glc03" align="center"></div>
+				</div>
+                <div id="tabspage-4">
+                    <div id="glc04" align="center"></div>
+				</div>
+				<div id="tabspage-5">
+                    <div id="glc05" align="center"></div>
+				</div>
+				<div id="tabspage-6">
+                    <div id="glc06" align="center"></div>
+				</div>
+</div>
+<br/>
+<a class="link-button" style="height:25" href="<?=HOME?><?=APPID?>/simpan_req?id_req={$request.ID_REQ}">
+      <img border="0" src="images/save_peb.gif" />
+      Simpan</a>
+</form>
+<!------------------------------------------------------ REQUEST ----------------------------------------------->
+<br/>
+
+<? } else if($status=="NON SHIFT") 
+   { ?>
+   
+<?  } } ?>
+
+</div>
+</div>

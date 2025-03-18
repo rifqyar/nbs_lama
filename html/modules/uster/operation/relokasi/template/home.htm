@@ -1,0 +1,295 @@
+<link href="../../../../../css/style.css" rel="stylesheet" type="text/css" />
+
+ 
+<link href="../../../../../css/default.css" rel="stylesheet" type="text/css" />
+
+<span class="graybrown">
+	<img src='images/cont_placement.png' align="absmiddle" width="80" border='0' class="icon"/>
+    <font color="#DE7E21"> 
+    	Form Re-Location Container 
+    </font>
+</span>
+
+
+<fieldset class="form-fieldset" style="margin: 5px 5px 5px 5px; ">
+	<legend> <h3 class="graybrown" style="font-size:12px; color:#F00">Form Relokasi</h3></legend>
+<div style="float:left; margin-left:100px;">
+        <table id='table' border='0'>
+            <tr>
+                <td colspan='13' style="padding-bottom: 10px"><h5 class="graybrown">Old Placement</h5></td>
+            </tr>
+            
+            <tr>
+                <td colspan=3 align="right" style="font-size:16px; font-weight:bold; font-family:Tahoma; color: #777">No. Petikemas </td>
+                <td> : </td>
+                <td colspan=6><input style="font-size:20px; font-weight:bold; text-transform:uppercase" tabindex="1" class="suggestuwriter" placeholder=" Auto Complete " autocomplete="off" type='text' name='NO_CONT' id='NO_CONT'/></td>
+                <td colspan=2 class="graybrown" style="font-size:12px;color:#F00" id="alert">&nbsp;</td>
+            </tr>
+            
+            <tr>
+                <td colspan=3 align="right" style="font-size:12px; font-weight:bold; font-family:Tahoma; color: #777"> Type </td> 
+                <td>:</td>
+                <td colspan=6><input type='text' name='type' id='type' readonly style="width: 50px;"/></td>
+                <td>&nbsp;</td>
+            </tr>
+            
+            <tr>
+                <td colspan=3 align="right" style="font-size:12px; font-weight:bold; font-family:Tahoma; color: #777"> Size </td> 
+                <td>:</td>
+                <td colspan=7><input type='text' name='size' id='size' readonly style="width: 50px;"/>"</td>
+            </tr>
+            <tr>
+                <td style="font-size:12px; font-weight:bold; font-family:Tahoma; color: #777">Block</td>
+                <td> : </td>
+                <td>
+                	<input type="text" name="block" id="block_old" style="width: 80px;" readonly /><input type="hidden" name="block_id" id="block_id" value="" />
+                </td>
+                <td style="padding-left: 10px;font-size:12px; font-weight:bold; font-family:Tahoma; color: #777;">Slot</td>
+                <td> : </td>
+                <td><input type='text' name='slot' id='slot' style="width: 20px;" readonly /></td>
+                <td style="padding-left: 10px; font-size:12px; font-weight:bold; font-family:Tahoma; color: #777;">Row</td>
+                <td> : </td>
+                <td><input type='text' name='row' id='row' style="width: 20px;" readonly /></td>
+                <td style="padding-left: 10px; font-size:12px; font-weight:bold; font-family:Tahoma; color: #777;">Tier</td>
+                <td> : </td>
+                <td><input type='text' name='tier' id='tier' style="width: 20px;" readonly /></td>
+                <td>&nbsp;</td>
+            </tr>
+            <tr >
+                <td colspan="11" style="padding-top: 10px;" align="right"> <input id='view' type="button" value=" View Grid " onclick="viewgrid()" /></td>	
+                <td colspan="2">&nbsp;</td>				
+            </tr>
+        </table>
+    </div>
+<div style="margin-left:600px;">
+        <table id='table' border='0'>
+            <tr>
+                <td colspan='12' style="padding-bottom: 10px"><h5 class="graybrown">New Placement</h5></td>
+            </tr>
+            <tr>
+                <td style="font-size:12px; font-weight:bold; font-family:Tahoma; color: #777">Block</td>
+                <td> : </td>
+                <td style="padding-top: 10px; font-size:12px; font-weight:bold; font-family:Tahoma; color: #777;">
+                	<?php list_block($yard_id);?>
+                </td>
+                <td style="padding-left: 10px; font-size:12px; font-weight:bold; font-family:Tahoma; color: #777">Slot</td>
+                <td> : </td>
+                <td><input type='text' name='slot' id='slot_' style="width: 20px;" /></td>
+                <td style="padding-left: 10px; font-size:12px; font-weight:bold; font-family:Tahoma; color: #777">Row</td>
+                <td> : </td>
+                <td><input type='text' name='row' id='row_' style="width: 20px;" /></td>
+                <td style="padding-left: 10px; font-size:12px; font-weight:bold; font-family:Tahoma; color: #777">Tier</td>
+                <td> : </td>
+                <td><input type='text' name='tier' id='tier_' style="width: 20px;" /></td>
+            </tr>
+            
+            <tr>			
+            	<td><input type="checkbox" value="Y" name="lolo" id="lolo"/> Tagihkan Paket LOLO</td>		    										    
+              	<td colspan="11" style="padding-top: 10px;" align="right"> <input id="view_" type="button" value=" View Grid " class="formbutton" onclick="viewgrid_();" /> </td>					
+            </tr>
+        </table>
+    </div>
+</fieldset>
+
+<fieldset class="form-fieldset" style="margin: 5px 5px 5px 5px; text-align:center">
+	<input type="button" value=" EXECUTE &#010; [F2] "  style="width:200px; font-size:12px;color:#F00" class="graybrown" onclick="set_relokasi()" />
+</fieldset>
+
+<fieldset class="form-fieldset" style="margin: 5px 5px 5px 5px; ">
+	<center>
+    
+    <div id="relokasi_list" style="border:thin inset; margin: 5px 5px 5px 5px">
+    
+    </div>
+    
+    </center>
+</fieldset>
+<div id="dialog2"  title="Grid Info" style="font-size: 15px; margin-top: 50px;"></div>
+
+<div id="load" title="Loading"><p align=center><img src={$HOME}images/loadingbox.gif /></div>
+
+<script>
+
+$(function() {	
+
+	$( "#load" ).dialog({
+			autoOpen: false,
+			height: 80,
+			width:600,
+			show: "blind",
+			hide: "explode",
+			modal: true
+		});
+		
+	$( "#dialog2" ).dialog({
+					autoOpen: false,
+					show: "blind"
+				});
+				
+	$( "#NO_CONT" ).autocomplete({
+		minLength: 3,
+		source: "{$HOME}{$APPID}.auto/container",
+		focus: function( event, ui ) {
+			$( "#NO_CONT" ).val( ui.item.NO_CONTAINER );
+			return false;
+		},
+		select: function( event, ui ) {
+			$( "#NO_CONT" ).val( ui.item.NO_CONTAINER );
+			$( "#type" ).val( ui.item.TYPE_);
+			$( "#size" ).val( ui.item.SIZE_);
+			$( "#block_old" ).val( ui.item.BLOCK);
+			$( "#block_id" ).val( ui.item.BLOCK_ID);
+			$( "#slot" ).val( ui.item.SLOT_);
+			$( "#row" ).val( ui.item.ROW_);
+			$( "#tier" ).val( ui.item.TIER_);
+			$( "#slot_" ).focus();
+			if(ui.item.BLOCK == '-')
+				$("#alert").html("<blink>BELUM PLACEMENT</blink>");
+			else
+				$("#alert").html("");
+			return false;
+		}
+	})
+	.data( "autocomplete" )._renderItem = function( ul, item ) {
+		return $( "<li style='text-align:left'></li>" )
+			.data( "item.autocomplete", item )
+			.append( "<a>" + item.NO_CONTAINER + "<br/> "+item.SIZE_+" "+item.TYPE_+"</a>" )
+			.appendTo( ul );
+	};
+	
+	$("#relokasi_list").load('<?=HOME?><?=APPID?>/relokasi_list #list', function(data) {        	  
+	});
+});
+
+function set_relokasi()
+{
+	var no_cont_	= $("#NO_CONT").val();
+	var block_		= $("#blocking").val();
+	var slot_		= $("#slot_").val();
+	var row_		= $("#row_").val();
+	var tier_		= $("#tier_").val();
+	var lolo_		= $('#lolo:checked').val();
+	//alert(lolo_);
+	var url			= "{$HOME}{$APPID}.ajax/set_relokasi";
+	
+	if((no_cont_ == '')||(slot_ == '')||(row_ == '')||(tier_ == ''))
+	{
+		alert('Slot, Row dan Tier baru harus terisi');	
+	}
+	else
+	{
+		$( "#load" ).dialog( "open" );
+		
+		$.post(url,{NO_CONT: no_cont_, BLOCK : block_, SLOT : slot_, ROW : row_, TIER : tier_, LOLO : lolo_},function(data){
+			console.log(data);
+			$( "#load" ).dialog( "close" );
+			if(data == "OVER")
+			{
+				alert("Slot atau Row melebihi batasan blok tersebut");	
+			}
+			else if(data == "STACKED")
+			{
+				alert("Sudah ada Petikemas pada slot, row dan tier blok tersebut");
+			}
+			else if(data == "OK")
+			{
+				$( "#NO_CONT" ).val("");
+				$( "#type" ).val("");
+				$( "#size" ).val("");
+				$( "#block_old" ).val("");
+				$( "#block_id" ).val("");
+				$( "#slot" ).val("");
+				$( "#row" ).val("");
+				$( "#tier" ).val("");
+				
+				$( "#slot_" ).val("");
+				$( "#row_" ).val("");
+				$( "#tier_" ).val("");
+				
+				//alert("OK");
+				$("#NO_CONT").focus();
+				
+				$("#relokasi_list").load('<?=HOME?><?=APPID?>/relokasi_list #list', function(data) {        	  
+				});
+			}
+			else
+			{
+				alert("num");	
+			}
+		});	
+	}
+}
+
+function fill($no_cont,$block,$block_id,$type,$size,$slot,$row,$tier)
+{
+	$("#NO_CONT").val($no_cont);
+	$( "#type" ).val($type);	
+	$( "#size" ).val($size);
+	$( "#block_old" ).val($block);
+	$( "#block_id" ).val($block_id);
+	$( "#slot" ).val($slot);
+	$( "#row" ).val($row);
+	$( "#tier" ).val($tier);
+	if($block == 'BELUM PLACEMENT')
+	{
+		$("#alert").html("BELUM PLACEMENT");
+		$("#view").prop('disabled', true);
+	}
+	else
+	{
+		$("#alert").html("");
+		$("#view").prop('disabled', false);
+	}
+}
+
+function viewgrid()
+{
+	var _slot 	 		 = $("#slot").val();
+	var _row			 = $("#row").val();			
+	var _block			 = $("#block_id").val();
+	var url				 = "{$HOME}{$APPID}.ajax/get_cell_content";
+
+	if((_slot == "") || (_row == ""))
+	{
+		alert("Slot Atau Row Belum Terisi");
+	}
+	else
+	{
+		$.post( url, {slot : _slot, row : _row, block : _block},
+				  function(data) {
+					$("#dialog2").html(data);
+					$( "#dialog2" ).dialog( "open" );
+				  }
+				);
+	}
+}
+
+function viewgrid_()
+{
+	var _slot 	 		 = $("#slot_").val();
+	var _row			 = $("#row_").val();			
+	var _block			 = $("#blocking").val();
+	var url				 = "{$HOME}{$APPID}.ajax/get_cell_content";
+
+	if((_slot == "") || (_row == ""))
+	{
+		alert("Slot Atau Row Belum Terisi");
+	}
+	else
+	{
+		$.post( url, {slot : _slot, row : _row, block : _block},
+				  function(data) {
+					$("#dialog2").html(data);
+					$( "#dialog2" ).dialog( "open" );
+				  }
+				);
+	}
+}
+
+$(document).bind('keydown', function(e) {
+        if (e.keyCode == 113) 
+			set_relokasi();
+        return true
+});
+
+</script>

@@ -1,0 +1,51 @@
+<div id="list">
+	<table width="100%">
+    	<thead>
+        	<tr>
+            	<th class="grid-header" width="10px">No.</th>
+            	<th class="grid-header">No CONTAINER</th>
+                <th class="grid-header">UKURAN</th>
+                <th class="grid-header">TIPE</th>
+                <th class="grid-header">ASAL CONT</th>
+                <th class="grid-header">TGL BONGKAR</th>
+                <th class="grid-header">TGL APPROVE</th>
+                <th class="grid-header">HZ</th>
+                <th class="grid-header">AFTER STRIP</th>
+            </tr>
+        </thead>
+        <tbody>
+        	<?php $i=0; foreach($row_list as $rowx) { $i++;?>
+		   	<alt var='bg' list='#f9f9f3,#ffe'/>
+        	<tr bgcolor="{$bg}" style="cursor:pointer;" onMouseOver=this.style.backgroundColor="#BAD5FC" onMouseOut=this.style.backgroundColor="">
+            	<td class="grid-cell" style="font-size:14px;"><?=$i?></td>
+            	<td class="grid-cell" align="center" valign="middle" style="font-family:Arial; font-size:11pt; color:#555555"><b><?php echo '<input type="text" name="NO_CONT[]" id="NO_CONT" value="'.$rowx['NO_CONTAINER'].'" />'; ?>
+				<?php echo '<input type="hidden" name="NO_CONT_OLD[]" id="NO_CONT_OLD" value="'.$rowx['NO_CONTAINER'].'" />'; ?>
+				</b></font></td>
+            	<td align="center" valign="middle" class="grid-cell"  style="font-size:9pt"><?php echo $rowx["KD_SIZE"]; ?></td>
+            	<td align="center" valign="middle" class="grid-cell"  style="font-size:9pt"><?php echo $rowx["KD_TYPE"]; ?></td>
+            	<td align="center" valign="middle" class="grid-cell"  style="font-size:9pt"><?php echo $rowx["ASAL_CONT"]; ?></td>
+            	<td align="center" valign="middle" class="grid-cell"  style="font-size:9pt"><?php echo $rowx["TGL_BONGKAR"]; ?></td>
+				<td align="center" valign="middle" class="grid-cell"  style="font-size:9pt">	<?php echo $rowx["TGL_APPROVE"]; ?>	</td>			
+				<td align="center" valign="middle" class="grid-cell"  style="font-size:9pt"><?php
+									echo '<select name="HZ[]">
+											<option value="'.$rowx['HZ'].'"> '.$rowx['HZ'].' </option>
+											<option value="Y"> Y </option>
+											<option value="T"> T </option>
+											</select>
+									';
+								  ?></td>		
+				<td align="center" valign="middle" class="grid-cell"  style="font-size:9pt"><?php
+									echo '<select name="AFTER[]">
+											<option value="'.$rowx['AFTER_STRIP'].'"> '.$rowx['AFTER_STRIP'].' </option>
+											<option value="Repo Muat">Repo Muat</option>
+											<option value="Depo Empty">Depo Empty</option>
+											<option value="Depo Luar">Depo Luar</option>
+											<option value="Stuffing">Stuffing</option>
+											</select>
+									';
+								  ?></td>		
+            </tr>
+            <?php } ?>
+        </tbody>
+    </table>
+</div>

@@ -1,0 +1,200 @@
+
+ 
+<span class="graybrown">
+	<img src='images/cont_placement.png' align="absmiddle" width="80" border='0' class="icon"/>
+    <font color="#DE7E21"> Form Placement After Received </font>
+</span>
+
+
+<fieldset class="form-fieldset" style="margin: 5px 5px 5px 5px; ">
+	<legend class="graybrown"> Placement </legend>
+	<center>
+    <table style="margin: 30px 30px 30px 30px;" border="0">
+    	<tr>
+        	<td height="40" align="right" style="font-size:16px; font-weight:bold; font-family:Tahoma; color: #777">No. CONTAINER</td>
+            <td> : </td>
+            <td colspan="6"> <input style="font-size:20px; font-style:italic; font-weight:bold; text-transform:uppercase" tabindex="1" class="suggestuwriter" placeholder=" Auto Complete " type="text" name="NO_CONT" ID="NO_CONT" autocomplete="off" /> 
+			<input type="hidden" id="valid" name="valid"/>
+			<input type="hidden" id="NO_REQUEST" name="NO_REQUEST"/>
+			</td>
+    	</tr>
+		<tr>
+			<td class="form-field-caption" align="right" style="font-size:16px; font-weight:bold; font-family:Tahoma; color: #777">Yard</td>
+			<td>:</td>
+			<td style="padding-top: 10px;"><?php list_yard()?></td>
+		</tr>
+        <tr valign="middle">
+            <td  class="form-field-caption" align="right" style="font-size:16px; font-weight:bold; font-family:Tahoma; color: #777">Block</td>
+            <td> : </td>
+            <td style="padding-top: 10px;"><?php list_block($yard_id);?></td>
+            <td style="padding-left: 10px;">Slot</td>
+            <td> : </td>
+            <td><input type='text' name='slot' id='slot' style="width: 20px;" /></td>
+            <td style="padding-left: 10px;">Row</td>
+            <td> : </td>
+            <td><input type='text' name='row' id='row' style="width: 20px;" /></td>
+            <td style="padding-left: 10px;">Tier</td>
+            <td> : </td>
+            <td><input type='text' name='tier' id='tier' style="width: 20px;" /></td>
+        </tr>
+	</table>
+    </center>
+</fieldset>
+
+<fieldset class="form-fieldset" style="margin: 5px 5px 5px 5px; text-align:center">
+	<input type="button" value=" PLACEMENT &#10; [F2] " style="width:200px; font-size:12px;color:#F00" onclick="set_placement()" class="graybrown" />
+</fieldset>
+
+<fieldset class="form-fieldset" style="margin: 5px 5px 5px 5px; ">
+	<center>
+    
+    <div id="placement_list" style="border:thin inset; margin: 5px 5px 5px 5px">
+    
+    </div>
+    
+    </center>
+</fieldset>
+
+<script>
+
+$(function() {	
+	var yard = $("#yard").val();
+	//alert('ada'+yard);
+	$( "#load" ).dialog({
+			autoOpen: false,
+			height: 80,
+			width:600,
+			show: "blind",
+			hide: "explode",
+			modal: true
+		});
+		
+	$( "#NO_CONT" ).autocomplete({
+		minLength: 3,
+		source: "{$HOME}{$APPID}.auto/container",
+		focus: function( event, ui ) {
+			$( "#NO_CONT" ).val( ui.item.NO_CONTAINER );
+			return false;
+		},
+		select: function( event, ui ) {
+			$( "#NO_CONT" ).val( ui.item.NO_CONTAINER );
+			$( "#NO_REQUEST" ).val( ui.item.NO_REQUEST);
+			$( "#valid" ).val( "1" );
+			$( "#slot" ).focus();
+			return false;
+		}
+	})
+	.data( "autocomplete" )._renderItem = function( ul, item ) {
+		return $( "<li style='text-align:left'></li>" )
+			.data( "item.autocomplete", item )
+			.append( "<a>" + item.NO_CONTAINER + " / "+item.SIZE_+" "+item.TYPE_+"<br/> Kegiatan : "+item.PERALIHAN+"</a>" )
+			.appendTo( ul );
+	};
+	$("#placement_list").html('<div id="load" title="Loading"><p align=center><img src={$HOME}images/loadingbox.gif /></div>');
+	$("#placement_list").load('<?=HOME?><?=APPID?>/placement_list?yard='+yard+' #list', function(data) {        	  
+	});
+});
+
+function change_yard(){
+	var id_yard = $("#yard").val();
+	var url			= "{$HOME}{$APPID}.ajax/load_block";
+	$("#placement_list").html('<div id="load" title="Loading"><p align=center><img src={$HOME}images/loadingbox.gif /></div>');
+	$("#blocking").load(url,{ID_YARD : id_yard});
+	
+	$("#placement_list").load('<?=HOME?><?=APPID?>/placement_list?yard='+id_yard+' #list', function(data) {        	  
+	});
+}
+
+function set_placement()
+{
+	var no_cont_	= $("#NO_CONT").val();
+	var block_		= $("#blocking").val();
+	var slot_		= $("#slot").val();
+	var row_		= $("#row").val();
+	var tier_		= $("#tier").val();
+	var yard 		= $("#yard").val();
+	var NO_REQUEST 		= $("#NO_REQUEST").val();
+	
+	var url			= "{$HOME}{$APPID}.ajax/add_placement";
+	
+	if((no_cont_ == '')||(slot_ == '')||(row_ == '')||(tier_ == ''))
+	{
+		alert('Slot, Row dan Tier harus terisi');	
+	}
+	else
+	{
+		$( "#load" ).dialog( "open" );
+		$.post(url,{NO_CONT: no_cont_, BLOCK : block_, SLOT : slot_, ROW : row_, TIER : tier_, NO_REQUEST : NO_REQUEST},function(data){
+			console.log(data);
+			//alert(data);
+			
+			$( "#load" ).dialog( "close" );
+			
+			if(data == "NO_REQUEST")
+			{
+				alert("Container Belum di Request Receiving");	
+			}
+			else if(data == "NOT_PAID")
+			{
+				alert("Nota Belum Lunas");
+			}
+			else if(data == "NOT_EXIST")
+			{
+				alert("Data Kontainer belum masuk");
+			}
+			else if(data == "OK")
+			{
+				$("#placement_list").html('<div id="load" title="Loading"><p align=center><img src={$HOME}images/loadingbox.gif /></div>');
+				alert("Placement Ok");
+				$("#placement_list").load('<?=HOME?><?=APPID?>/placement_list?yard='+yard+' #list', function(data) {        	  
+				});
+			}
+			else if(data == "IN_YARD")
+			{
+				alert("Container Sudah Placement");	
+			}
+			else if(data == "GATO")
+			{
+				alert("Container Belum di Gate In");	
+			}
+			else if(data == "STACKED")
+			{
+				alert("Tempat untuk Placement Sudah Dipakai");
+			}
+			else if(data == "OVER")
+			{
+				alert("Slot tidak ada");
+			}
+			else if(data == "blm gati")
+			{
+				alert("Belum Gate IN");
+			}
+			else if(data == "SESSION_HABIS")
+			{
+				alert("SESSION HABIS, HARAP LOGIN KEMBALI");
+			}
+
+		});	
+		
+		$( "#NO_CONT" ).val("");
+		$( "#NO_REQUEST" ).val("");
+		$( "#valid" ).val("");
+		$("#slot").val("");
+		$("#row").val("");
+		$("#tier").val("");
+		
+	}
+}
+
+function fill($no_cont)
+{
+	$("#NO_CONT").val($no_cont);	
+}
+
+$(document).bind('keydown', function(e) {
+        if (e.keyCode == 113) 
+			set_placement();
+        return true
+});
+
+</script>

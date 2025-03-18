@@ -1,0 +1,38 @@
+<div id="list">
+<STYLE>
+	<!--
+	tr { }
+	.initial { background-color: #DDDDDD; color:#000000 }
+	.highlight { background-color: #8888FF }
+	//-->
+</style>
+	<table width="100%">
+    	<thead>
+        	<tr>
+            	<th class="grid-header">No.</th>
+            	<th class="grid-header">NO CONTAINER</th>
+                <th class="grid-header">SIZE</th>
+                <th class="grid-header">TYPE</th>
+                <th class="grid-header">BLOK</th>
+                <th class="grid-header" width="20px">SLOT</th>
+                <th class="grid-header" width="20px">ROW</th>
+                <th class="grid-header" width="20px">TIER</th>
+            </tr>
+        </thead>
+        <tbody>
+        	<fill src="row_list" var="rows">
+		   	<alt var='bg' list='#f9f9f3,#ffe'/>
+        	<tr bgcolor="{$bg}" style="cursor:pointer;" onMouseOver=this.style.backgroundColor="#BAD5FC" onMouseOut=this.style.backgroundColor="" onclick="fill('{$rows.NO_CONTAINER}','{$rows.BLOCK}','{$rows.BLOCK_ID}','{$rows.TYPE_}','{$rows.SIZE_}','{$rows.SLOT_}','{$rows.ROW_}','{$rows.TIER_}')">
+            	<td class="grid-cell" style="font-size:14px;">{$__ctr}</td>
+            	<td class="grid-cell" align="center" valign="middle" style="font-family:Arial; font-size:11pt; color:#555555"><b>{$rows.NO_CONTAINER}</b></td>
+            	<td align="center" valign="middle" class="grid-cell"  style="font-size:9pt">{$rows.SIZE_}</td>
+            	<td align="center" valign="middle" class="grid-cell"  style="font-size:9pt">{$rows.TYPE_}</td>
+            	<td align="center" valign="middle" class="grid-cell"  style="font-size:9pt">{$rows.BLOCK}</td>
+            	<td align="center" valign="middle" class="grid-cell"  style="font-size:9pt">{$rows.SLOT_}</td>
+            	<td align="center" valign="middle" class="grid-cell"  style="font-size:9pt">{$rows.ROW_}</td>
+            	<td align="center" valign="middle" class="grid-cell"  style="font-size:9pt">{$rows.TIER_}</td>
+            </tr>
+            </fill>
+        </tbody>
+    </table>
+</div>

@@ -1,0 +1,149 @@
+<div id="handling">
+	<table width="710px" border="1"  cellspacing="1" cellpadding="1">
+		<tr bgcolor="#006699">
+			<th class="grid-header"  style="font-size:8pt">HANDLING</td>
+			<th class="grid-header"  style="font-size:8pt">NAMA YARD</td>
+			<th class="grid-header"  style="font-size:8pt">NAMA USER</td>
+			<th class="grid-header"  style="font-size:8pt">TANGGAL</td>
+		</tr>
+		<fill var='r_det' src='r_det'>
+		<tr> 
+			<td>{$r_det.KEGIATAN}</td>
+			<td>{$r_det.NAMA_YARD}</td>
+			<td>{$r_det.NAMA_LENGKAP}</td>
+			<td>{$r_det.TGL_UPDATE}</td>
+		</tr>
+		</fill>
+	</table>
+</div>
+
+<div id="stripping">
+	<table width="710px" border="1"  cellspacing="1" cellpadding="1">
+		<tr bgcolor="#006699">
+			<th class="grid-header"  style="font-size:8pt">NO REQUEST</td>
+			<th class="grid-header"  style="font-size:8pt">TGL REQUEST</td>
+			<th class="grid-header"  style="font-size:8pt">CONSIGNEE</td>
+			<th class="grid-header"  style="font-size:8pt">NO DO</td>
+			<th class="grid-header"  style="font-size:8pt">NO BL</td>
+			<th class="grid-header"  style="font-size:8pt">PERP KE</td>
+			<th class="grid-header"  style="font-size:8pt">TIPE STRIPPING</td>
+			<th class="grid-header"  style="font-size:8pt">TGL APPROVE</td>
+			<th class="grid-header"  style="font-size:8pt">TGL REALISASI</td>
+		</tr>
+		<fill var='r_str' src='r_str'>
+		<tr> 
+			<td>{$r_str.NO_REQUEST}</td>
+			<td>{$r_str.TGL_REQUEST}</td>
+			<td>{$r_str.NAMA_CONSIGNEE}</td>
+			<td>{$r_str.NO_DO}</td>
+			<td>{$r_str.NO_BL}</td>
+			<td>{$r_str.PERP_KE}</td>
+			<td>{$r_str.TYPE_STRIPPING}</td>
+			<td>{$r_str.TGL_APPROVE}</td>
+			<td>{$r_str.TGL_REALISASI}</td>
+		</tr>
+		</fill>
+	</table>
+</div>
+
+<div id="receiving">
+	<table width="710px" border="1"  cellspacing="1" cellpadding="1">
+		<tr bgcolor="#006699">
+			<th class="grid-header"  style="font-size:8pt">NO REQUEST</td>
+			<th class="grid-header"  style="font-size:8pt">TGL REQUEST</td>
+			<th class="grid-header"  style="font-size:8pt">CONSIGNEE</td>
+			<th class="grid-header"  style="font-size:8pt">RECEIVING DARI</td>
+			<th class="grid-header"  style="font-size:8pt">PERALIHAN</td>
+		</tr>
+		<fill var='r_rec' src='r_rec'>
+		<tr> 
+			<td>{$r_rec.NO_REQUEST}</td>
+			<td>{$r_rec.TGL_REQUEST}</td>
+			<td>{$r_rec.CONSIGNEE}</td>
+			<td>{$r_rec.RECEIVING_DARI}</td>
+			<td>{$r_rec.PERALIHAN}</td>
+		</tr>
+		</fill>
+	</table>
+</div>
+
+
+<div id="stuffing">
+	<table width="710px" border="1"  cellspacing="1" cellpadding="1">
+		<tr bgcolor="#006699">
+			<th class="grid-header"  style="font-size:8pt">NO REQUEST</td>
+			<th class="grid-header"  style="font-size:8pt">TGL REQUEST</td>
+			<th class="grid-header"  style="font-size:8pt">NO DOKUMEN</td>
+			<th class="grid-header"  style="font-size:8pt">NO JPB</td>
+			<th class="grid-header"  style="font-size:8pt">BPRP</td>
+			<th class="grid-header"  style="font-size:8pt">NO PEB</td>
+			<th class="grid-header"  style="font-size:8pt">NO NPE</td>
+			<th class="grid-header"  style="font-size:8pt">STUFFING DARI</td>
+			<th class="grid-header"  style="font-size:8pt">CONSIGNEE</td>
+		</tr>
+		<fill var='r_stu' src='r_stu'>
+		<tr> 
+			<td>{$r_stu.NO_REQUEST}</td>
+			<td>{$r_stu.TGL_REQUEST}</td>
+			<td>{$r_stu.NO_DOKUMEN}</td>
+			<td>{$r_stu.NO_JPB}</td>
+			<td>{$r_stu.BPRP}</td>
+			<td>{$r_stu.NO_PEB}</td>
+			<td>{$r_stu.NO_NPE}</td>
+			<td>{$r_stu.ASAL_CONT}</td>
+			<td>{$r_stu.NM_PBM}</td>
+		</tr>
+		</fill>
+	</table>
+</div>
+
+
+<div id="delivery">
+	<table width="710px" border="1"  cellspacing="1" cellpadding="1">
+		<tr bgcolor="#006699">
+			<th class="grid-header"  style="font-size:8pt">NO REQUEST</td>
+			<th class="grid-header"  style="font-size:8pt">TGL REQUEST</td>
+			<th class="grid-header"  style="font-size:8pt">KOMODITI</td>
+			<th class="grid-header"  style="font-size:8pt">AKTIF</td>
+			<th class="grid-header"  style="font-size:8pt">HZ</td>
+			<th class="grid-header"  style="font-size:8pt">PERALIHAN</td>
+			<th class="grid-header"  style="font-size:8pt">DELIVERY KE</td>
+			<th class="grid-header"  style="font-size:8pt">NAMA EMKL</td>
+		</tr>
+		<fill var='r_del' src='r_del'>
+		<tr> 
+			<td>{$r_del.NO_REQUEST}</td>
+			<td>{$r_del.TGL_REQUEST_DELIVERY}</td>
+			<td>{$r_del.KOMODITI}</td>
+			<td>{$r_del.AKTIF}</td>
+			<td>{$r_del.HZ}</td>
+			<td>{$r_del.PERALIHAN}</td>
+			<td>{$r_del.DELIVERY_KE}</td>
+			<td>{$r_del.NAMA_EMKL}</td>
+		</tr>
+		</fill>
+	</table>
+</div>
+
+<div id="placement">
+	<table width="710px" border="1"  cellspacing="1" cellpadding="1">
+		<tr bgcolor="#006699">
+			<th class="grid-header"  style="font-size:8pt">TGL PLACEMENT</td>
+			<th class="grid-header"  style="font-size:8pt">NAMA YARD</td>
+			<th class="grid-header"  style="font-size:8pt">BLOK</td>
+			<th class="grid-header"  style="font-size:8pt">SLOT/ROW/TIER</td>
+			<th class="grid-header"  style="font-size:8pt">OPER NAME</td>
+			<th class="grid-header"  style="font-size:8pt">STATUS</td>
+		</tr>
+		<fill var='r_pl' src='r_pl'>
+		<tr> 
+			<td>{$r_pl.TGL_PLACEMENT}</td>
+			<td>{$r_pl.NAMA_YARD}</td>
+			<td>{$r_pl.NAME}</td>
+			<td>{$r_pl.SLOT_} / {$r_pl.ROW_} / {$r_pl.TIER_}</td>
+			<td>{$r_pl.NAMA_LENGKAP}</td>
+			<td>{$r_pl.STATUS}</td>
+		</tr>
+		</fill>
+	</table>
+</div>

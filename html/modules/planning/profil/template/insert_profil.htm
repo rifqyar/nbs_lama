@@ -1,0 +1,48 @@
+<div id="profil_input">
+<br>
+<form method="post" enctype="multipart/form-data" action="<?=HOME?>planning.profil/upload_save?id_vs={$req}">
+		<table>
+			<tr height='20'>
+				<td class="form-field-caption" align="right"></td>
+				<td class="form-field-caption" align="right"></td>
+				<td></td>			
+			</tr>
+			<tr>
+				<td class="form-field-caption" align="right">Status Data</td>
+				<td class="form-field-caption" align="right"> : </td>
+				<td class="form-field-caption" align="left">
+					<select id="modus" name="v" onChange="set_modus()">
+						<option value='new'>New</option>
+						<option value='overwrite'>Overwrite</option>
+						<option value='vs_assign'>Vessel Assign</option>
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<td class="form-field-caption" align="right">Upload Profile <i>(.xls)</i></td>
+				<td class="form-field-caption" align="right"> : </td>
+				<td colspan='4'><input type="file" name="uploadfile" size="20" />
+                                <input type="hidden" name="id_vs" value="{$vessel.ID_VS}" /></td>		
+			</tr>
+			<tr>
+				<td class="form-field-caption" align="right">Vessel</td>
+				<td class="form-field-caption" align="right"> : </td>
+				<td colspan='4'>
+				<input type="text" name="nm_kapal" id="nm_kapal" title="Autocomplete"/>
+				<input type="hidden" name="kd_kapal" id="kd_kapal"/>
+				</td>				
+			</tr>
+			<tr>
+				<td colspan="3">&nbsp;</td>
+			</tr>
+			<tr>
+				<td colspan="3" align="right"> <input type="submit" name="upload" value="upload" /> </td>
+			</tr>
+			<tr height='20'>
+				<td class="form-field-caption" align="right"></td>
+				<td class="form-field-caption" align="right"></td>
+				<td></td>			
+			</tr>
+		</table>
+	</form>
+</div>

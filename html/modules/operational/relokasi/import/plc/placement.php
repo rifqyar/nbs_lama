@@ -1,0 +1,1 @@
+<?php 	$id_js=$_POST["IDJ"];		$id_alat=$_POST["ID_ALAT"];	$id_user=$_POST["ID_USER"];	$db=getDB();	$sql_xpi = "BEGIN ISWS.placement_container_muat1('$id_js','MUAT','$id_user','$id_alat'); END;";	$db->query($sql_xpi);		echo "sukses";?>

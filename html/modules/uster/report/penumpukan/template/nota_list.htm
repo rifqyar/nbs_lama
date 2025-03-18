@@ -1,0 +1,37 @@
+
+ <div id="list">
+	<!-- <h2>TOTAL PASS 	: {$jum_list.JML_PASS}</h2><br/>
+	<h2>TOTAL BIAYA : {$jum_list.BIAYA}</h2> -->
+     <table class="grid-table" border='0' cellpadding="1" cellspacing="1"  width="100%" >
+                              <tr style=" font-size:10pt">
+                                  <th valign="top" class="grid-header"  style="font-size:8pt">NO</th>                                  
+                                  <th valign="top" class="grid-header"  style="font-size:8pt">NO REQUEST</th>
+                                  <th valign="top" class="grid-header"  style="font-size:8pt">NO NOTA</th>
+                                  <th  valign="top" class="grid-header"  style="font-size:8pt">KETERANGAN</th> 
+                                  <th  valign="top" class="grid-header"  style="font-size:8pt">COA</th> 
+                                  <th valign="top" class="grid-header"  style="font-size:8pt">JML CONT</th>                                  
+                                  <th valign="top" class="grid-header"  style="font-size:8pt">SIZE</th>                                  
+                                  <th valign="top" class="grid-header"  style="font-size:8pt">TARIF</th>
+                                  <th valign="top" class="grid-header"  style="font-size:8pt">STATUS</th>
+                                  <th valign="top" class="grid-header"  style="font-size:8pt">JML HARI</th>
+                                  <th valign="top" class="grid-header"  style="font-size:8pt">BIAYA</th>
+                              </tr>
+							  <?php $i=1; ?>
+                              <fill src="row_list" var="rows">
+                              <tr bgcolor="#f9f9f3" onMouseOver=this.style.backgroundColor="#BAD5FC" onMouseOut=this.style.backgroundColor="">
+                                  <td width="4%" align="center" valign="middle" class="grid-cell" style="color:#000; font-family:Arial; font-size:9pt"><?=$i?> </td>
+                                  <td width="15%" align="center" valign="middle" class="grid-cell"  style="font-size:9pt">{$rows.NO_REQUEST}</td>
+                                  <td width="15%" align="center" valign="middle" class="grid-cell"  style="font-size:9pt">{$rows.ID_NOTA}</td>
+                                  <td width="15%" align="center" valign="middle" class="grid-cell"  style="font-size:9pt">{$rows.KETERANGAN}</td>
+                                  <td width="15%" align="center" valign="middle" class="grid-cell"  style="font-size:9pt">{$rows.COA}</td>
+                                  <td width="15%" align="center" valign="middle" class="grid-cell"  style="font-size:9pt">{$rows.JML_CONT}</td>
+                                  <td width="15%" align="center" valign="middle" class="grid-cell"  style="font-size:9pt">{$rows.SIZE_}</td>
+                                  <td width="15%" align="center" valign="middle" class="grid-cell"  style="font-size:9pt;font-family:Arial;"><font color="#0066CC" style="font-size:10pt">{$rows.TARIF}</font></td>
+                                  <td width="15%" align="center" valign="middle" class="grid-cell"  style="font-size:9pt;font-family:Arial;"><font color="#0066CC" style="font-size:10pt">{$rows.STATUS}</font></td>
+                                  <td width="15%" align="center" valign="middle" class="grid-cell"  style="font-size:9pt;font-family:Arial;"><font color="#0066CC" style="font-size:10pt">{$rows.JML_HARI}</font></td>
+                                  <td width="15%" align="center" valign="middle" class="grid-cell"  style="font-size:9pt;font-family:Arial;"><font color="#0066CC" style="font-size:10pt">{$rows.BIAYA}</font></td>
+                  <?php $i++; ?>
+								</tr>
+							</fill>
+        </table>
+ </div>

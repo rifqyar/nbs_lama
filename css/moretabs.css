@@ -1,0 +1,126 @@
+/* CSS Document */
+ul.green-tabs {
+	list-style:none outside none;
+}
+ul.green-tabs li.tab-normal {
+	float:left;
+	padding-left:7px;
+	background-image:url(img/green-tabn_01.gif);
+	background-repeat:no-repeat;
+	background-position: left top;
+}
+ul.green-tabs li.tab-normal span.tab-item {
+	float:left;
+	background-image:url(img/green-tabn_02.gif);
+	background-repeat:repeat-x;
+	background-position:left top;
+}
+ul.green-tabs li.tab-normal span.tab-item span.tab-item-0 {
+	float:left;
+	padding: 3px 16px 3px 0px;
+	background-image:url(img/green-tabn_03.gif);
+	background-repeat:no-repeat;
+	background-position: right top;
+}
+ul.green-tabs li.tab-normal span.tab-item span.tab-item-0 a {
+	color:#FFFFFF;
+	text-decoration:none;
+}
+ul.green-tabs li.tab-normal span.tab-item span.tab-item-0 a:hover {
+	color:#FFFFFF;
+	text-decoration:underline;
+}
+ul.green-tabs li.tab-active {
+	float:left;
+	padding-left:7px;
+	background-image:url(img/green-taba_01.gif);
+	background-repeat:no-repeat;
+	background-position: left top;
+	border-bottom:solid 1px #ffffff;
+}
+ul.green-tabs li.tab-active span.tab-item {
+	float:left;
+	background-image:url(img/green-taba_02.gif);
+	background-repeat:repeat-x;
+}
+ul.green-tabs li.tab-active span.tab-item span.tab-item-0 {
+	float:left;
+	padding: 3px 16px 3px 0px;
+	background-image:url(img/green-taba_03.gif);
+	background-repeat:no-repeat;
+	background-position: right top;
+}
+ul.green-tabs li.tab-active span.tab-item span.tab-item-0 a {
+	color:#000000;
+	font-weight:bold;
+	text-decoration:none;
+}
+ul.green-tabs li.tab-active span.tab-active span.tab-item-0 a:hover {
+	color:#000000;
+	text-decoration:none;
+	font-weight:bold;
+	cursor:pointer;
+}
+/* pink ----- */
+ul.pink-tabs {
+	list-style:none outside none;
+}
+ul.pink-tabs li.tab-normal {
+	float:left;
+	padding-left:7px;
+	background-image:url(img/pink-tabn_01.gif);
+	background-repeat:no-repeat;
+	background-position: left top;
+}
+ul.pink-tabs li.tab-normal span.tab-item {
+	float:left;
+	background-image:url(img/pink-tabn_02.gif);
+	background-repeat:repeat-x;
+	background-position:left top;
+}
+ul.pink-tabs li.tab-normal span.tab-item span.tab-item-0 {
+	float:left;
+	padding: 3px 16px 3px 0px;
+	background-image:url(img/pink-tabn_03.gif);
+	background-repeat:no-repeat;
+	background-position: right top;
+}
+ul.pink-tabs li.tab-normal span.tab-item span.tab-item-0 a {
+	color:#FFFFFF;
+	text-decoration:none;
+}
+ul.pink-tabs li.tab-normal span.tab-item span.tab-item-0 a:hover {
+	color:#FFFFFF;
+	text-decoration:underline;
+}
+ul.pink-tabs li.tab-active {
+	float:left;
+	padding-left:7px;
+	background-image:url(img/pink-taba_01.gif);
+	background-repeat:no-repeat;
+	background-position: left top;
+	border-bottom:solid 1px #ffffff;
+}
+ul.pink-tabs li.tab-active span.tab-item {
+	float:left;
+	background-image:url(img/pink-taba_02.gif);
+	background-repeat:repeat-x;
+}
+ul.pink-tabs li.tab-active span.tab-item span.tab-item-0 {
+	float:left;
+	padding: 3px 16px 3px 0px;
+	background-image:url(img/pink-taba_03.gif);
+	background-repeat:no-repeat;
+	background-position: right top;
+}
+ul.pink-tabs li.tab-active span.tab-item span.tab-item-0 a {
+	color:#000000;
+	font-weight:bold;
+	text-decoration:none;
+}
+ul.pink-tabs li.tab-active span.tab-active span.tab-item-0 a:hover {
+	color:#000000;
+	text-decoration:none;
+	font-weight:bold;
+	cursor:pointer;
+}

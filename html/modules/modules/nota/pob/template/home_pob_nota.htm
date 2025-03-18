@@ -1,0 +1,201 @@
+<style>
+.content{
+	width:95%;
+	margin-left:auto;
+	margin-right:auto;
+	margin-bottom: 10px;
+	margin-top:20px;
+}
+.main_side{
+	width:100%;
+	float:left;
+	text-align:left;
+}
+.rightside{ 
+	width:25%;
+	float:right;
+	text-align:center;
+}
+.ganjil {
+  background-color: #FFF; /* Warna untuk baris ganjil */
+}
+.genap {
+  background-color: #bbe3fe; /* Warna untuk baris genap */
+}   
+
+</style>
+
+<script type="text/javascript">
+  $(document).ready(function() {
+    $("tr:odd").addClass("ganjil");
+    $("tr:even").addClass("genap");
+  }); 
+</script>
+
+<?php
+header("Cache-Control: no-cache, must-revalidate"); // HTTP/1.1
+header("Expires: Mon, 26 Jul 1997 05:00:00 GMT"); // Date in the past
+## url map..        
+$urlfilter = array();
+_map($urlfilter);
+## calculate page number
+#        
+if (isset($_q['p'])) {
+    $pp = (int) $_q['p'];
+} else {
+    foreach ($_q as $k => $v)
+        if (is_numeric($k))
+            $pp = (int) $v;
+}
+unset($_q['p']);
+## order
+#
+$sortinfo = false;
+$order    = "";
+$ofields  = array();
+if (isset($_q['_orderby']) && in_array($_q['_orderby'], $ofields)) {
+    $order = $_q['_orderby'];
+    if (isset($_SESSION['_gridsort'][APPID][SUBID])) {
+        $sortinfo = $_SESSION['_gridsort'][APPID][SUBID];
+        if ($sortinfo['field'] == $order) {
+            $sortinfo['ascending'] = !$sortinfo['ascending'];
+        } else {
+            $sortinfo = array(
+                'field' => $order,
+                'ascending' => true
+            );
+        }
+    } else {
+        $sortinfo = array(
+            'field' => $order,
+            'ascending' => true
+        );
+    }
+    if (!isset($_SESSION['_gridsort']))
+        $_SESSION['_gridsort'] = array();
+    $_SESSION['_gridsort'][APPID] = array(
+        SUBID => $sortinfo
+    );
+    if ($sortinfo['ascending'])
+        $order .= ' ASC';
+    else
+        $order .= ' DESC';
+} else if (isset($_SESSION['_gridsort'][APPID][SUBID])) {
+    $sortinfo = $_SESSION['_gridsort'][APPID][SUBID];
+    $order    = $sortinfo['field'];
+    if ($sortinfo['ascending'])
+        $order .= ' ASC';
+    else
+        $order .= ' DESC';
+}
+## order header..
+foreach ($ofields as $of)
+    if ($sortinfo && $sortinfo['field'] == $of) {
+        $sortclass[$of] = ($sortinfo['ascending']) ? 'grid-ascending' : 'grid-descending';
+    } else {
+        $sortclass[$of] = 'grid-sortable';
+    }
+unset($_q['_orderby']);
+if ($order != '')
+    $order = ' ORDER BY ' . $order;
+## default
+#
+if (!isset($searchurl))
+    $searchurl = _link(array(
+        'sub' => 'search'
+    ));
+if (!isset($item_per_page))
+    $item_per_page = 20;
+if (!isset($style))
+    $style = array(
+        'gridinfo' => 'grid-info',
+        'gridtable' => 'grid-table',
+        'gridheader' => 'grid-header',
+        'gridcell' => 'grid-cell'
+    );
+if (!isset($rand))
+    $rand = rand(10000, 99999);
+if (!isset($navurl))
+    $navurl = preg_replace(array(
+        '/\&_[^=]+=[^&]+/',
+        '/\?_[^=]+=[^&]+/'
+    ), array(
+        '',
+        '?'
+    ), $_SERVER['REQUEST_URI']);
+if (strpos($navurl, '?') === false)
+    $navurl .= '?';
+if (!isset($addurl))
+    $addurl = _link(array(
+        'sub' => 'add'
+    ));
+    
+### save URI
+$backuri                      = str_replace('&_saveok=1', '', $_SERVER['REQUEST_URI']);
+$_SESSION['__uriback'][APPID] = $backuri . (strpos($_SERVER['REQUEST_URI'], '?') === false ? '?' : '');
+?>
+
+<script type="text/javascript">
+jQuery(function() {
+ jQuery("#pob_nota").jqGrid({
+	url:'datanya/get_pob?q=nota',
+	mtype : "post",
+	datatype: "json",
+	colNames:['Aksi','No Nota','No Receipt','No JKM','Tgl JKM','Jumlah Lembar','Pendapatan','Status'],
+	colModel:[
+		{name:'aksi', width:80, align:"center",sortable:false,search:false},
+		{name:'no_nota',index:'no_nota', width:110, align:"center"},
+		{name:'no_receipt',index:'no_receipt', width:110, align:"center"},
+		{name:'no_jkm',index:'no_jkm', width:110, align:"center"},
+		{name:'tgl_jkm',index:'tgl_jkm', width:110, align:"center"},
+		{name:'jml_lembar',index:'jml_lembar', width:100, align:"center"},
+		{name:'income',index:'income', width:110, align:"right", formatter:'currency',formatoptions:{prefix:'',suffix:'',thousandsSeparator:','}},
+		{name:'status',index:'status', width:60, align:"center"},
+		],
+  rowNum:10,
+	width: "850",
+	height: "100%",//250
+	rowList:[10,20,30,40,50,60],
+	loadonce:true,
+	rownumbers: true,
+	rownumWidth: 15,
+	gridview: true,
+	pager: '#pager_nota',
+	viewrecords: true,
+	shrinkToFit: false,
+	caption:"",
+  }).navGrid('#pager_nota',{
+	edit:false,
+	add:false,
+	del:false
+ });
+});
+</script>
+
+<block visible='_q._editok'>
+  <script language="javascript">
+
+       $(function() {
+
+           $.growlUI("<img src='images/valid.png' border='0' /><b>Data berhasil disimpan</b>");
+
+       });
+
+   </script>
+</block>
+
+<div class="content">
+	<div class="main_side">
+	<span class=graybrown><img border="0" width="50" height="50" src="images/nota.png" /><font color=#FF9900>NOTA</font>&nbsp;<font color=#0378C6><b>PAS OVER BAGASI</b></font></span>
+		<!--<p align="right"><br/>
+      <a href="<?=HOME?>request.pob_inc/add" class="link-button">
+      <img border="0" src="images/tambah.png" />Tambah Pendapatan Pas Over Bagasi</a>	  
+    </p>-->
+  <br/>
+  <br/>
+  <table id='pob_nota'></table> 
+    <div id='pager_nota'></div>
+  <br/>
+	<br/>
+	</div>
+</div>

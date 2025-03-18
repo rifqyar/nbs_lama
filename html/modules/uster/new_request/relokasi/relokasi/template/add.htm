@@ -1,0 +1,42 @@
+<span class="graybrown"><img src='images/sp2_p.png' border='0' class="icon"/><font color="#0378C6"> Request</font> Relokasi</span><br/><br/>
+<fieldset class="form-fieldset" style="margin: 5px 5px 5px 5px; ">
+<form id="form" action="<?=HOME?><?=APPID?>/add_do" method="POST">
+	<center>
+    <table class="form-input" style="margin: 30px 30px 30px 30px;" >
+    	<tr>
+        	<td  class="form-field-caption">Depo Asal </td>
+            <td class="form-field-caption"> : </td>
+            <!--<td class="graybrown" style="border:thin groove; background-color:'#ffe'"> &nbsp;<font color="#FF0000"> <?=$_SESSION["NAMAYARD_STORAGE"]?> &nbsp;</font></td>-->
+			<td class="form-field-caption"> 
+					<?=get_yard_asal()?> 
+
+            </td>		
+			
+            <td class="form-field-caption" width="30" align="center"><font size="5pt"> => </font></td>
+            <td class="form-field-caption"> Depo Tujuan</td>
+            <td class="form-field-caption"> : </td>
+            <td class="form-field-caption"> 
+					<?=get_yard_tujuan()?> 
+
+            </td>
+    	
+    	</tr>
+        <tr>
+			<td class="form-field-caption">No Surat</td>
+            <td class="form-field-caption"> : </td>
+            <td class="form-field-caption" > <input id="NO_SURAT" name="NO_SURAT" /></td>
+			
+            <td colspan="7" align="right"> <a id="submitForm" onclick="save()" class="link-button" ><img src='images/valid.png' border='0' />&nbsp;Simpan</a></td>
+        </tr>
+    
+	</table>
+    </center>
+</form>
+</fieldset>
+
+ 
+<script>
+function save(){
+	$('#form').submit();
+ }
+</script>

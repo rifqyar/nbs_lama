@@ -1,0 +1,336 @@
+<style>
+
+body { margin:0px; padding-top:10px; width:100%; height:100%; font-family:Arial}
+
+.style1 {
+
+	font-size: 18px;
+
+	font-weight: bold;
+
+}
+
+</style>
+<fill src="row_list" var="row">
+
+<div style="width:767px; height:487px; border:1px solid  #FFF">   
+
+<table border="0px" width="100%" height="460" cellpadding="0"  cellspacing="0" style="margin:0px; margin-top:15px; margin-bottom:15px; font-size:12px">
+
+  <tr> 
+
+			<td width="15%" height="70">&nbsp;</td>
+
+			<td width="41%">&nbsp;</td>
+
+			<td width="12%">&nbsp;</td>
+
+			<td width="22%" align="left" valign="top">No Kartu: {$row.NO_KARTU} <br/> No Request: {$row.NO_REQUEST}</td>
+
+			<td width="14%" valign="top"> <p>  </p>
+
+			  <p>
+				<p2> &nbsp</p2>
+
+			  </p>
+
+			  <p> &nbsp </p></td>
+		</tr>
+
+  <!--
+
+  <tr>
+
+    <td>&nbsp;</td>
+
+    <td>&nbsp;</td>
+
+    <td>&nbsp;</td>
+
+    <td>&nbsp;</td>
+
+    <td>{$row.KD_UPER_LUNAS}</td>
+
+  </tr>
+
+  -->
+
+  <tr height="10">
+
+    <td height="58">&nbsp;</td>
+
+    <td>&nbsp;</td>
+
+    <td>&nbsp;</td>
+
+    <td><?
+
+				//if ($row['PP']=='2'){
+
+					//echo "#PERPANJANGAN#";
+
+				//}
+
+			?></td>
+
+    <td>&nbsp;</td>
+
+  </tr>
+<?php 
+  $db = getDB("storage");
+  $no_cont = $row["NO_CONTAINER"];
+  $result  = "      SELECT MASTER_CONTAINER.NO_CONTAINER AS NO_CONTAINER, 
+                          MASTER_CONTAINER.SIZE_ AS KD_SIZE, 
+                          MASTER_CONTAINER.TYPE_ AS KD_TYPE,                      
+                         TO_CHAR( CONTAINER_RECEIVING.TGL_BONGKAR, 'DD-MM-YYYY') TGL_BONGKAR,
+                          CONTAINER_RECEIVING.STATUS KD_STATUS_CONT, '' BP_ID, '' NO_UKK, 'DEPO' ASAL_CONT, BLOCKING_AREA.NAME BLOK_, PLACEMENT.ROW_ ROW_, PLACEMENT.SLOT_ SLOT_, PLACEMENT.TIER_ TIER_, 
+              '' VOYAGE_IN, '' NM_KAPAL, '' NM_AGEN, '' TGL_STACK
+                   FROM USTER.MASTER_CONTAINER  MASTER_CONTAINER
+                   INNER JOIN PLACEMENT ON MASTER_CONTAINER.NO_CONTAINER = PLACEMENT.NO_CONTAINER
+                   JOIN BLOCKING_AREA ON BLOCKING_AREA.ID = PLACEMENT.ID_BLOCKING_AREA
+                   JOIN YARD_AREA ON YARD_AREA.ID = BLOCKING_AREA.ID_YARD_AREA
+                   JOIN CONTAINER_RECEIVING ON PLACEMENT.NO_REQUEST_RECEIVING = CONTAINER_RECEIVING.NO_REQUEST                   
+                   AND PLACEMENT.NO_CONTAINER = CONTAINER_RECEIVING.NO_CONTAINER
+                   WHERE  MASTER_CONTAINER.NO_CONTAINER LIKE '$no_cont' AND MASTER_CONTAINER.LOCATION LIKE 'IN_YARD'
+                   GROUP BY BLOCKING_AREA.NAME, PLACEMENT.ROW_, PLACEMENT.SLOT_, PLACEMENT.TIER_, MASTER_CONTAINER.NO_CONTAINER, SIZE_, TYPE_, YARD_AREA.ID, YARD_AREA.NAMA_YARD, CONTAINER_RECEIVING.TGL_BONGKAR, CONTAINER_RECEIVING.STATUS, 
+                   '' , '' , 'DEPO' , BLOCKING_AREA.NAME, ROW_, SLOT_, TIER_, '' , '' , '' , '' 
+            UNION
+            SELECT TTD_BP_CONT.CONT_NO_BP NO_CONTAINER,
+                     TTD_BP_CONT.KD_SIZE,
+                     TTD_BP_CONT.KD_TYPE,
+                     TO_CHAR (TTD_BP_CONFIRM.CONFIRM_DATE, 'DD-MM-YYYY') AS TGL_BONGKAR,
+                     TTD_BP_CONT.KD_STATUS_CONT,
+                     TTD_BP_CONT.BP_ID,     
+                     V_PKK_CONT.NO_UKK, 'TPK' ASAL_CONT,                     
+                        YARD.ARE_BLOK BLOK_,            
+                        YARD.ARE_SLOT SLOT_,  
+                        YARD.ARE_ROW ROW_,
+                        YARD.ARE_TIER TIER_ ,
+                        V_PKK_CONT.VOYAGE_IN,
+                        V_PKK_CONT.NM_KAPAL,
+                        V_PKK_CONT.NM_AGEN,
+                        To_Char(TTD_BP_CONT.TGL_STACK,'DD-MM-YYYY') AS TGL_STACK
+                FROM PETIKEMAS_CABANG.TTM_BP_CONT TTM_BP_CONT,
+                     PETIKEMAS_CABANG.TTD_BP_CONT TTD_BP_CONT,
+                     PETIKEMAS_CABANG.V_PKK_CONT V_PKK_CONT,
+                     PETIKEMAS_CABANG.TTD_BP_CONFIRM TTD_BP_CONFIRM,
+                     PETIKEMAS_CABANG.MST_YARD_CONT_LAPANGAN YARD
+               WHERE     TTM_BP_CONT.BP_ID = TTD_BP_CONT.BP_ID
+                     AND ROWNUM <= 7
+                     AND TTM_BP_CONT.NO_UKK = V_PKK_CONT.NO_UKK
+                     AND TTD_BP_CONT.CONT_NO_BP = TTD_BP_CONFIRM.CONT_NO_BP
+                     AND TTM_BP_CONT.NO_UKK = TTD_BP_CONFIRM.NO_UKK
+                     AND TTD_BP_CONT.BP_ID = TTD_BP_CONFIRM.BP_ID
+                     AND TTM_BP_CONT.KD_CABANG = '05'
+                     AND YARD.ARE_ID = TTD_BP_CONT.ARE_ID
+                     AND TTD_BP_CONT.CONT_NO_BP LIKE '$no_cont'
+                     AND TTD_BP_CONT.KD_STATUS_CONT = 'FCL'
+                     ORDER BY ASAL_CONT ASC                      
+	";
+	
+	$result_container		= $db->query($result);
+	
+	$row_cont				= $result_container->fetchRow();
+  ?>
+  <tr>
+
+    <td height="41" colspan="5" align="right"><span style="padding-right:30px; font-size:24px"></span></td>
+
+
+
+  <tr>
+
+    <td width="15%" height="48">&nbsp;</td>
+
+    <td valign="top"><b style="font-size:24px">{$row.NO_CONTAINER}</b></td>
+
+    <td>&nbsp;</td>
+
+    <td valign="top"><span class="style1">USTER IPC</span></td>
+
+    <td>&nbsp;</td>
+
+  </tr>
+
+  <tr>
+
+    <td height="24">&nbsp;</td>
+
+    <td><?php echo $row_cont["KD_SIZE"]; ?> / MTY</td>
+
+    <td>&nbsp;</td>
+
+    <td>&nbsp;</td>
+
+    <td>&nbsp;</td>
+
+  </tr>
+
+  <tr>
+
+    <td height="20">&nbsp;</td>
+
+    <td><?php echo $row_cont["NM_KAPAL"]; ?> / <?php echo $row_cont["VOYAGE_IN"]; ?></td>
+
+    <td>&nbsp;</td>
+
+    <td></td>
+
+    <td>&nbsp;</td>
+
+  </tr>
+
+  <tr>
+
+    <td height="20">&nbsp;</td>
+
+    <td>{$row.EMKL}</td>
+
+    <td>&nbsp;</td>
+
+    <td> &nbsp </td>
+
+    <td>&nbsp;</td>
+
+    </tr>
+
+  <tr>
+
+    <td height="20">&nbsp;</td>
+
+    <td ><strong style="font:14px"><span class="style1">
+			<?php echo $row_cont["BLOK_"]; ?>
+			</span> <?php echo $row_cont["SLOT_"]."-".$row_cont["ROW_"]."-".$row_cont["TIER_"]; ?></strong></td>
+
+    <td>&nbsp;</td>
+
+    <td></td>
+
+    <td>&nbsp;</td>
+
+
+
+    </tr>
+
+  <tr>	
+
+    <td height="18">&nbsp;</td>
+
+    <td >{$row.EMKL}</td>
+
+	<td>&nbsp;</td>
+
+    <td colspan="2">{$row.TGL_AWAL}</td>
+
+
+
+    </tr>
+
+  <tr>
+
+    <td height="15">&nbsp;</td>
+
+    <td >........ / ......... - ......... - ......... </td>
+
+	<td>&nbsp;</td>
+
+    <td >{$row.TGL_AKHIR}</td>
+
+  </tr>
+
+   <tr>
+
+    <td height="15">&nbsp;</td>
+
+    <td ><strong>STUFFING {$row.TYPE_STUFFING}</strong></td>
+
+	<td>&nbsp;</td>
+
+    <td >&nbsp;</td>
+
+  </tr>
+
+  <tr>
+
+    <td height="15">&nbsp;</td>
+
+    <td >&nbsp;</td>
+
+	<td>&nbsp;</td>
+
+    <td >&nbsp;</td>
+
+  </tr>
+
+  <tr>
+
+    <td height="15">&nbsp;</td>
+
+    <td  style="text-transform:uppercase"><em></em></td>
+
+	<td>&nbsp;</td>
+
+    <td >&nbsp;</td>
+
+
+
+    </tr>
+
+  <tr>
+
+    <td height="19"></td>
+
+    <td>user print SPPS : {$name}</td>
+
+    <td>&nbsp;</td>
+
+    <td colspan="2" style="padding-left:15px">&nbsp;</td>
+
+    </tr>
+
+  <tr>
+
+    <td height="29">&nbsp;</td>
+
+    <td>&nbsp;</td>
+
+    <td>&nbsp;</td>
+
+    <td><span style="padding-left:15px">&nbsp;<?=date('d M Y')?></span></td>
+
+    <td>&nbsp;</td>
+
+  </tr>
+
+  <tr>
+
+    <td height="59">&nbsp;</td>
+
+    <td>&nbsp;</td>
+
+    <td>&nbsp;</td>
+
+    <td colspan="2" style="padding-left:15px">&nbsp;</td>
+
+    </tr>
+
+</table>
+
+
+
+<!-- END DATA -->
+
+</td>
+
+</tr> 
+
+</table>  
+
+</div>
+
+<!--<div style=" margin-top:51px;"></div> -->
+
+
+ 
+
+</fill> 

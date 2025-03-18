@@ -1,0 +1,60 @@
+<script type="text/javascript">
+$(document).ready(function()
+{
+	$("#id_TGL_JKM").datepicker({
+		dateFormat: 'dd-mm-yy'               
+	});
+});
+</script>
+<block name='form'> <span class="graybrown"> <img src='images/dokumenbig.png' border='0' class="icon" /> Form Update JKM </span> <br/>
+  <br/>
+  <form id="dataForm" action="{$formurl}" method="post" class="form-input">
+    <input type="hidden" name="__pbkey" value="" />
+    <table class="form-input" cellspacing='2' cellpadding='2' border='0' width="100%">
+      <block visible="error">
+        <tr>
+          <td colspan="2"> Invalid Form Entry </td>
+        </tr>
+      </block>
+	  <tr>
+        <td width="15%" align="right" valign="top" class="form-field-caption"> No Nota </td>
+        <td width="85%" valign="top" class="form-field-input"> :
+          <input name="no_nota" type="text" value="{$row.ID_NOTA}" size="15" readonly="yes" /></td>
+      </tr>
+	  <tr>
+        <td align="right" valign="top" class="form-field-caption"> Tanggal Nota </td>
+        <td valign="top" class="form-field-input"> :
+          <input name="tgl_nota" type="text" value="{$row.TGL_NOTA}" size="15" readonly="yes" /></td>
+      </tr>
+      <tr>
+        <td class="form-field-caption" valign="top" align="right"> No Order </td>
+        <td class="form-field-input" valign="top"> :
+          <input name="no_order" type="text" value="{$row.ID_ORDER}" size="15" readonly="yes" /></td>
+      </tr>
+	  <tr>
+        <td class="form-field-caption" valign="top" align="right"> Total Tagihan (US$)</td>
+        <td class="form-field-input" valign="top"> :
+          <input name="total" type="text" value="{$row.TOTALNYA}" style="text-align:right" size="15" readonly="yes" /></td>
+      </tr>
+	  <tr>
+        <td class="form-field-caption" valign="top" align="right"> No JKM </td>
+        <td class="form-field-input" valign="top"> :
+		   <input id="id_NO_JKM" name="NO_JKM" type="text" value="{$row.NO_JKM}" size="15" />
+          <block visible="error.NO_JKM"> <span class="form-field-error"> {$error.NO_JKM} </span> </block>        </td>
+      </tr>
+	  <tr>
+        <td class="form-field-caption" valign="top" align="right"> Tanggal JKM </td>
+        <td class="form-field-input" valign="top"> :
+		   <input id="id_TGL_JKM" name="TGL_JKM" type="text" value="{$row.TGL_JKM}" size="15" readonly="yes" />
+          <block visible="error.TGL_JKM"> <span class="form-field-error"> {$error.TGL_JKM} </span> </block>        </td>
+      </tr>
+      <tr>
+        <td colspan="2" class="form-footer"><a id="submitForm" onclick="submitForm('dataForm')" class="link-button"> <img src='images/valid.png' border='0' /> &nbsp;Simpan </a> &nbsp;&nbsp; <a id="resetForm" onclick="resetForm('dataForm')" class="link-button"> <img src='images/reset.png' border='0' /> &nbsp;Reset </a> &nbsp;&nbsp; <a id="cancelForm" onclick="cancelForm('dataForm')" class="link-button"> <img src='images/batal.png' border='0' /> &nbsp;Batal </a> </td>
+      </tr>
+    </table>
+  </form>
+</block>
+
+<block name='nodata'>
+  <div class='form-nodata'> No Data Match </div>
+</block>

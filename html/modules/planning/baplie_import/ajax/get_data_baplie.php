@@ -1,0 +1,1 @@
+<?php$no_ukk = $_POST['ID_VS'];$id_user = $_SESSION["ID_USER"];$param_b_var= array(							"v_ukk"=>"$no_ukk",						"v_id_user"=>"$id_user",						"v_err"=>""						);$db=getdb();$query="begin ISWS.get_baplie_upload_im(:v_ukk,:v_id_user,:v_err); end;";$db->query($query,$param_b_var);$err_msg = $param_b_var['v_err'];	echo $err_msg;?>

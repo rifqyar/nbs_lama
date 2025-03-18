@@ -1,0 +1,45 @@
+<div id="list">
+	<table width="100%">
+    	<thead>
+		<block visible='multipage'>
+			<tr>
+			  <td align="center" style="padding-bottom:4px;" colspan="7" >
+				  <block visible="prevvisible"> <a onclick="change_page(parseFloat($('#navsel_').val())-1)" style="cursor:pointer;">< Sebelumnya</a>   </block>
+				  <select id="navsel_" name="p" list="navlist" selected="navpage" onchange="change_page($('#navsel_').val())"
+						style="font-size:10px; border: solid 1px #333333; background-color:#FFFDCA;">
+				  </select>
+				  <block visible="nextvisible">   <a onclick="change_page(parseFloat($('#navsel_').val())+1)" style="cursor:pointer;">Selanjutnya ></a> </block>
+				</td>
+			</tr>
+		</block>
+        	<tr>
+            	<th class="grid-header" width="10px;">No.</th>
+            	<th class="grid-header">No Request Relokasi</th>
+                <th class="grid-header">Tanggal Request</th>
+                <th class="grid-header">Yard Asal</th>
+                <th class="grid-header">Yard Tujuan</th>
+                <th class="grid-header">Jumlah Box</th>
+                <th class="grid-header" width="10%"></th>
+            </tr>
+        </thead>
+        <tbody>
+        	<fill src="row_list" var="rows">
+		   	<alt var='bg' list='#f9f9f3,#ffe'/>
+        	<tr align="left" bgcolor="{$bg}" style="cursor:pointer;" onMouseOver=this.style.backgroundColor="#BAD5FC" onMouseOut=this.style.backgroundColor="">
+            	<td class="grid-cell" style="font-size:14px;">{$rows.__no}</td>
+            	<td class="grid-cell" align="center" valign="middle" style="font-family:Arial; font-size:11pt; color:#555555"><b>{$rows.NO_REQUEST}</b></td>
+            	<td class="grid-cell" align="center" valign="middle" style="font-family:Arial; font-size:11pt; color:#555555"><b>{$rows.TGL_REQUEST}</b></td>            	
+                <td align="center" valign="middle" class="grid-cell"  style="font-size:9pt"><b>{$rows.YARD_ASAL}</b></td>
+                <td align="center" valign="middle" class="grid-cell"  style="font-size:9pt"><b>{$rows.YARD_TUJUAN}</b></td>
+            	<td align="center" valign="middle" class="grid-cell"  style="font-size:10pt;font-family:Arial; color:#0066CC; font-weight:800;">{$rows.BOX}</td>            	
+            	<td align="center" class="grid-cell" style="font-size:14px;">
+				<!-- <a href="{$HOME}{$APPID}/view?no_req={$rows.NO_REQUEST}"> LIHAT </a> -->
+				<?php
+                    	cek_cetak($rows["NO_REQUEST"]);
+                ?>
+				</td>
+            </tr>
+            </fill>
+        </tbody>
+    </table>
+</div>

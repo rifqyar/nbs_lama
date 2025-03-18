@@ -1,0 +1,257 @@
+<style>
+.content{
+	widtd:95%;
+	margin-left:auto;
+	margin-right:auto;
+	margin-bottom: 10px;
+	margin-top:20px;
+}
+.main_side{
+	widtd:100%;
+	float:left;
+	text-align:left;
+}
+.tabss{
+	margin-top: 20px;
+}
+</style>
+
+<link rel="stylesheet" href="redips/style.css" type="text/css" media="screen"/>
+<script type="text/javascript" src="redips/header.js"></script>
+<script type="text/javascript" src="redips/redips-drag-min.js"></script>
+<script type="text/javascript" src="redips/script.js"></script>
+<script type="text/javascript" src="js/stickytooltip.js"></script>
+<link rel="stylesheet" type="text/css" href="css/stickytooltip.css" />
+
+<div class="content">
+	<h2><span class="graybrown">
+    	<img class="icon" border="0" src="images/cont_set_yard.png" width="36" height="36"/>
+        &nbsp;<font color="#0378C6">Stowage</font> Plan
+        </span></h2>
+	<br/>
+	<div id="main_container">			
+			<!-- tables inside tdis DIV could have draggable content -->
+			<div id="drag">
+				<div style="width: 100px; float: left;">
+                <h2>Yard View</h2>
+				<br/>
+				Block : <select name="blok" id="blok">
+						<option value="A">A</option>
+						<option value="B">B</option>
+						<option value="C">C</option>
+						<option value="D">D</option>
+						<option value="E">E</option>
+						<option value="F">F</option>
+					    </select><br/>
+				View : <select name="view" id="view">
+						<option value="row">row</option>
+						<option value="slot">slot</option>
+					    </select>
+				
+				<!-- left container -->
+				<div id="left">
+					<table id="table1">	
+						<colgroup>
+							<col width="60"/>
+							<col width="60"/>
+							<col width="60"/>
+						</colgroup>
+						<tbody>
+							<tr>
+								<td></td>
+								<td><div id="x" class="drag blue"><a href="#" data-tooltip="sticky1">A</a></div></td>
+								<td></td>
+							</tr>
+							<? for($i;$i<10;$i++) {?>
+							<tr>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr>
+							<? } ?>
+						</tbody>
+					</table>				
+				</div><!-- left container -->
+				
+				</div>
+				
+				<!-- data tooltip -->
+				<div id="mystickytooltip" class="stickytooltip">
+                  <div style="padding:5px"> 
+                       <div id="sticky1" class="atip">                                    
+                         <img src="redips/container.png" width="100"/><br/>
+						 <b>MSKU7831111</b><br/>
+						 <b>20/DRY/FCL</b>
+                       </div>                        
+                  </div>
+                 <div class="stickystatus"></div>
+                </div>
+				<!-- data tooltip -->
+				
+				<div style="width: 400px; float: right;">
+				<h2>Vessel View</h2>
+				<br/>
+				Bay : <select name="bay" id="bay">
+						<option value="1">001</option>
+						<option value="3">003</option>
+						<option value="5">005</option>
+						<option value="6">006</option>
+						<option value="7">007</option>
+						<option value="9">009</option>
+					 </select>
+					 
+				<!-- right container -->
+				<div id="right">
+					<table id="table2">
+						<colgroup>
+							<col width="60"/>
+							<col width="60"/>
+							<col width="60"/>
+							<col width="60"/>
+							<col width="60"/>
+							<col width="60"/>
+							<col width="60"/>
+							<col width="60"/>
+							<col width="60"/>
+							<col width="60"/>
+							<col width="60"/>
+							<col width="60"/>
+							<col width="60"/>
+							<col width="60"/>
+						</colgroup>
+						<tbody>
+							<tr>
+								<td class="mark"></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td><div id="x" class="drag blue">C</div></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td class="mark"></td>
+							</tr>
+							<? for($i;$i<16;$i++) {?>
+							<tr>
+								<td class="mark"></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td class="mark"></td>
+							</tr>
+							<? } ?>							
+							<tr>
+								<td class="mark"></td>
+								<td class="mark"><b>12</b></td>
+								<td class="mark"><b>10</b></td>
+								<td class="mark"><b>08</b></td>
+								<td class="mark"><b>06</b></td>
+								<td class="mark"><b>04</b></td>
+								<td class="mark"><b>02</b></td>
+								<td class="mark"><b>01</b></td>
+								<td class="mark"><b>03</b></td>
+								<td class="mark"><b>05</b></td>
+								<td class="mark"><b>07</b></td>
+								<td class="mark"><b>09</b></td>
+								<td class="mark"><b>11</b></td>
+								<td class="mark"></td>
+							</tr>
+						</tbody>
+					</table>
+					<br/>
+					<hr width="950" size="10" style="background-color:#333" />
+					<br/>
+					<table id="table3">
+						<colgroup>
+							<col width="60"/>
+							<col width="60"/>
+							<col width="60"/>
+							<col width="60"/>
+							<col width="60"/>
+							<col width="60"/>
+							<col width="60"/>
+							<col width="60"/>
+							<col width="60"/>
+							<col width="60"/>
+							<col width="60"/>
+							<col width="60"/>
+							<col width="60"/>
+							<col width="60"/>
+							<col width="60"/>
+						</colgroup>
+						<tbody>
+							<tr>
+								<td class="mark"></td>
+								<td class="mark"><b>10</b></td>
+								<td class="mark"><b>08</b></td>
+								<td class="mark"><b>06</b></td>
+								<td class="mark"><b>04</b></td>
+								<td class="mark"><b>02</b></td>
+								<td class="mark"><b>00</b></td>
+								<td class="mark"><b>01</b></td>
+								<td class="mark"><b>03</b></td>
+								<td class="mark"><b>05</b></td>
+								<td class="mark"><b>07</b></td>
+								<td class="mark"><b>09</b></td>
+								<td class="mark"></td>
+							</tr>
+							<tr>
+								<td class="mark"></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td><div id="x" class="drag blue">D</div></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td class="mark"></td>
+							</tr>
+							<? for($i;$i<24;$i++) {?>
+							<tr>
+								<td class="mark"></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td class="mark"></td>
+							</tr>
+							<? } ?>
+						</tbody>
+					</table>
+				</div><!-- right container -->
+					 
+				</div>
+			
+			</div><!-- drag container -->
+			<!-- needed for cloning DIV elements -->
+			<div id="redips_clone"></div>
+			<!-- message -->
+			<div id="message">Clone element witd SHIFT key</div>
+		</div><!-- main container -->
+	<br/>
+	</div>

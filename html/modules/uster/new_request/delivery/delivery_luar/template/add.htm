@@ -1,0 +1,199 @@
+<span class="graybrown"><img src='images/sp2_p.png' border='0' class="icon" />
+	<font color="#0378C6"> Request</font> Delivery - SP2 ke LUAR DEPO
+</span><br /><br />
+
+<fieldset class="form-fieldset" style="margin: 5px 5px 5px 5px; ">
+	<form id="form" action="<?=HOME?><?=APPID?>/add_do" method="POST">
+		<center>
+			<table class="form-input" id="form" style="border:1px; margin: 30px 30px 30px 30px;">
+				<tr>
+					<td class="form-field-caption">Nama Consignee</td>
+					<td> : </td>
+					<td> <input type="text" name="EMKL" id="EMKL" value="{$row_request.NAMA_EMKL}"
+							placeholder="AUTO COMPLETE" size="25" style="background-color:#FFFFCC;" />
+						<input type="hidden" name="ID_EMKL" id="ID_EMKL" style="background-color:#FFFFCC;" /> <input
+							type="hidden" name="AC_EMKL" id="AC_EMKL" style="background-color:#FFFFCC;" />
+					</td>
+					<td width="50"> </td>
+					<td class="form-field-caption" width="150">Penumpukan Oleh</td>
+					<td> : </td>
+					<td width="300" valign="top" class="form-field-input">
+						<input id="NM_AGEN" name="NM_AGEN" type="text" value="" size="45" placeholder="AUTO COMPLETE"
+							style="background-color:#FFFFCC;" />
+						<input id="KD_AGEN" name="KD_AGEN" type="hidden" value="" size="16" />
+					</td>
+
+					<!--<td width="150" class="form-field-caption"> Tanggal Request Delivery</td>
+            <td> : </td>
+            <td width="300"><input type="text" name="tgl_dev"  id="tgl_dev" placeholder="{$row_request.TGL_REQUEST_DELIVERY}" /> </td>-->
+				</tr>
+				<tr>
+					<td class="form-field-caption">Alamat</td>
+					<td> : </td>
+					<td><input type="text" name="alamat" id="ALAMAT" value="{$row_request.ALAMAT}" size="35"
+							readonly="readonly" style="background-color:#FFFFCC;" /> </td>
+					<td width="50"> </td>
+					<td class="form-field-caption">Keterangan</td>
+					<td> : </td>
+					<td> <input type="text" name="keterangan" style="width:250px" value="{$row_request.KETERANGAN}" />
+					</td>
+				</tr>
+				<tr>
+					<td class="form-field-caption">NPWP</td>
+					<td> : </td>
+					<td><input type="text" name="npwp" id="NPWP" value="{$row_request.NPWP}" size="20"
+							readonly="readonly" style="background-color:#FFFFCC;" /> </td>
+					<td width="50"> </td>
+					<td class="form-field-caption" width="150">No RO</td>
+					<td> : </td>
+					<td width="300" valign="top" class="form-field-input">
+						<input id="NO_RO" name="NO_RO" type="text" value="" size="16" />
+					</td>
+				</tr>
+				<tr>
+					<td colspan="8" align="center"> <a class="link-button" onClick="save()"><img
+								src='images/cont_addnew.gif' border="0"> Simpan </a>&nbsp;</td>
+				</tr>
+
+			</table>
+		</center>
+	</form>
+</fieldset>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+
+	function save() {
+		var CONSIGNEE = $('#EMKL').val();
+		var NPWP = $("#NPWP").val();
+		Swal.fire({
+			title: 'Mengecheck Pengkinian NPWP',
+			allowOutsideClick: false,
+			didOpen: function () {
+				Swal.showLoading();
+			}
+		});
+		$.ajax({
+			url: '/uster.maintenance.api_history.ajax/UpdateNPWP',
+			type: 'POST',
+			data: {
+				CONSIGNEE: CONSIGNEE,
+				NPWP_CONSIGNEE: NPWP
+			},
+			dataType: 'json',
+			success: function (response) {
+				if (response.message && response.status == '1' && response.activity == 'update') {
+					$("#NPWP").val(response.NPWP16);
+					Swal.fire({
+						title: 'Success!',
+						text: response.message,
+						icon: 'success',
+						confirmButtonText: 'OK'
+					});
+				} else if (response.message && response.status == '1' && response.activity == 'pass') {
+					Swal.close();
+					if ($("#KD_AGEN").val() == '' || $("#ID_EMKL").val() == '') {
+						alert("Consignee dan Penumpukan Oleh Harus Diisi");
+					}
+					else {
+						$("#form").submit();
+					}
+				} else {
+					Swal.fire({
+						title: 'Error!',
+						text: response.message,
+						icon: 'error',
+						confirmButtonText: 'OK'
+					});
+				}
+			},
+			error: function (xhr, status, error) {
+				Swal.fire({
+					title: 'Error!',
+					text: 'Error: ' + error,
+					icon: 'error',
+					confirmButtonText: 'OK'
+				});
+			}
+		});
+
+	}
+
+	$(function () {
+
+
+
+		$("#tgl_dev").datepicker();
+		$("#tgl_dev").datepicker("option", "dateFormat", "yy-mm-dd");
+
+		$("#EMKL").autocomplete({
+			minLength: 3,
+			source: "{$HOME}{$APPID}.auto/pbm",
+			focus: function (event, ui) {
+				$("#EMKL").val(ui.item.NM_PBM);
+				return false;
+			},
+			select: function (event, ui) {
+				$("#EMKL").val(ui.item.NM_PBM);
+				$("#ID_EMKL").val(ui.item.KD_PBM);
+				$("#ALAMAT").val(ui.item.ALMT_PBM);
+				$("#NPWP").val(ui.item.NO_NPWP_PBM);
+				$("#AC_EMKL").val(ui.item.NO_ACCOUNT_PBM);
+				return false;
+			}
+		})
+			.data("autocomplete")._renderItem = function (ul, item) {
+				return $("<li></li>")
+					.data("item.autocomplete", item)
+					.append("<a>" + item.NM_PBM + "<br/> " + item.ALMT_PBM + "<br/> " + item.NO_NPWP_PBM + "</a>")
+					.appendTo(ul);
+			};
+
+		$("#NM_AGEN").autocomplete({
+			minLength: 3,
+			source: "{$HOME}{$APPID}.auto/pbm",
+			focus: function (event, ui) {
+				$("#NM_AGEN").val(ui.item.NM_PBM);
+				return false;
+			},
+			select: function (event, ui) {
+				$("#NM_AGEN").val(ui.item.NM_PBM);
+				$("#KD_AGEN").val(ui.item.KD_PBM);
+				return false;
+			}
+		})
+			.data("autocomplete")._renderItem = function (ul, item) {
+				return $("<li></li>")
+					.data("item.autocomplete", item)
+					.append("<a>" + item.NM_PBM + "<br/> " + item.ALMT_PBM + "</a>")
+					.appendTo(ul);
+			};
+
+
+
+	});
+
+
+	$('#form').submit(function () {
+
+
+		if ($('#ID_EMKL').val() == '') {
+			alert('EMKL  Harus Diisi');
+			return false;
+		}
+		else if ($('#tgl_dev').val() == '') {
+			alert('Tanggal Request Delivery Harus Diisi');
+			return false;
+		}
+
+	})
+
+	$(function () {
+
+		$("#tgl_req_dev").datepicker();
+		$("#tgl_req_dev").datepicker("option", "dateFormat", "yy-mm-dd");
+		$("#request_list").load('<?=HOME?><?=APPID?>/req_list #list', function (data) {
+		});
+	});
+
+</script>

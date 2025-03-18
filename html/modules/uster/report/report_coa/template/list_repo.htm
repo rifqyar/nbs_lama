@@ -1,0 +1,51 @@
+
+ <div id="list" style="overflow: scroll;width: 919px;overflow-y: hidden;">
+     <table class="grid-table" border='0' cellpadding="1" cellspacing="1" width="100%" style="overflow: scroll;">
+                              <tr style=" font-size:10pt">
+                                <th valign="top" class="grid-header" style="font-size:8pt">No</th>
+                                  <th valign="top" class="grid-header"  style="font-size:8pt">Nota TPK </th>
+                                  <th valign="top" class="grid-header"  style="font-size:8pt">Nota Uster </th>
+                                  <th valign="top" class="grid-header" style="font-size:8pt">Nilai Nota </th>
+                                  <th  valign="top" class="grid-header"  style="font-size:8pt">Tgl. Request </th>
+                                  <th  valign="top" class="grid-header"  style="font-size:8pt">No. Request</th> 
+                                  <th valign="top" class="grid-header"  style="font-size:8pt">Biaya Masa 1.1</th>
+                                  <th valign="top" class="grid-header"  style="font-size:8pt">Biaya Masa 1.2</th> 
+                                  <th valign="top" class="grid-header"  style="font-size:8pt">Biaya Masa 2</th>
+                                  <th valign="top" class="grid-header"  style="font-size:8pt">Total Penumpukan</th>
+                                  <th valign="top" class="grid-header"  style="font-size:8pt">Total Penumpukan + PPN</th>
+                                  <th valign="top" class="grid-header"  style="font-size:8pt">Biaya Masa 1.2 TPK</th>
+                                  <th valign="top" class="grid-header"  style="font-size:8pt">Biaya Masa 2 TPK</th>
+                                  <th valign="top" class="grid-header" style="font-size:8pt">Penumpukan TPK</th>
+                                  <th valign="top" class="grid-header" style="font-size:8pt">PPN Penumpukan TPK</th>
+                                  <th valign="top" class="grid-header" style="font-size:8pt">Lift Of TPK</th>
+                                  <th valign="top" class="grid-header" style="font-size:8pt">Lift Of TPK + PPN</th>
+                                  <th valign="top" class="grid-header" style="font-size:8pt">Total Hak TPK + PPN</th>
+									
+                              </tr>
+                              <fill src="row_list" var="rows">
+                              <tr bgcolor="#f9f9f3" onMouseOver=this.style.backgroundColor="#BAD5FC" onMouseOut=this.style.backgroundColor="">
+                                  <td width="4%" align="center" valign="middle" class="grid-cell" style="color:#000; font-family:Arial; font-size:9pt">{$__ctr} </td>
+                                  <td width="20%" align="center" valign="middle" class="grid-cell"   style="font-family:Arial; font-size:10pt;">{$rows.NOTA_TPK}</td>
+                                  <td width="10%" align="center" valign="middle" class="grid-cell"  style="font-size:9pt">{$rows.NOTA_USTER}</td>
+                                  <td width="15%" align="center" valign="middle" class="grid-cell"  style="font-size:9pt;font-family:Arial;"><font style="font-size:10pt">{$rows.NILAI_NOTA}</font></td>
+                                  <td width="15%" align="center" valign="middle" class="grid-cell"  style="font-size:9pt;font-family:Arial;"><font style="font-size:10pt">{$rows.TGL_REQUEST}</font></td>
+                                  <td width="10%" align="center" valign="middle" class="grid-cell"  style="font-size:9pt;font-family:Arial;"><font color="#0066CC" style="font-size:10pt">
+                                    <a onclick="list_detail('{$rows.NO_REQUEST}')" style="color:#0066CC">{$rows.NO_REQUEST}</font></a>
+                                  </td>
+                                  <td width="30%" align="center" valign="middle" class="grid-cell"  style="font-size:9pt;font-family:Arial;"><font style="font-size:10pt">{$rows.BIAYA_MASA11}</font></td>
+                                  <td width="15%" align="center" valign="middle" class="grid-cell"  style="font-size:9pt;font-family:Arial;"><font style="font-size:10pt">{$rows.BIAYA_MASA12}</font></td>
+                                  <td width="15%" align="center" valign="middle" class="grid-cell"  style="font-size:9pt;font-family:Arial;"><font style="font-size:10pt">{$rows.BIAYA_MASA2}</font></td>
+                                  <td width="15%" align="center" valign="middle" class="grid-cell"  style="font-size:9pt;font-family:Arial;"><font style="font-size:10pt">{$rows.TOTAL_PENUMPUKAN}</font></td>
+                                  <td width="15%" align="center" valign="middle" class="grid-cell"  style="font-size:9pt;font-family:Arial;"><font style="font-size:10pt">{$rows.TOTAL_PENUMPUKAN_PLUS_PPN}</font></td>
+                                  <td width="15%" align="center" valign="middle" class="grid-cell"  style="font-size:9pt;font-family:Arial;"><font style="font-size:10pt">{$rows.BIAYA_MASA12_TPK}</font></td>
+                                  <td width="15%" align="center" valign="middle" class="grid-cell"  style="font-size:9pt;font-family:Arial;"><font style="font-size:10pt">{$rows.BIAYA_MASA2_TPK}</font></td>
+                                  <td width="15%" align="center" valign="middle" class="grid-cell"  style="font-size:9pt;font-family:Arial;"><font style="font-size:10pt">{$rows.PENUMPUKAN_TPK}</font></td>
+                                  <td width="15%" align="center" valign="middle" class="grid-cell"  style="font-size:9pt;font-family:Arial;"><font style="font-size:10pt">{$rows.PPN_PENUMPUKAN_TPK_10_PERSEN}</font></td>
+                                  <td width="15%" align="center" valign="middle" class="grid-cell"  style="font-size:9pt;font-family:Arial;"><font style="font-size:10pt">{$rows.LIFT_OFF_TPK}</font></td>
+                                  <td width="15%" align="center" valign="middle" class="grid-cell"  style="font-size:9pt;font-family:Arial;"><font style="font-size:10pt">{$rows.LIFT_OFF_TPK_PPN}</font></td>
+                                  <td width="15%" align="center" valign="middle" class="grid-cell"  style="font-size:9pt;font-family:Arial;"><font style="font-size:10pt">{$rows.TOTAL_HAK_TPK_DAN_PPN}</font></td>
+								  </tr>
+                              </fill>
+							
+        </table>
+ </div>

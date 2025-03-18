@@ -1,0 +1,1 @@
+<?php $req=$_POST['ID_REQ'];$user=$_SESSION ['PENGGUNA_ID'];$db=getDb();$qr="begin final_req('$req','$user'); end;";$eqr=$db->query($qr);echo "ok";?>

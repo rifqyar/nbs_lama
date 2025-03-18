@@ -1,0 +1,243 @@
+/*
+
+Darko Bunic
+http://www.redips.net/
+May, 2010.
+
+*/
+
+
+/* drag container */
+#main_container{
+	margin: auto;
+	width: 1200px;
+}
+	/* container for left and right div */
+	#drag{
+		/* make it visible */
+		border: 2px dashed SteelBlue;
+		width: 1200px;
+		height: 700px;
+		padding: 3px;
+	}
+
+		/* container for the left table */
+		#main_container #left{
+			width: 480px;
+			height: 600px;
+			float: left;
+			margin-top: 20px;
+			margin-left: 0px;
+			/* make it visible */
+			border: 2px solid SlateGray;
+			background-color: #eee;
+		}
+		/* container for the right table */
+		#main_container #right{
+			width: 550px;
+			height: 600px;
+			float: right;
+			margin-top: 20px;
+			/* make it visible */
+			border: 2px solid SlateGray;
+			background-color: #eee;
+		}
+		
+		#main_container #right1{
+			width: 400px;
+			height: 700px;
+			float: right;
+			margin-top: 20px;
+			/* make it visible */
+			border: 2px solid SlateGray;
+			background-color: #eee;
+		}
+		
+		
+
+
+		/* make left and right DIV container scrollable */
+		#main_container #left,#right{
+			/*  http://www.howtocreate.co.uk/tutorials/javascript/browserspecific (Element position with scrolling offsets)
+			make sure that every element with an overflow of anything other than "visible" also has a position
+			style set to something other than the default "static". This way, they will all appear in the offsetParent
+			chain, and can be easily subtracted in the same loop that adds the offsetLeft and offsetTop. */
+			overflow: auto;
+			position: relative;
+		}
+
+
+
+/* drag objects (DIV inside table cells) */
+.drag{
+	cursor: move;
+	margin: auto;
+	z-index: 1000;
+	text-align: center;
+	font-size: 5pt; /* needed for cloned object */
+	opacity: 0.7;
+	filter: alpha(opacity=70);
+	/* without width, IE6/7 will not apply filter/opacity to the element ?! */
+	/* IE needs element layout */
+	width: 50px;
+	height: 50px;
+	line-height: 10px;
+}
+
+/* tables */
+div#drag table {
+	background-color: #eee;
+	border-collapse: collapse;
+	/* center tables */
+	margin: 0px auto;
+}
+		/* timetable */
+		div#drag #table2 {
+			/* align table to the right */
+			margin-left: auto;
+		}
+		
+		div#drag #table3 {
+			/* align table to the right */
+			margin-left: auto;
+			width: 950px;
+		}
+
+
+/* table cells */
+div#drag table td,th{
+	border-style: double;
+	height: 80px;
+	text-align: center;
+	font-size: 15pt;
+}
+
+		/* td */
+		div#drag table td{
+			border-width: 3px 3px 3px 3px;
+			border-color: #DDC5B5;
+			font-weight: normal;
+		}
+
+		/* th */
+		div#drag table th{
+			border-width: 3px 3px 3px 3px;
+			border-color: #DDC5B5;
+			font-weight: normal;
+		}
+		
+		/* upper right cell */
+		div#drag table .upper_right{
+			border-width: 3px;
+		}
+
+		/* lower left cell */
+		div#drag table .lower_left{
+			border-width: 3px;
+		}
+
+
+
+/* last row and last column without border */
+.noborder{
+	border-width: 3px;
+}
+
+/* green objects */
+.blue {
+	background-color:#CCFFFF;
+}
+
+.red{
+	background-color:#FF8080;
+}
+
+.grey{
+	background-color:#CCCCCC;
+}
+
+/* blank cells (upper left corner) */
+.blank {
+	background-color: white;
+}
+
+/* marked cells (forbidden access for header and message line) */
+.mark {
+	color: white;
+	background-color: #4747B2;
+	text-align: center;
+}
+
+.mark2 {
+	color: white;
+	background-color: #FFFFFF;
+	text-align: center;
+}
+
+.mark3 {
+	color: white;
+	background-color: #663300;
+	text-align: center;
+}
+
+.mark4 {
+	color: white;
+	background-color: #FF9999;
+	text-align: center;
+}
+
+.mark8 {
+	color: white;
+	background-color: #009900;
+	text-align: center;
+}
+
+
+/* append here cloned object before placing to the target table cell */
+#redips_clone{
+	/* make redips_clone div visible */
+	/* border: 1px solid red; */
+	height: 10px;
+	width: 100px;
+}
+
+/* message line */
+#message{
+	color: white;
+	background-color: #aaa;
+	text-align: center;
+	font-size: 14px;
+	width: 1210px;
+	height: 20px;
+	margin-bottom: 10px;
+	/* top margin is made with unvisible redips_clone DIV */
+	/* margin-top: 10px; */
+}
+
+#status{
+	color: white;
+	background-color: #0000FF;
+	text-align: center;
+	font-size: 14px;
+	margin-bottom: 10px;
+	width: 1210px;
+	height: 20px;
+}
+
+/* dark cells (first column and table header) */
+.dark{
+	color: #444;
+	background-color: #e0e0e0;
+}
+
+.butsave {
+    background: none repeat scroll 0 0 #CCCCCC;
+    border-color: #CCCCCC black black #CCCCCC;
+    border-style: solid;
+    border-width: 2px;
+	margin-bottom: 10px;
+    font-family: Arial,Helvetica,sans-serif;
+    font-size: 20px;
+    padding: 4px 10px 3px 7px;
+    width: 101%;
+}

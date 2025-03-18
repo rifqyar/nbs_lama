@@ -1,0 +1,335 @@
+[23-Apr-2014 11:08:32] PHP Fatal error:  Call to a member function fetchRow() on a non-object in /var/www/html/billing/html/modules/report/mos/excel_pdf/export_excel.php on line 37
+[23-Apr-2014 11:08:45] PHP Fatal error:  Call to a member function fetchRow() on a non-object in /var/www/html/billing/html/modules/report/mos/excel_pdf/export_excel.php on line 37
+[23-Apr-2014 11:08:54] PHP Fatal error:  Call to a member function fetchRow() on a non-object in /var/www/html/billing/html/modules/report/mos/excel_pdf/export_excel.php on line 37
+[23-Apr-2014 11:08:56] PHP Fatal error:  Call to a member function fetchRow() on a non-object in /var/www/html/billing/html/modules/report/mos/excel_pdf/export_excel.php on line 37
+[23-Apr-2014 11:08:58] PHP Fatal error:  Call to a member function fetchRow() on a non-object in /var/www/html/billing/html/modules/report/mos/excel_pdf/export_excel.php on line 37
+[23-Apr-2014 11:09:24] PHP Fatal error:  Call to a member function fetchRow() on a non-object in /var/www/html/billing/html/modules/report/mos/excel_pdf/export_excel.php on line 37
+[23-Apr-2014 11:09:30] PHP Fatal error:  Call to a member function fetchRow() on a non-object in /var/www/html/billing/html/modules/report/mos/excel_pdf/export_excel.php on line 37
+[23-Apr-2014 11:09:41] PHP Fatal error:  Call to a member function fetchRow() on a non-object in /var/www/html/billing/html/modules/report/mos/excel_pdf/export_excel.php on line 37
+[23-Apr-2014 11:09:44] PHP Fatal error:  Call to a member function fetchRow() on a non-object in /var/www/html/billing/html/modules/report/mos/excel_pdf/export_excel.php on line 37
+[23-Apr-2014 11:10:40] PHP Fatal error:  Call to a member function fetchRow() on a non-object in /var/www/html/billing/html/modules/report/mos/excel_pdf/export_excel.php on line 37
+[23-Apr-2014 11:12:15] PHP Fatal error:  Call to a member function fetchRow() on a non-object in /var/www/html/billing/html/modules/report/mos/excel_pdf/export_excel.php on line 37
+[23-Apr-2014 11:12:35] PHP Fatal error:  Call to a member function fetchRow() on a non-object in /var/www/html/billing/html/modules/report/mos/excel_pdf/export_excel.php on line 37
+[23-Apr-2014 11:12:56] PHP Fatal error:  Call to a member function fetchRow() on a non-object in /var/www/html/billing/html/modules/report/mos/excel_pdf/export_excel.php on line 37
+[23-Apr-2014 11:12:58] PHP Fatal error:  Call to a member function fetchRow() on a non-object in /var/www/html/billing/html/modules/report/mos/excel_pdf/export_excel.php on line 37
+[23-Apr-2014 11:13:15] PHP Fatal error:  Call to a member function fetchRow() on a non-object in /var/www/html/billing/html/modules/report/mos/excel_pdf/export_excel.php on line 37
+[23-Apr-2014 11:13:20] PHP Fatal error:  Call to a member function fetchRow() on a non-object in /var/www/html/billing/html/modules/report/mos/excel_pdf/export_excel.php on line 37
+[23-Apr-2014 11:15:06] PHP Fatal error:  Call to a member function fetchRow() on a non-object in /var/www/html/billing/html/modules/report/mos/excel_pdf/export_excel.php on line 37
+[23-Apr-2014 11:15:08] PHP Fatal error:  Call to a member function fetchRow() on a non-object in /var/www/html/billing/html/modules/report/mos/excel_pdf/export_excel.php on line 37
+[23-Apr-2014 11:17:13] PHP Fatal error:  Call to a member function fetchRow() on a non-object in /var/www/html/billing/html/modules/report/mos/excel_pdf/export_excel.php on line 37
+[23-Apr-2014 11:17:39] PHP Fatal error:  Call to a member function fetchRow() on a non-object in /var/www/html/billing/html/modules/report/mos/excel_pdf/export_excel.php on line 37
+[23-Apr-2014 11:20:52] PHP Fatal error:  Call to a member function fetchRow() on a non-object in /var/www/html/billing/html/modules/report/mos/excel_pdf/export_excel.php on line 37
+[23-Apr-2014 11:21:05] PHP Fatal error:  Call to a member function fetchRow() on a non-object in /var/www/html/billing/html/modules/report/mos/excel_pdf/export_excel.php on line 37
+[23-Apr-2014 11:21:36] PHP Fatal error:  Call to a member function fetchRow() on a non-object in /var/www/html/billing/html/modules/report/mos/excel_pdf/export_excel.php on line 37
+[23-Apr-2014 11:21:52] PHP Fatal error:  Call to a member function fetchRow() on a non-object in /var/www/html/billing/html/modules/report/mos/excel_pdf/export_excel.php on line 37
+[23-Apr-2014 11:22:04] PHP Fatal error:  Call to a member function fetchRow() on a non-object in /var/www/html/billing/html/modules/report/mos/excel_pdf/export_excel.php on line 37
+[23-Apr-2014 11:22:38] PHP Fatal error:  Call to a member function getAll() on a non-object in /var/www/html/billing/html/modules/monitoring/list_container/excel_pdf/export_excel.php on line 70
+[23-Apr-2014 11:42:09] PHP Fatal error:  Call to a member function getAll() on a non-object in /var/www/html/billing/html/modules/monitoring/list_container/excel_pdf/export_excel.php on line 70
+[23-Apr-2014 14:56:34] PHP Fatal error:  Call to a member function getAll() on a non-object in /var/www/html/billing/html/modules/monitoring/list_container/excel_pdf/export_excel.php on line 70
+[23-Apr-2014 14:56:56] PHP Fatal error:  Call to a member function getAll() on a non-object in /var/www/html/billing/html/modules/monitoring/list_container/excel_pdf/export_pdf.php on line 126
+[24-Apr-2014 13:56:22] PHP Fatal error:  Call to a member function getAll() on a non-object in /var/www/html/billing/html/modules/request/delivery/tambahan2.php on line 8
+[25-Apr-2014 10:33:16] PHP Fatal error:  Call to a member function getAll() on a non-object in /var/www/html/billing/html/modules/print/stacking_card/cetak/cetak.php on line 15
+[25-Apr-2014 10:35:51] PHP Fatal error:  Allowed memory size of 134217728 bytes exhausted (tried to allocate 2620051 bytes) in /var/www/html/billing/html/modules/datanya/data_diskon.php on line 330
+[25-Apr-2014 10:44:42] PHP Fatal error:  Call to a member function getAll() on a non-object in /var/www/html/billing/html/modules/print/stacking_card/cetak/cetak.php on line 15
+[25-Apr-2014 12:07:29] PHP Fatal error:  Allowed memory size of 134217728 bytes exhausted (tried to allocate 2498608 bytes) in /var/www/html/billing/html/modules/datanya/data_diskon.php on line 330
+[25-Apr-2014 12:15:40] PHP Fatal error:  Allowed memory size of 134217728 bytes exhausted (tried to allocate 2498608 bytes) in /var/www/html/billing/html/modules/datanya/data_diskon.php on line 330
+[25-Apr-2014 12:19:06] PHP Fatal error:  Call to a member function getAll() on a non-object in /var/www/html/billing/html/modules/print/stacking_card/cetak/cetak.php on line 15
+[25-Apr-2014 12:49:42] PHP Fatal error:  Allowed memory size of 134217728 bytes exhausted (tried to allocate 2499797 bytes) in /var/www/html/billing/html/modules/datanya/data_diskon.php on line 330
+[25-Apr-2014 12:50:25] PHP Fatal error:  Allowed memory size of 134217728 bytes exhausted (tried to allocate 2499797 bytes) in /var/www/html/billing/html/modules/datanya/data_diskon.php on line 330
+[28-Apr-2014 09:45:55] PHP Fatal error:  Call to a member function fetchRow() on a non-object in /var/www/html/billing/html/template/__xl_menu.htm.php on line 34
+[28-Apr-2014 11:52:14] PHP Fatal error:  Call to a member function fetchRow() on a non-object in /var/www/html/billing/html/template/__xl_menu.htm.php on line 34
+[28-Apr-2014 14:54:26] PHP Fatal error:  Call to a member function getAll() on a non-object in /var/www/html/billing/html/modules/request/delivery/tambahan2.php on line 8
+[28-Apr-2014 16:33:34] PHP Fatal error:  Call to a member function fetchRow() on a non-object in /var/www/html/billing/html/template/__xl_menu.htm.php on line 34
+[28-Apr-2014 16:56:00] PHP Fatal error:  Call to a member function fetchRow() on a non-object in /var/www/html/billing/html/template/__xl_menu.htm.php on line 34
+[28-Apr-2014 21:30:33] PHP Fatal error:  Call to a member function fetchRow() on a non-object in /var/www/html/billing/html/template/__xl_menu.htm.php on line 34
+[29-Apr-2014 11:18:35] PHP Fatal error:  Call to a member function getAll() on a non-object in /var/www/html/billing/html/modules/monitoring/list_container/excel_pdf/export_excel.php on line 70
+[29-Apr-2014 11:18:38] PHP Fatal error:  Call to a member function getAll() on a non-object in /var/www/html/billing/html/modules/monitoring/list_container/excel_pdf/export_excel.php on line 70
+[30-Apr-2014 08:24:08] PHP Fatal error:  Call to a member function fetchRow() on a non-object in /var/www/html/billing/html/template/__xl_menu.htm.php on line 34
+[30-Apr-2014 10:57:07] PHP Fatal error:  Allowed memory size of 134217728 bytes exhausted (tried to allocate 32 bytes) in /var/www/html/billing/framework/_debug.php on line 69
+[30-Apr-2014 11:26:35] PHP Fatal error:  Call to a member function getAll() on a non-object in /var/www/html/billing/html/modules/monitoring/list_container/excel_pdf/export_excel.php on line 70
+[30-Apr-2014 12:24:33] PHP Fatal error:  Call to a member function getAll() on a non-object in /var/www/html/billing/html/modules/monitoring/list_container/excel_pdf/export_excel.php on line 70
+[30-Apr-2014 12:24:56] PHP Fatal error:  Call to a member function getAll() on a non-object in /var/www/html/billing/html/modules/monitoring/list_container/excel_pdf/export_excel.php on line 70
+[30-Apr-2014 12:25:41] PHP Fatal error:  Call to a member function getAll() on a non-object in /var/www/html/billing/html/modules/monitoring/list_container/excel_pdf/export_excel.php on line 70
+[30-Apr-2014 12:42:50] PHP Fatal error:  Allowed memory size of 134217728 bytes exhausted (tried to allocate 71 bytes) in /var/www/html/billing/framework/_debug.php on line 66
+[30-Apr-2014 14:01:45] PHP Fatal error:  Allowed memory size of 134217728 bytes exhausted (tried to allocate 71 bytes) in /var/www/html/billing/framework/_debug.php on line 66
+[02-May-2014 15:21:33] PHP Parse error:  syntax error, unexpected $end in /var/www/html/billing/html/modules/billing/cetaknota/ajax/payment.php on line 227
+[02-May-2014 16:01:01] PHP Fatal error:  Call to a member function getAll() on a non-object in /var/www/html/billing/html/modules/billing/cetaknota/auto/invoicenumber.php on line 67
+[02-May-2014 18:22:48] PHP Fatal error:  Allowed memory size of 134217728 bytes exhausted (tried to allocate 3350324 bytes) in /var/www/html/billing/html/modules/datanya/data_cont.php on line 186
+[02-May-2014 18:57:38] PHP Fatal error:  Allowed memory size of 134217728 bytes exhausted (tried to allocate 3351270 bytes) in /var/www/html/billing/html/modules/datanya/data_cont.php on line 186
+[02-May-2014 20:03:18] PHP Fatal error:  Allowed memory size of 134217728 bytes exhausted (tried to allocate 3354203 bytes) in /var/www/html/billing/html/modules/datanya/data_cont.php on line 186
+[02-May-2014 20:03:22] PHP Fatal error:  Allowed memory size of 134217728 bytes exhausted (tried to allocate 3354203 bytes) in /var/www/html/billing/html/modules/datanya/data_cont.php on line 186
+[02-May-2014 20:04:24] PHP Fatal error:  Allowed memory size of 134217728 bytes exhausted (tried to allocate 3210561 bytes) in /var/www/html/billing/html/modules/datanya/data_cont.php on line 186
+[03-May-2014 00:34:54] PHP Fatal error:  Call to a member function fetchRow() on a non-object in /var/www/html/billing/html/modules/datanya/data.php on line 437
+[03-May-2014 02:02:26] PHP Fatal error:  Call to a member function fetchRow() on a non-object in /var/www/html/billing/html/modules/billing/uper_bm/data/index.php on line 24
+[05-May-2014 09:18:03] PHP Fatal error:  Call to a member function getAll() on a non-object in /var/www/html/billing/html/modules/monitoring/list_container/excel_pdf/export_excel.php on line 70
+[05-May-2014 09:18:35] PHP Fatal error:  Call to a member function getAll() on a non-object in /var/www/html/billing/html/modules/monitoring/list_container/excel_pdf/export_excel.php on line 70
+[05-May-2014 09:23:14] PHP Fatal error:  Call to a member function getAll() on a non-object in /var/www/html/billing/html/modules/monitoring/list_container/excel_pdf/export_excel.php on line 70
+[05-May-2014 09:27:11] PHP Fatal error:  Call to a member function getAll() on a non-object in /var/www/html/billing/html/modules/monitoring/list_container/excel_pdf/export_excel.php on line 70
+[05-May-2014 09:27:27] PHP Fatal error:  Call to a member function getAll() on a non-object in /var/www/html/billing/html/modules/monitoring/list_container/excel_pdf/export_excel.php on line 70
+[05-May-2014 14:44:41] PHP Fatal error:  Call to a member function getAll() on a non-object in /var/www/html/billing/html/modules/monitoring/list_container/excel_pdf/export_excel.php on line 70
+[05-May-2014 14:49:45] PHP Fatal error:  Call to a member function getAll() on a non-object in /var/www/html/billing/html/modules/monitoring/list_container/excel/export_excel.php on line 70
+[05-May-2014 14:50:38] PHP Fatal error:  Call to a member function getAll() on a non-object in /var/www/html/billing/html/modules/monitoring/list_container/excel_pdf/export_excel.php on line 70
+[05-May-2014 14:55:15] PHP Fatal error:  Call to a member function getAll() on a non-object in /var/www/html/billing/html/modules/monitoring/list_container/excel_pdf/export_excel.php on line 70
+[05-May-2014 14:57:42] PHP Fatal error:  Call to a member function getAll() on a non-object in /var/www/html/billing/html/modules/monitoring/list_container/excel_pdf/export_excel.php on line 70
+[05-May-2014 14:57:44] PHP Fatal error:  Call to a member function getAll() on a non-object in /var/www/html/billing/html/modules/monitoring/list_container/excel_pdf/export_excel.php on line 70
+[05-May-2014 15:01:32] PHP Fatal error:  Call to a member function getAll() on a non-object in /var/www/html/billing/html/modules/monitoring/list_container/excel_pdf/export_excel.php on line 70
+[05-May-2014 15:03:47] PHP Fatal error:  Call to a member function getAll() on a non-object in /var/www/html/billing/html/modules/monitoring/list_container/excel_pdf/export_excel.php on line 65
+[05-May-2014 15:12:00] PHP Fatal error:  Call to a member function getAll() on a non-object in /var/www/html/billing/html/modules/monitoring/list_container/excel_pdf/export_excel.php on line 93
+[05-May-2014 15:12:18] PHP Fatal error:  Call to a member function getAll() on a non-object in /var/www/html/billing/html/modules/monitoring/list_container/excel_pdf/export_excel.php on line 93
+[05-May-2014 15:13:21] PHP Fatal error:  Call to a member function getAll() on a non-object in /var/www/html/billing/html/modules/monitoring/list_container/excel_pdf/export_excel.php on line 93
+[05-May-2014 17:26:25] PHP Fatal error:  Call to a member function query() on a non-object in /var/www/html/billing/html/modules/print/print_nota/cetak.php on line 27
+[05-May-2014 17:26:27] PHP Fatal error:  Call to a member function query() on a non-object in /var/www/html/billing/html/modules/print/print_nota/cetak.php on line 27
+[05-May-2014 17:28:10] PHP Fatal error:  Call to a member function query() on a non-object in /var/www/html/billing/html/modules/print/print_nota/cetak.php on line 27
+[05-May-2014 17:28:57] PHP Fatal error:  Call to a member function query() on a non-object in /var/www/html/billing/html/modules/print/print_nota/cetak.php on line 27
+[05-May-2014 17:31:05] PHP Fatal error:  Call to a member function query() on a non-object in /var/www/html/billing/html/modules/print/print_nota/cetak.php on line 27
+[05-May-2014 17:31:43] PHP Fatal error:  Cannot use object of type OCIRecordset as array in /var/www/html/billing/html/modules/print/print_nota/cetak.php on line 29
+[05-May-2014 17:31:58] PHP Fatal error:  Call to a member function query() on a non-object in /var/www/html/billing/html/modules/print/print_nota/cetak.php on line 27
+[05-May-2014 17:32:21] PHP Fatal error:  Call to a member function query() on a non-object in /var/www/html/billing/html/modules/print/print_nota/cetak.php on line 27
+[05-May-2014 17:33:31] PHP Fatal error:  Call to a member function query() on a non-object in /var/www/html/billing/html/modules/print/print_nota/index.php on line 26
+[05-May-2014 17:33:49] PHP Fatal error:  Call to a member function query() on a non-object in /var/www/html/billing/html/modules/print/print_nota/index.php on line 26
+[05-May-2014 17:35:06] PHP Fatal error:  Cannot use object of type OCIRecordset as array in /var/www/html/billing/html/modules/print/print_nota/index.php on line 28
+[05-May-2014 17:35:11] PHP Fatal error:  Cannot use object of type OCIRecordset as array in /var/www/html/billing/html/modules/print/print_nota/index.php on line 28
+[05-May-2014 17:35:20] PHP Fatal error:  Cannot use object of type OCIRecordset as array in /var/www/html/billing/html/modules/print/print_nota/index.php on line 28
+[05-May-2014 17:37:28] PHP Fatal error:  Call to a member function query() on a non-object in /var/www/html/billing/html/modules/print/print_nota/cetak.php on line 26
+[05-May-2014 17:37:31] PHP Fatal error:  Call to a member function query() on a non-object in /var/www/html/billing/html/modules/print/print_nota/cetak.php on line 26
+[06-May-2014 09:55:58] PHP Fatal error:  Call to a member function getAll() on a non-object in /var/www/html/billing/html/modules/request/delivery/tambahan2.php on line 8
+[06-May-2014 09:56:23] PHP Fatal error:  Call to a member function getAll() on a non-object in /var/www/html/billing/html/modules/request/delivery/tambahan2.php on line 8
+[06-May-2014 12:09:11] PHP Fatal error:  Call to a member function getAll() on a non-object in /var/www/html/billing/html/modules/request/delivery/tambahan2.php on line 8
+[06-May-2014 16:04:05] PHP Fatal error:  Call to a member function query() on a non-object in /var/www/html/billing/html/modules/print/print_nota/cetak.php on line 72
+[06-May-2014 16:04:09] PHP Fatal error:  Call to a member function query() on a non-object in /var/www/html/billing/html/modules/print/print_nota/cetak.php on line 72
+[06-May-2014 16:04:24] PHP Fatal error:  Call to a member function query() on a non-object in /var/www/html/billing/html/modules/print/print_nota/cetak.php on line 72
+[06-May-2014 16:04:53] PHP Fatal error:  Call to a member function query() on a non-object in /var/www/html/billing/html/modules/print/print_nota/cetak.php on line 72
+[06-May-2014 16:59:17] PHP Fatal error:  Call to a member function fetchRow() on a non-object in /var/www/html/billing/html/modules/datanya/data.php on line 437
+[07-May-2014 00:30:09] PHP Fatal error:  Call to a member function fetchRow() on a non-object in /var/www/html/billing/html/modules/datanya/data.php on line 437
+[07-May-2014 09:42:13] PHP Fatal error:  Call to a member function getAll() on a non-object in /var/www/html/billing/html/modules/request/delivery/tambahan2.php on line 8
+[07-May-2014 16:00:53] PHP Fatal error:  Call to a member function query() on a non-object in /var/www/html/billing/html/modules/print/print_nota/cetak.php on line 30
+[07-May-2014 16:00:57] PHP Fatal error:  Call to a member function query() on a non-object in /var/www/html/billing/html/modules/print/print_nota/cetak.php on line 30
+[07-May-2014 16:01:12] PHP Fatal error:  Call to a member function query() on a non-object in /var/www/html/billing/html/modules/print/print_nota/cetak.php on line 30
+[07-May-2014 16:03:03] PHP Fatal error:  Call to a member function query() on a non-object in /var/www/html/billing/html/modules/print/print_nota/cetak.php on line 25
+[07-May-2014 16:04:14] PHP Fatal error:  Call to a member function fetchRow() on a non-object in /var/www/html/billing/html/modules/print/print_nota/cetak.php on line 74
+[07-May-2014 16:06:11] PHP Fatal error:  Call to a member function getAll() on a non-object in /var/www/html/billing/html/modules/print/print_nota/cetak.php on line 75
+[07-May-2014 16:07:35] PHP Fatal error:  Call to a member function getAll() on a non-object in /var/www/html/billing/html/modules/print/print_nota/cetak.php on line 75
+[07-May-2014 16:08:07] PHP Fatal error:  Call to a member function getAll() on a non-object in /var/www/html/billing/html/modules/print/print_nota/cetak.php on line 75
+[07-May-2014 16:09:18] PHP Fatal error:  Call to a member function fetchRow() on a non-object in /var/www/html/billing/html/modules/print/print_nota/cetak.php on line 75
+[07-May-2014 16:09:41] PHP Fatal error:  Call to a member function fetchRow() on a non-object in /var/www/html/billing/html/modules/print/print_nota/cetak.php on line 75
+[07-May-2014 20:45:43] PHP Fatal error:  Call to a member function fetchRow() on a non-object in /var/www/html/billing/html/template/__xl_menu.htm.php on line 34
+[07-May-2014 20:45:46] PHP Fatal error:  Call to a member function fetchRow() on a non-object in /var/www/html/billing/html/template/__xl_menu.htm.php on line 34
+[07-May-2014 23:26:28] PHP Fatal error:  Call to a member function fetchRow() on a non-object in /var/www/html/billing/html/template/__xl_menu.htm.php on line 34
+[07-May-2014 23:26:50] PHP Fatal error:  Call to a member function fetchRow() on a non-object in /var/www/html/billing/html/template/__xl_menu.htm.php on line 34
+[07-May-2014 23:27:11] PHP Fatal error:  Call to a member function fetchRow() on a non-object in /var/www/html/billing/html/template/__xl_menu.htm.php on line 34
+[07-May-2014 23:27:25] PHP Fatal error:  Call to a member function fetchRow() on a non-object in /var/www/html/billing/html/template/__xl_menu.htm.php on line 34
+[07-May-2014 23:27:40] PHP Fatal error:  Call to a member function fetchRow() on a non-object in /var/www/html/billing/html/template/__xl_menu.htm.php on line 34
+[07-May-2014 23:28:13] PHP Fatal error:  Call to a member function fetchRow() on a non-object in /var/www/html/billing/html/template/__xl_menu.htm.php on line 34
+[07-May-2014 23:33:50] PHP Fatal error:  Call to a member function fetchRow() on a non-object in /var/www/html/billing/html/template/__xl_menu.htm.php on line 34
+[08-May-2014 15:49:57] PHP Fatal error:  Class 'Spreadsheet_Excel_Reader' not found in /var/www/html/billing/html/modules/request/anne/ajax/proses.php on line 10
+[08-May-2014 21:35:11] PHP Fatal error:  Call to a member function fetchRow() on a non-object in /var/www/html/billing/html/template/__xl_menu.htm.php on line 34
+[08-May-2014 21:35:34] PHP Fatal error:  Call to a member function fetchRow() on a non-object in /var/www/html/billing/html/template/__xl_menu.htm.php on line 34
+[08-May-2014 21:36:07] PHP Fatal error:  Call to a member function fetchRow() on a non-object in /var/www/html/billing/html/template/__xl_menu.htm.php on line 34
+[08-May-2014 21:37:53] PHP Fatal error:  Call to a member function fetchRow() on a non-object in /var/www/html/billing/html/template/__xl_menu.htm.php on line 34
+[08-May-2014 21:38:04] PHP Fatal error:  Call to a member function fetchRow() on a non-object in /var/www/html/billing/html/template/__xl_menu.htm.php on line 34
+[08-May-2014 22:38:53] PHP Fatal error:  Call to a member function fetchRow() on a non-object in /var/www/html/billing/html/template/__xl_menu.htm.php on line 34
+[08-May-2014 23:22:22] PHP Fatal error:  Call to a member function fetchRow() on a non-object in /var/www/html/billing/html/modules/datanya/data.php on line 437
+[09-May-2014 21:45:36] PHP Fatal error:  Call to a member function fetchRow() on a non-object in /var/www/html/billing/html/modules/billing/uper_bm/data/index.php on line 24
+[10-May-2014 10:13:52] PHP Fatal error:  Call to a member function fetchRow() on a non-object in /var/www/html/billing/html/template/__xl_menu.htm.php on line 34
+[10-May-2014 11:43:08] PHP Fatal error:  Call to a member function fetchRow() on a non-object in /var/www/html/billing/html/modules/datanya/data.php on line 437
+[10-May-2014 12:42:28] PHP Fatal error:  Call to a member function getAll() on a non-object in /var/www/html/billing/html/modules/request/delivery/tambahan2.php on line 8
+[12-May-2014 09:49:37] PHP Fatal error:  Call to a member function fetchRow() on a non-object in /var/www/html/billing/html/template/__xl_menu.htm.php on line 34
+[13-May-2014 12:35:36] PHP Fatal error:  Call to a member function getAll() on a non-object in /var/www/html/billing/html/modules/monitoring/list_container/excel_pdf/export_pdf.php on line 126
+[13-May-2014 12:45:53] PHP Fatal error:  Class 'TCPDF' not found in /var/www/html/billing/html/modules/monitoring/list_container/excel_pdf/export_pdf.php on line 8
+[13-May-2014 12:45:57] PHP Fatal error:  Class 'TCPDF' not found in /var/www/html/billing/html/modules/monitoring/list_container/excel_pdf/export_pdf.php on line 8
+[13-May-2014 12:46:05] PHP Fatal error:  Call to a member function getAll() on a non-object in /var/www/html/billing/html/modules/monitoring/list_container/excel_pdf/export_pdf.php on line 126
+[13-May-2014 12:50:33] PHP Fatal error:  Call to a member function getAll() on a non-object in /var/www/html/billing/html/modules/monitoring/list_container/excel_pdf/export_pdf.php on line 149
+[13-May-2014 12:53:48] PHP Fatal error:  Call to a member function fetchrow() on a non-object in /var/www/html/billing/html/modules/monitoring/list_container/excel_pdf/export_pdf.php on line 62
+[13-May-2014 12:53:51] PHP Fatal error:  Call to a member function fetchrow() on a non-object in /var/www/html/billing/html/modules/monitoring/list_container/excel_pdf/export_pdf.php on line 62
+[13-May-2014 12:54:52] PHP Fatal error:  Call to a member function fetchrow() on a non-object in /var/www/html/billing/html/modules/monitoring/list_container/excel_pdf/export_pdf.php on line 74
+[13-May-2014 12:59:45] PHP Fatal error:  Class 'TCPDF' not found in /var/www/html/billing/html/modules/monitoring/list_container/excel_pdf/export_pdf.php on line 8
+[13-May-2014 12:59:48] PHP Fatal error:  Class 'TCPDF' not found in /var/www/html/billing/html/modules/monitoring/list_container/excel_pdf/export_pdf.php on line 8
+[13-May-2014 12:59:51] PHP Fatal error:  Class 'TCPDF' not found in /var/www/html/billing/html/modules/monitoring/list_container/excel_pdf/export_pdf.php on line 8
+[14-May-2014 00:35:37] PHP Fatal error:  Call to a member function fetchRow() on a non-object in /var/www/html/billing/html/modules/datanya/data.php on line 437
+[14-May-2014 10:26:15] PHP Fatal error:  Class 'TCPDF' not found in /var/www/html/billing/html/modules/monitoring/list_container/excel_pdf/export_pdf.php on line 8
+[14-May-2014 10:32:16] PHP Fatal error:  Class 'TCPDF' not found in /var/www/html/billing/html/modules/monitoring/list_container/excel_pdf/export_pdf.php on line 8
+[14-May-2014 10:32:18] PHP Fatal error:  Class 'TCPDF' not found in /var/www/html/billing/html/modules/monitoring/list_container/excel_pdf/export_pdf.php on line 8
+[14-May-2014 10:32:20] PHP Fatal error:  Class 'TCPDF' not found in /var/www/html/billing/html/modules/monitoring/list_container/excel_pdf/export_pdf.php on line 8
+[14-May-2014 10:32:33] PHP Fatal error:  Class 'TCPDF' not found in /var/www/html/billing/html/modules/monitoring/list_container/excel_pdf/export_pdf.php on line 9
+[14-May-2014 10:33:36] PHP Fatal error:  Class 'TCPDF' not found in /var/www/html/billing/html/modules/monitoring/list_container/excel_pdf/export_pdf.php on line 8
+[14-May-2014 10:33:39] PHP Fatal error:  Class 'TCPDF' not found in /var/www/html/billing/html/modules/monitoring/list_container/excel_pdf/export_pdf.php on line 8
+[14-May-2014 10:35:11] PHP Fatal error:  Class 'TCPDF' not found in /var/www/html/billing/html/modules/monitoring/list_container/excel_pdf/export_pdf.php on line 8
+[14-May-2014 12:28:59] PHP Fatal error:  Class 'Spreadsheet_Excel_Reader' not found in /var/www/html/billing/html/modules/request/anne/ajax/proses.php on line 10
+[14-May-2014 12:37:23] PHP Fatal error:  Class 'Spreadsheet_Excel_Reader' not found in /var/www/html/billing/html/modules/request/anne/ajax/proses.php on line 10
+[14-May-2014 12:37:37] PHP Fatal error:  Class 'Spreadsheet_Excel_Reader' not found in /var/www/html/billing/html/modules/request/anne/ajax/proses.php on line 10
+[17-May-2014 09:34:34] PHP Fatal error:  Call to a member function fetchRow() on a non-object in /var/www/html/billing/html/template/__xl_menu.htm.php on line 34
+[19-May-2014 19:39:07] PHP Fatal error:  Call to a member function getAll() on a non-object in /var/www/html/billing/html/modules/request/delivery/tambahan2.php on line 8
+[19-May-2014 23:43:03] PHP Fatal error:  Call to a member function fetchRow() on a non-object in /var/www/html/billing/html/template/__xl_menu.htm.php on line 34
+[19-May-2014 23:43:07] PHP Fatal error:  Call to a member function fetchRow() on a non-object in /var/www/html/billing/html/template/__xl_menu.htm.php on line 34
+[20-May-2014 20:37:52] PHP Fatal error:  Call to a member function fetchRow() on a non-object in /var/www/html/billing/html/template/__xl_menu.htm.php on line 34
+[21-May-2014 00:25:40] PHP Fatal error:  Call to a member function fetchRow() on a non-object in /var/www/html/billing/html/template/__xl_menu.htm.php on line 34
+[21-May-2014 15:47:34] PHP Fatal error:  Call to a member function fetchRow() on a non-object in /var/www/html/billing/html/modules/billing/uper_bm/data/index.php on line 24
+[21-May-2014 18:03:20] PHP Fatal error:  Call to a member function fetchRow() on a non-object in /var/www/html/billing/html/template/__xl_menu.htm.php on line 34
+[23-May-2014 18:40:58] PHP Fatal error:  Call to a member function fetchRow() on a non-object in /var/www/html/billing/html/template/__xl_menu.htm.php on line 34
+[23-May-2014 18:41:15] PHP Fatal error:  Call to a member function fetchRow() on a non-object in /var/www/html/billing/html/template/__xl_menu.htm.php on line 34
+[23-May-2014 20:13:20] PHP Fatal error:  Call to a member function getAll() on a non-object in /var/www/html/billing/html/modules/request/delivery/tambahan2.php on line 8
+[24-May-2014 03:14:11] PHP Fatal error:  Call to a member function fetchRow() on a non-object in /var/www/html/billing/html/modules/datanya/data_2.php on line 293
+[24-May-2014 14:08:51] PHP Fatal error:  Call to a member function fetchRow() on a non-object in /var/www/html/billing/html/modules/datanya/data_2.php on line 293
+[26-May-2014 11:00:59] PHP Fatal error:  Call to a member function fetchRow() on a non-object in /var/www/html/billing/html/modules/datanya/data_2.php on line 293
+[26-May-2014 11:01:07] PHP Fatal error:  Call to a member function fetchRow() on a non-object in /var/www/html/billing/html/modules/datanya/data_2.php on line 293
+[26-May-2014 11:01:23] PHP Fatal error:  Call to a member function fetchRow() on a non-object in /var/www/html/billing/html/modules/datanya/data_2.php on line 293
+[26-May-2014 11:02:05] PHP Fatal error:  Call to a member function fetchRow() on a non-object in /var/www/html/billing/html/modules/datanya/data_2.php on line 293
+[26-May-2014 12:31:44] PHP Fatal error:  Call to a member function fetchRow() on a non-object in /var/www/html/billing/html/modules/datanya/data_2.php on line 293
+[26-May-2014 12:34:11] PHP Fatal error:  Call to a member function fetchRow() on a non-object in /var/www/html/billing/html/modules/datanya/data_2.php on line 293
+[26-May-2014 19:03:35] PHP Fatal error:  Call to a member function fetchRow() on a non-object in /var/www/html/billing/html/modules/datanya/data_2.php on line 293
+[26-May-2014 19:03:40] PHP Fatal error:  Call to a member function getAll() on a non-object in /var/www/html/billing/html/modules/monitoring/list_container/excel_pdf/export_excel.php on line 94
+[26-May-2014 19:03:43] PHP Fatal error:  Call to a member function getAll() on a non-object in /var/www/html/billing/html/modules/monitoring/list_container/excel_pdf/export_pdf.php on line 130
+[28-May-2014 13:55:43] PHP Fatal error:  Call to a member function fetchRow() on a non-object in /var/www/html/billing/html/template/__xl_menu.htm.php on line 34
+[28-May-2014 18:29:58] PHP Fatal error:  Call to a member function fetchRow() on a non-object in /var/www/html/billing/html/modules/billing/uper_bm/data/index.php on line 24
+[29-May-2014 10:28:19] PHP Fatal error:  Call to a member function fetchRow() on a non-object in /var/www/html/billing/html/modules/datanya/data_2.php on line 293
+[29-May-2014 10:28:26] PHP Fatal error:  Call to a member function fetchRow() on a non-object in /var/www/html/billing/html/modules/datanya/data_2.php on line 293
+[30-May-2014 14:28:30] PHP Fatal error:  Call to a member function fetchRow() on a non-object in /var/www/html/billing/html/template/__xl_menu.htm.php on line 34
+[30-May-2014 21:09:56] PHP Fatal error:  Call to a member function fetchRow() on a non-object in /var/www/html/billing/html/modules/datanya/data.php on line 437
+[30-May-2014 22:05:56] PHP Fatal error:  Call to a member function fetchRow() on a non-object in /var/www/html/billing/html/modules/datanya/data.php on line 437
+[31-May-2014 12:43:03] PHP Parse error:  syntax error, unexpected ';' in /var/www/html/billing/html/modules/request/perp_export2/ajax/save_req.php on line 79
+[31-May-2014 12:43:29] PHP Parse error:  syntax error, unexpected ';' in /var/www/html/billing/html/modules/request/perp_export2/ajax/save_req.php on line 79
+[31-May-2014 17:58:46] PHP Fatal error:  Call to a member function getAll() on a non-object in /var/www/html/billing/html/modules/request/delivery/tambahan2.php on line 8
+[02-Jun-2014 17:54:31] PHP Fatal error:  Call to a member function getAll() on a non-object in /var/www/html/billing/html/modules/request/delivery/tambahan2.php on line 8
+[03-Jun-2014 02:40:16] PHP Fatal error:  Call to a member function fetchRow() on a non-object in /var/www/html/billing/html/template/__xl_menu.htm.php on line 34
+[03-Jun-2014 02:40:34] PHP Fatal error:  Call to a member function fetchRow() on a non-object in /var/www/html/billing/html/template/__xl_menu.htm.php on line 34
+[03-Jun-2014 13:09:01] PHP Fatal error:  Call to a member function fetchRow() on a non-object in /var/www/html/billing/html/modules/datanya/data_2.php on line 293
+[03-Jun-2014 13:09:09] PHP Fatal error:  Call to a member function fetchRow() on a non-object in /var/www/html/billing/html/modules/datanya/data_2.php on line 293
+[03-Jun-2014 13:09:13] PHP Fatal error:  Call to a member function fetchRow() on a non-object in /var/www/html/billing/html/modules/datanya/data_2.php on line 293
+[03-Jun-2014 13:09:46] PHP Fatal error:  Call to a member function fetchRow() on a non-object in /var/www/html/billing/html/modules/datanya/data_2.php on line 293
+[03-Jun-2014 13:09:54] PHP Fatal error:  Call to a member function fetchRow() on a non-object in /var/www/html/billing/html/modules/datanya/data_2.php on line 293
+[03-Jun-2014 13:14:36] PHP Fatal error:  Call to a member function fetchRow() on a non-object in /var/www/html/billing/html/modules/datanya/data_2.php on line 293
+[03-Jun-2014 13:40:58] PHP Fatal error:  Call to a member function fetchRow() on a non-object in /var/www/html/billing/html/modules/datanya/data_2.php on line 293
+[03-Jun-2014 13:41:16] PHP Fatal error:  Call to a member function fetchRow() on a non-object in /var/www/html/billing/html/modules/datanya/data_2.php on line 293
+[03-Jun-2014 14:10:49] PHP Fatal error:  Call to a member function fetchRow() on a non-object in /var/www/html/billing/html/modules/datanya/data_2.php on line 293
+[03-Jun-2014 14:13:45] PHP Fatal error:  Call to a member function fetchRow() on a non-object in /var/www/html/billing/html/modules/datanya/data_2.php on line 293
+[03-Jun-2014 14:15:02] PHP Fatal error:  Call to a member function fetchRow() on a non-object in /var/www/html/billing/html/modules/datanya/data_2.php on line 293
+[03-Jun-2014 14:15:33] PHP Fatal error:  Call to a member function fetchRow() on a non-object in /var/www/html/billing/html/modules/datanya/data_2.php on line 293
+[03-Jun-2014 14:15:39] PHP Fatal error:  Call to a member function fetchRow() on a non-object in /var/www/html/billing/html/template/__xl_menu.htm.php on line 34
+[03-Jun-2014 14:17:51] PHP Fatal error:  Call to a member function fetchRow() on a non-object in /var/www/html/billing/html/modules/datanya/data_2.php on line 293
+[03-Jun-2014 14:18:07] PHP Fatal error:  Call to a member function fetchRow() on a non-object in /var/www/html/billing/html/modules/datanya/data_2.php on line 293
+[03-Jun-2014 15:16:21] PHP Fatal error:  Call to a member function fetchRow() on a non-object in /var/www/html/billing/html/modules/datanya/data_2.php on line 293
+[03-Jun-2014 17:04:11] PHP Fatal error:  Call to a member function fetchRow() on a non-object in /var/www/html/billing/html/modules/datanya/data_2.php on line 293
+[03-Jun-2014 17:04:31] PHP Fatal error:  Call to a member function fetchRow() on a non-object in /var/www/html/billing/html/modules/datanya/data_2.php on line 293
+[03-Jun-2014 17:13:44] PHP Fatal error:  Call to a member function fetchRow() on a non-object in /var/www/html/billing/html/modules/datanya/data_2.php on line 293
+[03-Jun-2014 18:19:20] PHP Fatal error:  Call to a member function fetchRow() on a non-object in /var/www/html/billing/html/modules/datanya/data_2.php on line 293
+[03-Jun-2014 18:27:43] PHP Fatal error:  Call to a member function fetchRow() on a non-object in /var/www/html/billing/html/modules/datanya/data_2.php on line 293
+[03-Jun-2014 18:27:47] PHP Fatal error:  Call to a member function fetchRow() on a non-object in /var/www/html/billing/html/modules/datanya/data_2.php on line 293
+[03-Jun-2014 18:30:23] PHP Fatal error:  Call to a member function fetchRow() on a non-object in /var/www/html/billing/html/modules/datanya/data_2.php on line 293
+[03-Jun-2014 18:30:25] PHP Fatal error:  Call to a member function fetchRow() on a non-object in /var/www/html/billing/html/modules/datanya/data_2.php on line 293
+[03-Jun-2014 18:31:14] PHP Fatal error:  Call to a member function fetchRow() on a non-object in /var/www/html/billing/html/modules/datanya/data_2.php on line 293
+[03-Jun-2014 18:37:51] PHP Fatal error:  Call to a member function fetchRow() on a non-object in /var/www/html/billing/html/modules/datanya/data_2.php on line 293
+[03-Jun-2014 18:37:54] PHP Fatal error:  Call to a member function fetchRow() on a non-object in /var/www/html/billing/html/modules/datanya/data_2.php on line 293
+[03-Jun-2014 18:39:23] PHP Fatal error:  Call to a member function fetchRow() on a non-object in /var/www/html/billing/html/modules/datanya/data_2.php on line 293
+[03-Jun-2014 18:42:51] PHP Fatal error:  Call to a member function fetchRow() on a non-object in /var/www/html/billing/html/modules/datanya/data_2.php on line 293
+[03-Jun-2014 18:43:36] PHP Fatal error:  Call to a member function fetchRow() on a non-object in /var/www/html/billing/html/modules/datanya/data_2.php on line 293
+[03-Jun-2014 20:49:00] PHP Fatal error:  Call to a member function fetchRow() on a non-object in /var/www/html/billing/html/template/__xl_menu.htm.php on line 34
+[04-Jun-2014 09:04:42] PHP Fatal error:  Allowed memory size of 134217728 bytes exhausted (tried to allocate 71 bytes) in /var/www/html/billing/framework/_debug.php on line 66
+[05-Jun-2014 11:45:36] PHP Fatal error:  Call to a member function fetchRow() on a non-object in /var/www/html/billing/html/template/__xl_menu.htm.php on line 34
+[05-Jun-2014 11:45:41] PHP Fatal error:  Call to a member function fetchRow() on a non-object in /var/www/html/billing/html/template/__xl_menu.htm.php on line 34
+[05-Jun-2014 11:45:51] PHP Fatal error:  Call to a member function fetchRow() on a non-object in /var/www/html/billing/html/template/__xl_menu.htm.php on line 34
+[05-Jun-2014 11:46:34] PHP Fatal error:  Call to a member function fetchRow() on a non-object in /var/www/html/billing/html/template/__xl_menu.htm.php on line 34
+[05-Jun-2014 11:47:00] PHP Fatal error:  Call to a member function fetchRow() on a non-object in /var/www/html/billing/html/template/__xl_menu.htm.php on line 34
+[05-Jun-2014 15:34:57] PHP Fatal error:  Call to a member function fetchRow() on a non-object in /var/www/html/billing/html/template/__xl_menu.htm.php on line 34
+[05-Jun-2014 15:36:32] PHP Fatal error:  Call to a member function fetchRow() on a non-object in /var/www/html/billing/html/template/__xl_menu.htm.php on line 34
+[05-Jun-2014 15:38:00] PHP Fatal error:  Call to a member function fetchRow() on a non-object in /var/www/html/billing/html/template/__xl_menu.htm.php on line 34
+[06-Jun-2014 15:49:19] PHP Fatal error:  Call to a member function fetchRow() on a non-object in /var/www/html/billing/html/modules/datanya/data_2.php on line 293
+[06-Jun-2014 17:41:50] PHP Fatal error:  Call to a member function getAll() on a non-object in /var/www/html/billing/html/modules/request/delivery/tambahan2.php on line 8
+[06-Jun-2014 20:14:40] PHP Fatal error:  Call to a member function fetchRow() on a non-object in /var/www/html/billing/html/template/__xl_menu.htm.php on line 34
+[07-Jun-2014 09:10:53] PHP Fatal error:  Call to a member function fetchRow() on a non-object in /var/www/html/billing/html/modules/datanya/data_2.php on line 293
+[07-Jun-2014 10:57:34] PHP Fatal error:  Call to a member function getAll() on a non-object in /var/www/html/billing/html/modules/request/delivery/tambahan2.php on line 8
+[07-Jun-2014 10:58:53] PHP Fatal error:  Call to a member function getAll() on a non-object in /var/www/html/billing/html/modules/request/delivery/tambahan2.php on line 8
+[07-Jun-2014 11:06:54] PHP Fatal error:  Call to a member function getAll() on a non-object in /var/www/html/billing/html/modules/request/delivery/tambahan2.php on line 8
+[07-Jun-2014 11:09:54] PHP Fatal error:  Call to a member function getAll() on a non-object in /var/www/html/billing/html/modules/request/delivery/tambahan2.php on line 8
+[07-Jun-2014 11:16:35] PHP Fatal error:  Call to a member function getAll() on a non-object in /var/www/html/billing/html/modules/request/delivery/tambahan2.php on line 8
+[07-Jun-2014 11:32:06] PHP Fatal error:  Call to a member function getAll() on a non-object in /var/www/html/billing/html/modules/request/delivery/tambahan2.php on line 8
+[07-Jun-2014 16:54:23] PHP Fatal error:  Call to a member function getAll() on a non-object in /var/www/html/billing/html/modules/request/delivery/tambahan2.php on line 8
+[09-Jun-2014 10:19:36] PHP Warning:  phpinfo(): It is not safe to rely on the system's timezone settings. You are *required* to use the date.timezone setting or the date_default_timezone_set() function. In case you used any of those methods and you are still getting this warning, you most likely misspelled the timezone identifier. We selected 'Asia/Krasnoyarsk' for 'WIB/7.0/no DST' instead in /var/www/html/billing/info.php on line 2
+[09-Jun-2014 10:26:13] PHP Warning:  phpinfo(): It is not safe to rely on the system's timezone settings. You are *required* to use the date.timezone setting or the date_default_timezone_set() function. In case you used any of those methods and you are still getting this warning, you most likely misspelled the timezone identifier. We selected 'Asia/Krasnoyarsk' for 'WIB/7.0/no DST' instead in /var/www/html/billing/info.php on line 2
+[09-Jun-2014 10:56:00] PHP Warning:  phpinfo(): It is not safe to rely on the system's timezone settings. You are *required* to use the date.timezone setting or the date_default_timezone_set() function. In case you used any of those methods and you are still getting this warning, you most likely misspelled the timezone identifier. We selected 'Asia/Krasnoyarsk' for 'WIB/7.0/no DST' instead in /var/www/html/billing/info.php on line 2
+[09-Jun-2014 13:36:11] PHP Warning:  phpinfo(): It is not safe to rely on the system's timezone settings. You are *required* to use the date.timezone setting or the date_default_timezone_set() function. In case you used any of those methods and you are still getting this warning, you most likely misspelled the timezone identifier. We selected 'Asia/Krasnoyarsk' for 'WIB/7.0/no DST' instead in /var/www/html/billing/info.php on line 2
+[09-Jun-2014 13:36:11] PHP Warning:  phpinfo(): It is not safe to rely on the system's timezone settings. You are *required* to use the date.timezone setting or the date_default_timezone_set() function. In case you used any of those methods and you are still getting this warning, you most likely misspelled the timezone identifier. We selected 'Asia/Krasnoyarsk' for 'WIB/7.0/no DST' instead in /var/www/html/billing/info.php on line 2
+[10-Jun-2014 10:03:59] PHP Warning:  phpinfo(): It is not safe to rely on the system's timezone settings. You are *required* to use the date.timezone setting or the date_default_timezone_set() function. In case you used any of those methods and you are still getting this warning, you most likely misspelled the timezone identifier. We selected 'Asia/Krasnoyarsk' for 'WIB/7.0/no DST' instead in /var/www/html/billing/info.php on line 2
+[10-Jun-2014 10:11:54] PHP Warning:  phpinfo(): It is not safe to rely on the system's timezone settings. You are *required* to use the date.timezone setting or the date_default_timezone_set() function. In case you used any of those methods and you are still getting this warning, you most likely misspelled the timezone identifier. We selected 'Asia/Krasnoyarsk' for 'WIB/7.0/no DST' instead in /var/www/html/billing/info.php on line 2
+[10-Jun-2014 10:32:32] PHP Warning:  phpinfo(): It is not safe to rely on the system's timezone settings. You are *required* to use the date.timezone setting or the date_default_timezone_set() function. In case you used any of those methods and you are still getting this warning, you most likely misspelled the timezone identifier. We selected 'Asia/Krasnoyarsk' for 'WIB/7.0/no DST' instead in /var/www/html/billing/info.php on line 2
+[10-Jun-2014 11:32:38] PHP Warning:  phpinfo(): It is not safe to rely on the system's timezone settings. You are *required* to use the date.timezone setting or the date_default_timezone_set() function. In case you used any of those methods and you are still getting this warning, you most likely misspelled the timezone identifier. We selected 'Asia/Krasnoyarsk' for 'WIB/7.0/no DST' instead in /var/www/html/billing/info.php on line 2
+[16-Jun-2014 14:17:11] PHP Fatal error:  Call to a member function getAll() on a non-object in /var/www/html/billing/html/modules/request/delivery/sp2spjm/auto/plp_no.php on line 29
+[16-Jun-2014 14:35:28] PHP Fatal error:  Call to a member function fetchRow() on a non-object in /var/www/html/billing/html/modules/request/delivery/sp2spjm/ajax/load_spjm.php on line 15
+[16-Jun-2014 14:35:56] PHP Fatal error:  Call to a member function fetchRow() on a non-object in /var/www/html/billing/html/modules/request/delivery/sp2spjm/ajax/load_spjm.php on line 15
+[16-Jun-2014 17:06:31] PHP Fatal error:  Call to a member function fetchRow() on a non-object in /var/www/html/billing/html/modules/request/delivery/sp2spjm/ajax/load_spjm.php on line 32
+[16-Jun-2014 17:07:57] PHP Fatal error:  Call to a member function getAll() on a non-object in /var/www/html/billing/html/modules/request/delivery/sp2spjm/auto/plp_no.php on line 29
+[16-Jun-2014 17:07:58] PHP Fatal error:  Call to a member function getAll() on a non-object in /var/www/html/billing/html/modules/request/delivery/sp2spjm/auto/plp_no.php on line 29
+[16-Jun-2014 17:08:04] PHP Fatal error:  Call to a member function getAll() on a non-object in /var/www/html/billing/html/modules/request/delivery/sp2spjm/auto/plp_no.php on line 29
+[16-Jun-2014 17:09:55] PHP Fatal error:  Call to a member function fetchRow() on a non-object in /var/www/html/billing/html/modules/request/delivery/sp2spjm/ajax/load_spjm.php on line 32
+[16-Jun-2014 17:10:17] PHP Fatal error:  Call to a member function fetchRow() on a non-object in /var/www/html/billing/html/modules/request/delivery/sp2spjm/ajax/load_spjm.php on line 32
+[16-Jun-2014 17:18:56] PHP Fatal error:  Call to a member function fetchRow() on a non-object in /var/www/html/billing/html/modules/request/delivery/sp2spjm/ajax/load_spjm.php on line 32
+[16-Jun-2014 17:19:01] PHP Fatal error:  Call to a member function fetchRow() on a non-object in /var/www/html/billing/html/modules/request/delivery/sp2spjm/ajax/load_spjm.php on line 32
+[16-Jun-2014 17:19:29] PHP Fatal error:  Call to a member function fetchRow() on a non-object in /var/www/html/billing/html/modules/request/delivery/sp2spjm/ajax/load_spjm.php on line 32
+[16-Jun-2014 17:20:26] PHP Fatal error:  Call to a member function fetchRow() on a non-object in /var/www/html/billing/html/modules/request/delivery/sp2spjm/ajax/load_spjm.php on line 33
+[16-Jun-2014 17:20:29] PHP Fatal error:  Call to a member function fetchRow() on a non-object in /var/www/html/billing/html/modules/request/delivery/sp2spjm/ajax/load_spjm.php on line 33
+[16-Jun-2014 23:58:54] PHP Parse error:  syntax error, unexpected T_OBJECT_OPERATOR in /var/www/html/billing/html/modules/request/delivery/sp2spjm/ajax/app2_plp.php on line 33
+[17-Jun-2014 00:00:01] PHP Parse error:  syntax error, unexpected T_OBJECT_OPERATOR in /var/www/html/billing/html/modules/request/delivery/sp2spjm/ajax/app2_plp.php on line 33
+[17-Jun-2014 00:00:20] PHP Parse error:  syntax error, unexpected T_OBJECT_OPERATOR in /var/www/html/billing/html/modules/request/delivery/sp2spjm/ajax/app2_plp.php on line 33
+[17-Jun-2014 00:00:22] PHP Parse error:  syntax error, unexpected T_OBJECT_OPERATOR in /var/www/html/billing/html/modules/request/delivery/sp2spjm/ajax/app2_plp.php on line 33
+[17-Jun-2014 00:00:38] PHP Parse error:  syntax error, unexpected T_OBJECT_OPERATOR in /var/www/html/billing/html/modules/request/delivery/sp2spjm/ajax/app2_plp.php on line 35
+[17-Jun-2014 00:00:41] PHP Parse error:  syntax error, unexpected T_OBJECT_OPERATOR in /var/www/html/billing/html/modules/request/delivery/sp2spjm/ajax/app2_plp.php on line 35
+[17-Jun-2014 00:03:09] PHP Parse error:  syntax error, unexpected T_OBJECT_OPERATOR in /var/www/html/billing/html/modules/request/delivery/sp2spjm/ajax/app2_plp.php on line 33
+[17-Jun-2014 00:03:16] PHP Parse error:  syntax error, unexpected T_OBJECT_OPERATOR in /var/www/html/billing/html/modules/request/delivery/sp2spjm/ajax/app2_plp.php on line 33
+[17-Jun-2014 00:16:47] PHP Fatal error:  Call to a member function fetchRow() on a non-object in /var/www/html/billing/html/modules/datanya/data_spjm.php on line 71
+[17-Jun-2014 10:42:12] PHP Fatal error:  Allowed memory size of 134217728 bytes exhausted (tried to allocate 3315265 bytes) in /var/www/html/billing/html/modules/datanya/data.php on line 1318
+[17-Jun-2014 12:05:52] PHP Fatal error:  Allowed memory size of 134217728 bytes exhausted (tried to allocate 3506045 bytes) in /var/www/html/billing/html/modules/datanya/data.php on line 1318
+[17-Jun-2014 12:06:03] PHP Fatal error:  Allowed memory size of 134217728 bytes exhausted (tried to allocate 3506045 bytes) in /var/www/html/billing/html/modules/datanya/data.php on line 1318
+[17-Jun-2014 13:14:14] PHP Fatal error:  Call to a member function getAll() on a non-object in /var/www/html/billing/html/modules/request/delivery/tambahan2.php on line 8
+[17-Jun-2014 13:17:05] PHP Fatal error:  Allowed memory size of 134217728 bytes exhausted (tried to allocate 3510217 bytes) in /var/www/html/billing/html/modules/datanya/data.php on line 1318
+[17-Jun-2014 15:07:17] PHP Fatal error:  Call to a member function fetchRow() on a non-object in /var/www/html/billing/html/modules/billing/uper_bm/data/index.php on line 24
+[17-Jun-2014 17:22:31] PHP Fatal error:  Call to a member function fetchRow() on a non-object in /var/www/html/billing/html/template/__xl_menu.htm.php on line 34
+[17-Jun-2014 18:08:41] PHP Fatal error:  Call to a member function fetchRow() on a non-object in /var/www/html/billing/html/modules/datanya/data.php on line 437
+[17-Jun-2014 18:09:58] PHP Fatal error:  Call to a member function fetchRow() on a non-object in /var/www/html/billing/html/modules/datanya/data_2.php on line 293
+[17-Jun-2014 18:10:05] PHP Fatal error:  Call to a member function fetchRow() on a non-object in /var/www/html/billing/html/modules/datanya/data_2.php on line 293
+[17-Jun-2014 18:10:12] PHP Fatal error:  Call to a member function fetchRow() on a non-object in /var/www/html/billing/html/modules/datanya/data_2.php on line 293
+[17-Jun-2014 18:10:47] PHP Fatal error:  Call to a member function fetchRow() on a non-object in /var/www/html/billing/html/modules/datanya/data_2.php on line 293
+[17-Jun-2014 18:11:32] PHP Fatal error:  Call to a member function fetchRow() on a non-object in /var/www/html/billing/html/modules/datanya/data_2.php on line 293
+[18-Jun-2014 09:57:21] PHP Fatal error:  Call to a member function fetchRow() on a non-object in /var/www/html/billing/html/modules/datanya/data_2.php on line 293
+[18-Jun-2014 11:14:04] PHP Fatal error:  Call to a member function fetchRow() on a non-object in /var/www/html/billing/html/modules/datanya/data_2.php on line 293
+[18-Jun-2014 11:45:42] PHP Fatal error:  Allowed memory size of 134217728 bytes exhausted (tried to allocate 3407888 bytes) in /var/www/html/billing/html/modules/datanya/data.php on line 1318
+[18-Jun-2014 14:55:16] PHP Fatal error:  Call to a member function fetchRow() on a non-object in /var/www/html/billing/html/modules/request/delivery/sp2spjm/ajax/app2_plp.php on line 32
+[18-Jun-2014 15:03:37] PHP Fatal error:  Call to a member function fetchRow() on a non-object in /var/www/html/billing/html/modules/request/delivery/sp2spjm/ajax/app2_plp.php on line 32
+[18-Jun-2014 15:33:53] PHP Fatal error:  Call to a member function fetchRow() on a non-object in /var/www/html/billing/html/modules/request/delivery/sp2spjm/ajax/app2_plp.php on line 32
+[18-Jun-2014 15:41:24] PHP Fatal error:  Call to a member function getAll() on a non-object in /var/www/html/billing/html/modules/request/delivery/tambahan2.php on line 8
+[18-Jun-2014 15:42:33] PHP Fatal error:  Call to a member function fetchRow() on a non-object in /var/www/html/billing/html/modules/request/delivery/sp2spjm/ajax/app2_plp.php on line 32
+[18-Jun-2014 18:04:33] PHP Fatal error:  Call to a member function fetchRow() on a non-object in /var/www/html/billing/html/modules/datanya/data.php on line 437
+[19-Jun-2014 12:22:52] PHP Fatal error:  Call to a member function fetchRow() on a non-object in /var/www/html/billing/html/modules/datanya/data_2.php on line 293
+[19-Jun-2014 12:22:54] PHP Fatal error:  Call to a member function fetchRow() on a non-object in /var/www/html/billing/html/modules/datanya/data_2.php on line 293
+[19-Jun-2014 12:38:25] PHP Fatal error:  Allowed memory size of 134217728 bytes exhausted (tried to allocate 1572895 bytes) in /var/www/html/billing/html/modules/datanya/data.php on line 1318
+[19-Jun-2014 12:38:28] PHP Fatal error:  Allowed memory size of 134217728 bytes exhausted (tried to allocate 1572895 bytes) in /var/www/html/billing/html/modules/datanya/data.php on line 1318
+[19-Jun-2014 12:38:31] PHP Fatal error:  Allowed memory size of 134217728 bytes exhausted (tried to allocate 1572895 bytes) in /var/www/html/billing/html/modules/datanya/data.php on line 1318
+[19-Jun-2014 12:38:34] PHP Fatal error:  Allowed memory size of 134217728 bytes exhausted (tried to allocate 1572895 bytes) in /var/www/html/billing/html/modules/datanya/data.php on line 1318
+[19-Jun-2014 12:38:42] PHP Fatal error:  Allowed memory size of 134217728 bytes exhausted (tried to allocate 1572895 bytes) in /var/www/html/billing/html/modules/datanya/data.php on line 1318
+[19-Jun-2014 22:55:18] PHP Fatal error:  Call to a member function fetchRow() on a non-object in /var/www/html/billing/html/template/__xl_menu.htm.php on line 34
+[20-Jun-2014 06:46:59] PHP Fatal error:  Allowed memory size of 134217728 bytes exhausted (tried to allocate 71 bytes) in /var/www/html/billing/framework/_debug.php on line 66
+[23-Jun-2014 12:03:56] PHP Fatal error:  Call to a member function fetchRow() on a non-object in /var/www/html/billing/html/modules/datanya/data_2.php on line 293
+[23-Jun-2014 12:04:12] PHP Fatal error:  Call to a member function fetchRow() on a non-object in /var/www/html/billing/html/modules/datanya/data_2.php on line 293
+[23-Jun-2014 12:32:54] PHP Fatal error:  Call to a member function fetchRow() on a non-object in /var/www/html/billing/html/modules/datanya/data_2.php on line 293
+[23-Jun-2014 12:46:30] PHP Fatal error:  Call to a member function getAll() on a non-object in /var/www/html/billing/html/modules/monitoring/list_container/excel_pdf/export_excel.php on line 94
+[23-Jun-2014 12:46:33] PHP Fatal error:  Call to a member function getAll() on a non-object in /var/www/html/billing/html/modules/monitoring/list_container/excel_pdf/export_excel.php on line 94
+[23-Jun-2014 14:19:59] PHP Fatal error:  Call to a member function fetchRow() on a non-object in /var/www/html/billing/html/template/__xl_menu.htm.php on line 34
+[23-Jun-2014 17:34:51] PHP Fatal error:  Allowed memory size of 134217728 bytes exhausted (tried to allocate 76 bytes) in /var/www/html/billing/html/modules/datanya/data.php on line 522
+[23-Jun-2014 19:34:52] PHP Fatal error:  Call to a member function fetchRow() on a non-object in /var/www/html/billing/html/modules/billing/uper_bm/data/index.php on line 24
+[23-Jun-2014 19:40:26] PHP Fatal error:  Call to a member function fetchRow() on a non-object in /var/www/html/billing/html/modules/datanya/data.php on line 437
+[23-Jun-2014 19:40:28] PHP Fatal error:  Call to a member function fetchRow() on a non-object in /var/www/html/billing/html/modules/datanya/data.php on line 437
+[23-Jun-2014 20:43:54] PHP Parse error:  syntax error, unexpected T_IF in /var/www/html/billing/html/modules/datanya/data_spjm.php on line 78
+[25-Jun-2014 16:13:20] PHP Fatal error:  Allowed memory size of 134217728 bytes exhausted (tried to allocate 75 bytes) in /var/www/html/billing/html/modules/datanya/data.php on line 512
+[27-Jun-2014 15:46:26] PHP Fatal error:  Allowed memory size of 134217728 bytes exhausted (tried to allocate 71 bytes) in /var/www/html/billing/framework/_debug.php on line 66
+[29-Jun-2014 11:35:57] PHP Fatal error:  Call to a member function fetchRow() on a non-object in /var/www/html/billing/html/template/__xl_menu.htm.php on line 34
+[29-Jun-2014 11:40:21] PHP Fatal error:  Call to a member function fetchRow() on a non-object in /var/www/html/billing/html/template/__xl_menu.htm.php on line 34
+[29-Jun-2014 11:41:11] PHP Fatal error:  Call to a member function fetchRow() on a non-object in /var/www/html/billing/html/template/__xl_menu.htm.php on line 34
+[29-Jun-2014 11:42:12] PHP Fatal error:  Call to a member function fetchRow() on a non-object in /var/www/html/billing/html/template/__xl_menu.htm.php on line 34
+[30-Jun-2014 14:11:33] PHP Fatal error:  Call to a member function getAll() on a non-object in /var/www/html/billing/html/modules/request/delivery/tambahan2.php on line 8
+[30-Jun-2014 18:16:47] PHP Fatal error:  Call to a member function fetchRow() on a non-object in /var/www/html/billing/html/template/__xl_menu.htm.php on line 34
+[30-Jun-2014 21:58:23] PHP Fatal error:  Call to a member function fetchRow() on a non-object in /var/www/html/billing/html/modules/billing/uper_bm/data/index.php on line 24
+[01-Jul-2014 03:07:04] PHP Fatal error:  Call to a member function fetchRow() on a non-object in /var/www/html/billing/html/template/__xl_menu.htm.php on line 34
+[01-Jul-2014 03:58:03] PHP Fatal error:  Call to a member function fetchRow() on a non-object in /var/www/html/billing/html/template/__xl_menu.htm.php on line 34
+[01-Jul-2014 11:22:48] PHP Fatal error:  Call to a member function fetchRow() on a non-object in /var/www/html/billing/html/modules/datanya/data_diskon.php on line 184
+[01-Jul-2014 11:22:50] PHP Fatal error:  Call to a member function fetchRow() on a non-object in /var/www/html/billing/html/modules/datanya/data_diskon.php on line 184
+[01-Jul-2014 11:25:51] PHP Parse error:  syntax error, unexpected T_STRING in /var/www/html/billing/html/modules/billing/paymentcash/ajax/payment.php on line 9
+[01-Jul-2014 11:25:55] PHP Parse error:  syntax error, unexpected T_STRING in /var/www/html/billing/html/modules/billing/paymentcash/ajax/payment.php on line 9
+[01-Jul-2014 11:26:02] PHP Parse error:  syntax error, unexpected T_STRING in /var/www/html/billing/html/modules/billing/paymentcash/ajax/payment.php on line 9

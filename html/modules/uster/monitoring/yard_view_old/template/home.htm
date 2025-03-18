@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<link rel="stylesheet" href="./yard/src/css/excite-bike/jquery-ui-1.8.16.custom.css">
+	<script src="./yard/src/js/jquery-1.7.min.js" type="text/javascript"></script>
+	<script src="./yard/src/js/jquery-ui-1.8.16.custom.min.js" type="text/javascript"></script>
+	<link rel="stylesheet" href="./yard/src/css/main.css">
+	
+
+<link href="../../../../../css/default.css" rel="stylesheet" type="text/css">
+</html>
+
+
+	<style>
+	#feedback { font-size: 1.4em; }
+	#selectable .ui-selecting { background: #FECA40; }
+	#selectable .ui-selected { background: #F39814; color: white; }
+	#selectable { list-style-type: none; margin: 0; padding: 0; }
+	#selectable li {float: left; width: <?php echo $s."px"?>; height: <?php echo $s."px"?>; font-size: 4em; text-align: center; }
+	
+	
+	</style>
+	<script>
+	var cell  		= new Array();
+	var block_name 	= new Array();
+	var block_color = new Array();
+	var yard_id		= "<?php echo $yard_id?>";
+	var slot  = <?php echo $width;?>;
+	var row	  = <?php echo $height;?>;
+
+	var total = row*slot; 
+	var m	  = 0;
+	var v	  = 0;
+
+	for (var i = 0; i < total; i++)
+	{
+		cell[i] = 0;
+		cell[i] = new Object();
+	}
+	$(function() {
+		
+
+		
+		$( "#selectable" ).selectable({
+			selected: function() {
+				var result = $( "#select-result" ).empty();
+				$( ".ui-selected", this ).each(function() {
+					var id = $("#selectable li").index(this);
+					//get_cell_content(id);
+					result.append( id+"," );
+					get_cell_content(result.html());
+					//$("#selectable li").eq(id).attr( "class", "ui-stacking-default");
+				});
+			}
+		});
+		
+		$( "#dialog" ).dialog({
+			autoOpen: false,
+			show: "blind",
+			width: 450 
+		});
+
+		$( "#opener" ).click(function() {
+			$( "#dialog" ).dialog( "open" );
+			return false;
+		});
+	});
+	</script>
+</head>
+<body>
+<span id="select-result" style="display: none;"></span>
+<span id="result"></span>
+<center>
+
+
+<div class="grid" style="border:thin inset; margin-left:30px; margin-top:50px; margin-right:50px; padding-bottom:600px; margin-left::30px;">
+    <ol id="selectable">
+        <?php 
+            $db = getDB("storage");
+            $p 				= 0;
+            $j 				= 1;
+            $i 				= 1; 
+            $cell_idx 		= 0;
+
+            foreach($row_cell_  as $row_cell)
+            {	
+                $m = ($width*$j) + 1;
+                
+                if($row_cell['STACK'] == 1)
+                {
+                    $query_count_content = "SELECT BLOCKING_AREA.ID AS ID_BLOCK FROM BLOCKING_CELL INNER JOIN BLOCKING_AREA ON BLOCKING_CELL.ID_BLOCKING_AREA = BLOCKING_AREA.ID JOIN PLACEMENT ON PLACEMENT.ID_BLOCKING_AREA = BLOCKING_CELL.ID_BLOCKING_AREA AND PLACEMENT.SLOT_ = BLOCKING_CELL.SLOT_ AND PLACEMENT.ROW_ = BLOCKING_CELL.ROW_ WHERE BLOCKING_AREA.ID_YARD_AREA = '$yard_id' AND BLOCKING_CELL.INDEX_CELL = '$cell_idx' ";
+                    $res_content 		 = $db->query($query_count_content);
+                    $row_block			 = $res_content->fetchRow();
+                    $id_block			 = $row_block['ID_BLOCK'];
+                    //echo $query_count_content;
+                    $query_get_r_s		 = "SELECT COUNT(*) AS JUM FROM BLOCKING_CELL INNER JOIN PLACEMENT ON BLOCKING_CELL.ID_BLOCKING_AREA = PLACEMENT.ID_BLOCKING_AREA AND PLACEMENT.SLOT_ = BLOCKING_CELL.SLOT_ AND PLACEMENT.ROW_ = BLOCKING_CELL.ROW_ WHERE BLOCKING_CELL.ID_BLOCKING_AREA = '$id_block' AND BLOCKING_CELL.INDEX_CELL = '$cell_idx'";
+                    $res_r_s			 = $db->query($query_get_r_s);
+                    $row_count		 	 = $res_r_s->fetchRow();
+                    //echo $query_get_r_s;
+                    
+                    
+        ?>			
+                    <script> cell[<?php echo $cell_idx?>].stack = 1;</script>
+                    <li class="ui-stacking-default"  <?php if (($i%$m) == 0){ $j++;	?>style="clear: both;"<?php }?>><font size="1px"><?php echo $row_count['JUM']?></font></li>							
+        <?php 
+                    $p++;
+                }
+                else
+                {
+        ?>		
+                <li class="ui-state-default" <?php if (($i%$m) == 0){ $j++;	?>style="clear: both;"<?php }?>><?php //echo $i?></li>
+        <?php 
+                }
+                $cell_idx++;
+                $i++;
+            }
+        
+        ?>
+    </ol>
+</div>
+
+
+</center>
+
+<?php
+	foreach ($block__ as $block_)
+	{
+		$c_b = 0;
+		$block_id 		= $block_['ID'];
+		$block_name 	= $block_['NAME'];
+		$block_color	= $block_['COLOR'];
+		
+		$query_blocking_cell = "SELECT * FROM BLOCKING_CELL WHERE ID_BLOCKING_AREA = '$block_id' ORDER BY INDEX_CELL ASC";
+		$result_cell		 = $db->query($query_blocking_cell);
+?>	
+		<script>
+			block_name[v] 	= "<?php echo $block_name;?>";
+			block_color[v]	= "<?php echo $block_color;?>";
+			<?php 
+				$h = 0;
+				$cell_block_	= $result_cell->getAll();
+				foreach($cell_block_ as $cell_block)
+				{
+					?>
+						cell[<?php echo $cell_block['INDEX_CELL']?>].block = block_name[v];
+						$("#selectable li").eq(<?php echo $cell_block['INDEX_CELL']?>).attr( "style", "  border: 1px solid "+block_color[v]+"; " );
+						$("#selectable li").eq(<?php echo $cell_block['INDEX_CELL']?>).attr( "title", "Block "+block_name[v]+",<?php echo $cell_block['SLOT']."-".$cell_block['ROW'];?>" );
+					<?php 	
+					$h++;
+				}
+			?>
+			v++;
+		</script>	
+<?php 
+	}
+
+?>
+
+
+<div style="margin-top:50px; clear:both">
+	<fieldset class="form-fieldset" style="margin: 5px 30px 30px 5px;">
+    <legend class="graybrown" style="font-size:12px; color:#F00;"> Data Lapangan </legend>
+    	<table>
+        	<tr>
+            	<td>
+			    	Nama Yard 
+                </td>
+                <td>
+                	: 
+                </td>
+                <td>
+                	{$yard_.NAMA_YARD}
+                </td>
+            </tr>
+            <tr>
+            	<td>	
+			        Jumlah Kapasitas
+                </td>
+                <td>
+                	:
+                </td>
+                <td>
+                	{$yard_.KAPASITAS} Box
+                </td>
+           	</tr>
+            <tr>
+            	<td>	
+			        Jumlah Terisi
+                </td>
+                <td>
+                	:
+                </td>
+                <td>
+                	{$yard_.CONT} Box
+                </td>
+           	</tr>
+       	</table>
+    </fieldset>
+		<?php 
+		
+		foreach ($block__2 as $block_)
+		{
+			?>
+            
+		<table style="margin-bottom: 100px; float:left">
+			<tr>
+				<td style="background-color: <?php echo $block_['COLOR']?>" height="10px" width="15px">
+				
+				</td>
+				<td>
+					-
+				</td>
+				<td>
+					Nama Blok
+				</td>
+                <td>
+                	:
+                </td>
+                <td>
+                	<?php echo $block_['NAME'] ?>
+                </td>
+			</tr>
+            <tr>
+            	<td>&nbsp;
+                	
+                </td>
+                <td>
+                	-
+                </td>
+                <td>
+                	Jumlah Slot
+                </td>
+                <td>
+                	:
+                </td>
+                <td>
+                	{$block_.JUM_SLOT}
+                </td>
+            </tr>
+            <tr>
+            	<td>&nbsp;
+                	
+                </td>
+                <td>
+                	-
+                </td>
+                <td>
+                	Jumlah Row
+                </td>
+                <td>
+                	:
+                </td>
+                <td>
+                	{$block_.JUM_ROW}
+                </td>
+            </tr>
+            <tr>
+            	<td>&nbsp;
+                	
+                </td>
+                <td>
+                	-
+                </td>
+                <td>
+                	Kapasitas
+                </td>
+                <td>
+                	:
+                </td>
+                <td>
+                	{$block_.KAPASITAS} Box
+                </td>
+            </tr>
+            <tr>
+            	<td>&nbsp;
+                	
+                </td>
+                <td>
+                	-
+                </td>
+                <td>
+                	Terisi
+                </td>
+                <td>
+                	:
+                </td>
+                <td>
+                	{$block_.CONT} Box
+                </td>
+            </tr>
+   		</table>
+		<?php 
+		}
+		?>
+
+        <div style="clear:both; padding-bottom:50px;" align="center">
+            <span style="font-size:15px;" class="form-fieldset"><a href="<?=HOME?><?=APPID?>.ajax/generate_excel" style="color:#00F" target="_blank"> Generate File Excel </a></span>
+        </div> 
+           
+
+</div>
+ 
+<div id="dialog" title="Stacking" style="font-size: 15px; margin-top: 50px;">
+</div>
+</body>
+
+<script>
+	function get_cell_content(id)
+	{
+		var cell_index  = id;
+		var yard		= "{$yard_id}";
+		var url 		= "<?=HOME?><?=APPID?>.ajax/get_content";
+		
+		console.log(id);
+		
+		$.post( url, {index : cell_index, yard_id : yard},
+			      function(data) {
+		      			$("#dialog").html(data);
+						$( "#dialog" ).dialog( "open" );
+			      		console.log(data);
+			      }
+			    );
+	}
+
+	function fill_loc(cont_no)
+	{
+		var url 		= "<?=HOME?><?=APPID?>/find_container";
+	
+		$.post( url, {container_no : cont_no},
+			      function(data) {
+			      		var ret = data.split("-");
+			      		
+			      		$("#old_block").val(ret[0]);
+			      		$("#old_slot").val(ret[1]);
+			      		$("#old_row").val(ret[2]);
+			      		$("#old_tier").val(ret[3]);
+				  }
+			    );
+	}
+	
+	function save()
+	{
+		var url = "<?=HOME?><?=APPID?>.ajax/generate_exel";
+		$.post( url, { xml_: xml_str},
+		  function(data) {
+			console.log(data);
+			if(data == "success")
+			{
+				$("#file_at").html("<a href='./saved_file.xml'>Save As File ini</a>");
+			}
+		  }
+		);
+	}
+</script>
+
+
+</html>

@@ -1,0 +1,113 @@
+
+<span class="graybrown"><img src='images/sp2_p.png' border='0' class="icon"/><font color="#0378C6"> Report Container</font> By No Request</span><br/><br/>
+      <fieldset class="form-fieldset" style="margin: 5px 5px 5px 5px; ">
+        <form id="searchForm" name="searchForm" action="{HOME}delivery.permintaan/search/" method="get">
+		<div style="padding:10px;font-family:Arial; font-size:8pt; color:#555555; font-weight:bold">
+            <table> 
+				<!-- <tr>
+			<td class="form-field-caption" valign="middle" align="right" width="200">No. REQUEST </td>
+			<td valign="top" class="form-field-input">:            
+		    <input  style="font-size:26px; font-weight:bold; text-transform:uppercase"  id="NO_NOTA" name="NO_NOTA" size="20"  class="suggestuwriter" type="text"  maxlength="16"  value="{$row.NO_NOTA}"  /></td>
+		</tr> -->
+								<tr>
+									<td class="form-field-caption" valign="middle" align="right" width="200">No. REQUEST</td><td valign="top" class="form-field-input">: 
+										<input style="font-size:26px; font-weight:bold; text-transform:uppercase" id="NO_REQUEST" name="NO_REQUEST" type="text" value="{$row.NO_REQUEST}" size="30" />
+										
+									</td>									
+								</tr>
+                               
+                                <tr>
+									<td class="form-field-caption" valign="middle" align="right" width="200">Kegiatan</td><td valign="top" class="form-field-input">: 
+										<input id="KEGIATAN" name="KEGIATAN" type="text" size="30"  readonly />
+									</td>									
+								</tr>
+								<!--<tr>
+									<td class="form-field-caption" valign="middle" align="right" width="200">Total Tagihan</td><td valign="top" class="form-field-input">: 
+										<input id="TOTAL" name="TOTAL" type="text" value="{$row.TOTAL}" size="50"   readonly size="15" />
+									</td>
+								</tr>
+								<tr>
+									<td class="form-field-caption" valign="middle" align="right" width="200">PPN</td><td valign="top" class="form-field-input">: 
+										<input id="PPN" name="PPN" type="text"  readonly value="{$row.PPN}" size="10" />
+									</td>
+								</tr>
+							<tr>
+								<td class="form-field-caption" valign="middle" align="right" width="200">Jumlah yang dibayar</td><td valign="top" class="form-field-input">: 
+								<input id="TOTAL_TAGIHAN" name="TOTAL_TAGIHAN" type="text" value="{$row.TOTAL_TAGIHAN}" size="35"   readonly /></td>
+							</tr>	
+							   <tr>
+									<td class="form-field-caption" valign="middle" align="right" width="200">Status Lunas</td><td valign="top" class="form-field-input">: 
+										<input id="LUNAS" name="LUNAS" type="text" value="{$row.LUNAS}" size="20" readonly />										
+									</td>									
+								</tr> -->
+				<tr>
+					<td></td>
+					<td align="right"> &nbsp;&nbsp; <a class="link-button" style="height:25" onclick="generate()"><img src='images/cari.png' border='0' />Generate Report</a> &nbsp;&nbsp; <a class="link-button" style="height:25" onclick="toexcel()"><img src='images/cari.png' border='0' />Generate Excel</a> </td>
+				</tr>
+				
+			</table>
+		</div>
+        </form>
+	
+	   </fieldset>
+	<div id="nota_list"></div>
+<script>
+$(function() {	
+
+		$( "#NO_REQUEST" ).autocomplete({
+		minLength: 3,
+		source: "{$HOME}{$APPID}.auto/nota",
+		focus: function( event, ui ) {
+			$( "#NO_REQUEST" ).val( ui.item.NO_REQUEST );
+			return false;
+		},
+		select: function( event, ui ) {
+			$( "#NO_REQUEST" ).val( ui.item.NO_REQUEST );
+			$( "#KEGIATAN" ).val( ui.item.KEGIATAN );
+			return false;
+		}
+	})
+	.data( "autocomplete" )._renderItem = function( ul, item ) {
+		return $( "<li></li>" )
+			.data( "item.autocomplete", item )
+			.append( "<a>" + item.NO_REQUEST + " <br> "+item.KEGIATAN+"</a>")
+			.appendTo( ul );
+	};
+
+});
+
+function generate()
+{
+		
+	var request = $( "#NO_REQUEST" ).val();
+	var kegiatan = $( "#KEGIATAN" ).val();
+	
+	var url 	       = "<?=HOME?><?=APPID?>/cont_list #list";
+	$.blockUI({ message: '<h1>Please wait...</h1>' }); 
+	$("#nota_list").load(url,{NO_REQUEST : request, KEGIATAN : kegiatan}, function(data){
+		if(data){
+				$.unblockUI({ 
+				onUnblock: function(){  } 
+				});
+		}
+	});
+}
+
+function topdf(){
+	var tgl_awal_ 	= $("#tgl_awal").val();
+	var tgl_akhir_	= $("#tgl_akhir").val();	
+	var url 	    = "<?=HOME?><?=APPID?>.topdf/print?tgl_awal="+tgl_awal_+"&tgl_akhir="+tgl_akhir_;
+	
+	window.open(url, "_blank");
+}
+
+function toexcel(){	
+	var request = $( "#NO_REQUEST" ).val();
+	var kegiatan = $( "#KEGIATAN" ).val();
+	
+	var url 	    = "<?=HOME?><?=APPID?>.toexcel/toexcel?NO_REQUEST="+request+"&KEGIATAN="+kegiatan;
+	
+	window.open(url, "_blank");
+}
+</script>
+

@@ -1,0 +1,26 @@
+<div id="list">
+<center>
+<? if (count($row) == 0){?>
+	<font color="blue"><b><blink> NO DATA FOUND </blink></b></font>
+<? } else {?>
+<table border='0' width="100%">
+	<tr>
+		<th class="grid-header"  style="font-size:8pt">No.</th>
+		<th class="grid-header"  style="font-size:8pt">NAMA EMKL</th>
+		<th class="grid-header"  style="font-size:8pt">ALAMAT <br> NPWP</th>
+		<th class="grid-header"  style="font-size:8pt">ACTION</th>
+	</tr>
+	<fill src='row' var='row'>
+		<alt var='bg' list='#f9f9f3,#ffe'/>
+		<tr bgcolor="{$bg}" style="cursor:pointer;" onMouseOver=this.style.backgroundColor="#BAD5FC" onMouseOut=this.style.backgroundColor="">
+			<td class="grid-cell" align="center" style="font-size:8pt"><b>{$__ctr}</b></td>
+			<td class="grid-cell"  style="font-size:8pt"><b>{$row.NM_PBM}</b></td>
+			<td class="grid-cell"  style="font-size:8pt"><b>{$row.ALMT_PBM} <br> NPWP : {$row.NO_NPWP_PBM}</b></td>
+			<td class="grid-cell"  style="font-size:8pt"><a onClick="detail('{$row.KD_PBM}')"><img src='images/save_peb.gif' border="0"> Detail </a></td>
+		</tr>
+	</fill>
+	
+</table>
+<? } ?>
+</center>
+</div>

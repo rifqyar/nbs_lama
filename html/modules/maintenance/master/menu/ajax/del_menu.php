@@ -1,0 +1,1 @@
+<?php$id_menu = $_POST["ID_MENU"];if(($id_menu==""))	echo "NO";else{	$db=getDB();	$db->query("begin menu_del(".$id_menu."); end;");	echo "OK";}?>

@@ -1,0 +1,236 @@
+<style>
+.content{
+	width:95%;
+	margin-left:auto;
+	margin-right:auto;
+	margin-bottom: 10px;
+	margin-top:20px;
+}
+.main_side{
+	width:100%;
+	float:left;
+	text-align:left;
+}
+
+</style>
+
+<script type="text/javascript">
+		$(function() {
+		
+						$( "#tabspage" ).tabs();	
+						/*$('a[rel*=downloadr]').downloadr();*/
+});
+
+
+</script>
+   
+<script>
+
+<!------------------- load detail shift ------------>
+$(function() {
+		
+						$( "#tabspage" ).tabs();
+						//setInterval($('#working').html('<img src="<?=HOME?>images/loadingbox.gif" />'),1000);	
+						$("#working").load("<?=HOME?><?=APPID?>/working?id_req={$request.ID_REQ}&remark={$remark} #workingtime_list");
+						$("#idle").load("<?=HOME?><?=APPID?>/idle?id_req={$request.ID_REQ}&remark={$remark} #idletime_list");
+						$("#waiting").load("<?=HOME?><?=APPID?>/waiting?id_req={$request.ID_REQ}&remark={$remark} #waitingtime_list");
+						$("#not").load("<?=HOME?><?=APPID?>/not?id_req={$request.ID_REQ}&remark={$remark} #nottime_list");				
+	
+});
+<!------------------- load detail shift ------------>
+
+function invoice()
+{
+	var remark_		= "{$request.REMARK}"; //shift,non shift
+	var id_req_     = "{$request.ID_REQ}";
+	var rta_		= "{$request.RTA}";
+	var rtd_		= "{$request.RTD}";
+	var pbm_		= "{$request.KODE_PBM}";
+	var terminal_	= "{$request.TERMINAL}";
+	var vessel_ 	= "{$request.NAMA_VESSEL}";
+	var voyage_		= "{$request.VOYAGE}";
+	var adm_		= "{$administrasi}";
+	var ppn_        = "{$ppn}";
+	var total_      = "{$total}";
+	var tgl_entry_  = "{$request.TGL_REQ}";
+	var status_     = "{$request.STATUS}";
+	var status_pbm_ = "{$request.STATUS_PBM}";
+	var url			= "{$HOME}{$APPID}.ajax/invoice";	
+
+	$.post(url,{REMARK : remark_, ID_REQ : id_req_, RTA : rta_, RTD : rtd_, PBM : pbm_, TERMINAL : terminal_, VESSEL : vessel_, VOYAGE : voyage_, ADM : adm_, PPN : ppn_, TOTAL : total_, TGL_ENTRY : tgl_entry_, STATUS : status_, STATUS_PBM : status_pbm_},function(data){
+		console.log(data);
+		if(data == "OK")
+		{
+			alert("Proses Invoice Berhasil");
+			window.location = "{$HOME}{$APPID}";
+		}
+		else if(data == "NO")
+		{
+			alert("Data Tidak Lengkap...Proses Invoice Gagal");
+		}
+		else if(data == "gagal")
+		{
+			alert("Proses Invoice Gagal");
+		}
+		else if(data == "SUDAH")
+		{
+			alert("Sudah Invoice Sebelumnya...");
+		}
+	});	
+	//prosedur add comment disini, method $.post, include user id dan content id
+}
+
+</script>
+  
+   
+<div class="content">
+<div class="main_side">
+
+<!------------------------------------------------------ VIEW ----------------------------------------------->
+<? if($status=="SHIFT") 
+   {?>
+
+<h2><span class="graybrown">
+	<img class="icon" border="0" src="images/dokumenbig.png" />
+	&nbsp;<font color="#0378C6">Pranota</font> Sewa GLC
+    </span></h2>
+<br/>
+<form>
+<fieldset class="form-fieldset" style="padding: 10px 10px 10px 10px;">
+<table width="100%" border="0" cellspacing="1" cellpadding="1">
+		<tr>
+			<td width="100">NO UPER</td>
+			<td width="10">&nbsp;&nbsp;:&nbsp;&nbsp;</td>
+            <td><input type="text" name="no_uper" value={$request.NO_UPER} disabled="disabled"/>
+			           <input type="hidden" name="id_req" id="id_req" value={$request.ID_REQ} /></td>
+            <td width="40"></td>
+            <td>REQUEST</td>
+			<td>&nbsp;&nbsp;:&nbsp;&nbsp;</td>
+            <td><input type="text" name="id_req2" id="id_req2" value={$request.ID_REQ} disabled="disabled"/></td>
+		</tr>
+		<tr>
+			<td>PBM</td>
+			<td>&nbsp;&nbsp;:&nbsp;&nbsp;</td>
+            <td><input type="text" name="pbm" value={$request.NAMA} disabled="disabled"/></td>
+            <td width="40"></td>
+            <td width="30"></td>
+			<td width="10"></td>
+            <td></td>
+		</tr>
+		<tr>
+			<td>VESSEL / VOYAGE</td>
+			<td>&nbsp;&nbsp;:&nbsp;&nbsp;</td>
+            <td><input type="text" name="vessel" value={$request.NAMA_VESSEL} disabled="disabled" size="30"/> / <input type="text" name="voyage" value={$request.VOYAGE} disabled="disabled" size="8"/></td>
+            <td width="40"></td>
+            <td>RTA</td>
+			<td>&nbsp;&nbsp;:&nbsp;&nbsp;</td>
+            <td><input type="text" name="rta" id="rta" value={$request.RTA} disabled="disabled"/></td>           
+		</tr>
+        <tr>
+			<td>TERMINAL</td>
+			<td>&nbsp;&nbsp;:&nbsp;&nbsp;</td>
+            <td><input type="text" name="terminal" value={$request.TERMINAL} disabled="disabled" size="3"/></td>
+            <td width="40"></td>
+            <td width="30">RTD</td>
+			<td width="10">&nbsp;&nbsp;:&nbsp;&nbsp;</td>
+            <td><input type="text" name="rtd" id="rtd" value={$request.RTD} disabled="disabled"/></td>
+		</tr>
+</table>
+</fieldset>
+<br/>
+<fieldset class="form-fieldset" style="padding: 10px 10px 10px 10px;">
+<table width="100%" border="0" cellspacing="1" cellpadding="1">
+		<tr>
+			<td width="50">STATUS</td>
+			<td width="10">&nbsp;&nbsp;:&nbsp;&nbsp;</td>
+            <td><input type="text" name="status" value={$request.STATUS} readonly="readonly" size="3"/></td>
+            <td></td>
+            <td></td>
+			<td></td>
+            <td></td>
+			<td></td>
+		</tr>
+		<tr>
+			<td width="50">REMARK</td>
+			<td width="10">&nbsp;&nbsp;:&nbsp;&nbsp;</td>
+            <td><input type="text" name="remark" value={$request.REMARK} readonly="readonly" size="15" /></td>
+            <td></td>
+            <td></td>
+			<td></td>
+            <td></td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>&nbsp;</td>
+			<td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+			<td>&nbsp;</td>
+            <td>&nbsp;</td>
+			<td>&nbsp;</td>
+		</tr>
+		<tr>
+			<td width="50"></td>
+			<td width="10"></td>
+            <td width="130">Administrasi</td>
+            <td width="130">Jasa Sewa Alat</td>
+            <td width="130">Pajak</td>
+			<td width="130">Bayar</td>
+            <td width="20"></td>
+			<td></td>
+		</tr>
+		<tr>
+			<td width="50">TAGIHAN</td>
+			<td width="10">&nbsp;&nbsp;:&nbsp;&nbsp;</td>
+			<? $adm = number_format($administrasi); 
+			   $ttl = number_format($total); 
+			   $ppns = number_format($ppn); 
+			   $byr = number_format($bayar); ?>
+            <td><input type="text" name="adm" value={$adm} readonly="readonly" style="background-color:#EBF5FF"/></td>
+            <td><input type="text" name="jasa_alat" value={$ttl} readonly="readonly" style="background-color:#EBF5FF"/></td>
+            <td><input type="text" name="pajak" value={$ppns} readonly="readonly" style="background-color:#EBF5FF"/></td>
+			<td><input type="text" name="bayar" value={$byr} readonly="readonly" style="background-color:#EBF5FF"/></td>
+            <td width="20"></td>
+			<td><input type="button" onClick="invoice()" value="Invoice" name="Invoice"/></td>
+		</tr>
+</table>
+</fieldset>
+<br/>
+<div id="tabspage" class="tabss">
+				<ul>
+				<li><a href="#tabspage-1">Working</a></li>
+				<li><a href="#tabspage-2">Idle</a></li>
+                <li><a href="#tabspage-3">Waiting</a></li>
+                <li><a href="#tabspage-4">Not Operation</a></li>
+				</ul>
+				<div id="tabspage-1">
+                    <div id="working" align="center"></div>				
+				</div>
+				<div id="tabspage-2">
+                    <div id="idle" align="center"></div>
+				</div>
+                <div id="tabspage-3">
+                    <div id="waiting" align="center"></div>
+				</div>
+                <div id="tabspage-4">
+                    <div id="not" align="center"></div>
+				</div>
+</div>
+<br/>
+<a class="link-button" style="height:25" href="<?=HOME?><?=APPID?>.print/print_pranota?id={$request.ID_REQ}&remark={$request.REMARK}">
+      <img border="0" src="images/printbig1.png" />
+      Cetak Pranota</a>
+</form>
+<br/>
+<? }
+    else if($status=="NON SHIFT")
+   {
+    ?>
+
+	
+	
+<? } ?>
+<!------------------------------------------------------ VIEW ----------------------------------------------->
+</div>
+</div>

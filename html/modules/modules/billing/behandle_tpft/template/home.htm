@@ -1,0 +1,101 @@
+<style>
+.content{
+	width:95%;
+	margin-left:auto;
+	margin-right:auto;
+	margin-bottom: 10px;
+	margin-top:20px;
+}
+.main_side{
+	width:100%;
+	float:left;
+	text-align:left;
+}
+.rightside{ 
+	width:25%;
+	float:right;
+	text-align:center;
+}
+.ganjil {
+  background-color: #FFF; /* Warna untuk baris ganjil */
+}
+.genap {
+  background-color: #bbe3fe; /* Warna untuk baris genap */
+}   
+
+</style>
+
+<script type="text/javascript">
+function ReloadPage() { 
+	location.reload();
+}
+$(document).ready(function() {
+	setTimeout("ReloadPage()", 180000);
+});
+
+jQuery(function() {
+ jQuery("#nota_behandle").jqGrid({
+	url:'<?=HOME?>datanya/data?q=nota_behandle',
+	mtype : "post",
+	datatype: "json",
+	colNames:['','No Pranota','No Request','EMKL','Vessel','Jumlah Container','Status'], 
+	colModel:[
+		{name:'aksi', width:65, align:"center",sortable:false,search:false},
+		{name:'id_nota',index:'id_nota', width:120, align:"center"},
+		{name:'id_req',index:'id_req', width:100, align:"center"},
+		{name:'emkl',index:'emkl', width:190, align:"center"},
+		{name:'vessel',index:'vessel', width:190, align:"center"},
+		{name:'jum_cont',index:'jum_cont', width:80, align:"center"},
+		{name:'status',index:'status', width:65, align:"center"}
+	],
+	rowNum:20,
+	width: 865,
+	height: "100%",//250
+
+	rowList:[10,20,30,40,50,60],
+	loadonce:true,
+	rownumbers: true,
+	rownumWidth: 15,
+	gridview: true,
+	pager: '#pg_nota_behandle',
+	viewrecords: true,
+	shrinkToFit: false,
+	caption:"Nota Behandle"
+ });
+  jQuery("#nota_behandle").jqGrid('navGrid','#pg_nota_behandle',{del:false,add:false,edit:false,search:false}); 
+ jQuery("#nota_behandle").jqGrid('filterToolbar',{stringResult: true,searchOnEnter : false});
+ 
+});
+
+function recalculate(id_nota, no_req)
+{
+	$.blockUI({ message: '<h1><br>Please wait...re-calculate Pranota</h1><br><img src={$HOME}images/loadingbox.gif /><br><br>' });
+	var url="<?=HOME?>billing.behandle.ajax/recalculate";
+	$.post(url,{ID_NOTA : id_nota, NO_REQ : no_req},function(data) 
+				  {
+					if (data="sukses")
+					{						
+						$.unblockUI({
+						onUnblock: function(){  }
+						});
+						$("#nota_behandle").jqGrid('setGridParam',{url:'<?=HOME?>datanya/data?q=nota_behandle', datatype:"json"}).trigger("reloadGrid");
+					}
+					alert(data);
+			      });	
+}
+</script>
+
+<div class="content">
+	<div class="main_side">
+	<p>
+	<h2> <img src="<?=HOME?>images/delivery.png" height="5%" width="5%" style="vertical-align:middle"> Billing Behandle</h2></p>
+	
+	<p><br/>
+	  </p>
+	<p><br/></p>
+	<table id='nota_behandle' width="100%"></table> <div id='pg_nota_behandle'></div>
+
+	<br/>
+	<br/>
+	</div>
+</div>

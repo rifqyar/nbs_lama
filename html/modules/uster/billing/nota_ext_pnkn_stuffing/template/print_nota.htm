@@ -1,0 +1,222 @@
+
+
+<div class="form-fieldset" style="margin: 5px 5px 5px 5px">
+	<table border=0 width="100%">
+
+    	<tr>
+		<td width="100"></td>
+        	<td align="center">
+            <h1>PREVIEW NOTA</h1><br/><hr/>
+                	<div style="background-color:#fff; border:thin #00F groove">
+			<table border="0">
+                <tr height="25">
+                    <td COLSPAN="32" align="left"></td>
+                </tr>
+						<tr>
+                    <td COLSPAN="32" align="left"><b>PT. Multi Terminal Indonesia</b></td>
+                </tr>
+                <!-- <tr> -->
+                    <!-- <td COLSPAN="32" align="left"><b>{$branch_name}</b></td> -->
+                <!-- </tr> -->
+                <tr height="25">
+                    <td COLSPAN="32" align="left"></td>
+                </tr>
+				<tr>
+					<td colspan="26"></td>
+					<td colspan="5" align="right"><b></b></td>
+				</tr>
+				<tr><td></td></tr>
+				<tr>
+					<td colspan="18"></td>
+					<td colspan="4" align="right"><b>No. Nota</b></td>
+					<td colspan="1" align="right">:</td>
+					<td colspan="10" align="left"><b>{$rnota}</b><td>
+				</tr>
+				<tr>
+					<td colspan="18"></td>
+					<td colspan="4" align="right">No. Doc</td>
+					<td colspan="1" align="right">:</td>
+					<td colspan="10" align="left">{$no_req}</td>
+				</tr>
+
+				<tr>
+					<td COLSPAN="18"></td>
+					<td COLSPAN="4" align="right">Tgl.Proses</td>
+					<td colspan="1" align="right">:</td>
+					<td COLSPAN="10" align="left">{$tgl_nota}</td>
+				</tr>
+
+                <tr height="30">
+                    <td COLSPAN="38" align="left"></td>
+                </tr>
+				<tr>
+					<td COLSPAN="38" align="center"><b>PERHITUNGAN PELAYANAN JASA</b></td>
+				</tr>
+				<tr>
+					<td COLSPAN="38" align="center"><b>KEGIATAN STUFFING</b></td>
+				</tr>
+               <tr height="30">
+                    <td COLSPAN="38" align="left"><hr></hr></td>
+                </tr>
+				<tr>
+					<td colspan="6">Nama Perusahaan </td>
+					<td colspan="11" align="left">: {$row_nota.EMKL}</td>
+					<td ></td>
+				</tr>
+				<tr>
+					<td colspan="6"> N.P.W.P</td>
+					<td colspan="11" align="left">: {$row_nota.NPWP}</td>
+					<td ></td>
+				</tr>
+				<tr>
+					<td colspan="6">Alamat</td>
+					<td colspan="11" align="left">: {$row_nota.ALAMAT}</td>
+					<td ></td>
+				</tr>
+
+               <tr height="30">
+                    <td COLSPAN="38" align="left"><hr></hr></td>
+                </tr>
+				<tr>
+					<td colspan="3"></td>
+					<td colspan="5" width="180" ><b>KETERANGAN</b></td>
+					<td align="center" width="80" ><b>TGL AWAL</b></td>
+					<td align="center" width="80" ><b>TGL AKHIR</b></td>
+					<td colspan="2" align="center" width="20"><b>BOX</b></td>
+					<td colspan="2" align="center" width="20"><b>SZ</b></td>
+					<td colspan="2" align="center" width="30"><b>TY</b></td>
+					<td colspan="2" align="center" width="30"><b>ST</b></td>
+					<td colspan="2" align="center" width="20"><b>HZ</b></td>
+					<td colspan="2" align="center"><b>HR</b></td>
+					<td colspan="4" align="center"><b>TARIF</b></td>
+					<td colspan="2" align="center"><b>VAL</b></td>
+					<td colspan="5" align="right"><b>JUMLAH</b></td>
+					<td colspan="2"></td>
+				</tr>
+				<tr><td colspan="38"><hr></hr></td></tr>
+
+				<fill src="row_detail" var="rows">
+				<alt var='bg' list='#f9f9f3,#ffe'/>
+				<tr>
+					<td colspan="3"></td>
+					<td colspan="5">{$rows.KETERANGAN}</td>
+					<td align="center">{$rows.START_STACK}</td>
+					<td align="center">{$rows.END_STACK}</td>
+					<td colspan="2" align="center">{$rows.JML_CONT}</td>
+					<td colspan="2" align="center">{$rows.SIZE_}</td>
+					<td colspan="2" align="center">{$rows.TYPE_}</td>
+					<td colspan="2" align="center">{$rows.STATUS}</td>
+					<td colspan="2" align="center">{$rows.HZ}</td>
+					<td colspan="2" align="center">{$rows.JML_HARI}</td>
+					<td colspan="4" align="center">{$rows.TARIF}</td>
+					<td colspan="2" align="center">IDR</td>
+					<td colspan="5" align="right">{$rows.BIAYA}</td>
+					<td colspan="2"></td>
+				</tr>
+
+				</fill>
+
+                <tr><td colspan="38"><hr></hr></td></tr>
+
+				<tr><td colspan="38"></td></tr>
+				<tr><td colspan="38"></td></tr>
+				<tr><td colspan="38"></td></tr>
+
+				<tr>
+					<td colspan="18"></td>
+					<td colspan="10"  align="right">Discount :</td>
+                    <td colspan="7" align="right">{$row_discount.DISCOUNT}</td>
+					<td colspan="2"></td>
+				</tr>
+				<tr>
+					<td colspan="18"></td>
+					<td colspan="10"   align="right">Administrasi :</td>
+                    <td colspan="7" align="right">{$row_adm.ADM}</td>
+					<td colspan="2"></td>
+				</tr>
+				<tr>
+					<td colspan="18"></td>
+					<td colspan="10"   align="right">Dasar Pengenaan Pajak :</td>
+                    <td colspan="7" align="right">{$row_tot.TOTAL_ALL}</td>
+					<td colspan="2"></td>
+				</tr>
+				<tr>
+					<td colspan="18"></td>
+					<td colspan="10"   align="right">Jumlah PPN :</td>
+                    <td colspan="7" align="right">{$row_ppn.PPN}</td>
+					<td colspan="2"></td>
+				</tr>
+				<!--<tr>
+					<td colspan="18"></td>
+					<td colspan="10"    align="right">Pass Truck :</td>
+                    <td colspan="7" align="right">{$row_pass.PASS}</td>
+					<td colspan="2"></td>
+				</tr>-->
+				<!-- Fauzan modif materai 24 AUG 2020 -->
+				<? if ($bea_materai > 0 ) { ?>
+				<tr>
+					<td colspan="18"></td>
+					<td colspan="10"  align="right">Bea Materai :</td>
+                    <td colspan="7" align="right">{$row_materai.MATERAI}</td>
+					<td colspan="2"></td>
+				</tr>
+				<?} else {?>
+				<tr>
+					<td colspan="18"></td>
+					<td colspan="10"  align="right"></td>
+                    <td colspan="7" align="right"></td>
+					<td colspan="2"></td>
+				</tr>
+				<?} ?>
+				<!-- end -->
+				<tr>
+					<td colspan="18"></td>
+					<td colspan="10"    align="right">Jumlah Dibayar :</td>
+                    <td colspan="7" align="right">{$row_bayar.TOTAL_BAYAR}</td>
+					<td colspan="2"></td>
+				</tr>
+				<tr height = "50"><td colspan="38"></td></tr>
+               <tr><td colspan="38"><b>Nota sebagai Faktur Pajak berdasarkan Peraturan Dirjen Pajak <br>
+				Nomor 13/PJ/2019 Tanggal 2 Juli 2019</b></td></tr>
+				<tr height = "25"><td colspan="38"></td></tr>
+					<tr>
+					<td colspan="18"></td>
+					<td colspan="10" align="center">{$nama_peg.JABATAN} </td>
+                    <td colspan="7" align="right"></td>
+					<td colspan="2"></td>
+				</tr>
+				<tr height = "30"><td colspan="38"></td></tr>
+					<tr>
+					<td colspan="18"></td>
+					<td colspan="10"    align="center">{$nama_peg.NAMA_PEGAWAI}</td>
+                    <td colspan="7" align="right"></td>
+					<td colspan="2"></td>
+				</tr><tr height = "30"><td colspan="38"></td></tr>
+						</table>
+                    </div>
+
+            </td>
+			<td width="100"></td>
+		</tr>
+
+    </table>
+ </div>
+
+ <fieldset class="form-fieldset" style="margin: 5px 5px 5px 5px; height:100px; text-align:center; vertical-align:middle" id="status_lunas">
+
+	<a onclick="save_nota()" style="cursor:pointer" target="_blank" ><img src='images/cetak.png' border='0' /><font color='#0000FF'> <font size='5'> &nbsp SAVE NOTA</font></font></a>
+
+ </fieldset>
+
+  <script type="text/javascript">
+ function save_nota(){
+ 	/*var trx_number = "{$rnota}";
+ 	$.post("{$HOME}{$APPID}.ajax/check_trxnum",{TRX:trx_number},function(data){
+ 		if (data == "YES") {*/
+ 			window.open("<?=HOME?><?=APPID?>/insert_proforma?no_req={$no_req}&koreksi={$koreksi}&trx={$rnota}","_self");
+ 		/*} else {
+ 			alert("NO NOTA SUDAH DIPAKAI, REFRESH HALAMAN INI!");
+ 		}
+ 	});*/
+ }
+ </script>

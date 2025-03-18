@@ -1,0 +1,106 @@
+<table align="center">
+ <tr>
+ <td width="350" align="left"><img src="<?=HOME?>images/logopl.png" height="70%" width="70%" align="left" /></td>
+ <td width="350" align="left"><img src="<?=HOME?>images/sgs2.png" height="21%" width="21%" align="right" valign="top" /><img src="<?=HOME?>images/sgs.gif" height="10%" width="10%" align="right" /></td>
+ </tr>
+ </table>   
+<br>
+<h2 align="center"><b>LAPORAN TIME SHEET KEGIATAN ALAT</b></h2>
+<br>
+
+<table align="center" width='720'>	
+    <tr>
+        <td align="left">Tanggal Kegiatan</td>
+        <td>:</td>
+        <td align="left"><font size="2" face="verdana"><b><? echo date("d-m-Y");?></b></font></td>
+    </tr>
+    <tr>
+        <td align="left">Vessel / Voyage</td>
+        <td>:</td>
+        <td align="left"><font size="2" face="verdana"><b>{$req.NAMA_VESSEL} / {$req.VOYAGE}</b></font></td>
+    </tr>
+    <tr>
+        <td align="left">Pengguna Jasa</td>
+        <td>:</td>
+        <td align="left"><font size="2" face="verdana"><b>{$req.NAMA}</b></font></td>
+    </tr>
+	<tr>
+        <td align="left">Crane</td>
+        <td>:</td>
+        <td align="left"><font size="2" face="verdana"><b>.........</b></font></td>
+    </tr>
+	<tr>
+        <td align="left">Operator</td>
+        <td>:</td>
+        <td align="left"><font size="2" face="verdana"><b>.........</b></font></td>
+    </tr>
+</table>
+<!-- article-content -->
+<br>
+	<table align="center"  border='1' bordercolor="#000000" style="border-collapse:collapse;">
+	<font face="Calibri">
+    	<tr align="center" bgcolor='#AACBE3'>
+              <td width="50" height="20"><font size="3" face="calibri" ><b>NO</b></font></td>
+              <td width="100"><font size="3" face="calibri" ><b>ALAT</b></font></td>
+			  <td width="160"><font size="3" face="calibri" ><b>TANGGAL/SHIFT</b></font></td>
+              <td width="180"><font size="3" face="calibri" ><b>WAKTU</b></font></td>                        
+              <td width="350"><font size="3" face="calibri" ><b>KETERANGAN</b></font></td>      
+        </tr>
+      <?php for($i=0; $i<=25; $i++)
+			{ ?>
+                   <tr>
+                       <td height="15">&nbsp;</td>
+                       <td>&nbsp;</td>
+                       <td>&nbsp;</td>
+                       <td>&nbsp;</td>
+					   <td>&nbsp;</td>
+                   </tr>
+      <?php } ?>
+    </table>
+    <br/>
+    <table align="center">
+        <tr>
+            <td width='140'></td>
+            <td width='140'></td>
+            <td width='140'></td>
+            <td width='140'></td>
+            <td width='210' align="center"><b>Tanjung Priok, <? echo date("d-m-Y");?></b></td>            
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td align="center"><font size="2" face="verdana"><b>DIVISI OPERASI TERMINAL II</b><br/>SUPERVISOR PERALATAN</font></td>
+        </tr>
+        <?php for($i=0; $i<=20; $i++){ ?>
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <?php } ?>
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td align="center">DWI WANTO</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td align="center">NIPP: 268085727</td>
+        </tr>
+    </table>

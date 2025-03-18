@@ -1,0 +1,36 @@
+<div id="list" align="center">
+	<table id="zebra" border="1" bordercolor="#FFFFFF" width="80%" style="border-collapse:collapse" align="center" width="800">
+	  <tr>
+		<th height="20" width="5">NO</th>
+		<th height="20" width="100">VESSEL/VO</th>
+		<th height="20" width="30">SIZE</th>
+		<th height="20" width="30">TYPE</th>
+        <th height="20" width="30">STATUS</th>   
+		<th height="20" width="20">TOTAL BOX</th>        
+		<th height="20" width="20">TOTAL TEUS</th>
+		<th height="20" width="30">KODE PELABUHAN</th>        
+		<th height="20" width="100">NAMA_PELABUHAN</th>
+		<th height="20" width="100">action</th>
+     </tr>
+	  <?php $i=1;?>
+	<fill src="data" var="rows">
+	 <tr bgcolor="#ffffff">
+		<td class="grid-cell" align ="center" valign="top" style="font-size:10px;color:#3300CC"><?=$i;?></td>
+		<td class="grid-cell" valign="top" style="font-size:10px;color:#3300CC">{$rows.NAMA_VESSEL} | {$rows.VOYAGE}</td>
+		<td class="grid-cell" align ="center" valign="top" style="font-size:10px;color:#3300CC">{$rows.SIZE_CONT}</td>
+		<td class="grid-cell" align ="center" valign="top" style="font-size:10px;color:#3300CC">{$rows.TYPE_CONT}</td>
+		<td class="grid-cell" align ="center" valign="top" style="font-size:10px;color:#3300CC">{$rows.STATUS_CONT}</td>
+				<td class="grid-cell" align ="center" valign="top" style="font-size:10px;color:#3300CC">{$rows.BOX}</td>
+		<td class="grid-cell" align ="center" valign="top" style="font-size:10px;color:#3300CC">{$rows.TEUS}</td>
+		<td class="grid-cell" align ="center" valign="top" style="font-size:10px;color:#3300CC">{$rows.ID_PEL_TUJ}</td>
+		<td class="grid-cell" align ="center" valign="top" style="font-size:10px;color:#3300CC">{$rows.PELABUHAN_TUJUAN}</td>
+		<td class="grid-cell" align ="center" valign="top" style="font-size:10px;color:#3300CC">
+		<input type="button"  value=" Edit " onclick="edit('{$rows.SIZE_CONT}','{$rows.TYPE_CONT}','{$rows.STATUS_CONT}','{$rows.BOX}','{$rows.TEUS}','{$rows.ID_PEL_TUJ}','{$rows.PELABUHAN_TUJUAN}','{$rows.ID_VS}')" /> <input type="button" onclick="delete('{$rows.ID_BOOK}')" value=" Delete " />
+		</td>
+	</tr>
+	<? $i++;?>	
+	</fill>
+	</table>
+	<br><br>
+	
+</div>

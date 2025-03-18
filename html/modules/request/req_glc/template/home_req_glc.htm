@@ -1,0 +1,306 @@
+<style>
+.content{
+	width:95%;
+	margin-left:auto;
+	margin-right:auto;
+	margin-bottom: 10px;
+	margin-top:20px;
+}
+.main_side{
+	width:100%;
+	float:left;
+	text-align:left;
+}
+.rightside{ 
+	width:25%;
+	float:right;
+	text-align:center;
+}
+.ganjil {
+  background-color: #FFF; /* Warna untuk baris ganjil */
+}
+.genap {
+  background-color: #bbe3fe; /* Warna untuk baris genap */
+}
+#terminal{
+		width:40%;
+    	height:25px;
+		font-size:16px;
+}
+#remark{
+		width:53%;
+    	height:25px;
+		font-size:14px;
+}   
+
+</style>
+
+<!--<script type="text/javascript">
+  $(document).ready(function() {
+    $("tr:odd").addClass("ganjil");
+    $("tr:even").addClass("genap");
+  }); 
+</script>-->
+
+<script type="text/javascript">
+      	$(document).ready(function()
+        {
+	     	 $("#eta").datepicker({
+                                        dateFormat: 'd/m/yy'
+                  
+                                        });
+             $("#etd").datepicker({
+                                        dateFormat: 'd/m/yy'
+                  
+                                        }); 
+				
+			var watermark = 'Autocomplete';
+			<!------------------- watermark PBM ------------> 
+			//init, set watermark text and class
+			$('#pbm').val(watermark).addClass('watermark');
+			//if blur and no value inside, set watermark text and class again.
+			$('#pbm').blur(function(){
+				if ($(this).val().length == 0){
+					$(this).val(watermark).addClass('watermark');
+				}
+			});
+		 
+			//if focus and text is watermrk, set it to empty and remove the watermark class
+			$('#pbm').focus(function(){
+				if ($(this).val() == watermark){
+					$(this).val('').removeClass('watermark');
+				}
+		    });
+			<!------------------- watermark PBM ------------>
+			
+			<!------------------- watermark Vessel ------------>
+			$('#vessel').val(watermark).addClass('watermark');
+			//if blur and no value inside, set watermark text and class again.
+			$('#vessel').blur(function(){
+				if ($(this).val().length == 0){
+					$(this).val(watermark).addClass('watermark');
+				}
+			});
+		 
+			//if focus and text is watermrk, set it to empty and remove the watermark class
+			$('#vessel').focus(function(){
+				if ($(this).val() == watermark){
+					$(this).val('').removeClass('watermark');
+				}
+		    });
+			<!------------------- watermark Vessel ------------>
+											
+	   });
+		
+		
+$(function() {
+	
+	$("#req_list").load("<?=HOME?><?=APPID?>/list_req #request_list");
+	
+	<!------------------- autocomplete PBM ------------>
+	$( "#pbm" ).autocomplete({
+		minLength: 3,
+		source: "{$HOME}{$APPID}.auto/pbm",
+		focus: function( event, ui ) {
+			$( "#pbm" ).val( ui.item.NAMA );
+			return false;
+		},
+		select: function( event, ui ) {
+			$( "#pbm" ).val( ui.item.NAMA );
+			$( "#kode_pbm" ).val( ui.item.KODE_PBM );
+            $( "#alamat" ).val( ui.item.ALAMAT );
+			$( "#npwp" ).val( ui.item.NPWP);
+			return false;
+		}
+	})
+	.data( "autocomplete" )._renderItem = function( ul, item ) {
+		return $( "<li></li>" )
+			.data( "item.autocomplete", item )
+			.append( "<a>" + item.NAMA + "<br/> "+item.ALAMAT+"<br/> "+item.NPWP+ "</a>" )
+			.appendTo( ul );
+	};
+	<!------------------- autocomplete PBM ------------>
+	
+	<!------------------- autocomplete Vessel ------------>
+	$( "#vessel" ).autocomplete({
+		minLength: 3,
+		source: "{$HOME}{$APPID}.auto/vessel",
+		focus: function( event, ui ) {
+			$( "#vessel" ).val( ui.item.NAMA_VESSEL );
+			return false;
+		},
+		select: function( event, ui ) {
+			$( "#vessel" ).val( ui.item.NAMA_VESSEL );
+			$( "#kode_kapal" ).val( ui.item.KODE_KAPAL );
+			return false;
+		}
+	})
+	.data( "autocomplete" )._renderItem = function( ul, item ) {
+		return $( "<li></li>" )
+			.data( "item.autocomplete", item )
+			.append( "<a>" + item.NAMA_VESSEL + "</a>" )
+			.appendTo( ul );
+	};
+	<!------------------- autocomplete Vessel ------------>
+	
+});
+
+function add_req()
+{
+	var no_uper_ 	= $("#no_uper").val();
+	var remark_		= $("#remark").val(); //req,realisasi
+	var kode_kapal_	= $("#kode_kapal").val();
+	var voyage_ 	= $("#voyage").val();
+	var kode_pbm_	= $("#kode_pbm").val();
+	var eta_		= $("#eta").val();
+	var etd_		= $("#etd").val();
+	var terminal_	= $("#terminal").val();
+	var eta_jam_	= $("#eta_jam").val();
+	var eta_menit_	= $("#eta_menit").val();
+	var etd_jam_	= $("#etd_jam").val();
+	var etd_menit_	= $("#etd_menit").val();
+	var kade_       = $("#kade").val();
+	//var estimasi_	= $("#estimasi").val();
+	var url			= "{$HOME}{$APPID}.ajax/add_request";
+	
+	
+	$.post(url,{no_uper : no_uper_, remark : remark_, kode_kapal : kode_kapal_, voyage : voyage_, kode_pbm : kode_pbm_, eta : eta_, eta_jam : eta_jam_, eta_menit : eta_menit_, etd : etd_, etd_jam : etd_jam_, etd_menit : etd_menit_, kade : kade_, terminal : terminal_},function(data){
+		console.log(data);
+		if(data == "OK")
+		{
+			$('#req_list').html('<img src="<?=HOME?>images/loadingbox.gif" />');
+			$("#req_list").load('<?=HOME?><?=APPID?>/list_req #request_list', function(data) {        	  
+			}); 	
+		}
+		else if(data == "NO")
+		{
+			alert("Data inputan tidak lengkap...Silakan dicek kembali!!!");
+		}
+	});	
+	//prosedur add comment disini, method $.post, include user id dan content id
+}
+
+
+function search_request()
+{	
+	var cari_	  = "cari"; 
+	var keyword_  = $("#keyword").val();
+	var url 	  = "<?=HOME?><?=APPID?>/list_req #request_list";
+	 
+	$('#req_list').html('<img src="<?=HOME?>images/loading_box.gif" />'); 
+	$("#req_list").load(url,{KEYWORD : keyword_, CARI : cari_}, function(data){
+	
+	});
+
+}
+
+
+</script>
+
+<div class="content">
+	<div class="main_side">
+	<h2><span class="graybrown">
+    	<img class="icon" border="0" src="images/sp2_p.png" />
+        &nbsp;<font color="#0378C6">Permintaan</font> Sewa GLC
+        </span></h2>
+	<p><br/>
+	<fieldset class="form-fieldset" style="padding: 10px 10px 10px 10px;">
+	  
+      <table>
+		<tr>
+			<td>NO UPER B/M</td>
+			<td>&nbsp;&nbsp;:&nbsp;&nbsp;</td>
+            <td><input type="text" name="no_uper" id="no_uper"/></td>
+            <td width="170"></td>
+            <td>KADE</td>
+			<td>&nbsp;&nbsp;:&nbsp;&nbsp;</td>
+            <td><input type="text" name="kade" id="kade" size="8"/></td>
+		</tr>
+		<tr>
+			<td>PENGGUNA JASA</td>
+			<td>&nbsp;&nbsp;:&nbsp;&nbsp;</td>
+            <td><input type="text" name="pbm" id="pbm" style="background-color:#FFFF99" title="Autocomplete"/>
+                <input type="hidden" name="kode_pbm" id="kode_pbm" /></td>
+            <td></td>
+            <td>TERMINAL</td>
+			<td>&nbsp;&nbsp;:&nbsp;&nbsp;</td>
+            <td><select name="terminal" id="terminal">
+			  <option value="1">TO1</option>
+			  <option value="2">TO2</option>
+              <option value="3">TO3</option>
+			    </select></td>
+		</tr>
+		<tr>
+			<td>ALAMAT</td>			
+			<td>&nbsp;&nbsp;:&nbsp;&nbsp;</td>
+            <td><input type="text" name="alamat" id="alamat" size="35" style="background-color:#FFFF99" disabled="disabled" /></td>
+            <td></td>
+            <td>ETA</td>
+			<td>&nbsp;&nbsp;:&nbsp;&nbsp;</td>
+            <td><input type="text" name="eta" id="eta" size="10"/>&nbsp;&nbsp;&nbsp;<input type="text" name="eta_jam" id="eta_jam" size="2" maxlength="2"/>&nbsp;:&nbsp;<input type="text" name="eta_menit" id="eta_menit" size="2" maxlength="2"/></td>
+		</tr>
+        <tr>
+			<td>NPWP</td>			
+			<td>&nbsp;&nbsp;:&nbsp;&nbsp;</td>
+            <td><input type="text" name="npwp" id="npwp" style="background-color:#FFFF99" disabled="disabled" /></td>
+            <td></td>
+            <td>ETD</td>
+			<td>&nbsp;&nbsp;:&nbsp;&nbsp;</td>
+            <td><input type="text" name="etd" id="etd" size="10"/>&nbsp;&nbsp;&nbsp;<input type="text" name="etd_jam" id="etd_jam" size="2" maxlength="2"/>&nbsp;:&nbsp;<input type="text" name="etd_menit" id="etd_menit" size="2" maxlength="2"/></td>
+		</tr>
+        <tr>
+			<td>VESSEL / VOYAGE</td>
+			<td>&nbsp;&nbsp;:&nbsp;&nbsp;</td>
+            <td><input type="text" name="vessel" id="vessel" title="Autocomplete" style="background-color:#FFCCFF" />
+                <input type="hidden" name="kode_kapal" id="kode_kapal" /> / <input type="text" name="voyage" id="voyage" size="10" style="background-color:#FFCCFF" /></td>
+            <td></td>
+            <td>REMARK</td>
+			<td>&nbsp;&nbsp;:&nbsp;&nbsp;</td>
+            <td><select name="remark" id="remark">
+			  <option value="SHIFT">Shift</option>
+			  <option value="NON SHIFT">Box/Ton</option>
+			    </select></td>
+		</tr>
+        <tr></tr>        
+      </table>
+      <br/>      
+	  <a class="link-button" style="height:25" onclick="add_req()">
+            <img border="0" src="<?=HOME?>images/tambah.png">
+            Tambah Permintaan
+            </a>
+	</fieldset> 
+    <br/>
+     <fieldset class="form-fieldset" style="padding: 10px 10px 10px 10px;">
+     <table>
+     	<tr>
+        	<td></td>
+            <td></td>
+        	<td><div style="padding:10px;font-family:Arial; font-size:10pt; color:#555555; font-weight:bold">
+            PENCARIAN NO REQ &nbsp;
+            <input type="text" name="keyword" id="keyword" /> &nbsp;
+            <a id="searchButton" class="link-button" style="height:25" onclick="search_request()">
+            <img border="0" src="<?=HOME?>images/cari.png">
+            Cari
+            </a>
+            </div></td>
+        </tr>
+        <tr>
+        	<td></td>
+            <td></td>
+            <td><div style="color:#F00; font-weight:bold" colspan="7">
+                <blink>&nbsp;&nbsp;&nbsp;&nbsp;*RECORD DATA DI LIMIT HANYA SAMPAI 20 DATA. JIKA TIDAK ADA PADA LIST DATA SILAHKAN MASUKKAN NO PERMINTAAN PADA INPUT DI ATAS.</blink>
+                </div>
+                </td>
+        </tr>
+     </table>   
+     </fieldset>
+	</p>
+	<p><br/>
+	  </p>
+		
+	<div id="req_list" align="center"></div>
+    
+	<br/>
+	<br/>
+	</div>
+</div>

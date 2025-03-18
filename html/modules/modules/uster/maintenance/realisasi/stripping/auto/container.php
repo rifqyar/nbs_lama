@@ -1,0 +1,28 @@
+<?php
+if($_SESSION["ID_ROLE"] != 1 && $_SESSION["ID_ROLE"] != 41)
+{
+	exit();
+}
+
+$no_cont		= strtoupper($_GET["term"]);
+
+$db 			= getDB("storage");
+	
+$query 			= "SELECT MASTER_CONTAINER.NO_CONTAINER, 
+                          MASTER_CONTAINER.SIZE_ AS SIZE_, 
+                          MASTER_CONTAINER.TYPE_ AS TYPE_,
+						  CONTAINER_STRIPPING.VIA AS VIA,
+						  CONTAINER_STRIPPING.TGL_BONGKAR AS TGL_REQUEST,
+						  CONTAINER_STRIPPING.NO_REQUEST AS NO_REQUEST,
+						  REQUEST_STRIPPING.TGL_REQUEST AS TGL_REQUEST				  
+				   FROM MASTER_CONTAINER  INNER JOIN CONTAINER_STRIPPING ON MASTER_CONTAINER.NO_CONTAINER = CONTAINER_STRIPPING.NO_CONTAINER JOIN REQUEST_STRIPPING ON CONTAINER_STRIPPING.NO_REQUEST = REQUEST_STRIPPING.NO_REQUEST
+                   WHERE MASTER_CONTAINER.NO_CONTAINER LIKE '%$no_cont%' AND LOCATION = 'IN_YARD' AND AKTIF = 'Y'";
+$result			= $db->query($query);
+$row			= $result->getAll();	
+
+//print_r($row);
+
+echo json_encode($row);
+
+
+?>

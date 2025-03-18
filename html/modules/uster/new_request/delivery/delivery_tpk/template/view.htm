@@ -1,0 +1,52 @@
+<span class="graybrown"><img src='images/sp2_p.png' border='0' class="icon"/><font color="#0378C6"> Request</font> Delivery - SP2</span><br/><br/>
+<fieldset class="form-fieldset" style="margin: 5px 5px 5px 5px; ">
+<form action="<?=HOME?><?=APPID?>/add_do" method="POST">
+	<center>
+     <table class="form-input" style="border:1px; margin: 30px 30px 30px 30px;" >
+    	
+       <tr>
+            <td  class="form-field-caption">Vessel/Voyage</td>
+            <td> : </td>
+            <td><input type="text" name="VESSEL" size="40" id="VESSEL" placeholder="{$row_request.VESSEL}"/>
+                <input type="text" size="5" name="VOYAGE" id="VOYAGE" placeholder="{$row_request.VOYAGE}"/>
+            </td>
+            <td width="100"></td>
+            <td  class="form-field-caption">NO PEB - NPE</td>
+            <td> : </td>
+            <td> <input type="text" name="peb" style="width:100px" placeholder="{$row_request.PEB}"/>
+            <input type="text" name="npe" style="width:100px" placeholder="{$row_request.NPE}"/></td>
+    	</tr>
+    	<tr>
+            <td  class="form-field-caption">E.M.K.L</td>
+            <td> : </td>
+            <td> <input type="text" name="EMKL" size="40"id="EMKL" placeholder="{$row_request.NAMA_EMKL}"/> <input type="hidden" name="ID_EMKL" id="ID_EMKL" /> </td>
+            <td width="100"></td>
+            <td  class="form-field-caption">Keterangan</td>
+            <td> : </td>
+            <td> <input type="text" name="keterangan" style="width:250px" placeholder="{$row_request.KETERANGAN}"/></td>
+    	</tr>
+            <td width="150" class="form-field-caption"> Tanggal Request Delivery</td>
+            <td> : </td>
+            <td width="300" colspan="4"><input type="text" name="tgl_dev"  id="tgl_dev" placeholder="{$row_request.TGL_REQUEST_DELIVERY}"/> </td>
+    	</tr>
+	</table>
+    </center>
+</form>
+</fieldset>
+
+<fieldset class="form-fieldset" style="margin: 5px 5px 5px 5px; ">
+	<center>
+	
+    <div id="cont_list" style="margin: 10px 10px 10px 10px;">
+    
+    </div>
+    
+	</center>
+</fieldset>
+
+<script>
+$(function() {	
+	$("#cont_list").load('<?=HOME?><?=APPID?>/cont_list?no_req={$row_request.NO_REQUEST} #list', function(data) {        	  
+	}); 	
+});
+</script>

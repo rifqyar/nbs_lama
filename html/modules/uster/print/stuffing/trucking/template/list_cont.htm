@@ -1,0 +1,30 @@
+
+<div id="list">
+	<table width="100%">
+    	<thead>
+        	<tr>
+            	<th class="grid-header"  style="font-size:8pt">No.</th>
+            	<th class="grid-header"  style="font-size:8pt">NO CONTAINER</th>
+                <th class="grid-header"  style="font-size:8pt">COMMODITY</th>
+                <th class="grid-header"  style="font-size:8pt">JENIS STUFFING</th>
+                <th class="grid-header"  style="font-size:8pt">HZ</th>
+                <th class="grid-header"  style="font-size:8pt">&nbsp;</th>
+            </tr>
+        </thead>
+        <tbody>
+        	<fill src="row_cont" var="rows">
+		   	<alt var='bg' list='#f9f9f3,#ffe'/>
+        	<tr bgcolor="{$bg}" style="cursor:pointer;">
+            	<td class="grid-cell" align="center" style="font-size:9pt">{$__ctr}</td>
+            	<td class="grid-cell" align="center" style="font-size:9pt"><b>{$rows.NO_CONTAINER}</b></td>
+            	<td class="grid-cell" align="center" style="font-size:9pt"><font color="#0066CC" style="font-size:10pt">{$rows.COMMODITY}</font></td>
+            	<td class="grid-cell" align="center" style="font-size:9pt"><font color="#0066CC" style="font-size:10pt">{$rows.TYPE_STUFFING}</font></td>
+            	<td class="grid-cell" align="center" style="font-size:9pt"><font color="#0066CC" style="font-size:10pt">{$rows.HZ}</font></td>
+            	<td class="grid-cell" align="center" style="font-size:9pt">
+                    <a href="{$HOME}{$APPID}.print/print_card_praya?no_req={$rows.NO_REQUEST}&no_cont={$rows.NO_CONTAINER}" target="_blank"><img src="images/printer.png"> Cetak 4 Ply Kartu Truk </a>                         
+                </td>
+            </tr>
+            </fill>
+        </tbody>
+    </table>
+</div>

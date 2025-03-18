@@ -1,0 +1,279 @@
+<style>
+.content{
+	width:95%;
+	margin-left:auto;
+	margin-right:auto;
+	margin-bottom: 10px;
+	margin-top:20px;
+}
+</style>
+<script type="text/javascript">
+jQuery(function() {
+ jQuery("#booking").jqGrid({
+	url:'<?=HOME?>datanya/data?q=hatch',
+	mtype : "post",
+	datatype: "json",
+	colNames:['','Nama Kapal','Voyage in','Voyage out','ETA','ETD','Pelabuhan Asal','Pelabuhan Tujuan'], 
+	colModel:[
+		{name:'aksi', width:50, align:"center",sortable:false,search:false},
+		{name:'nama_kapal',index:'nama_kapal', width:200, align:"center"},
+		{name:'voyage',index:'voyage', width:100, align:"center"},
+		{name:'voyage_',index:'voyage_', width:80, align:"center"},
+		{name:'etd',index:'etd', width:80, align:"center"},
+		{name:'rta',index:'rta', width:80, align:"center"},
+		{name:'rtd',index:'rtd', width:100, align:"center"},
+		{name:'status',index:'status', width:100, align:"center"}
+	],
+	rowNum:6,
+	width: 865,
+	height: "100%",//250
+
+	rowList:[10,20,30,40,50,60],
+	loadonce:true,
+	rownumbers: true,
+	rownumWidth: 15,
+	gridview: true,
+	pager: '#pg_l_booking',
+	viewrecords: true,
+	shrinkToFit: false,
+	caption:"Booking Shipping Line"
+ });
+  jQuery("#booking").jqGrid('navGrid','#pg_l_booking',{del:false,add:false,edit:false,search:false}); 
+ jQuery("#booking").jqGrid('filterToolbar',{stringResult: true,searchOnEnter : false});
+ 
+});
+
+function reqbh_entry()
+{
+	var url = "<?=HOME?>request.behandle.ajax/add_reqbh";
+	var jum_detail = $("#jum_detail").val();
+	var counter = "";
+	var no_cont = "";
+	var id_brg = "";
+	var hz = "";	
+	var jns_cont = "";	
+	for (var i=1; i<=jum_detail; i++) {
+		if(counter=="")	counter = $("#counter"+i).val();
+		else			counter = counter + "&" + $("#counter"+i).val();
+		if(no_cont=="")	no_cont = $("#no_cont"+i).val();
+		else			no_cont = no_cont + "&" + $("#no_cont"+i).val();
+		if(id_brg=="")	id_brg = $("#id_brg"+i).val();
+		else			id_brg = id_brg + "&" + $("#id_brg"+i).val();
+		if(hz=="")		hz = $("#hz"+i).val();
+		else			hz = hz + "&" + $("#hz"+i).val();
+		if(jns_cont=="")		jns_cont = $("#jns_cont"+i).val();
+		else			jns_cont = jns_cont + "&" + $("#jns_cont"+i).val();
+	}
+	
+	$.blockUI({ message: '<h1><br>Please wait...</h1><br><img src=<?=HOME;?>images/103.gif width="30" height="30" /><br><br>' });
+	$.post(url,{TIPE : $("#tipe_req").val(), VESSEL : $("#vessel").val(), VOYAGE : $("#voyage").val(), NO_UKK : $("#no_ukk").val(), SHIPPING : $("#shipping").val(), EMKL : $("#emkl").val(), COA : $("#coa").val(), ALAMAT : $("#alamat").val(), NPWP : $("#npwp").val(), NO_BC : $("#no_bc_i").val(), KET : $("#ket").val(), JUM_DETAIL : jum_detail, COUNTER : counter, NO_CONT : no_cont, ID_BRG : id_brg, HZ : hz, JNS_CONT : jns_cont},function(data){
+		//alert(data);
+		//console.log(data);
+		if(data == "OK")
+		{
+			$.unblockUI({
+			onUnblock: function(){ }
+			});
+			alert("Success...");
+			window.location = "<?=HOME?>request.behandle/";
+		}
+		else if(data == "KO")
+		{
+			$.unblockUI({
+			onUnblock: function(){ }
+			});
+			alert("Gagal Insert! \nData uper untuk PKK tersebut sudah ada \nHarap cek kembali");
+			window.location = "<?=HOME?>request.behandle/";
+		}
+		else
+		{
+			$.unblockUI({
+			onUnblock: function(){ }
+			});
+			alert("Failed...");
+			window.location = "<?=HOME?>request.behandle/";
+		}
+	});	
+}
+
+function add_reqbh()
+{
+	$('#add_reqbh').load("<?=HOME?>request.behandle.ajax/reqbh_insert").dialog({closeOnEscape: false, modal:true, height:600,width:600, title : "Insert Request Behandle", open: function(event,ui){$(".ui-dialog-titlebar-close",ui.dialog).hide();}});
+}
+
+function reqbh_edit(id)
+{
+	var url			= "<?=HOME?>operational.hatch_move.ajax/edit_reqbh";
+	var jum_detail = $("#jum_detail").val();
+	var counter = "";
+	var bay = "";
+	var alat = "";
+	var open = "";	
+	var move_date = "";	
+	var opr = "";
+	var oi = "";
+	var jmlh = "";	
+	for (var i=1; i<=jum_detail; i++) {
+		if(counter=="")	counter = $("#counter"+i).val();
+		else			counter = counter + "&" + $("#counter"+i).val();
+		if(bay=="")	bay = $("#bay"+i).val();
+		else			bay = bay + "&" + $("#bay"+i).val();
+		if(alat=="")	alat = $("#alat"+i).val();
+		else			alat = alat + "&" + $("#alat"+i).val();
+		if(open=="")	open = $("#open"+i).val();
+		else			open = open + "&" + $("#open"+i).val();
+		if(move_date=="")		move_date = $("#move_date"+i).val();
+		else			move_date = move_date + "&" + $("#move_date"+i).val();
+		if(opr=="")		opr = $("#opr"+i).val();
+		else			opr = opr + "&" + $("#opr"+i).val();
+		if(oi=="")		oi = $("#oi"+i).val();
+		else			oi = oi + "&" + $("#oi"+i).val();
+		if(jmlh=="")		jmlh = $("#jmlh"+i).val();
+		else			jmlh = jmlh + "&" + $("#jmlh"+i).val();
+	}
+	
+	$.blockUI({ message: '<h1><br>Please wait...</h1><br><img src=<?=HOME;?>images/103.gif width="30" height="30" /><br><br>' });
+	$.post(url,{NO_UKK : $("#no_ukk").val(), VESSEL : $("#vessel").val(), VOYAGE : $("#voyage").val(), EMKL : $("#emkl").val(), TGL_TIBA : $("#tgl_tiba").val(), TGL_BRGKT : $("#tgl_brgkt").val(), JUM_DETAIL : jum_detail, COUNTER : counter, BAY : bay, ALAT : alat, OPEN : open, MOVE_DATE : move_date, OPR : opr, OI : oi, JMLH : jmlh},function(data){
+		//alert(data);
+		if(data == "OK")
+			{
+				$.unblockUI({
+				onUnblock: function(){ }
+				});
+				alert("Success...");
+				window.location = "<?=HOME?>operational.hatch_move/";
+			}
+		else if(data == "NO")
+			{
+				$.unblockUI({
+				onUnblock: function(){ }
+				});
+				alert("Data Not Complete...");
+				window.location = "<?=HOME?>operational.hatch_move/";
+			}
+		else
+			{
+				$.unblockUI({
+				onUnblock: function(){ }
+				});
+				alert("Failed...");
+				window.location = "<?=HOME?>operational.hatch_move/";
+			}
+	});	
+}
+
+function edit_reqbh(id)
+{
+	$('#edit_reqbh').load("<?=HOME?>operational.hatch_move.ajax/reqbh_edit?id="+id).dialog({closeOnEscape: false, modal:true, height:600,width:600, title : "Add Hatch Move", open: function(event,ui){$(".ui-dialog-titlebar-close",ui.dialog).hide();}});
+}
+
+function validation(tableid, id)
+{
+	var cek = true;
+	var tbl = document.getElementById(tableid);
+	var lastRow = tbl.rows.length - 1;
+	var i=0;
+	
+	if($('#tipe_req').val()=="") {
+		alert("Jenis Request harap dipilih!");
+		cek = false;
+	}
+	else if($('#vessel').val()=="" || $('#no_ukk').val()=="") {
+		alert("Vessel harap diisi!");
+		cek = false;
+	}
+	else if($('#emkl').val()=="" || $('#npwp').val()=="") {
+		alert("Pelanggan harap diisi!");
+		cek = false;
+	}
+	else if($('#no_bc_i').val()=="") {
+		alert("No Instruksi Pemeriksaan harap diisi!");
+		cek = false;
+	}
+	else if(lastRow > 0) {
+		for (i=1; i<=lastRow; i++) {		  
+		  if ($('#no_cont'+i).val()=="" || $('#id_brg'+i).val()=="") {
+			alert('Data Container ke-' + i + ' kosong / tidak valid, harap periksa kembali!');
+			cek = false;
+			break;
+		  }
+		}			
+	}
+	else {
+		alert('Data Container kosong!');
+		cek = false;
+	}
+	if(cek) {
+		question = confirm("data akan disimpan, cek apakah data sudah benar?")
+		if(typeof(id)==='undefined')	reqbh_entry();
+		else							reqbh_edit(id);
+	}
+}
+
+function send_keu(id)
+{
+	question = confirm("data akan dikirim ke simkeu dan tidak dapat di-edit lagi,\napa anda yakin?")
+	if (question != "0") {
+		var url	= "<?=HOME?>request.behandle.ajax/send_keu";
+	
+		$.blockUI({ message: '<h1><br>Please wait...</h1><br><img src=<?=HOME;?>images/103.gif width="30" height="30" /><br><br>' });
+		$.post(url,{ID_REQUEST : id},function(data){
+			//alert(data);
+			if(data == "OK")
+				{
+					$.unblockUI({
+					onUnblock: function(){ }
+					});
+					alert("Success...");
+					window.location = "<?=HOME?>request.behandle/";
+				}
+			else if(data == "NO")
+				{
+					$.unblockUI({
+					onUnblock: function(){ }
+					});
+					alert("Data Not Complete...");
+					window.location = "<?=HOME?>request.behandle/";
+				}
+			else
+				{
+					$.unblockUI({
+					onUnblock: function(){ }
+					});
+					alert("Failed...");
+					window.location = "<?=HOME?>request.extramovement/";
+				}
+		});	
+	}
+}
+</script>
+
+
+
+<div class="content">
+<div class="main_side">
+<p>
+<span class="graybrown">
+<img class="icon" border="0" src="images/movement.png" height="7%" width="7%" >
+Hatch Move
+</span>
+</p>
+<br>
+<br>
+<p>
+<!--<a class="link-button" href="<?=HOME?>request.behandle/add_req">-->
+</p>
+<br/>
+<table id='booking' width="100%"></table> <div id='pg_l_booking'></div>
+<div id="dialog-form">
+<form id="mainform">
+	<!--<input type="hidden" name="tes" value="tes"/>-->
+	<div id="add_reqbh"></div>
+	<div id="edit_reqbh"></div>
+</form>
+</div>
+
+</div>	
+
+</div>
+

@@ -1,0 +1,35 @@
+<div id="alat_input">
+<br>
+<form method="post" enctype="multipart/form-data" action="<?=HOME?>planning.profil/upload_save?id_vs={$req}">
+		<table>
+			<tr height='20'>
+				<td class="form-field-caption" align="right"></td>
+				<td class="form-field-caption" align="right"></td>
+				<td></td>			
+			</tr>
+			<tr>
+				<td class="form-field-caption" align="right">Container Crane</td>
+				<td class="form-field-caption" align="right"> : </td>
+				<td class="form-field-caption" align="left">
+					<select id="alat" name="alat">
+						<option value="-"> -- Pilih --</option>
+					    <fill src="list_alat" var="alats">
+						<option value="<?=$alats['ID_ALAT']?>"><?=$alats['NAMA_ALAT']?></option>
+						</fill>
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="3">&nbsp;</td>
+			</tr>
+			<tr>
+				<td colspan="3" align="right"> <input type="submit" name="alokasi" value="Alokasi" /> </td>
+			</tr>
+			<tr height='20'>
+				<td class="form-field-caption" align="right"></td>
+				<td class="form-field-caption" align="right"></td>
+				<td></td>			
+			</tr>
+		</table>
+	</form>
+</div>

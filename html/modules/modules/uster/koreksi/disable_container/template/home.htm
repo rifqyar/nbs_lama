@@ -1,0 +1,241 @@
+<body>
+<style>
+.trstyle{
+	font-family:Tahoma; 
+	font-size:16pt; 
+	height:25px; 
+	text-align:center;
+	background-color:#FFFFFF;
+}
+.trhead{
+	text-align:center;
+	height:25px; 
+	background-color:#006699;
+	color:#FFFFFF;
+	font-family:Tahoma; 
+	font-family:Tahoma; 
+	font-size:16pt;
+}
+
+
+</script><style>
+body {
+	padding:20px 20px;
+	font-family:"Lucida Grande","bitstream vera sans","trebuchet ms",sans-serif,verdana;
+}
+
+/* get rid of those system borders being generated for A tags */
+a:active {
+  outline:none;
+}
+
+:focus {
+  -moz-outline-style:none;
+}
+	
+	
+/* tab pane styling */
+.panes div {
+	display:none;		
+	padding:15px 10px;
+	border:1px solid #999;
+	border-top:0;
+	height:180px;
+	font-size:14px;
+	background-color:#fff;
+}
+/* root element for tabs  */
+ul.tabs { 
+	list-style:none; 
+	margin:0 !important; 
+	padding:0;	
+	border-bottom:1px solid #666;	
+	height:30px;
+}
+
+/* single tab */
+ul.tabs li { 
+	float:left;	 
+	text-indent:0;
+	padding:0;
+	margin:0 !important;
+	list-style-image:none !important; 
+}
+
+/* link inside the tab. uses a background image */
+ul.tabs a { 
+	background: url(http://118.97.72.37/petikemas/images/blue.png) no-repeat -420px 0; 
+	font-size:11px;
+	display:block;
+	height: 30px;  
+	line-height:30px;
+	width: 135px;
+	text-align:center;	
+	text-decoration:none;
+	color:#333;
+	padding:0px;
+	margin:0px;	
+	position:relative;
+	top:1px;
+}
+
+ul.tabs a:active {
+	outline:none;		
+}
+
+/* when mouse enters the tab move the background image */
+ul.tabs a:hover {
+	background-position: -420px -31px;	
+	color:#fff;	
+}
+
+/* active tab uses a class name "current". its highlight is also done by moving the background image. */
+ul.tabs a.current, ul.tabs a.current:hover, ul.tabs li.current a {
+	background-position: -420px -62px;		
+	cursor:default !important; 
+	color:#000 !important;
+}
+
+/* Different widths for tabs: use a class name: w1, w2, w3 or w2 */
+
+
+/* width 1 */
+ul.tabs a.s 			{ background-position: -553px 0; width:81px; }
+ul.tabs a.s:hover 	{ background-position: -553px -31px; }
+ul.tabs a.s.current  { background-position: -553px -62px; }
+
+/* width 2 */
+ul.tabs a.l 			{ background-position: -248px -0px; width:174px; }
+ul.tabs a.l:hover 	{ background-position: -248px -31px; }
+ul.tabs a.l.current  { background-position: -248px -62px; }
+
+
+/* width 3 */
+ul.tabs a.xl 			{ background-position: 0 -0px; width:248px; }
+ul.tabs a.xl:hover 	{ background-position: 0 -31px; }
+ul.tabs a.xl.current { background-position: 0 -62px; }
+
+
+/* initially all panes are hidden */ 
+.panes .pane {
+	display:none;		
+}
+</style><span class="graybrown"><img src='images/dokumenbig.png' border='0' class="icon"/>Form Disable Container [Delivery]</span><br/><br/>
+<form enctype="multipart/form-data" method="post" class="form-input" name="formyard">
+<input type="hidden" name="__pbkey" value="" />
+<table class="form-input" border='0' width="100%">
+<tr>
+<td width="50%" valign="top">
+	<table class="form-input" border='0' width="100%">
+	<center>
+	<tr>
+		<td width="120" colspan="2"  align="right"  style="font-size:16px; font-weight:bold; font-family:Tahoma; color:#999" height="40">
+		No Container 
+		<td >
+		<input style="font-size:26px; font-weight:bold;" id="NO_CONT" size="14" class="suggestuwriter" type="text" maxlength="11" value="" /> (min.8 karakter) 		
+		</td>
+	</tr>
+	<tr>
+		<td width="100"  height="7" align="right"  class="form-field-caption">SIZE/TYPE/STATUS</td>
+		<td align="left" colspan="5">
+			<input name="VESSEL" type="text" id="SIZE" value="" size="3" style="background-color:#FFEAC4;font-weight:bold;" readonly="readonly" />
+			<input name="VESSEL" type="text" id="TYPE" value="" size="3" style="background-color:#FFEAC4;font-weight:bold;" readonly="readonly" />
+			<input name="VESSEL" type="text" id="STATUS" value="" size="3" style="background-color:#FFEAC4;font-weight:bold;" readonly="readonly" />  
+			<!--<input name="VESSEL" type="text" id="id_OPR" value="" size="20" style="background-color:#FFEAC4;" readonly="readonly" />-->
+		</td>
+	</tr>
+	<tr>
+		<td width="100"  height="7" align="right"  class="form-field-caption">NO REQUEST </td>
+		<td align="left" colspan="5">
+			<input name="NO_REQ" type="text" id="NO_REQ" style="background-color:#FFCCFF;color:#0000CC" value="" size="40" readonly="readonly" />&nbsp; 
+		</td>
+	</tr>
+	<tr>
+		<td width="100"  height="7" align="right"  class="form-field-caption">NO NOTA</td>
+		<td align="left" colspan="5">
+			<input name="NO_NOTA" type="text" id="NO_NOTA" value="" size="40" style="background-color:#FFCCFF;" readonly="readonly" /> 
+		</td>
+	</tr>
+	
+	
+	</table>
+
+	</td>
+	</center>
+	
+	</tr><tr><td colspan="12" align="center" >
+	<a id="resetForm" onclick="disable_container()" class="link-button" ><img src='images/disk.png' border='0' />&nbsp;Disable Container</a>
+	&nbsp;</td></tr>
+	</table>
+	
+	</form>
+	<div id="result"></div>
+	 
+	
+	</table>
+	</body></html>
+	
+<script>
+
+$(function() {	
+	$("#NO_CONT" ).autocomplete({
+			minLength: 8,
+			source: "{$HOME}{$APPID}.auto/container",
+			focus: function( event, ui ) {
+				$("#NO_CONT").val( ui.item.NO_CONTAINER );
+				return false;
+			},
+			select: function( event, ui ) {
+				$("#NO_CONT").val( ui.item.NO_CONTAINER );
+				$("#NO_REQ").val( ui.item.NO_REQUEST );
+				$("#NO_NOTA").val( ui.item.NO_NOTA );
+				$( "#STATUS" ).val( ui.item.STATUS);
+				$("#SIZE").val( ui.item.SIZE_);
+				$("#TYPE").val( ui.item.TYPE_);	
+				
+				//$("#result").load("<?=HOME?><?=APPID?>/get_cont_info?NO_CONT="+ui.item.NO_CONTAINER+" #list");
+				return false;
+			}
+	})
+	.data( "autocomplete" )._renderItem = function( ul, item ) {
+		return $( "<li style='text-align:left'></li>" )
+			.data( "item.autocomplete", item )
+			.append( "<a>" + item.NO_CONTAINER + "<br/> "+item.SIZE_+" "+item.TYPE_+"</a>" )
+			.appendTo( ul );
+			
+	};		
+		
+});
+
+function disable_container(){
+ if($("#NO_CONT").val() != ''){
+ 
+	var no_cont = $("#NO_CONT").val();
+	//$('#result').html('<p align=center><img src={$HOME}images/loadingbox.gif /></p>');
+	var answer = confirm("Yakin untuk menyimpan request ini?");
+	if(answer){
+		var no_req = $("#NO_REQ").val();
+		$.post("<?=HOME?><?=APPID?>/disable_cont_do",{ NO_CONT : no_cont, NO_REQ : no_req}, function(data){
+			if(data == 'OK'){
+				$.blockUI({ message: '<h1>Saved</h1>' });
+				setTimeout($.unblockUI, 2000);
+				$.unblockUI({ 
+					onUnblock: function(){ } 
+				});
+			}
+			else if(data == 'GATO') {
+				$.blockUI({ message: '<h1>Container Sudah Gato</h1>' });
+				setTimeout($.unblockUI, 2500);
+				$.unblockUI({
+					onUnblock: function(){ } 
+				});
+			}
+		});	  
+	}
+ }
+ else {
+	$.blockUI({ message: '<h1>NO CONTAINER HARUS DIISI</h1>' });
+				setTimeout($.unblockUI, 2000);
+ }
+}
+</script>

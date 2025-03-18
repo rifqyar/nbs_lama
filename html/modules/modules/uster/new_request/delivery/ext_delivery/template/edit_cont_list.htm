@@ -1,0 +1,27 @@
+<div id="list">
+     <table class="grid-table" border='0' cellpadding="1" cellspacing="1"  width="100%" >
+                              <tr style=" font-size:10pt">
+                                   <th valign="top" class="grid-header"  style="font-size:8pt">No </th>
+                                  <th valign="top" class="grid-header"  style="font-size:8pt">NO. CONTAINER </th>
+                                   <th valign="top" class="grid-header"  style="font-size:8pt">KOMODITI</th>
+                                   <th valign="top" class="grid-header"  style="font-size:8pt">VIA</th>
+                                  <th valign="top" class="grid-header"  style="font-size:8pt">HZ</th> 
+                                  <th  valign="top" class="grid-header"  style="font-size:8pt">TGL DELIVERY</th> 
+                                  <th valign="top" class="grid-header"  style="font-size:8pt">TGL PERPANJANGAN</th>
+                              </tr>
+                              <fill src="row_list" var="rows">
+                              <tr bgcolor="#f9f9f3" onMouseOver=this.style.backgroundColor="#BAD5FC" onMouseOut=this.style.backgroundColor="">
+                                  <td width="4%" align="center" valign="middle" class="grid-cell" style="color:#000; font-family:Arial; font-size:9pt">{$__ctr} </td>
+                                  <td width="22%" align="center" valign="middle" class="grid-cell"   style="font-family:Arial; font-size:11pt; color:#555555"><b>{$rows.NO_CONTAINER} <br/> {$rows.SIZE_}/{$rows.TYPE_}/{$rows.STATUS}</b>
+								  <input type="hidden" name="NO_CONT_{$__ctr}" value="{$rows.NO_CONTAINER}"/></td>
+                                    <td width="15%" align="center" valign="middle" class="grid-cell"  style="font-size:9pt;font-family:Arial;"><font color="#0066CC" style="font-size:10pt">{$rows.KOMODITI}</font></td>                                   
+                                    <td width="15%" align="center" valign="middle" class="grid-cell"  style="font-size:9pt;font-family:Arial;"><font color="#0066CC" style="font-size:10pt">{$rows.VIA}</font></td>
+                                   <td width="15%" align="center" valign="middle" class="grid-cell"  style="font-size:9pt;font-family:Arial;"><font color="#0066CC" style="font-size:10pt">{$rows.HZ}</font></td>
+                                  <td width="15%" align="center" valign="middle" class="grid-cell"  style="font-size:9pt;font-family:Arial;"><font color="#0066CC" style="font-size:10pt">{$rows.TGL_DELIVERY}</font></td>
+                                  <td width="15%" align="center" valign="middle" class="grid-cell"  style="font-size:9pt;font-family:Arial;"><font color="#0066CC" style="font-size:10pt"><input type="text" id="TGL_PERP_{$__ctr}" name="TGL_PERP_{$__ctr}" /></font></td>
+                              </tr>
+                              </fill>
+                          </table>
+		<input type="hidden" name="total" value="{$__ctr}"/>
+    
+ </div>

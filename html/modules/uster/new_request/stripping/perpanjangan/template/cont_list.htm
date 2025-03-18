@@ -1,0 +1,62 @@
+
+<div id="list">
+	<table width="100%">
+    	<thead>
+        	<tr>
+            	<th class="grid-header" width="10px">No.</th>
+            	<th class="grid-header">No Container</th>
+                <th class="grid-header">Size / Type</th>
+				<th class="grid-header">Commodity</th>
+				 <th class="grid-header">Tanggal Mulai</th>
+                <th class="grid-header">Tanggal Akhir</th>
+                <?php if($edit == '1') {?>
+                <th class="grid-header"> Tgl Baru</th>
+                <th class="grid-header"> Action</th>
+				<?php } else { ?>
+				<th class="grid-header"> Info</th>
+				<?php }?>
+            </tr>
+        </thead>
+        <tbody>
+        	<fill src="row_list" var="rows">
+		   	<alt var='bg' list='#f9f9f3,#ffe'/>
+        	<tr bgcolor="{$bg}" style="cursor:pointer;" onMouseOver=this.style.backgroundColor="#BAD5FC" onMouseOut=this.style.backgroundColor="">
+            	<td class="grid-cell" align="center"  style="font-size:9px;">{$__ctr}</td>
+            	<td class="grid-cell" align="center" valign="middle" style="font-family:Arial; font-size:9pt; color:#555555"><b>{$rows.NO_CONTAINER}
+				</b>
+				<input type="hidden" id="NO_CONT_{$__ctr}" name="NO_CONT_{$__ctr}" value="{$rows.NO_CONTAINER}" />
+				</td>
+            	<td align="center" valign="middle" class="grid-cell"  style="font-size:9pt">{$rows.KD_SIZE} / {$rows.KD_TYPE}</td>
+				<td align="center" valign="middle" class="grid-cell"  style="font-size:9pt">{$rows.COMMODITY}</td>
+				<td align="center" valign="middle" class="grid-cell"  style="font-size:9pt">{$rows.TGL_BONGKAR}</td>
+				<td align="center" valign="middle" class="grid-cell"  style="font-size:9pt">
+				<?php if($_GET["overview"] != 'yes') {?>
+				<block name='second'><input type="text" id="START_PERP_PNKN{$__ctr}" name="START_PERP_PNKN{$__ctr}" value="{$rows.END_STACK_PNKN}" readonly="readonly"/></block>
+				<block name='first'><input type="text" id="START_PERP_PNKN{$__ctr}" name="START_PERP_PNKN{$__ctr}" value="{$rows.TGL_SELESAI}" readonly="readonly"/></block>
+				<? } else {?>
+					<block name='second'><input type="text" id="START_PERP_PNKN{$__ctr}" name="START_PERP_PNKN{$__ctr}" value="{$rows.END_STACK_PNKN}" readonly="readonly"/></block>
+				<block name='first'><input type="text" id="START_PERP_PNKN{$__ctr}" name="START_PERP_PNKN{$__ctr}" value="{$rows.TGL_SELESAI}" readonly="readonly"/></block>
+				<? } ?></td>
+				<td align="center" valign="middle" class="grid-cell"  style="font-size:9pt">
+				<?php if($_GET["overview"] != 'yes') {?>
+				 <input class="tgl_perp" type="text" id="TGL_PERP_{$__ctr}" name="TGL_PERP_{$__ctr}"/> 
+				 
+				<? } else { ?>
+					<input class="tgl_perp" type="text" id="TGL_PERP_{$__ctr}" name="TGL_PERP_{$__ctr}" value="{$rows.END_STACK_PNKN}" readonly="readonly"/>					
+				<?php } ?>
+				 
+				 </td>
+				<?php if($edit == '1') {?>
+            	<td align="center" valign="middle" class="grid-cell"  style="font-size:9pt">
+				<input value="Hapus" type="button" style="color:red" onclick="delete_cont('{$rows.NO_CONTAINER}');" /> </td>				
+				
+				<?php } else {?>
+				<td align="center" valign="middle" class="grid-cell"  style="font-size:9pt">
+				<input value="Info" type="button" onclick="info_lapangan();" /> </td>	
+				<?}?>
+            </tr>
+            </fill>
+        </tbody>
+    </table>
+	<input type="hidden" name="total" id="total" value="{$__ctr}" />
+</div>

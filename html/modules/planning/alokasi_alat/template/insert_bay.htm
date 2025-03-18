@@ -1,0 +1,249 @@
+<div id="bay_input">
+<fieldset  style="margin: 30px 5px 5px 5px; ">
+<span id="select-result" style="display: none;"></span>
+<span id="result"></span>
+<center>
+
+<div class="grid">
+	<table border="0" width="100%">
+		<tr align="center" valign="top">
+			<td align="center" valign="middle" style="padding-left: 10px; padding-right: 2px;">
+				<ol id="selectable">
+					<?php 
+						$j = 1;
+						for($i = 1; $i <= $L; $i++)
+						{	
+							$m = ($width*$j) + 1;
+					?>		
+							<li class="ui-state-default" <?php if (($i%$m) == 0){ $j++;	?>style="clear: both;"<?php }?>><?php //echo $i?></li>
+					<?php 
+						}
+					
+					?>
+				</ol>
+			</td>
+		</tr>
+	</table>
+</div>
+
+</center>
+
+<div style="clear:both; padding-bottom:300px;"></div>
+
+
+<div style="float:left">
+	<form id="build_yard" enctype="multipart/form-data" action="<?=HOME?>maintenance.yard_builder/display-grid" method="post">
+		<table style="font-size: 12px; font-weight: bold;">
+			<tr>
+				<td>
+					Set Jumlah Slot  
+				</td>
+				<td>
+					:
+				</td>
+				<td>
+					<input type="text" size="10" name="slot">
+				</td>
+			</tr>
+			<tr>
+				<td>
+					Set Jumlah Row  
+				</td>
+				<td>
+					:
+				</td>
+				<td>
+					<input type="text" size="10" name="row">
+				</td>
+			</tr>
+			<tr>
+				<td style="padding-left: 40px;" align="right">
+					<input type="submit" value="build">
+				</td>
+			</tr>
+		</table>
+	</form>
+</div>
+
+<div style="padding-left: 30px; float:left">
+	<form id="build_stack" enctype="multipart/form-data" action="<?=HOME?>maintenance.yard_builder/display-grid" method="post">
+		<table style="font-size: 12px; font-weight: bold;">
+			<tr>
+				<td>
+					Alokasikan Sebagai Area Penumpukan  
+				</td>
+			</tr>
+			<tr>
+				<td style="padding-left: 40px;" align="right">
+					<input type="submit" id="stack" value="Alokasikan" >
+				</td>
+			</tr>
+		</table>
+	</form>
+	<form id="de_stack" enctype="multipart/form-data" action="<?=HOME?>maintenance.yard_builder/display-grid" method="post">
+		<table style="font-size: 12px; font-weight: bold;">
+			<tr>
+				<td>
+					Dealokasikan Sebagai Area Penumpukan  
+				</td>
+			</tr>
+			<tr>
+				<td style="padding-left: 40px;" align="right">
+					<input type="submit" id="destack" value="Dealokasikan" >
+				</td>
+			</tr>
+		</table>
+	</form>
+</div>
+
+<div style="padding-left: 30px; float:left">
+	<form id="reset" enctype="multipart/form-data" action="<?=HOME?>maintenance.yard_builder/display-grid" method="post">
+		<table style="font-size: 12px; font-weight: bold;">
+			<tr>
+				<td>
+					RESET  
+				</td>
+			</tr>
+			<tr>
+				<td style="padding-left: 40px;" align="right">
+					<input type="submit" id="reset" value="Reset" >
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<hr/>
+				</td>
+			</tr>
+		</table>
+	</form>
+</div>
+
+<div style="padding-left: 30px; float:left">
+	<form id="blocking" enctype="multipart/form-data" action="<?=HOME?>maintenance.yard_builder/display-grid" method="post">
+		<table style="font-size: 12px; font-weight: bold;">
+			<tr>
+				<td>
+					Nama Blok 
+				</td>
+				<td>
+					:
+				</td>
+				<td>
+					<input type="text" size="10" name="block_name" id="block_name">
+				</td>
+			</tr>
+			<tr>
+				<td>
+					Warna 
+				</td>
+				<td>
+					:
+				</td>
+				<td>
+					<input type="text" size="10" name="block_color" id="block_color" class="cp-alt" />
+					<span class="cp-alt-target" style="display: inline-block; border: thin solid black; padding: 0.8em 2em;">
+					</span>
+					<script>
+					$( function() 
+					{
+						$('.cp-alt').colorpicker(
+						{
+							altField: '.cp-alt-target',
+							altProperties: 'background-color,color',
+							altAlpha: true,
+							alpha: true
+						});
+					});
+					</script>
+
+				</td>
+			</tr>
+			<tr>
+				<td style="padding-right: 40px;" align="right">
+					<input type="submit" value=" Set " id="set_block">
+				</td>
+				<td>
+					|
+				</td>
+				<td style="padding-left: 40px;" align="right">
+					<input type="submit" value=" UnSet " id="unblock">
+				</td>
+			</tr>
+			<tr>
+				<td colspan = "3">
+					<hr/>
+				</td>
+			</tr>
+		</table>
+	</form>
+</div>
+<div style="clear:both"></div>
+<div style="padding-left: 0px; float:left">
+	<form id="build_file" enctype="multipart/form-data" action="<?=HOME?>maintenance.yard_builder/load_grid" method="post">
+		<table style="font-size: 12px; font-weight: bold;">
+			<tr>
+				<td>
+					XML File
+				</td>
+				<td>
+					<input type="submit" value=" Generate " id="save">
+				</td>
+				<td id="file_at">
+				</td>
+			</tr>
+			<tr>
+				<td colspan = "3">
+					<hr/>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					Load
+				</td>
+				<td style="padding-right: 10px;" colspan="2">
+					<input type="file" id="save" name="userfile">
+				</td>
+			</tr>
+			<tr>
+				<td colspan="3">
+					<input type="submit" value=" Load "></input>
+				</td>
+			</tr>
+		</table>
+	</form>
+</div>
+
+<div style="padding-left: 10px; float:left" >
+	<form id="db_use" enctype="multipart/form-data" action="<?=HOME?>maintenance.yard_builder/use_grid" method="post">
+		<table style="font-size: 12px; font-weight: bold;">
+			<tr>
+				<td colspan = "3">&nbsp;
+					
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2">
+					Nama Lapangan 
+				</td>
+				<td>
+					<input type="text" id="yard_name" value=""></input>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2">
+					Gunakan Lapangan Ini
+				</td>
+				<td id="yard_link">
+				</td>
+			</tr>
+			<tr>
+				<td colspan="3">
+					<input type="submit" value=" Use " id="db_link"></input>
+				</td>
+			</tr>
+		</table>
+	</form>
+</div>
+
+</fieldset>
+</div>

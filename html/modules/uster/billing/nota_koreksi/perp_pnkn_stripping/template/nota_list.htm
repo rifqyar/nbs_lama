@@ -1,0 +1,33 @@
+<div id="list">
+	<table width="100%">
+    	<thead>
+        	<tr>
+            	<th class="grid-header" align="center">No.</th>
+            	<th class="grid-header" align="center">No Request/Perp Dari</th>
+                <th class="grid-header" align="center">Tanggal Request</th>
+                <th class="grid-header" align="center">NO DO/BL</th>
+                <th class="grid-header" align="center">Penumpukan Oleh / Consignee</th>
+				<th class="grid-header" align="center">Jml Container</th>
+                <th class="grid-header" align="center">&nbsp;</th>
+            </tr>
+        </thead>
+        <tbody>
+        	<fill src="row_list" var="rows">
+		   	<alt var='bg' list='#f9f9f3,#ffe'/>
+        	<tr bgcolor="{$bg}" style="cursor:pointer;">
+            	<td align="center" class="grid-cell" style="color:#000; font-family:Arial; font-size:9pt">{$__ctr}</td>
+            	<td align="left" class="grid-cell" style="color:#000; font-family:Arial; font-size:9pt"><b>No Req</b> :  {$rows.NO_REQUEST} <br> <b>Perp Dari</b>:  {$rows.PERP_DARI} </td>
+            	<td align="center" class="grid-cell" style="color:#000; font-family:Arial; font-size:9pt">{$rows.TGL_REQUEST}</td>
+            	<td align="center" class="grid-cell" style="color:#000; font-family:Arial; font-size:9pt">{$rows.NO_DO} | {$rows.NO_BL}</td>
+            	<td align="left" class="grid-cell" style="color:#000; font-family:Arial; font-size:9pt">{$rows.PENUMPUKAN_OLEH}</td>
+            	<td align="center" class="grid-cell" style="color:#000; font-family:Arial; font-size:9pt"><b>{$rows.JML} BOX</b></td>
+				<td align="center" class="grid-cell" style="color:#000; font-family:Arial; font-size:9pt">
+                	<?php 
+                    	cek_nota($rows["NO_REQUEST"]);
+                    ?>
+                </td>
+            </tr>
+            </fill>
+        </tbody>
+    </table>
+</div>

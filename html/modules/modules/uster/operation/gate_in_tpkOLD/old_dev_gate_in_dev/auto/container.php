@@ -1,0 +1,23 @@
+<?php
+$no_cont		= strtoupper($_GET["term"]);
+
+$db 			= getDB("storage");
+	
+$query 			= "SELECT CONTAINER_RECEIVING.NO_REQUEST AS NO_REQUEST, 
+						  CONTAINER_RECEIVING.STATUS AS STATUS, 
+						  MASTER_CONTAINER.NO_CONTAINER AS NO_CONTAINER, 
+						  MASTER_CONTAINER.SIZE_ AS SIZE_, 
+						  MASTER_CONTAINER.TYPE_ AS TYPE_ 
+				   FROM MASTER_CONTAINER 
+				   INNER JOIN CONTAINER_RECEIVING ON MASTER_CONTAINER.NO_CONTAINER = CONTAINER_RECEIVING.NO_CONTAINER 
+				   WHERE CONTAINER_RECEIVING.NO_CONTAINER LIKE '%$no_cont%' 
+				   AND LOCATION LIKE 'GATO' AND CONTAINER_RECEIVING.AKTIF = 'Y'";
+$result			= $db->query($query);
+$row			= $result->getAll();	
+
+//print_r($row);
+
+echo json_encode($row);
+
+
+?>

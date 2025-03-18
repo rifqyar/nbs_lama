@@ -1,0 +1,69 @@
+
+ 
+<span class="graybrown"><img src='images/document-open.png' border='0' class="icon"/><font color="#0378C6"> Correction Container</font> Receiving dari Luar </span><br/><br/>
+
+
+<fieldset class="form-fieldset" style="margin: 5px 5px 5px 5px; ">
+<form id="dataForm" name="dataForm" action="<?=HOME?><?=APPID?>/save_rec_luar_do" method="POST">
+	<center>
+    <table style="margin: 30px 30px 30px 30px;" >
+    	<tr>
+        	<td class="form-field-caption">Nomor Request</td>
+            <td class="form-field-caption"> :</td>
+            <td class="form-field-caption"> <input type="text" id="NO_REQ" name="NO_REQ" value="{$row_request.NO_REQUEST}" readonly="readonly" /> </td>
+    	</tr>
+		
+        <tr>
+			<input size="40" name="REC_DARI" id="REC_DARI" type="hidden" value="LUAR" />
+        	<td class="form-field-caption">Penerima/Consignee</td>
+            <td class="form-field-caption"> : </td>
+            <td class="form-field-caption"> <input type="text" id="CONSIGNEE" size="40" name="CONSIGNEE" type="text" class="kdemkl " value="{$row_request.CONSIGNEE}" style="background-color:#FFFFCC;" /> 
+<input size="40" name="ID_CONSIGNEE" id="ID_CONSIGNEE" type="hidden" />
+</td>
+    	</tr>
+		
+		<tr>
+        	<td class="form-field-caption">ALamat</td>
+            <td class="form-field-caption"> : </td>
+            <td class="form-field-caption"> <input type="text" id="ALMT_CONSIGNEE" size="80" name="ALMT_CONSIGNEE" type="text" class="kdemkl " value="{$row_request.ALMT_PBM}" style="background-color:#FFFFCC;" readonly="readonly"/> 
+</td>
+    	</tr>
+		<tr>
+        	<td class="form-field-caption">NPWP</td>
+            <td class="form-field-caption"> : </td>
+            <td class="form-field-caption"> <input type="text" id="NPWP_CONSIGNEE" size="60" name="NPWP_CONSIGNEE" type="text" class="kdemkl " value="{$row_request.NO_NPWP_PBM}"  style="background-color:#FFFFCC;" readonly="readonly" /> 
+</td>
+    	</tr>
+		<!-- -------------------------------------------------------------------------------------------------------------------- -->
+		
+		<!-- -------------------------------------------------------------------------------------------------------------------- -->
+         <tr>
+       		<td class="form-field-caption">Keterangan</td>
+            <td class="form-field-caption"> : </td>
+            <td class="form-field-caption"> <input type="text" name="KETERANGAN" id="KETERANGAN" style="width:250px" value="{$row_request.KETERANGAN}"/></td>
+        </tr>
+	</table>
+    </center>
+	<center>
+    
+    <div id="cont_list" style="margin: 10px 10px 10px 10px; border:thin inset">
+    
+    </div>
+	
+	</center>
+	<div> <a class='link-button' id="submitForm" onclick="submitManual();"> <img border="0" src="<?=HOME?>/images/valid.png"> SIMPAN</a></div>
+    </form>
+</fieldset>
+
+<script>
+ function submitManual(){
+	$('#dataForm').submit();
+}
+$(function() {	
+
+	$("#cont_list").load('<?=HOME?><?=APPID?>/cont_list_rec_luar?no_req={$row_request.NO_REQUEST} #list', function(data) {        	  
+	}); 	
+});
+
+
+</script>

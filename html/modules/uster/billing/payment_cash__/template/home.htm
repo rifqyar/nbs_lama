@@ -1,0 +1,275 @@
+<meta charset="utf-8">
+	<style>
+		body { font-size: 62.5%; }
+		label, input { display:block; }
+		input.text { margin-bottom:12px; width:95%; padding: .4em; }
+		fieldset { padding:0; border:0; margin-top:25px; }
+		h1 { font-size: 1.2em; margin: .6em 0; }
+		div#users-contain { width: 350px; margin: 20px 0; }
+		div#users-contain table { margin: 1em 0; border-collapse: collapse; width: 100%; }
+		div#users-contain table td, div#users-contain table th { border: 1px solid #eee; padding: .6em 10px; text-align: left; }
+		.ui-dialog .ui-state-error { padding: .3em; }
+		.validateTips { border: 1px solid transparent; padding: 0.3em; }
+	</style>
+	<script>
+	$(function() {
+		// a workaround for a flaw in the demo system (http://dev.jqueryui.com/ticket/4375), ignore!
+		$( "#dialog:ui-dialog" ).dialog( "destroy" );
+		
+		var password = $( "#password" ),
+			allFields = $( [] ).add( password ),
+			tips = $( ".validateTips" );
+
+		function updateTips( t ) {
+			tips
+				.text( t )
+				.addClass( "ui-state-highlight" );
+			setTimeout(function() {
+				tips.removeClass( "ui-state-highlight", 1500 );
+			}, 500 );
+		}
+
+		function checkLength( o, n, min, max ) {
+			if ( o.val().length > max || o.val().length < min ) {
+				o.addClass( "ui-state-error" );
+				updateTips( "Length of " + n + " must be between " +
+					min + " and " + max + "." );
+				return false;
+			} else {
+				return true;
+			}
+		}
+
+		function checkRegexp( o, regexp, n ) {
+			if ( !( regexp.test( o.val() ) ) ) {
+				o.addClass( "ui-state-error" );
+				updateTips( n );
+				return false;
+			} else {
+				return true;
+			}
+		}
+		
+		$( "#dialog-form" ).dialog({
+			autoOpen: false,
+			height: 200,
+			width: 200,
+			modal: true,
+			buttons: {
+				"Payment Cash": function() {
+					var bValid = true;
+					var url = "{$HOME}{$APPID}.ajax/payment_cash";
+					var no_req	= $("#no_request").val();
+					var keg		= $("#kegiatan").val();
+					var pass	= $("#password").val();
+					var id_bayar_ = $("#id_bayar").val();
+					var receipt_account_ = $("#receipt_account").val();
+					allFields.removeClass( "ui-state-error" );
+					bValid = bValid && checkLength( password, "password", 5, 16 );
+					bValid = bValid && checkRegexp( password, /^([0-9a-zA-Z])+$/, "Password field only allow : a-z 0-9" );
+
+					if ( bValid ) {
+						$( "#users tbody" ).append( "<tr>" +
+							"<td>" + password.val() + "</td>" +
+						"</tr>" ); 
+						$( this ).dialog( "close" );
+						$.post(url,{PASSWORD: pass,NO_REQ : no_req, KEG : keg, ID_BAYAR : id_bayar_, RECEIPT : receipt_account_},function(data){
+							if(data == "OK")
+							{
+								search_request();
+								alert("Nota telah berhasil payment cash");
+							}
+							else
+							{
+								alert("Password Salah");
+							}
+						});	
+					}
+				},
+				Cancel: function() {
+					$( this ).dialog( "close" );
+				}
+			},
+			close: function() {
+				allFields.val( "" ).removeClass( "ui-state-error" );
+			}
+		});
+
+		$( "#create-user" )
+			.button()
+			.click(function() {
+				$( "#dialog-form" ).dialog( "open" );
+			});
+	});
+	</script>
+
+
+
+<div class="demo">
+
+<div id="dialog-form" title="Payment Cash">
+	<p class="validateTips">Password is required.</p>
+	<form>
+	<fieldset>
+		<label for="password">Password</label>
+		<input type="password" name="password" id="password" value="" class="text ui-widget-content ui-corner-all" />
+	</fieldset>
+	</form>
+</div>
+
+
+<div class="viewForm" id="formdetail" style="display: none;">
+				</div>
+				<span class="graybrown"><img src='images/confirm.png' border='0' class="icon"/> Konfirmasi Pembayaran Layanan Petikemas </span><br/><br/>
+				<fieldset class="form-fieldset" style="width:95%;margin-left:20px;">
+					<form id="searchForm" name="searchForm" action="http://simop.pelindo2.com/petikemas_cabang/nota.bank_confirmation/search/" method="get">
+						<table class="grid-table" border="0" cellpadding="2" cellspacing="2" width="100%">
+						<tr>
+							<td colspan="2">
+								<div style="padding:8px; font-size:18pt;">
+									<span style=" color:#df2100"><blink><img src='images/warning.png' border='0' class="icon" width="30" height="30"/><b> Peraturan Pembayaran</b></blink></span>
+									<div style="padding:8px; font-size:10pt;">
+										<div style="padding-top:3px">
+											1. <font color="#0066CC">Pembayaran</font> : Cari <font color="#0066CC">NO NOTA</font> atau <font color="#0066CC">NO DOKUMEN</font> yang akan di lakukan Pembayaran, kemudian klik <font color="#DF2100"><blink><b>Bayar</b></blink></font>.
+										</div>
+										<div style="padding-top:3px">
+											2. <font color="#0066CC">Status Lunas</font> : <font color="#0066CC">NO NOTA</font> sudah di bayar pada persetujuan bank akan menjadi <font color="#8BAB1B"><b>Lunas</b></font> dan pada type bayar akan ada icon pelunasan
+										</div>
+										<div style="padding-top:3px" font-size:10pt;>
+											3. <b><i>Nota yang bisa dilunasi hanya untuk nota yang dicetak pada hari ini, selebihnya dianggap piutang </i></b>
+										</div>
+										<div style="padding-top:3px" font-size:12pt;>
+											4. <font color="#DF2100"><b>Harap diperiksa kembali antara data di dokumen fisik dengan data digital</b></font>
+										</div>
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<td width="16%" class="form-field-caption" align="left">
+									NO NOTA :
+								</td>
+								<td width="84%" class="form-field-input">
+									<input type="text" id="no_nota" name="no_nota" value="" placeholder='AUTO COMPLETE'/>
+							    <!--	<input type="hidden" id="kegiatan" name="kegiatan" value="<?=$keg?>">  -->
+								</td>
+							
+							</tr>
+							<tr>
+								<td class="form-field-caption" align="left">
+									NO DOKUMEN :
+								</td>
+								<td class="form-field-input">
+									<input type="text" id="no_request" name="no_request" value="" placeholder='AUTO COMPLETE'/>
+									<input type="hidden" id="kegiatan" name="kegiatan" value=""/>
+								</td>
+							</tr>
+							<tr>
+								<td colspan="3" align="left" class="form-footer">
+									<input type="button" value=" CARI " onclick="search_request()" /> 
+								</td>
+							</tr>
+							</table>
+						</form>
+					</fieldset>
+					<br/>
+					<fieldset class="form-fieldset" >
+	<center>
+    
+    <div id="nota_list" >
+    
+    </div>
+	
+	 
+<div id="list_cont" title="Payment Cash">	</div>
+
+	
+<button id="create-user">PAYMENT CASH</button>
+
+</div><!-- End demo -->
+
+<script>
+$(function() {
+
+	$( "#list_cont" ).dialog({
+		autoOpen: false,
+		height: 150,
+		width:800,
+		show: "blind",
+		hide: "explode"
+	});
+	
+	
+	$( "#no_nota" ).autocomplete({
+		minLength: 3,
+		source: "{$HOME}{$APPID}.auto/no_nota",
+		focus: function( event, ui ) {
+			$( "#no_nota" ).val( ui.item.NO_NOTA);
+			return false;
+		},
+		select: function( event, ui ) {
+			$( "#no_nota" ).val( ui.item.NO_NOTA );
+			$( "#no_request" ).val( ui.item.NO_REQUEST );
+			$( "#kegiatan" ).val( ui.item.KEGIATAN );
+			return false;
+		}
+	})
+	.data( "autocomplete" )._renderItem = function( ul, item ) {
+		return $( "<li></li>" )
+			.data( "item.autocomplete", item )
+			.append( "<a><b> NO NOTA :</b> " + item.NO_NOTA + "<br /><b> NO REQUEST : </b>" + item.NO_REQUEST + "</a>")
+			.appendTo( ul );
+	}; 
+
+	$( "#no_request" ).autocomplete({
+		minLength: 3,
+		source: "{$HOME}{$APPID}.auto/no_request",
+		focus: function( event, ui ) {
+			$( "#no_request" ).val( ui.item.NO_REQUEST);
+			return false;
+		},
+		select: function( event, ui ) {
+			$( "#no_nota" ).val( ui.item.NO_NOTA );
+			$( "#no_request" ).val( ui.item.NO_REQUEST );
+			$( "#kegiatan" ).val( ui.item.KEGIATAN );
+			return false;
+		}
+	})
+	.data( "autocomplete" )._renderItem = function( ul, item ) {
+		return $( "<li></li>" )
+			.data( "item.autocomplete", item )
+			.append( "<a> <b>NO REQUEST : </b>" + item.NO_REQUEST + "<br /><b> NO NOTA : </b>" + item.NO_NOTA + "</a>")
+			.appendTo( ul );
+	}; 
+});
+
+$("#nota_list").load('<?=HOME?><?=APPID?>/nota_list #list', function(data) {        	  
+	}); 
+	
+function search_request()
+{
+	var no_req_ 	= $("#no_request").val();
+	var no_nota_ 	= $("#no_nota").val();
+	var kegiatan_ 	= $("#kegiatan").val();
+	var cari_	= "cari"; 
+	var url 	= "<?=HOME?><?=APPID?>/nota_list #list";
+	 
+	$("#nota_list").load(url,{no_req : no_req_, no_nota : no_nota_, cari : cari_, kegiatan : kegiatan_}, function(data){
+	
+	});
+
+}
+
+function cont_list($no_request, $id_bayar)
+{
+	//alert($no_request);
+	//var url = "<?=HOME?><?=APPID?>.ajax/list_cont.php";
+	//alert(url);
+	//var id_bayar_ 	= $("#id_bayar").val();
+	$( "#list_cont" ).load('<?=HOME?><?=APPID?>/list_cont?no_req='+$no_request+'&id_bayar='+$id_bayar+' #list', function(data){
+		
+			$( "#list_cont" ).dialog( "open" );
+		
+		});
+	
+}
+</script>

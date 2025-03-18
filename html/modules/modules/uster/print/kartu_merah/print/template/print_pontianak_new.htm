@@ -1,0 +1,138 @@
+<style>
+/*body { margin:0px; padding-top:15px; width:100%; height:100%;}*/
+/*body { margin:0px; padding-top:0px; width:100%; height:100%;}*/
+body { margin:0px; padding-left:50px; padding-top:0px; width:100%; height:100%; font-family:Arial}
+.txc { height:0px; padding:0px; margin:0px; line-height:5px }
+
+.style1 {height: 0px; padding: 0px; margin: 0px; line-height: 5px; font-weight: bold; }
+</style> 
+<fill src='row' var='rowd'>
+<div style="height:0px; width:767px; height:315px; border:0px solid  #FFF">   
+<table border="0" width="767px" height="340" cellpadding="3" cellspacing="3">
+  <tr>
+    <th width="13%" height="12" class="txc"  scope="col"></th>
+    <th class="txc" width="5%" scope="col"></th>
+    <th class="txc" width="5%" scope="col"></th>
+    <th class="txc" width="5%" scope="col"></th>
+    <th class="txc" width="5%" scope="col"></th>
+    <th class="txc" width="8%" scope="col"></th>
+    <th class="txc" width="15%" scope="col"></th> 
+    <th class="txc" width="13%" scope="col"></th>
+    <th class="txc" colspan="2" align="left" scope="col" style="font-size:11px; font-family:Arial">&nbsp;&nbsp;{$rowd.NO_REQUEST}</th>
+    <th class="txc" width="1%" scope="col"></th>
+  </tr>
+  <tr>
+    <th height="12"  class="txc"   scope="row"></th>
+    <td  class="txc"></td>
+    <td  class="txc"></td>
+    <td  class="txc"></td>
+    <td  class="txc"></td>
+    <td  class="txc"></td>
+    <td  class="txc"></td>
+    <td  class="txc"></td>
+    <td colspan="2"  class="style1" style="font-size:11px; font-family:Arial">&nbsp;&nbsp;{$rowd.TGL_NOTA}</td>
+    <td  class="txc"></td>
+  </tr>
+  <tr>
+    <th height="21"   class="txc" scope="row"></th>
+    <td  class="txc"></td>
+    <td  class="txc"></td>
+    <td  class="txc" colspan="5"><div  style="padding-right:150px; font-size:13px"></div></td>
+    <td colspan="2"  class="style1" style="font-size:11px; font-family:Arial"></td>
+    <td  class="txc"></td>
+  </tr> 
+  <tr>
+    <th height="20" colspan="8" valign="top" align="left"   scope="row" style="font-size:20px; padding-left:15px; line-height:10px">VIA {$rowd.VIA}</th>
+    <td width="10%"></td>
+    <td width="8%"></td> 
+    <td></td>
+  </tr>
+  <tr>
+    <th  height="30" scope="row"></th>
+    <td colspan="5" align="center"><b style="font-size:26px; line-height:5px">{$rowd.NO_CONTAINER}</b></td>
+    <td></td>
+    <td colspan="2" align="left" style="font-size:12px"><strong>&nbsp;{$rowd.NM_KAPAL} &nbsp; &nbsp; &nbsp; &nbsp; {$rowd.VOYAGE_OUT}</strong></td>
+    <td align="left">&nbsp;</td>
+    <td></td>
+  </tr>
+  <tr>
+    <th  height="30" scope="row"></th>
+    <td align="right"><strong>{$rowd.SIZE_}</strong></td>
+    <td colspan="3" align="center"><strong>{$rowd.TYPE_}</strong></td>
+    <td align="left"><strong>{$rowd.STATUS}</strong></td>
+    <td></td>
+    <td align="center">{$rowd.PELABUHAN_TUJUAN}</td>
+    <td colspan="2"></td>
+    <td></td>
+  </tr>
+  <tr>
+    <th  height="30" scope="row"></th>
+    <td></td>
+    <td colspan="3" align="center"><strong></strong></td>
+    <td></td>
+    <td></td>
+    <td colspan="3"></td>
+    <td></td>
+  </tr>
+  <tr>
+    <th  height="18" scope="row"></th>
+    <td colspan="3"></td>
+    <td colspan="2"></td>
+    <td></td>
+    <td></td>
+    <td></td> 
+    <td></td>
+    <td></td>
+  </tr>
+  <tr>
+    <th  height="45" scope="row"></th>
+    <td colspan="5" align="left" style="font-size:10px"><?php if ($rowd["EX_KAPAL"] != NULL) { ?>
+      Ex Kapal : {$rowd.EX_KAPAL}
+    <?php }?> </td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+  </tr>
+  <tr>
+    <th  height="25" scope="row"></th>
+    <td valign="bottom" align="right"><strong>&nbsp;&nbsp;{$rowd.AREA_}</strong></td> 
+    <td valign="bottom" align="right"><strong></strong></td>
+    <td align="center"><strong></strong></td>
+    <td align="center"><strong></strong></td>
+    <td  align="center"><strong> </strong></td>
+    <td></td>
+    <td colspan="3"><span style="font-size:10px"><strong>{$rowd.NM_PBM}</strong></span></td>
+    <td></td>
+  </tr>
+  <tr>
+    <th  height="26" scope="row"></th>
+    <td colspan="4">REC DARI : {$rowd.RECEIVING_DARI}</td>
+   <!--  <td></td>
+    <td></td>
+    <td></td> -->
+    <td></td>
+    <td></td>
+    <td colspan="3" style="font-size:10px">&nbsp;</td>
+    <td></td>
+  </tr>
+  <tr>
+    <th  height="26" scope="row"></th>
+    <td valign="bottom" colspan="5"><!--NO PEB : {$rowd.NO_NPE}-->
+      <strong>{$rowd.NAMA_YARD} </strong></td> 
+    <td></td>
+    <td style="font-size:14px"></td>
+    <td style="font-size:14px"></td>
+    <td align="left" valign="top" style="font-size:14px"><strong>{$userid}</strong></td> 
+    <td>&nbsp;</td>
+  </tr> 
+</table>
+</div>
+<!--
+<div style=" height:0px; border:1px solid #FFF"></div>
+<div style=" margin-top:30px;"></div>
+-->
+<div style=" height:5px; border:1px solid #FFF"></div>
+<div style=" margin-top:55px;"></div>
+</fill>

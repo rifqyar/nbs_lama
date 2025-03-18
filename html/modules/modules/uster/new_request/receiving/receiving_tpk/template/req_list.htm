@@ -1,0 +1,291 @@
+<?php
+/*
+	header("Cache-Control: no-cache, must-revalidate"); // HTTP/1.1
+	header("Expires: Mon, 26 Jul 1997 05:00:00 GMT"); // Date in the past
+	## url map..	
+	#$urlfilter = array( array('name'=>'REQBRG_NO', 'default'=>'', 'optional'=>1) );
+	#_map( $urlfilter );
+	## calculate page number
+	#	
+	if (isset($_q['p'])) {
+		$pp = (int) $_q['p'];
+	} else {
+		foreach($_q as $k=>$v) 
+			if (is_numeric($k)) $pp = (int) $v;
+	}	
+	unset($_q['p']);
+	
+	
+	## order
+	#
+	
+	$sortinfo   = false;
+	$order		= "TGL_REQSF DESC";
+	$ofields	= array();
+	if (isset($_q['_orderby']) && in_array($_q['_orderby'],$ofields) ) {
+		$order	= $_q['_orderby'];
+		if (isset($_SESSION['_gridsort'][APPID][SUBID])) {
+			$sortinfo = $_SESSION['_gridsort'][APPID][SUBID];
+			if ($sortinfo['field']==$order) 
+				$sortinfo['ascending'] = !$sortinfo['ascending'];
+			else
+				$sortinfo = array('field'=>$order, 'ascending'=>true);
+		} else {
+			$sortinfo = array('field'=>$order, 'ascending'=>true);
+		}
+		if (!isset($_SESSION['_gridsort'])) $_SESSION['_gridsort'] = array();
+		$_SESSION['_gridsort'][APPID] = array( SUBID=>$sortinfo );
+		
+		if ($sortinfo['ascending']) $order .= ' ASC'; else $order .= ' DESC';
+		
+	} else if (isset($_SESSION['_gridsort'][APPID][SUBID])) {
+		$sortinfo = $_SESSION['_gridsort'][APPID][SUBID];
+		$order = $sortinfo['field'];
+		if ($sortinfo['ascending']) $order .= ' ASC'; else $order .= ' DESC';
+		
+	}	
+	## order header..	
+	foreach($ofields as $of) 
+		if ($sortinfo && $sortinfo['field']==$of)
+			$sortclass[$of] = ($sortinfo['ascending'])?'grid-ascending':'grid-descending';
+		else
+			$sortclass[$of] = 'grid-sortable';
+			
+	unset($_q['_orderby']);
+	if ($order!='') $order=' ORDER BY '.$order;
+	
+	
+	## default
+	#
+	if (!isset($searchurl))
+		$searchurl = _link( array('sub'=>'search') );
+	if (!isset($item_per_page))
+		$item_per_page = 20;
+	if (!isset($style))
+		$style = array('gridinfo'=>'grid-info','gridtable'=>'grid-table','gridheader'=>'grid-header','gridcell'=>'grid-cell');
+	if (!isset($rand))
+		$rand = rand(10000,99999);
+	if (!isset($navurl))
+		$navurl = preg_replace(array('/\&_[^=]+=[^&]+/','/\?_[^=]+=[^&]+/'),array('','?'),$_SERVER['REQUEST_URI']);
+	if (strpos($navurl,'?')===false) $navurl .= '?';	
+	if (!isset($addurl))
+		$addurl = _link( array('sub'=>'add') );
+	
+	## lookup..
+	#
+	
+	#
+	####### end lookup
+		
+		
+	## db & sql..
+	#
+	$db 	= getDB('ora');
+	require_lib('acl.php');	
+		$acl = new ACL();
+		$acl->load();
+		$aclist = $acl->getLogin()->info;	
+		$KD_CABANG =$aclist['KD_CABANG'];	
+		
+	
+	$sql		= "	SELECT DISTINCT 
+    				TSQ.NO_REQSF,
+                    to_char(TGL_REQSF,'yyyy-mm-dd') TGL_REQSF, 
+                    TSQ.KD_PBM, 
+                    VMP.NM_PBM, 
+                    TSQ.NO_DO, TSQ.NO_UKK_BARU
+                    FROM TTM_STF_REQ TSQ
+                    join TTD_STF_REQ TSR on TSR.NO_REQSF = TSQ.NO_REQSF 
+                    join v_mst_pbm vmp on vmp.kd_pbm = TSQ.KD_PBM
+                    AND VMP.KD_CABANG = TSQ.KD_CABANG";
+	$sqlcount	= "$sql";
+	## filter
+	#
+	$filter		= "";
+	if ($filter=='' && strpos(strtolower($sql),'where')===false) $filter = " 1=1 ";
+	if (trim($_q["REQBRG_NO"])!="") $filter .= " AND TSQ.NO_REQSF = '".addslashes($_q["REQBRG_NO"])."'";
+	if (trim($_q["NOCONT"])!="") $filter .= " AND CONT_NO = '".addslashes($_q["NOCONT"])."'";
+    
+	if (strpos(strtolower($sql),'where')===false)
+		$filter = ' WHERE '.$filter." AND TSQ.KD_CABANG ='".$KD_CABANG."' AND SUBSTR(TSQ.NO_REQSF,1,2)!='PF'" ;
+		#AND TSQ.PP ='1' 
+		
+		
+	
+	## paging..
+	#
+	#echo $sqlcount.$filter;
+	$rs = $db->query( $sqlcount.$filter );
+	if ($rs && $rs->RecordCount()) {
+		$row = $rs->FetchRow();
+		$totalNum  = $rs->RecordCount();	
+		$maxPage   = ceil($totalNum / $item_per_page)-1; 
+		if ($maxPage<0) $maxPage = 0;
+	}
+	$page   = ( $pp <= $maxPage+1 && $pp > 0 )?$pp-1:0;
+	$__offset = $page * $item_per_page;
+	
+	## data..
+	#
+	#echo($sql.$filter.$order); exit();
+	$rs 	= $db->selectLimit( $sql.$filter.$order,$__offset,$item_per_page );
+	$rows 	= array();
+	if ($rs && $rs->RecordCount()>0) {
+		
+		for ($__rowindex = 1 + $__offset; $row=$rs->FetchRow(); $__rowindex++) {
+			$row["_no"] = $__rowindex;
+			$row['urlprint']	= _link( array('sub'=>'print', 'NO_REQSF'=>$row['NO_REQSF']));	
+			$row['urledit']	= _link( array('sub'=>'edit', 'NO_REQSF'=>$row['NO_REQSF']));	
+			$row['urldelete']	= _link( array('sub'=>'delete', ''=>$row['NO_REQSF'] ) );
+            $row['urlview']	= _link( array('sub'=>'view', ''=>$row['NO_REQSF'] ) );
+			$row['linkid']		= $row['NO_REQSR'];
+			
+			$rows[] = $row;
+		}
+		$rs->close();
+	}
+	$data = & $rows;
+	## record info 
+	#
+	$recordStart = $__offset + 1;
+	$recordEnd   = $__offset + count($rows);
+	if (count($rows)>0) {
+		$recordInfo  = "record $recordStart ";
+		if ($recordEnd>$recordStart) $recordInfo .= "- $recordEnd";
+		$recordInfo .= " dari $totalNum record";
+	} else {
+		$recordinfo  = "";
+	}
+		
+	## navigator
+	#
+	if ($maxPage>0) {
+		$multipage = true;
+		
+		## begin create nav
+		$pages = array();
+		for ($i=0;$i<=$maxPage;$i++)
+			$pages[] = array($i+1,$i+1);
+		$nav['pages'] = $pages;
+				
+		if ($page>0) {
+			$nav['prev'] = array( 'label'=>'Prev', 'p'=>$page-1 );
+		} else {
+			$nav['prev'] = false;
+		}
+		
+		if ($page<$maxPage) {
+			$nav['next'] = array( 'label'=>'Next', 'p'=>$page+1 );
+		} else {
+			$nav['next'] = false;
+		}
+		## end create nav
+		
+		$navlist = $nav['pages'];
+		$navpage = $page+1;
+		if ($nav['next']) {
+			$nextvisible 	= true;
+			$navnext		= $nav['next'];
+		}	
+		if ($nav['prev']) {
+			$prevvisible	= true;
+			$navprev		= $nav['prev'];
+		}	
+	}	
+	### save URI
+	#
+	$backuri = str_replace('&_saveok=1','',$_SERVER['REQUEST_URI']);
+	$_SESSION['__uriback'][APPID] = $backuri.(strpos($_SERVER['REQUEST_URI'],'?')===false?'?':'');
+	
+*/
+?>
+
+<div id="list">
+<!--
+	<table class="{$style.gridtable}" border='0' cellpadding="1" cellspacing="1"  width="100%" >
+		<tr>
+			<td class="{$style.gridinfo}" align="center">{$recordInfo}</td>
+		</tr>
+		<block visible='multipage'>
+		<tr>
+			<td align="center" style="padding-bottom:4px;" >
+				<form action="{$navurl}" method="get">
+					<block visible="prevvisible">
+						<a onclick="decSelect('navsel_{$rand}_0')" style="cursor:pointer;">< Sebelumnya</a>  
+					</block>
+					<select id='navsel_{$rand}_0' name="p" list="navlist" selected="navpage" onchange="submit()"
+						style="font-size:10px; border: solid 1px #cca; background-color:#FFFFFF;"></select>
+					<block visible="nextvisible">
+						  <a onclick="incSelect('navsel_{$rand}_0')" style="cursor:pointer;">Selanjutnya ></a>
+					</block>
+				</form>
+			</td>
+		</tr>
+		</block>
+	</table>
+-->
+
+
+		
+                       <table class="grid-table" border='0' cellpadding="1" cellspacing="1"  width="100%" >
+						   <block visible='multipage'>
+								<tr>
+								  <td align="center" style="padding-bottom:4px;" colspan="8" >
+									  <block visible="prevvisible"> <a onclick="change_page(parseFloat($('#navsel_').val())-1)" style="cursor:pointer;">< Sebelumnya</a>   </block>
+									  <select id="navsel_" name="p" list="navlist" selected="navpage" onchange="change_page($('#navsel_').val())"
+											style="font-size:10px; border: solid 1px #333333; background-color:#FFFDCA;">
+									  </select>
+									  <block visible="nextvisible">   <a onclick="change_page(parseFloat($('#navsel_').val())+1)" style="cursor:pointer;">Selanjutnya ></a> </block>
+									</td>
+								</tr>
+							</block>
+                              <tr style=" font-size:10pt">
+                                  <th width="2%" valign="top" class="grid-header"  style="font-size:8pt">No </th>
+                                  <th width="110" valign="top" class="grid-header"  style="font-size:8pt">NO. REQUEST </th>
+                                  <th width="150" valign="top" class="grid-header"  style="font-size:8pt">TGL. REQUEST</th>
+                                  <th width="200" valign="top" class="grid-header"  style="font-size:8pt">EMKL</th> 
+                                  <th valign="top" class="grid-header"  style="font-size:8pt">RECEIVING DARI</th>
+                                  <th valign="top" class="grid-header"  style="font-size:8pt">ACTION</th>  
+                              </tr>
+                              <fill src="row_list" var="rows">
+                              <tr bgcolor="#f9f9f3" onMouseOver=this.style.backgroundColor="#BAD5FC" onMouseOut=this.style.backgroundColor="">
+                                  <td width="4%" align="center" valign="middle" class="grid-cell" style="color:#000; font-family:Arial; font-size:9pt">{$rows.__no} </td>
+                                  <td width="20%" align="center" valign="middle" class="grid-cell"   style="font-family:Arial; font-size:11pt; color:#555555"><b>{$rows.NO_REQUEST}</b></font></td>
+                                  <td width="15%" align="center" valign="middle" class="grid-cell"  style="font-size:9pt">{$rows.TGL_REQUEST}</td>
+                                  <td width="25%" align="center" valign="middle" class="grid-cell"  style="font-size:9pt">{$rows.NAMA_EMKL}</td>
+                                  <td width="10%" align="center" valign="middle" class="grid-cell"  style="font-size:9pt;font-family:Arial;"><font color="#0066CC" style="font-size:10pt">{$rows.RECEIVING_DARI}</font></td>
+                                  <td width="20%" align="center" valign="middle" class="grid-cell" style="font-size:9pt;"><?php 
+                    	cek_nota($rows["NO_REQUEST"]);
+                ?><img src='images/ico_approval.gif' border='0' />&nbsp;  </a></td>
+                                
+                              </tr>
+                            
+                              </fill>
+                         </table>
+			
+<!--			
+	<table class="{$style.gridtable}" border='0' cellpadding="1" cellspacing="1"  width="100%" >	
+		<tr>
+		<td class="{$style.gridinfo}" align="center">{$recordInfo}</td>
+		</tr>
+		<block visible='multipage'>
+		<tr>
+			<td align="center" style="padding-top:4px;" >
+				<form action="{$navurl}" method="get">
+					<block visible="prevvisible">
+						<a onclick="decSelect('navsel_{$rand}_0')" style="cursor:pointer;">< Sebelumnya</a>  
+					</block>
+					<select id='navsel_{$rand}_0' name="p" list="navlist" selected="navpage" onchange="submit()"
+						style="font-size:10px; border: solid 1px #cca; background-color:#ffffff;"></select>
+					<block visible="nextvisible">
+						  <a onclick="incSelect('navsel_{$rand}_0')" style="cursor:pointer;">Selanjutnya ></a>
+					</block>
+				</form>
+			</td>
+		</tr>
+		</block>
+	</table>	
+-->
+	
+	
+</div>

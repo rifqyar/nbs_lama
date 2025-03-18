@@ -1,0 +1,15 @@
+<?php
+ $tl = xliteTemplate('print_exmo.htm');
+ //PRINT_R('COBA');DIE;
+ $id_nota = $_GET['pl'];
+ $db = getDB();
+ $row = $db->query("SELECT A.ID_REQUEST,B.ID_NOTA,C.NO_CONTAINER,D.UKURAN,D.TYPE,D.STATUS,C.VESSEL,C.VOYAGE,A.EMKL,F.NM_PEMILIK AS SHIPPING_LINE,A.NOMOR_INSTRUKSI,
+                    A.TGL_REQ AS TGL_REQUEST,E.NAME,B.TGL_PAYMENT AS INVOICE_DATE    
+                    FROM EXMO_REQUEST A, EXMO_NOTA B, EXMO_DETAIL_REQUEST C, MASTER_BARANG D, TB_USER E, RBM_H F
+					WHERE A.ID_REQUEST=B.ID_REQUEST AND B.ID_NOTA='$id_nota' AND C.ID_REQUEST=A.ID_REQUEST AND C.ID_CONT=D.KODE_BARANG AND E.ID=B.USER_ID_PAYMENT AND C.NO_UKK=F.NO_UKK ORDER BY C.ID");
+	$rowd=$row->getAll();
+	$tl->assign('req',$rowd);
+ 
+ $tl->renderToScreen();
+?>
+

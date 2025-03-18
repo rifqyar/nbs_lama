@@ -1,0 +1,114 @@
+<? if($status_form=="req")
+   {	
+    ?>
+<div id="workingtime_list">
+<br/>
+<table id="dataTable" border="1" bordercolor="#4D5A77" width=80% style="border-collapse:collapse">
+	  <tr>
+		<th style="background-color:#607095" width="30" height="30">NO</th>
+        <th style="background-color:#607095" width="50">ALAT</th>
+		<th style="background-color:#607095" width="80">MULAI KERJA</th>
+		<th style="background-color:#607095" width="80">SELESAI KERJA</th>
+		<th style="background-color:#607095" width="80">ESTIMASI SHIFT</th>
+        <th style="background-color:#607095" width="40">DELETE</th>
+     </tr>
+    <? $i=1; ?>
+	<fill src="hasil_detail" var="hasil_details">	 
+		<tr>  
+        	<td align="center" bgcolor="#FAFAFA" height="30">{$i}</td> 
+            <td align="center" bgcolor="#FAFAFA">{$hasil_details.ID_ALAT}</td>
+			<td align="center" bgcolor="#FAFAFA">{$hasil_details.MULAI}</td>
+			<td align="center" bgcolor="#FAFAFA">{$hasil_details.SELESAI}</td>
+            <td align="center" bgcolor="#FAFAFA">{$hasil_details.SHIFT}</td>
+			<td align="center" bgcolor="#FAFAFA"><input type="button" onclick="del_alat('{$hasil_details.ID_DETAILS}','{$status_form}')" value="Hapus" name="Hapus"/></td>
+		</tr>
+     <? $i++; ?>
+	</fill>
+	</table>
+	<br/>
+</div>
+	
+	<? 
+	}
+	else if($status_form=="realisasi")
+    {
+    ?>
+    
+<div id="workingtime_list">
+<br/>
+<table id="dataTable" border="1" bordercolor="#4D5A77" width=100% style="border-collapse:collapse">
+	  <tr>
+		<th style="background-color:#607095" width="40" height="30">NO</th>
+        <th style="background-color:#607095" width="60">ALAT</th>
+		<th style="background-color:#607095" width="150">TANGGAL/SHIFT</th>
+		<th style="background-color:#607095" width="200">WAKTU</th>
+		<th style="background-color:#607095" width="260">KETERANGAN</th>
+		<th style="background-color:#607095" width="230">UTILITAS WAKTU</th>
+		<th style="background-color:#607095" width="70">BOX</th>
+		<th style="background-color:#607095" width="70">PROD</th>
+        <th style="background-color:#607095" width="70">DELETE</th>
+     </tr>	
+	<? $i=0; ?>
+	<fill src="hasil_detail" var="hasil_details">    
+		<tr>	    
+        	<td align="center" bgcolor="#FAFAFA" height="30""><?=$i+1;?></td> 
+            <td align="center" bgcolor="#FAFAFA">{$hasil_details.ID_ALAT}</td>            
+            <td align="center" bgcolor="#FAFAFA">{$hasil_details.TGL_SHIFT} / Shift {$hasil_details.NO_SHIFT}</td>	
+			<td align="center" bgcolor="#FAFAFA">{$hasil_details.MULAI}-{$hasil_details.SELESAI}</td>
+			<td align="center" bgcolor="#FAFAFA">{$hasil_details.KETERANGAN}</td>
+			<td align="center" bgcolor="#FAFAFA"><? if($hasil_details[MIN_USED]=="0") {?>{$hasil_details.HRS_USED} jam<? } else if ($hasil_details[HRS_USED]=="0") {?>{$hasil_details.MIN_USED} menit<? } else {?>{$hasil_details.HRS_USED} jam {$hasil_details.MIN_USED} menit<? } ?></td>
+			<td align="center" bgcolor="#FAFAFA">{$jml_prod.$i}</td>
+			<td align="center" bgcolor="#FAFAFA"><? if(($hasil_details['STAT_TIME']=="WORKING")&&(stristr($hasil_details['KETERANGAN'],'PALKA'))) { ?> <input type="button" onclick="insert_palka('{$id_req}','{$hasil_details.ID_DETAILS}')" value="Insert" name="Insert"/> <? } else if($hasil_details['STAT_TIME']=="WORKING") { ?> <input type="button" onclick="insert_prod('{$id_req}','{$hasil_details.ID_DETAILS}')" value="Insert" name="Insert"/> <? } else { ?> - <? } ?></td>
+			<td align="center" bgcolor="#FAFAFA"><input type="button" onclick="del_alat('{$hasil_details.ID_DETAILS}','{$status_form}')" value="Hapus" name="Hapus"/></td>			
+		</tr>
+	<? $i++; ?>
+    </fill>
+	</table>
+	<br/>
+<div align="left"><b>SUMMARY</b></div>
+<table id="dataTable" border="1" bordercolor="#4D5A77" width=100% style="border-collapse:collapse">
+	  <tr>
+		<th style="background-color:#607095" width="90" height="30">MOVEMENT</th>
+        <th style="background-color:#607095" width="70">MCH</th>
+		<th style="background-color:#607095" width="150">IDLE TIME</th>
+		<th style="background-color:#607095" width="150">REAL TIME GLC</th>
+		<th style="background-color:#607095" width="150">PEMAKAIAN ALAT</th>
+		<th style="background-color:#607095" width="150">NOT OPERATION</th>
+     </tr>	
+		<tr>	    
+        	<td align="center" bgcolor="#FAFAFA" height="30"">{$trfk}</td> 
+            <td align="center" bgcolor="#FAFAFA">{$mch}</td>            
+            <td align="center" bgcolor="#FAFAFA">{$idl}</td>	
+			<td align="center" bgcolor="#FAFAFA">{$rl}</td>
+			<td align="center" bgcolor="#FAFAFA">{$lm}</td>
+			<td align="center" bgcolor="#FAFAFA">{$nt}</td>						
+		</tr>
+	</table>
+</div>
+<? }
+	else if($status_form=="view")
+    {
+	?>
+	
+<div id="workingtime_list">
+<br/>
+<table id="dataTable" border="1" bordercolor="#4D5A77" width=80% style="border-collapse:collapse">
+	  <tr>
+		<th style="background-color:#607095" width="30" height="30">NO</th>
+        <th style="background-color:#607095" width="80">ALAT</th>       
+		<th style="background-color:#607095" width="80">START WORK</th>
+		<th style="background-color:#607095" width="80">END WORK</th>
+        <th style="background-color:#607095" width="40">TOTAL SHIFT</th>
+     </tr>
+		<tr>  
+        	<td align="center" bgcolor="#FAFAFA" height="30">1</td> 
+            <td align="center" bgcolor="#FAFAFA">{$glc}</td>            
+            <td align="center" bgcolor="#FAFAFA">{$strt}</td>
+			<td align="center" bgcolor="#FAFAFA">{$end}</td>
+			<td align="center" bgcolor="#FAFAFA"><? if($shift!="-") { echo number_format($shift,2); } else { echo "-"; }?></td>
+		</tr>
+	</table>
+	<br/>
+</div>
+	
+<? } ?>

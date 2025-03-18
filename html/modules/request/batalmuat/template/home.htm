@@ -1,0 +1,81 @@
+<style>
+.content{
+	width:95%;
+	margin-left:auto;
+	margin-right:auto;
+	margin-bottom: 10px;
+	margin-top:20px;
+}
+.main_side{
+	width:100%;
+	float:left;
+	text-align:left;
+}
+</style>
+<?php
+header("Cache-Control: no-cache, must-revalidate"); // HTTP/1.1
+$backuri                      = str_replace('&_saveok=1', '', $_SERVER['REQUEST_URI']);
+$_SESSION['__uriback'][APPID] = $backuri . (strpos($_SERVER['REQUEST_URI'], '?') === false ? '?' : '');
+
+?>
+<script type="text/javascript">
+jQuery(function() {
+ jQuery("#l_batalmuat").jqGrid({
+	url:'<?=HOME?>datanya/data_dso?q=l_batalmuat',
+	mtype : "post",
+	datatype: "json",
+	colNames:['NO BATAL MUAT','PEMILIK BARANG','VESSEL / VOYAGE','JENIS BATAL MUAT','B/A GATE',''], 
+	colModel:[		
+		{name:'id_batalmuat',index:'id_batalmuat', width:150, align:"center"},
+		{name:'emkl',index:'emkl', width:200, align:"center"},
+		{name:'vesvoy',index:'vesvoy', width:200, align:"center"},
+		{name:'jenis_bm',index:'jenis_bm', width:180, align:"center"},
+		{name:'gate',index:'gate', width:120, align:"center"},
+		{name:'aksi', width:100, align:"center",sortable:false,search:false}
+	],
+	rowNum:10,
+	width: 865,
+	height: 200,//250
+
+	rowList:[10,20,30,40,50,60],
+	loadonce:true,
+	rownumbers: true,
+	rownumWidth: 15,
+	gridview: true,
+	pager: '#pg_l_batalmuat',
+	viewrecords: true,
+	shrinkToFit: false,
+	caption:"Data Batal Muat"
+ });
+  jQuery("#l_batalmuat").jqGrid('navGrid','#pg_l_batalmuat',{del:false,add:false,edit:false,search:false}); 
+ jQuery("#l_batalmuat").jqGrid('filterToolbar',{stringResult: true,searchOnEnter : false});
+ 
+});
+</script>
+
+<div class="content">
+	<div class="main_side">
+	<p>
+	<span class="graybrown">
+	<img class="icon" border="0" align="absmiddle" src="images/sp2_p.png">
+	<b><font color="#AB4904">  Form Batal Muat</font></b>
+	</span></p>
+	<p><br/>
+	  <a href="<?=HOME?>request.batalmuat/add_req" class="link-button">
+      <img border="0" src="images/sp2p.png" />
+		Batal Muat Delivery
+      </a>&nbsp;&nbsp;&nbsp;
+	  <a href="#" class="link-button">
+      <img border="0" src="images/sp2p.png" />
+		Batal Muat Alih Kapal
+      </a>
+	  </p>
+	<p><br/>
+	  </p>
+	<p><br/></p>
+	<table id='l_batalmuat' width="100%"></table> <div id='pg_l_batalmuat'></div>
+
+	<br/>
+	<br/>
+	</div>
+</div>

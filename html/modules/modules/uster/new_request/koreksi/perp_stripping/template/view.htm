@@ -1,0 +1,176 @@
+<script type="text/javascript">		
+
+$().ready(function() {  
+		$('#add').click(function() {  
+		return !$('#select1 option:selected').remove().appendTo('#select2');  
+	});  
+	
+	$('#remove').click(function() {  
+		return !$('#select2 option:selected').remove().appendTo('#select1');  
+		});  
+
+});  
+	
+$('form').submit(function() {  
+
+	$('#select2 option').each(function(i) {  
+
+		$(this).attr("selected", "selected");  
+
+	});  
+}); 
+
+$(function() {	
+
+	$( "#tgl_perpanjangan" ).datepicker();
+	$( "#tgl_perpanjangan" ).datepicker( "option", "dateFormat", "yy-mm-dd" );
+})
+</script>
+
+<form id="form" method="POST" action="<?=HOME?><?=APPID?>/add_do">
+<span class="graybrown"><img src='images/sp2_p.png' border='0' class="icon"/><font color="#0378C6"> Request Perpanjangan</font> STRIPPING</span><br/><br/>
+<fieldset class="form-fieldset" style="margin: 5px 5px 5px 5px; ">
+	<center>
+    <table class="form-input" style="margin: 30px 30px 30px 30px;" >
+    	<tr>
+            <td class="form-field-caption">Nomor Request Sebelumnya</td>
+            <td> : </td>
+            <td> <input type="text" id="NO_REQ" name="NO_REQ" value="{$row_request.NO_REQUEST}" readonly="readonly" /> <input type="hidden" name="PERP_KE" value="{$row_request.PERP_KE}"/> </td>
+    	
+    	</tr>
+    	<tr>
+            <td class="form-field-caption">E.M.K.L</td>
+            <td> : </td>
+            <td> <input type="text" name="EMKL" id="EMKL" size="40" value="{$row_request.NAMA_CONSIGNEE}" readonly="readonly"/> <input type="hidden" name="ID_EMKL" value="{$row_request.ID_EMKL}"/></td>
+    	</tr>
+		<tr>
+            <td class="form-field-caption">Perpanjangan Ke</td>
+            <td> : </td>
+            <td> <input type="text" name="perp_ke" id="perp_ke" size="10" value="{$row_request.PERP_KE}" readonly="readonly"/> </td>
+    	</tr>
+        <tr>
+           
+            <td class="form-field-caption">Keterangan</td>
+            <td> : </td>
+            <td> <input type="text" name="keterangan" style="width:250px" value="{$row_request.KETERANGAN}"/></td>
+        
+        </tr>
+        
+	</table>
+    </center>
+</fieldset>
+
+<fieldset class="form-fieldset" style="margin: 5px 5px 5px 5px; ">
+	<center>
+   <!-- <div id="cont_list" style="margin: 10px 10px 10px 10px; border:thin inset">-->
+   <table class="form-input" cellspacing='1' cellpadding='1' border='0' width="100%" style="border: solid #F6F4E4">
+       <tr>
+           <td >&nbsp;</td>
+           <td align="center" ><span class="graybrown"><font color="#0378C6"  style="font-size:12pt; font-weight:bold"> Total Container</font> - {$row_count.JUMLAH} BOX</span></td>
+           <td >&nbsp;</td>
+           <td align="center"><span class="graybrown"><font color="#0378C6"  style="font-size:12pt; font-weight:bold"> SP2 Perpanjangan</font></span></td>
+       </tr>
+       <tr>
+           <td width="10%" rowspan="4">&nbsp;</td>
+           <td width="26%" rowspan="4" align="center" >
+           <!--       <span id="txtHint">
+					<h2>DATA CONTAINER DELIVERY</h2></span>
+          	-->
+               <div class="divall">
+                   <?php
+                   echo "<select multiple='multiple' id='select1' name='select1' class='selectall'>";
+                                            
+                       foreach($row_detail as $row_detail_)
+                            {
+                              echo "<option value='".$row_detail_['NO_CONTAINER']."'>";
+                              echo $row_detail_['NO_CONTAINER'].'-'.$row_detail_['SIZE_'].'-'.$row_detail_['TYPE_'];
+                              echo "</option>";
+                            }
+                            
+                   echo "</select>";
+                   ?>
+                   <br /><br />
+               </div>
+           </td>
+           <td width="12%" height="27" align="center" >&nbsp;</td>
+           <td width="26%" rowspan="4" align="center" >
+               <div class="divall">
+                   <select name="select" multiple="multiple" class="selectall" id="select2" name="select2[]"></select><br /><br />
+               </div>
+           </td>
+           <td width="10%" rowspan="4">&nbsp;</td>
+       </tr>
+       <tr>
+           <td align="center" ><a href="#" class="link-button" id="add"><img border="0" src="images/tambah.png"> Tambah</a></td>
+       </tr>
+       <tr>
+           <td align="center" ><a href="#" class="link-button" id="remove"><img border="0" src="images/batal.png"> Hapus &nbsp;&nbsp;&nbsp; </a></td>
+       </tr>
+       <tr>
+           <td align="center" >&nbsp;</td>
+       </tr>
+   </table>
+   <table width="100%">
+       <tr>
+           <td width="906" colspan="2" class="form-footer">&nbsp;&nbsp; <span id="saveit"><a id="resetForm" onclick="simpanarea();" class="link-button" style="font-weight:bold; color:#F00" ><img src='images/valid.png' border='0' />&nbsp;<blink>Simpan Perpanjangan Stripping</blink></a> &nbsp;&nbsp; <!--<input tabindex="11" style="height:30px" type="button" value="Perpanjangan SP2" onclick="simpanarea();"  />-->
+               </span>&nbsp;&nbsp; 
+               <a id="resetForm"  href="{$HOME}{$APPID}" class="link-button" ><img src='images/reset.png' border='0' />&nbsp;Kembali</a>&nbsp;&nbsp; 
+
+           </td>
+       </tr>
+   </table>
+        <div id="question" style="display:none; cursor: default"><h1><img src="images/warning.png" align="absbottom" border="0" /> Apakah Anda ingin melanjutkan proses ?.</h1><input type="button" id="yes" value="Yes" /> &nbsp; <input type="button" id="no" value="No" /><br /><br /><font color="#FF0000" style="font-weight:bold">Perhatian : Container di kolom SP2 Perpanjangan harus di blok semuanya ! </font></div>
+    
+    </div>
+    
+	</center>
+</fieldset>
+</form>
+<style>
+fieldset { -moz-border-radius: 8px; border-radius: px; margin:10px }
+legend { margin-left:10px; color:#666; font-weight:bold }
+input { font-size:12px; color:#000}
+   .all {  
+    display: block;  
+    border: 1px solid #aaa;  
+    text-decoration: none;  
+    background-color: #fafafa;  
+    color: #123456;  
+    margin: 2px;  
+    clear:both;  
+   }  
+   .divall {  
+    float:left;  
+    text-align: center;  
+    margin: 10px;  
+   }  
+    .selectall {
+    width: 300px;  
+    height:300px;  
+	font-size:11pt; font-weight:bold; font-family:Arial
+   }  
+</style>
+
+<script type="text/javascript">
+    function simpanarea(){
+		DATA_SP2     = $('#select2').val();	
+		NO_REQ       = $('#no_req').val();	
+		
+		if(DATA_SP2 == null)
+		{ 
+			alert("Pilih Petikemas Untuk Diperpanjang Masa Stripping");
+		}
+		else
+		{
+			 $('#form').submit();
+			/*
+			$.post("{$HOME}{$APPID}/add_do",{'DATA_SP2[]':DATA_SP2, 'NO_REQ':NO_REQ},function(data){ 
+			innerHTML =  data; 		   
+			document.location.href='{$HOME}{$APPID}.add_do'+data;
+			return false; 	
+			
+		}); 
+		*/
+    	}
+	}
+</script>  

@@ -1,0 +1,81 @@
+
+<span class="graybrown"><img src='images/kapal_.gif' border='0' class="icon" width="50" height="50"/><font color="#0378C6"> Report  </font>Discharging and Loading Realization</span><br/><br/>
+      <fieldset class="form-fieldset" style="margin: 5px 5px 5px 5px; ">
+        <form id="searchForm" name="searchForm" action="{HOME}delivery.permintaan/search/" method="get">
+		<div style="padding:10px;font-family:Arial; font-size:8pt; color:#555555; font-weight:bold">
+            <table>
+				 <tr>
+				<td class="form-field-caption" valign="top" align="right">Nama Vessel </td>
+				<td class="form-field-caption" valign="top" align="right"> : </td>
+				<td class="form-field-caption" valign="top" align="left"><input type="input" id="vessel" name="vessel" size="30" />
+				<input type="input" id="voyage" name="voyage" size="10" />
+				<input type="hidden" id="id_vs" name="id_vs" size="10" />
+				</td>
+				</tr>
+				<tr>
+				<td class="form-field-caption" valign="top" align="right">Kategori Kegiatan </td>
+				<td class="form-field-caption" valign="top" align="right"> : </td>
+				<td class="form-field-caption" valign="top" align="left"><select id="option_kegiatan" >
+				<option value=""> -- Pilih -- </option>		
+						<option value="disc"> DISCHARGING </option>					
+						<option value="load" disabled> LOADING </option>
+						<option value="ALL"> ALL </option>
+					</select>
+				</td>
+				</tr>
+				
+				<tr height="10">
+					<td colspan="3" class="form-field-caption" valign="top" align="right" ></td>
+				</tr>
+				<tr>
+					<td colspan="3" class="form-field-caption" valign="top" align="right" > <a class="link-button" style="height:25" onclick="toexcel()"><img src='images/cari.png' border='0' />Generate Report</a> </td>
+				</tr>
+				
+			</table>
+		</div>
+        </form>
+	
+	   </fieldset>
+<script>
+
+
+function toexcel(){
+	var id_vs		= $("#id_vs").val();	
+	var opsi		= $("#option_kegiatan").val();	
+	var url 	    = "<?=HOME?>report.disc_real.toexcel/toexcel?id_vs="+id_vs+"&keg="+opsi;
+	
+	if ($("#id_vs").val() == ''){
+		alert('kapal harus diisi');
+	} else  if ($("#option_kegiatan").val() == ''){
+		alert('kategori kegiatan harus diisi');
+	} else {
+	window.open(url, "_blank");
+	}
+}
+
+	<!------------------- autocomplete Vessel ------------>
+	$( "#vessel" ).autocomplete({
+		minLength: 3,
+		source: "<?=HOME?>planning.bay_allocation.auto/vessel",
+		focus: function( event, ui ) {
+			$( "#vessel" ).val( ui.item.NM_KAPAL );
+			return false;
+		},
+		select: function( event, ui ) {
+			$( "#vessel" ).val( ui.item.NM_KAPAL );
+			$( "#voyage" ).val( ui.item.VOYAGE );
+			$( "#id_vs" ).val( ui.item.ID_VS );
+			return false;
+		}
+	})
+	.data( "autocomplete" )._renderItem = function( ul, item ) {
+		return $( "<li></li>" )
+			.data( "item.autocomplete", item )
+			.append( "<a>" + item.NM_KAPAL + " [" + item.VOYAGE + "] " + "</a>" )
+			.appendTo( ul );
+	};
+	<!------------------- autocomplete Vessel ------------>
+	
+
+</script>
+

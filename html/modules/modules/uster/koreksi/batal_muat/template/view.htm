@@ -1,0 +1,153 @@
+<span class="graybrown"><img src='images/document-open.png' border='0' class="icon"/><font color="#DE7E21"> Form </font><font color="#0066CC"> Batal Muat </font></span><br/>
+<!--<span class="graybrown"><img src='images/dokumenbig.png' border='0' class="icon"/> {$formtitle}</span><br/><br/>-->
+<form id="dataForm" name="dataForm" action="<?=HOME?><?=APPID?>/edit_bm" method="post" class="form-input" enctype="multipart/form-data">
+<input type="hidden" name="__pbkey" value="" />
+<fieldset class="form-fieldset">
+<!-- <legend style="font-family:Verdana;font-size:12px;color:#000000">Data Petikemas</legend> -->
+	<table cellspacing='2' cellpadding='2' border='0' width="70%" style="margin-top:10px;"> <block visible="error">
+				<tr><td colspan="2">Invalid Form Entry</td></tr></block> 
+				<tr>
+					<td class="form-field-caption" valign="middle" align="right">Nama Pemilik </td>
+					<td valign="middle" class="form-field-input">: 
+						<input value="{$row_request.NM_PBM}" type="text" placeholder="Autocomplete" id="NM_PELANGGAN" name="NM_PELANGGAN" style="width:200px;"/>
+						- <input value ="{$row_request.KD_EMKL}" type="text" id="KD_PELANGGAN" name="KD_PELANGGAN" style="width:30px;" readonly />
+					</td>
+					<td class="form-field-caption" valign="middle" align="right">Jenis Batal Muat </td>
+					<td class="form-field-input" valign="middle" >: 
+						{$jenis_bm}
+					</td>						
+					
+				</tr>				
+				<tr>
+					<td class="form-field-caption" valign="middle" align="right">Dikenakan Biaya </td>
+					<td class="form-field-input" valign="middle">: 
+						{$biaya}
+					</td>						
+					<td class="form-field-caption" valign="middle" align="right">Ex Kegiatan</td>
+					<td valign="middle" class="form-field-input">:
+						{$status_gate}
+					</td>					
+				</tr>
+	</table>
+</fieldset>
+<fieldset class="form-fieldset" id="kapal" style="display:none">
+<legend style="font-family:Verdana;font-size:12px;font-weight: bold;color:#000000">Data Kapal Baru</legend>
+<table class="form-input" style="margin: 30px 30px 30px 30px;">
+	<tr>
+		<td class="form-field-caption" width="150px" valign="middle">Nama Kapal </td><td valign="middle" class="form-field-input">:
+		<input id="KD_KAPAL" name="KD_KAPAL" type="hidden" value="{$rwk.KD_KAPAL}" size="40" />                 
+		<input id="NM_KAPAL" name="NM_KAPAL" type="text" value="{$rwk.NM_KAPAL}" size="40" />
+		<input id="TGL_BERANGKAT" name="TGL_BERANGKAT" type="hidden" value="{$rwk.TGL_BERANGKAT}" size="40" /> 
+		<input id="TGL_STACKING" name="TGL_STACKING" type="hidden" value="{$rwk.TGL_STACKING}" size="40" />  
+		<input id="TGL_MUAT" name="TGL_MUAT" type="hidden" value="{$rwk.TGL_MUAT}" size="40" />    
+		<input id="NO_BOOKING" name="NO_BOOKING" type="hidden" size="40" />    
+		<block visible="error.NO_UKK"><span class="form-field-error">{$error.NM_KAPAL}</span></block>
+		</td>
+	</tr>
+	<tr>
+		<td class="form-field-caption" valign="middle">Voyage</td>
+		<td valign="middle" class="form-field-input">: 
+		<input id="VOYAGE_IN" name="VOYAGE_IN" type="text" value="{$rwk.VOYAGE_IN}" size="5" readonly />
+		&nbsp; <a class="form-field-caption">ETA</a> : <input id="ETA" name="ETA" value="{$rwk.ETA}" type="text" size="8" readonly />
+		<a class="form-field-caption">ETD</a> : <input id="ETD" name="ETD" value="{$rwk.ETD}" type="text" size="8" readonly />
+		</td>
+	</tr>
+	<tr>
+		<td class="form-field-caption" valign="top">Port Of Destination</td>
+		<td valign="middle" class="form-field-input">: 
+		<input id="KD_PELABUHAN_ASAL" name="KD_PELABUHAN_ASAL" type="hidden" value="{$rwk.KD_PELABUHAN_ASAL}" size="3"   class="pod" readonly />
+		<input id="NM_PELABUHAN_ASAL" name="NM_PELABUHAN_ASAL" type="text" value="{$rwk.NM_PELABUHAN_ASAL}" size="40" maxlength="100" style="background-color:#FFFFCC;" title="Autocomplete" class="pod" />
+		</td>
+		<input id="id_TGL_STACK" name="TGL_STACK" type="hidden" value="{$tglskr}" size="19" maxlength="19" />
+	</tr>
+	<tr>
+		<td class="form-field-caption" valign="top" >Final Discharge</td>
+		<td valign="top" class="form-field-input">: 
+		<input id="KD_PELABUHAN_TUJUAN" name="KD_PELABUHAN_TUJUAN" type="hidden" value="{$rwk.KD_PELABUHAN_TUJUAN}" size="3"   class="pod2" readonly />
+		<input id="NM_PELABUHAN_TUJUAN" name="NM_PELABUHAN_TUJUAN" type="text" value="{$rwk.NM_PELABUHAN_TUJUAN}" size="40" maxlength="100" style="background-color:#FFFFCC;"  class="pod2" title="Autocomplete"/></td>
+	</tr>
+</table>
+</fieldset>
+<fieldset class="form-fieldset" id="petikemas">
+<legend style="font-family:Verdana;font-size:12px;font-weight: bold;color:#000000">Data Petikemas</legend>
+<table class="form-input" style="margin: 30px 30px 30px 30px;"  >
+<tr>
+		<td  width='150px' class="form-field-caption"> Nomor Container </td>
+		<td> : </td>
+		<td width='200px'> <input disabled type="text" name="NO_CONT" ID="NO_CONT"  style="height:25px;width:150px;font-size:15px;text-transform:uppercase;background-color:#FFFF99" placeholder="Autocomplete"/> </td>
+		<td width='100px' class="form-field-caption"> <input id="NO_REQUEST"  name="NO_REQUEST" type="hidden" />
+		<input id="NO_REQ_ICT"  name="NO_REQ_ICT" type="hidden" /></td>
+		<td colspan="2">  </td>
+</tr>		
+<tr>
+		<td  class="form-field-caption"> Ukuran </td>
+		<td> : </td>
+		<td> <input type="text" name="SIZE" id="SIZE" readonly="readonly" size="5" />
+		</td>
+		<td  class="form-field-caption"> Tipe </td>
+		<td> : </td>
+		<td> <input type="text" name="TYPE" id="TYPE" readonly="readonly" size="5" /></td>
+		
+</tr>
+<tr>		
+		<td  class="form-field-caption"> Status </td>
+		<td> : </td>
+		<td> <input type="text" name="STATUS" id="STATUS" readonly="readonly" size="5" />
+		</td>		
+</tr>		
+<tr id='pnkn'>
+		<td class="form-field-caption"> Tgl Penumpukan </td>
+		<td> : </td>
+		<td colspan='3'> <input type="text" name="TGL_PNKN_START" id="TGL_PNKN_START" readonly="readonly"/> s/d <input type="text" name="TGL_PNKN_END" id="TGL_PNKN_END" readonly="readonly"/></td>
+		
+		
+</tr>
+<!-- <tr>
+	<td height="10px"> <input class="link-button" type="button" onclick="add_cont();" style="height: 25px;" value="Tambah"/>
+	<input type="hidden" name="tvalue" id="tvalue" value="0"  />
+	</td>
+</tr> -->
+<!-- <tr>
+<td colspan="12" align="left" >
+	<table cellpadding="0" cellspacing="1" id="tableaddnew" style="border: 1px solid rgb(153, 153, 153);" align="center">
+		<tr height="20"  style="border:1px solid #999999;right-padding:2px; background-color:#F90;">
+		  <td class="trhead" width="17" align="center">&nbsp;No</td>
+		  <td class="trhead" width="170" align="center">&nbsp;No. Petikemas</td>
+		  <td class="trhead" width="50" align="center">&nbsp;Size</td>
+		  <td class="trhead" width="100" align="center">&nbsp;Status</td>
+		  <td class="trhead" width="100" align="center">&nbsp;Type</td>
+		  <td class="trhead" width="100" align="center">&nbsp;Tanggal Awal</td>
+		  <td class="trhead" width="100" align="center">&nbsp;Tanggal Akhir</td>
+		  <td class="trhead" width="16" align="center">&nbsp;</td>
+		</tr>
+	</table>
+</td>
+</tr> -->
+<tr>
+	<td colspan="12" align="left">
+		<div id="contdiv"></div>
+	<td>
+</tr>
+</table>
+</fieldset>
+<div class="form-footer">
+<a class="link-button" onClick="save()"><img src='images/cont_addnew.gif' border="0"> Simpan </a>&nbsp;
+</div>
+</form> 
+
+<script>
+	$(function(){
+		var url = '{$HOME}{$APPID}/edit_cont_list?no_req={$row_request.NO_REQUEST} #contdiv';
+		$("#contdiv").load(url);
+	
+	if($("#jenis_batal").val() == 'alih_kapal'){
+		$("#kapal").attr('style','display:marker');
+		$("#pnkn").attr('style','display:marker');
+	}
+	else{
+		$("#kapal").attr('style','display:none');
+		$("#pnkn").attr('style','display:none');
+	}
+	
+	});
+</script>
