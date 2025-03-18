@@ -1,0 +1,1 @@
+<?php if (!defined("XLITE_INCLUSION")) die(); ?><?php echo($muatan); ?>
