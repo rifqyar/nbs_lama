@@ -1,14 +1,14 @@
-<?php //if ($_SESSION['ID_USER'] != '347') {
+<?php if ($_SESSION['ID_USER'] != '347') {
 ?>
-	<!-- <center>
+	<center>
 		<div style="padding-top:7px; padding-bottom:17px; padding-left:15px">
 			<font color="red">
 				<h1>403 - Access Denied</h1>
 			</font>
 		</div>
-	</center> -->
+	</center>
 <?php
-//} else {
+} else {
 	if (!defined("XLITE_INCLUSION")) die(); ?><span class="graybrown"><img src='images/dokumenbig.png' border='0' class="icon" /> Perencanaan Stripping Petikemas</span>
 	<fieldset class="form-fieldset" style="margin: 5px 5px 5px 5px; ">
 		<center>
@@ -74,4 +74,4 @@
 		}
 	</script>
 <?php
-//} ?>
+} ?>
