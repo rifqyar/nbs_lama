@@ -64,10 +64,7 @@ if (!function_exists('sendDataFromUrl')) {
                     "Content-Type: application/json",
                     $authorization
                 ),
-                CURLOPT_SSL_VERIFYPEER => false, // Disable SSL certificate verification
-                CURLOPT_SSL_VERIFYHOST => false  // Disable SSL host verification
-                // If you have a CA bundle, you can specify it like:
-                // CURLOPT_CAINFO => __DIR__ . '/cacert.pem',
+                // CURLOPT_SSL_VERIFYPEER => false // <- dihapus sebelum di push
             )
         );
 
